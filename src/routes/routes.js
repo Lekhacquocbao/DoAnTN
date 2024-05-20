@@ -23,6 +23,7 @@ import ManageCategory from '~/pages/Admin/ManageCategory';
 import ManageBrand from '~/pages/Admin/ManageBrand';
 import ManageShoe from '~/pages/Admin/ManageShoe';
 import Revenue from '~/pages/Admin/Revenue';
+import Contact from '~/pages/Contact';
 
 // Public routes
 const publicRoutes = [
@@ -34,7 +35,8 @@ const publicRoutes = [
   { path: config.routes.history, component: History, layout: HeaderOnly },
   { path: config.routes.historydetails, component: ItemHistory, layout: HeaderOnly },
   { path: config.routes.cart, component: Cart, layout: HeaderOnly },
-  { path: config.routes.introduce, component: Introduce, layout: HeaderOnly}
+  { path: config.routes.introduce, component: Introduce, layout: HeaderOnly},
+  { path: config.routes.contact, component: Contact, layout: HeaderOnly}
 ];
 
 const adminRoutes = [

@@ -150,11 +150,7 @@ function Header() {
               </div>
             </div>
             <div className={cx('nav-item', 'dropdown')}>
-              <Link to="/lien-he" className={cx('nav-link')}>Liên hệ</Link>
-              {/* <div className={cx('dropdown-content')}>
-                <Link to="/lien-he/subitem1">Subitem 1</Link>
-                <Link to="/lien-he/subitem2">Subitem 2</Link>
-              </div> */}
+              <Link to={config.routes.contact} className={cx('nav-link')}>Liên hệ</Link>
             </div>
           </nav>
       </div>

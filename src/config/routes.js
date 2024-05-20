@@ -16,7 +16,8 @@ const routes = {
   history: '/customer/history',
   historydetails: '/customer/historydetails',
   cart: '/cart',
-  introduce: '/introduce'
+  introduce: '/introduce',
+  contact: '/contact'
 };
 
 export default routes;
