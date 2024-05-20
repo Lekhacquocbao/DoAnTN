@@ -124,7 +124,7 @@ function Search() {
         render={(attrs) => (
           <div className={cx('search-result')} tabIndex="-1" {...attrs}>
             <div className={cx('wrapper')}>
-              <h4 className={cx('search-title')}>Shoes</h4>
+              <h4 className={cx('search-title')}>Product</h4>
               {searchResult &&
                 searchResult.map((result) => {
                   return (

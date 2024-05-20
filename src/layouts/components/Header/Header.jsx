@@ -62,7 +62,7 @@ function Header() {
         <div className={cx('header-nav')}>
           <div className={cx('header-logo')}>
             <div className={cx('logo-wrap')}>
-              <Link to="/" title="CoconamaTeaBar">
+              <Link to="/" title="BHStore">
                 {/* <div className={cx('logo')}>
                   <img
                     alt="logo"
@@ -74,7 +74,37 @@ function Header() {
             </div>
           </div>
 
-          <Search />
+          <nav className={cx('nav-bar')}>
+            <div className={cx('nav-item', 'dropdown')}>
+              <Link to={config.routes.introduce} className={cx('nav-link')}>Giới thiệu</Link>
+            </div>
+            <div className={cx('nav-item', 'dropdown')}>
+              <Link to={config.routes.allProducts} className={cx('nav-link')}>Sản phẩm</Link>
+              <div className={cx('dropdown-content')}>
+                <Link to="/san-pham/subitem1">Subitem 1</Link>
+                <Link to="/san-pham/subitem2">Subitem 2</Link>
+              </div>
+            </div>
+            <div className={cx('nav-item', 'dropdown')}>
+              <Link to="/dich-vu" className={cx('nav-link')}>Dịch vụ</Link>
+              <div className={cx('dropdown-content')}>
+                <Link to="/dich-vu/subitem1">Subitem 1</Link>
+                <Link to="/dich-vu/subitem2">Subitem 2</Link>
+              </div>
+            </div>
+            <div className={cx('nav-item', 'dropdown')}>
+              <Link to="/cam-nang" className={cx('nav-link')}>Cẩm năng</Link>
+              <div className={cx('dropdown-content')}>
+                <Link to="/cam-nang/subitem1">Subitem 1</Link>
+                <Link to="/cam-nang/subitem2">Subitem 2</Link>
+              </div>
+            </div>
+            <div className={cx('nav-item', 'dropdown')}>
+              <Link to={config.routes.contact} className={cx('nav-link')}>Liên hệ</Link>
+            </div>
+          </nav>
+
+          <Search/>
 
           <div className={cx('header-actions')}>
             {isLogin ? (
@@ -112,7 +142,7 @@ function Header() {
                 </HeadlessTippy>
               </div>
             ) : (
-              <div>
+              <div className={cx('login-register-btn')} >
                 <button className={cx('custom-btn', 'btn-3')} onClick={() => goLogin(false)}>
                   <span>Login</span>
                 </button>
@@ -124,35 +154,7 @@ function Header() {
           </div>
           
         </div>
-        <nav className={cx('nav-bar')}>
-            <div className={cx('nav-item', 'dropdown')}>
-              <Link to={config.routes.introduce} className={cx('nav-link')}>Giới thiệu</Link>
-            </div>
-            <div className={cx('nav-item', 'dropdown')}>
-              <Link to={config.routes.allProducts} className={cx('nav-link')}>Sản phẩm</Link>
-              <div className={cx('dropdown-content')}>
-                <Link to="/san-pham/subitem1">Subitem 1</Link>
-                <Link to="/san-pham/subitem2">Subitem 2</Link>
-              </div>
-            </div>
-            <div className={cx('nav-item', 'dropdown')}>
-              <Link to="/dich-vu" className={cx('nav-link')}>Dịch vụ</Link>
-              <div className={cx('dropdown-content')}>
-                <Link to="/dich-vu/subitem1">Subitem 1</Link>
-                <Link to="/dich-vu/subitem2">Subitem 2</Link>
-              </div>
-            </div>
-            <div className={cx('nav-item', 'dropdown')}>
-              <Link to="/cam-nang" className={cx('nav-link')}>Cẩm năng</Link>
-              <div className={cx('dropdown-content')}>
-                <Link to="/cam-nang/subitem1">Subitem 1</Link>
-                <Link to="/cam-nang/subitem2">Subitem 2</Link>
-              </div>
-            </div>
-            <div className={cx('nav-item', 'dropdown')}>
-              <Link to={config.routes.contact} className={cx('nav-link')}>Liên hệ</Link>
-            </div>
-          </nav>
+        
       </div>
     </header>
   );

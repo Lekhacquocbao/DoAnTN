@@ -251,7 +251,7 @@ function DetailItem() {
             <div className={cx('product-quantity')}>
               <Icon className={cx('minus')} icon="typcn:minus" onClick={handleDecrement} />
               <input
-                type="text"
+                type="number"
                 className={cx('quantity')}
                 value={count}
                 onChange={(e) => {
