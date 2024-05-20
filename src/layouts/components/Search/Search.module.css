@@ -1,0 +1,146 @@
+.wrapper {
+  width: 100%;
+  max-height: min(100vh - 96px - 60px, 734px);
+  min-height: 100px;
+  border-radius: 8px;
+  padding-top: 8px;
+  background: rgb(255, 255, 255);
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 2px 12px;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.search,
+.search-result {
+  width: 480px;
+}
+
+.search {
+  position: relative;
+  height: 40px;
+  padding-left: 16px;
+  background-color: rgba(22, 24, 35, 0.1);
+  border-radius: 18px;
+  display: flex;
+  border: 1.5px solid transparent;
+}
+.search input {
+  flex: 1 1;
+  height: 100%;
+  color: var(--black);
+  padding-right: 40px;
+  font-size: 1.6rem;
+  caret-color: var(--red);
+  background-color: transparent;
+  font-weight: 400;
+}
+.search input:not(:-moz-placeholder-shown) ~ .search-btn {
+  color: rgba(22, 24, 35, 0.75);
+}
+.search input:not(:placeholder-shown) ~ .search-btn {
+  color: rgba(22, 24, 35, 0.75);
+}
+.search:focus-within {
+  border-color: rgba(22, 24, 35, 0.2);
+}
+
+.search-title {
+  color: rgba(22, 24, 35, 0.5);
+  font-weight: 600;
+  font-size: 1.4rem;
+  padding: 5px 12px;
+}
+
+.search-btn {
+  width: 44px;
+  height: 100%;
+  border-top-right-radius: 12px;
+  border-bottom-right-radius: 12px;
+  font-size: 1.8rem;
+  color: rgba(22, 24, 35, 0.34);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+.search-btn:hover {
+  cursor: pointer;
+  background-color: rgba(22, 24, 35, 0.03);
+}
+.search-btn:active {
+  background-color: rgba(22, 24, 35, 0.06);
+}
+
+.item-search {
+  display: flex;
+  align-items: center;
+  padding: 6px 16px;
+  cursor: pointer;
+}
+.item-search:hover {
+  background: rgba(22, 24, 35, 0.03);
+}
+
+.image {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.info {
+  flex: 1;
+  margin-left: 12px;
+}
+
+.name {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.check {
+  margin-left: 6px;
+  color: rgb(32, 213, 236);
+}
+
+.author {
+  font-size: 1.4rem;
+  color: rgba(22, 24, 35, 0.5);
+}
+
+.upload-btn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.upload-btn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.header {
+  padding-left: 10px;
+  color: var(--red);
+  font-size: 25px;
+}
+
+.information {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: 10px;
+  justify-content: space-between;
+  border-radius: 20px;
+  box-shadow: 3px 3px 3px var(--black);
+}
+.information:hover {
+  box-shadow: 5px 5px 5px 5px var(--grey);
+}
+
+.order-image {
+  width: 100px;
+}/*# sourceMappingURL=Search.module.css.map */
