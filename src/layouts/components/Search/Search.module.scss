@@ -29,7 +29,7 @@
     flex: 1 1;
     height: 100%;
     color: var(--black);
-    padding-right: 40px;
+    // padding-right: 40px;
     font-size: 1.6rem;
     caret-color: var(--red);
     background-color: transparent;
@@ -52,15 +52,15 @@
 }
 
 .search-btn {
-  width: 44px;
+  // width: 44px;
   height: 100%;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
   font-size: 1.8rem;
   color: rgba(22, 24, 35, 0.34);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
   background-color: transparent;
   &:hover {
     cursor: pointer;

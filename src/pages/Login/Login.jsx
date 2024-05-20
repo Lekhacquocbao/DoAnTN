@@ -268,18 +268,19 @@ function Login() {
         <div className={cx('panels-container')}>
           <div className={cx('panel', 'left-panel')}>
             <div className={cx('content')}>
-              <h3>PBL 6: Project CN 1 </h3>
-              <p>Member: Nguyễn Đức Mạnh, Trần Anh Hào, Hồ Thanh Hưng</p>
+              <h3>BH SHOP </h3>
+              <p>Fouder: Lê Khắc Quốc Bảo - Trần Anh Hào</p>
               <button className={cx('btn', 'transparent')} onClick={handleSignupClick} id="Register">
                 Register
               </button>
             </div>
             <img className={cx('image')} src={images.log} alt="logo-log"></img>
           </div>
+          
           <div className={cx('panel', 'right-panel')}>
             <div className={cx('content')}>
-              <h3>PBL 6: Project CN 1 </h3>
-              <p>Member: Nguyễn Đức Mạnh, Trần Anh Hào, Hồ Thanh Hưng</p>
+            <h3>BH SHOP </h3>
+              <p>Fouder: Lê Khắc Quốc Bảo - Trần Anh Hào</p>
               <button className={cx('btn', 'transparent')} onClick={handleSigninClick} id="Login">
                 Login
               </button>

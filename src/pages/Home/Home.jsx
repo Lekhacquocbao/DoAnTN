@@ -3,6 +3,9 @@ import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 import axios from 'axios';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 import Button from '~/components/Button';
 import styles from './Home.module.scss';
@@ -36,14 +39,56 @@ function Home() {
     fetchAPIShoes();
   }, []);
 
+  const settings = {
+    // dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+  };
+
   return (
     <div className={cx('wrapper')}>
       <div className={cx('slide-bar')}>
-        <img
-          className={cx('slide')}
-          alt="slide1"
-          src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-3.jpg"
-        ></img>
+        <Slider {...settings}>
+          <img
+            className={cx('slide')}
+            alt="slide2"
+            src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-2.jpg"
+          ></img>
+
+          <img
+            className={cx('slide')}
+            alt="slide3"
+            src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-3.jpg"
+          ></img>
+
+          <img
+            className={cx('slide')}
+            alt="slide4"
+            src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-4.jpg"
+          ></img>
+
+          <img
+            className={cx('slide')}
+            alt="slide5"
+            src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-5.jpg"
+          ></img>
+
+          <img
+            className={cx('slide')}
+            alt="slide5"
+            src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-6.jpg"
+          ></img>
+
+          <img
+            className={cx('slide')}
+            alt="slide5"
+            src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-8.jpg"
+          ></img>
+        </Slider>
       </div>
 
       <div className={cx('categories')}>
@@ -54,40 +99,45 @@ function Home() {
               src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/welcome_1.png?1701914025229"
               alt="Online Order"
             ></img>
+            <div className={cx('content-item')}>
             <h3>
               <a href="#OnlineOrder">Đặt Hàng Online</a>
             </h3>
             <p>Giao hàng hỏa tốc, nội thành trong 2 tiếng</p>
+            </div>
           </div>
           <div className={cx('category-item')}>
             <img
               src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/welcome_2.png?1701914025229"
               alt="Grooming"
             ></img>
-            <h3>
+            <div className={cx('content-item')}><h3>
               <a href="#Service">Cắt Tỉa & Spa</a>
             </h3>
-            <p>Với quy trình 10 bước cắt tỉa, tạo kiểu cùng những thợ groomer hàng đầu</p>
+            <p>Với quy trình 10 bước cắt tỉa, tạo kiểu cùng những thợ groomer hàng đầu</p></div>
+            
           </div>
           <div className={cx('category-item')}>
             <img
               src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/welcome_3.png?1701914025229"
               alt="Hotel"
             ></img>
-            <h3>
-              <a href="#Service">Khách Sạn & Lưu Chuồng</a>
+            <div className={cx('content-item')}><h3>
+              <a href="#Service">Lưu chuồng</a>
             </h3>
-            <p>Chăm sóc và bảo vệ bé cún, mèo của bạn 24/7</p>
+            <p>Chăm sóc và bảo vệ bé cún, mèo của bạn 24/7</p></div>
+            
           </div>
           <div className={cx('category-item')}>
             <img
               src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/welcome_4.png?1701914025229"
               alt="Veterinarian"
             ></img>
-            <h3>
+            <div className={cx('content-item')}><h3>
               <a href="#Service">Bác Sĩ Thú Y</a>
             </h3>
-            <p>Khám chữa bệnh với các thiết bị hiện đại</p>
+            <p>Khám chữa bệnh với các thiết bị hiện đại</p></div>
+            
           </div>
         </div>
       </div>
@@ -240,50 +290,65 @@ function Home() {
           </div>
         </div>
 
-
-
         <div className={cx('rightColumn')}>
           <h2>ĐẶT LỊCH CHĂM SÓC THÚ CƯNG</h2>
           <form>
-          <div className={cx('radioColumn')}>
-          <div className={cx('input-name')}>
-              <input placeholder="Tên của bạn" type="text" id="name" name="name" required />
-            </div>
-            <div className={cx('input-phone')}>
-              <input placeholder="Số điện thoại" type="tel" id="phone" name="phone" required />
-            </div>
-            <div className={cx('serviceGroup')}>
-              <div className={cx('radioGroup')}>
-                <label for="dog">Chó</label>
-                <input type="radio" id="dog" name="petType" value="Chó" required />
+            <div className={cx('radioColumn')}>
+              <div className={cx('input-name')}>
+                <input placeholder="Tên của bạn" type="name" id="name" name="name" required />
               </div>
-              <div className={cx('radioGroup')}>
-                <label for="cat">Mèo</label>
-                <input type="radio" id="cat" name="petType" value="Mèo" required />
+              <div className={cx('input-phone')}>
+                <input placeholder="Số điện thoại" type="tel" id="phone" name="phone" required />
               </div>
-            </div>
-            <div className={cx('serviceGroup')}>
-              <div className={cx('radioColumn')}>
-              <div className={cx('radioGroup')}>
-                <label for="location1">54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</label>
-                <input type="radio" id="location3" name="location" value="54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng" required/>
+              <div className={cx('serviceGroup')}>
+                <div className={cx('radioGroup')}>
+                  <label for="dog">Chó</label>
+                  <input type="radio" id="dog" name="petType" value="Chó" required />
+                </div>
+                <div className={cx('radioGroup')}>
+                  <label for="cat">Mèo</label>
+                  <input type="radio" id="cat" name="petType" value="Mèo" required />
+                </div>
               </div>
-              <div className={cx('radioGroup')}>
-                <label for="location2">54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</label>
-                <input type="radio" id="location3" name="location" value="54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng" required/>
+              <div className={cx('serviceGroup')}>
+                <div className={cx('radioColumn')}>
+                  <div className={cx('radioGroup')}>
+                    <label for="location1">54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</label>
+                    <input
+                      type="radio"
+                      id="location3"
+                      name="location"
+                      value="54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng"
+                      required
+                    />
+                  </div>
+                  <div className={cx('radioGroup')}>
+                    <label for="location2">54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</label>
+                    <input
+                      type="radio"
+                      id="location3"
+                      name="location"
+                      value="54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng"
+                      required
+                    />
+                  </div>
+                  <div className={cx('radioGroup')}>
+                    <label for="location3">54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</label>
+                    <input
+                      type="radio"
+                      id="location3"
+                      name="location"
+                      value="54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng"
+                      required
+                    />
+                  </div>
+                </div>
               </div>
-              <div className={cx('radioGroup')}>
-                <label for="location3">54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</label>
-                <input type="radio" id="location3" name="location" value="54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng" required/>
-              </div>
-              </div>
-              
-            </div>
-            <label>Dịch vụ thú cưng</label>
-            <div className={cx('serviceGroup')}>
+              <label>Dịch vụ thú cưng</label>
+              <div className={cx('serviceGroup')}>
                 <div className={cx('radioGroup')}>
                   <label for="service1">Cạo lông</label>
-                  <input type="radio" id="service1" name="service" value="Cạo lông"/>
+                  <input type="radio" id="service1" name="service" value="Cạo lông" />
                 </div>
                 <div className={cx('radioGroup')}>
                   <label for="service2">Combo Tắm vệ sinh</label>
@@ -307,19 +372,16 @@ function Home() {
                     required
                   />
                 </div>
+              </div>
 
+              <div className={cx('formGroup')}>
+                <label for="time">Thời gian đặt lịch</label>
+                <input type="datetime-local" id="time" name="time" required />
+              </div>
+              <button type="submit">Gửi PET CƯNG</button>
             </div>
-
-            <div className={cx('formGroup')}>
-              <label for="time">Thời gian đặt lịch</label>
-              <input type="datetime-local" id="time" name="time" required />
-            </div>
-            <button type="submit">Gửi PET CƯNG</button>
-          </div>
-            
           </form>
         </div>
-
       </div>
     </div>
   );
