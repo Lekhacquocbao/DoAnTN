@@ -11,7 +11,7 @@ const routes = {
   manageCategory: '/manageCategory',
   manageShoes: '/manageShoes',
   manageBrand: '/manageBrand',
-  manageBreeds: '/manageBreeds',
+  manageBreeds: '/manageBreed',
   manageProducts: '/manageProducts',
   manageServices: '/manageServices',
   revenue: '/revenue',

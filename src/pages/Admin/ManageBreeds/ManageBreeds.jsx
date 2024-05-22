@@ -12,56 +12,56 @@ import InputForm from '~/components/InputForm/InputForm';
 import Popup from '~/components/Popup/Popup';
 import CustomSelect from '~/components/CustomSelect';
 import GetToken from '~/Token/GetToken';
-import styles from './ManageShoe.module.scss';
+import styles from './ManageBreeds.module.scss';
 
 const cx = classNames.bind(styles);
 
-function ManageShoe() {
-  const [shoes, setShoes] = useState([]);
+function ManageBreeds() {
+  const [breeds, setBreeds] = useState([]);
   const [avatar, setAvatar] = useState([]);
   const [image, setImage] = useState([]);
   const [categories, setCategories] = useState([]);
   const [brand, setBrand] = useState([]);
   const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [selectedBrandId, setSelectedBrandId] = useState(null);
-  const [shoeId, setShoeID] = useState();
+  const [breedId, setBreedId] = useState();
   const [shoeIDSize, setShoeIDSize] = useState();
   const [search, setSearch] = useState('');
-  const [filteredShoes, setFilteredShoes] = useState([]);
+  const [filteredBreeds, setFilteredBreeds] = useState([]);
   const [payload, setPayload] = useState({
     name: '',
-    category: '',
-    brand: '',
-    color: '',
-    price: '',
-    import_price: '',
+    // category: '',
+    // brand: '',
+    // color: '',
+    // price: '',
+    // import_price: '',
     description: '',
-    size: '',
-    amount: '',
+    // size: '',
+    // amount: '',
   });
 
   const [payload2, setPayload2] = useState({
     name: '',
-    category: '',
-    brand: '',
-    color: '',
-    price: '',
-    import_price: '',
+    // category: '',
+    // brand: '',
+    // color: '',
+    // price: '',
+    // import_price: '',
     description: '',
-    size: '',
-    amount: '',
+    // size: '',
+    // amount: '',
   });
 
   const [errorMessages, setErrorMessages] = useState({
     name: null,
-    category: null,
-    brand: null,
-    color: null,
-    price: null,
-    import_price: null,
+    // category: null,
+    // brand: null,
+    // color: null,
+    // price: null,
+    // import_price: null,
     description: null,
-    size: null,
-    amount: null,
+    // size: null,
+    // amount: null,
   });
 
   const validateForm = () => {
@@ -69,7 +69,7 @@ function ManageShoe() {
     const errors = {};
 
     if (!payload.name.trim()) {
-      errors.name = 'Please enter shoe name';
+      errors.name = 'Please enter breed name';
       isValid = false;
     }
 
@@ -78,10 +78,10 @@ function ManageShoe() {
       isValid = false;
     }
 
-    if (!payload.price.toString().trim()) {
-      errors.price = 'Please enter selling price';
-      isValid = false;
-    }
+    // if (!payload.price.toString().trim()) {
+    //   errors.price = 'Please enter selling price';
+    //   isValid = false;
+    // }
 
     if (!payload.publisher.trim()) {
       errors.publisher = 'Please enter publisher';
@@ -99,9 +99,11 @@ function ManageShoe() {
 
   const getshoes = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/shoes?limit=10000');
-      setShoes(response.data.result);
-      setFilteredShoes(response.data.result);
+      const response = await axios.get('http://localhost:8000/api/breed?limit=10000');
+      setBreeds(response.data.breeds);
+      setFilteredBreeds(response.data.breeds);
+      console.log("respone 1 ne",response);
+      console.log("hehe", response.data.breeds)
     } catch (e) {
       console.log(e);
     }
@@ -109,19 +111,20 @@ function ManageShoe() {
   const fetchApiDetailshoe = async (id) => {
     try {
       setIsModalOpen1(true);
-      const response = await axios.get(`http://localhost:8000/api/shoes/${id}`);
+      const response = await axios.get(`http://localhost:8000/api/breed/${id}`);
 
-      const shoe = response.data.result;
-
+      const breed = response.data.result;
+      console.log("respone 2 ne",response)
+      console.log("breed nè hehe",breed)
       setPayload((prevPayload) => ({
         ...prevPayload,
-        name: shoe.name,
-        description: shoe.description,
-        amount: shoe.amount,
-        color: shoe.color,
-        size: shoe.size,
-        category: shoe.Category.name,
-        brand: shoe.Brand.name,
+        name: breed.name,
+        description: breed.description,
+        // amount: shoe.amount,
+        // color: shoe.color,
+        // size: shoe.size,
+        // category: shoe.Category.name,
+        // brand: shoe.Brand.name,
       }));
     } catch (e) {
       toast.error(e.message);
@@ -143,15 +146,15 @@ function ManageShoe() {
   const handleAddshoe = async (idCategory, idBrand, name, price, import_price, description, color, image) => {
     await axios
       .post(
-        'http://localhost:8000/api/shoes/add',
+        'http://localhost:8000/api/breed/add',
         {
-          id_category: idCategory,
-          id_brand: idBrand,
+          // id_category: idCategory,
+          // id_brand: idBrand,
           name: name,
-          price: price,
-          import_price: import_price,
+          // price: price,
+          // import_price: import_price,
           description: description,
-          color: color,
+          // color: color,
           image: image,
         },
         {
@@ -176,7 +179,7 @@ function ManageShoe() {
     try {
       await axios
         .post(
-          `http://localhost:8000/api/shoes/add_size/${shoeIDSize}`,
+          `http://localhost:8000/api/breed/add_size/${shoeIDSize}`,
           {
             amount: amount,
             size: size,
@@ -202,20 +205,21 @@ function ManageShoe() {
     }
   };
 
-  const handleUpdateshoe = async (id, idCategory, idBrand, name, size, color, amount, description) => {
+  // const handleUpdateshoe = async (id, idCategory, idBrand, name, size, color, amount, description) => {
+  const handleUpdateshoe = async (id, name, description) => {
     if (!validateForm()) {
       return;
     } else {
       await axios
         .put(
-          `http://localhost:8000/api/shoes/updateInfor/${id}`,
+          `http://localhost:8000/api/breed/updateInfor/${id}`,
           {
-            id_category: idCategory,
-            id_brand: idBrand,
+            // id_category: idCategory,
+            // id_brand: idBrand,
             name: name,
-            size: size,
-            color: color,
-            amount: amount,
+            // size: size,
+            // color: color,
+            // amount: amount,
             description: description,
           },
           {
@@ -238,7 +242,7 @@ function ManageShoe() {
   };
   const handleDeleteshoe = async (id) => {
     await axios
-      .delete(`http://localhost:8000/api/shoes/delete/${id}`, {
+      .delete(`http://localhost:8000/api/breed/delete/${id}`, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${GetToken()}`,
@@ -261,13 +265,27 @@ function ManageShoe() {
     fetchApiBrand();
   }, []);
 
-  useEffect(() => {
-    const result = shoes.filter((shoe) => {
-      return shoe.name.toLowerCase().match(search.toLowerCase());
-    });
+  // useEffect(() => {
+  //   const result = breeds.filter((breeds) => {
+  //     return breeds.name.toLowerCase().match(search.toLowerCase());
+  //   });
 
-    setFilteredShoes(result);
-  }, [search, shoes]);
+  //   setFilteredShoes(result);
+  // }, [search, breeds]);
+
+  useEffect(() => {
+    if (!breeds || !Array.isArray(breeds)) {
+        console.log("sai rồi thằng ngu")
+    }
+
+    const result = breeds.filter((breed) => {
+      return breed.name && breed.name.toLowerCase().match(search.toLowerCase());
+  });
+  
+
+    setFilteredBreeds(result);
+}, [search, breeds]);
+
 
   const modalAnimation1 = useSpring({
     opacity: isModalOpen1 ? 1 : 0,
@@ -304,34 +322,34 @@ function ManageShoe() {
 
   const columns = [
     {
-      name: 'Shoes name',
+      name: 'Breed name',
       selector: (row) => row.name,
       sortable: true,
     },
-    {
-      name: 'Category',
-      selector: (row) => row.Category.name,
-    },
-    {
-      name: 'Brand',
-      selector: (row) => row.Brand.name,
-    },
-    {
-      name: 'Selling price',
-      selector: (row) => row.price,
-      sortable: true,
-    },
-    {
-      name: 'Import price',
-      selector: (row) => row.import_price,
-      sortable: true,
-    },
+    // {
+    //   name: 'Category',
+    //   selector: (row) => row.Category.name,
+    // },
+    // {
+    //   name: 'Brand',
+    //   selector: (row) => row.Brand.name,
+    // },
+    // {
+    //   name: 'Selling price',
+    //   selector: (row) => row.price,
+    //   sortable: true,
+    // },
+    // {
+    //   name: 'Import price',
+    //   selector: (row) => row.import_price,
+    //   sortable: true,
+    // },
   ];
 
   const handleRowClick = (row) => {
-    const ShoeID = row.id;
-    fetchApiDetailshoe(ShoeID);
-    setShoeID(ShoeID);
+    const BreedId = row.id;
+    fetchApiDetailshoe(BreedId);
+    setBreedId(BreedId);
   };
 
   const handleImgChange = (e) => {
@@ -363,7 +381,7 @@ function ManageShoe() {
       <DataTable
         title="Shoes list"
         columns={columns}
-        data={filteredShoes}
+        data={filteredBreeds}
         fixedHeader
         fixedHeaderScrollHeight="500px"
         pointerOnHover
@@ -374,10 +392,10 @@ function ManageShoe() {
         subHeaderComponent={
           <div className={cx('wrapper-header')} style={{ zIndex: 0 }}>
             <Button onClick={openModal2} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
-              Add shoe
+              Add Breed
             </Button>
             <Button onClick={openModal3} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
-              Add shoe size
+              Add Breed size
             </Button>
             <input
               type="text"
@@ -395,9 +413,9 @@ function ManageShoe() {
 
       <Popup isOpen={isModalOpen1} onRequestClose={() => closeModal1()} width={'700px'} height={'700px'}>
         <animated.div style={modalAnimation1}>
-          <h2>Shoe information</h2>
+          <h2>Breed information</h2>
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe name</div>
+            <div className={cx('header')}>Breed name</div>
             <InputForm
               placeholder="Enter name shoe..."
               type="text"
@@ -422,8 +440,8 @@ function ManageShoe() {
             />
             {errorMessages.description && <div className={cx('error-message')}>{errorMessages.description}</div>}
           </div>
-          <div className={cx('header')}>Color</div>
-          <div className={cx('input-field')}>
+          {/* <div className={cx('header')}>Color</div> */}
+          {/* <div className={cx('input-field')}>
             <InputForm
               placeholder="Enter shoe color..."
               type="text"
@@ -434,7 +452,7 @@ function ManageShoe() {
               leftIcon={faAudioDescription}
             />
             {errorMessages.color && <div className={cx('error-message')}>{errorMessages.color}</div>}
-          </div>
+          </div> */}
           <div className={cx('header')}>Select category</div>
           <div className={cx('input-field')}>
             <CustomSelect data={categories} setId={setSelectedCategoryId}></CustomSelect>
@@ -449,13 +467,13 @@ function ManageShoe() {
             <Button
               onClick={() =>
                 handleUpdateshoe(
-                  shoeId,
+                  breedId,
                   selectedCategoryId,
                   selectedBrandId,
                   payload.name,
-                  payload.size,
-                  payload.color,
-                  payload.amount,
+                  // payload.size,
+                  // payload.color,
+                  // payload.amount,
                   payload.description,
                 )
               }
@@ -463,7 +481,7 @@ function ManageShoe() {
             >
               Change information
             </Button>
-            <Button onClick={() => handleDeleteshoe(shoeId)} primary>
+            <Button onClick={() => handleDeleteshoe(breedId)} primary>
               Delete
             </Button>
           </div>
@@ -490,7 +508,7 @@ function ManageShoe() {
               leftIcon={faShoePrints}
             />
           </div>
-          <div className={cx('input-field')}>
+          {/* <div className={cx('input-field')}>
             <div className={cx('header')}>Price</div>
             <InputForm
               placeholder="Enter shoe price..."
@@ -501,8 +519,8 @@ function ManageShoe() {
               className={cx('input')}
               leftIcon={faMoneyBill}
             />
-          </div>
-          <div className={cx('input-field')}>
+          </div> */}
+          {/* <div className={cx('input-field')}>
             <div className={cx('header')}>Import price</div>
             <InputForm
               placeholder="Enter shoe import price..."
@@ -513,7 +531,7 @@ function ManageShoe() {
               className={cx('input')}
               leftIcon={faMoneyBill}
             />
-          </div>
+          </div> */}
           <div className={cx('header')}>Description</div>
           <div className={cx('input-field')}>
             <InputForm
@@ -527,7 +545,7 @@ function ManageShoe() {
             />
           </div>
 
-          <div className={cx('header')}>Color</div>
+          {/* <div className={cx('header')}>Color</div>
           <div className={cx('input-field')}>
             <InputForm
               placeholder="Enter shoe color..."
@@ -538,7 +556,7 @@ function ManageShoe() {
               className={cx('input')}
               leftIcon={faAudioDescription}
             />
-          </div>
+          </div> */}
 
           <div className={cx('header')}>Select category</div>
           <div className={cx('input-field')}>
@@ -565,10 +583,10 @@ function ManageShoe() {
                   selectedCategoryId,
                   selectedBrandId,
                   payload2.name,
-                  payload2.price,
-                  payload2.import_price,
+                  // payload2.price,
+                  // payload2.import_price,
                   payload2.description,
-                  payload2.color,
+                  // payload2.color,
                   avatar,
                 )
               }
@@ -590,7 +608,7 @@ function ManageShoe() {
           <h2>Add shoe size</h2>
           <div className={cx('header')}>Select shoes</div>
           <div className={cx('input-field')}>
-            <CustomSelect data={shoes} setId={setShoeIDSize}></CustomSelect>
+            <CustomSelect data={breeds} setId={setShoeIDSize}></CustomSelect>
           </div>
           <div className={cx('input-field')}>
             <div className={cx('header')}>Shoe size</div>
@@ -605,7 +623,7 @@ function ManageShoe() {
             />
           </div>
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe amount</div>
+            {/* <div className={cx('header')}>Shoe amount</div>
             <InputForm
               placeholder="Enter amount shoe..."
               type="text"
@@ -614,7 +632,7 @@ function ManageShoe() {
               name={'amount'}
               className={cx('input')}
               leftIcon={faShoePrints}
-            />
+            /> */}
           </div>
           <div className={cx('options')}>
             <Button onClick={() => handleAddShoeSize(payload.size, payload.amount)} outline>
@@ -627,4 +645,4 @@ function ManageShoe() {
   );
 }
 
-export default ManageShoe;
+export default ManageBreeds;

@@ -17,7 +17,7 @@ import styles from './ManageProducts.module.scss';
 const cx = classNames.bind(styles);
 
 function ManageProducts() {
-  const [shoes, setShoes] = useState([]);
+  const [product, setProduct] = useState([]);
   const [avatar, setAvatar] = useState([]);
   const [image, setImage] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -27,40 +27,40 @@ function ManageProducts() {
   const [shoeId, setShoeID] = useState();
   const [shoeIDSize, setShoeIDSize] = useState();
   const [search, setSearch] = useState('');
-  const [filteredShoes, setFilteredShoes] = useState([]);
+  const [filteredProduct, setFilteredProduct] = useState([]);
   const [payload, setPayload] = useState({
     name: '',
-    category: '',
-    brand: '',
-    color: '',
+    // category: '',
+    // brand: '',
+    // color: '',
     price: '',
     import_price: '',
     description: '',
-    size: '',
+    // size: '',
     amount: '',
   });
 
   const [payload2, setPayload2] = useState({
     name: '',
-    category: '',
-    brand: '',
-    color: '',
+    // category: '',
+    // brand: '',
+    // color: '',
     price: '',
     import_price: '',
     description: '',
-    size: '',
+    // size: '',
     amount: '',
   });
 
   const [errorMessages, setErrorMessages] = useState({
     name: null,
-    category: null,
-    brand: null,
-    color: null,
+    // category: null,
+    // brand: null,
+    // color: null,
     price: null,
     import_price: null,
     description: null,
-    size: null,
+    // size: null,
     amount: null,
   });
 
@@ -69,7 +69,7 @@ function ManageProducts() {
     const errors = {};
 
     if (!payload.name.trim()) {
-      errors.name = 'Please enter shoe name';
+      errors.name = 'Please enter product name';
       isValid = false;
     }
 
@@ -99,9 +99,11 @@ function ManageProducts() {
 
   const getshoes = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/shoes?limit=10000');
-      setShoes(response.data.result);
-      setFilteredShoes(response.data.result);
+      const response = await axios.get('http://localhost:8000/api/product?limit=10000');
+      setProduct(response.data.result);
+      setFilteredProduct(response.data.result);
+      console.log("respone 1 ne",response);
+      console.log("hehe", response.data.result)
     } catch (e) {
       console.log(e);
     }
@@ -109,19 +111,19 @@ function ManageProducts() {
   const fetchApiDetailshoe = async (id) => {
     try {
       setIsModalOpen1(true);
-      const response = await axios.get(`http://localhost:8000/api/shoes/${id}`);
+      const response = await axios.get(`http://localhost:8000/api/product/${id}`);
 
-      const shoe = response.data.result;
+      const product = response.data.result;
 
       setPayload((prevPayload) => ({
         ...prevPayload,
-        name: shoe.name,
-        description: shoe.description,
-        amount: shoe.amount,
-        color: shoe.color,
-        size: shoe.size,
-        category: shoe.Category.name,
-        brand: shoe.Brand.name,
+        name: product.name,
+        // description: product.description,
+        amount: product.amount,
+        // color: product.color,
+        // size: product.size,
+        // category: product.Category.name,
+        // brand: product.Brand.name,
       }));
     } catch (e) {
       toast.error(e.message);
@@ -143,16 +145,16 @@ function ManageProducts() {
   const handleAddshoe = async (idCategory, idBrand, name, price, import_price, description, color, image) => {
     await axios
       .post(
-        'http://localhost:8000/api/shoes/add',
+        'http://localhost:8000/api/product/add',
         {
-          id_category: idCategory,
-          id_brand: idBrand,
+          // id_category: idCategory,
+          // id_brand: idBrand,
           name: name,
           price: price,
           import_price: import_price,
-          description: description,
-          color: color,
-          image: image,
+          // description: description,
+          // color: color,
+          // image: image,
         },
         {
           headers: {
@@ -176,7 +178,7 @@ function ManageProducts() {
     try {
       await axios
         .post(
-          `http://localhost:8000/api/shoes/add_size/${shoeIDSize}`,
+          `http://localhost:8000/api/product/add_size/${shoeIDSize}`,
           {
             amount: amount,
             size: size,
@@ -208,15 +210,15 @@ function ManageProducts() {
     } else {
       await axios
         .put(
-          `http://localhost:8000/api/shoes/updateInfor/${id}`,
+          `http://localhost:8000/api/product/updateInfor/${id}`,
           {
-            id_category: idCategory,
-            id_brand: idBrand,
+            // id_category: idCategory,
+            // id_brand: idBrand,
             name: name,
-            size: size,
-            color: color,
+            // size: size,
+            // color: color,
             amount: amount,
-            description: description,
+            // description: description,
           },
           {
             headers: {
@@ -238,7 +240,7 @@ function ManageProducts() {
   };
   const handleDeleteshoe = async (id) => {
     await axios
-      .delete(`http://localhost:8000/api/shoes/delete/${id}`, {
+      .delete(`http://localhost:8000/api/product/delete/${id}`, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${GetToken()}`,
@@ -262,12 +264,12 @@ function ManageProducts() {
   }, []);
 
   useEffect(() => {
-    const result = shoes.filter((shoe) => {
-      return shoe.name.toLowerCase().match(search.toLowerCase());
+    const result = product.filter((product) => {
+      return product.name.toLowerCase().match(search.toLowerCase());
     });
 
-    setFilteredShoes(result);
-  }, [search, shoes]);
+    setFilteredProduct(result);
+  }, [search, product]);
 
   const modalAnimation1 = useSpring({
     opacity: isModalOpen1 ? 1 : 0,
@@ -308,19 +310,19 @@ function ManageProducts() {
       selector: (row) => row.name,
       sortable: true,
     },
-    {
-      name: 'Category',
-      selector: (row) => row.Category.name,
-    },
-    {
-      name: 'Brand',
-      selector: (row) => row.Brand.name,
-    },
-    {
-      name: 'Selling price',
-      selector: (row) => row.price,
-      sortable: true,
-    },
+    // {
+    //   name: 'Category',
+    //   selector: (row) => row.Category.name,
+    // },
+    // {
+    //   name: 'Brand',
+    //   selector: (row) => row.Brand.name,
+    // },
+    // {
+    //   name: 'Selling price',
+    //   selector: (row) => row.price,
+    //   sortable: true,
+    // },
     {
       name: 'Import price',
       selector: (row) => row.import_price,
@@ -363,7 +365,7 @@ function ManageProducts() {
       <DataTable
         title="Shoes list"
         columns={columns}
-        data={filteredShoes}
+        data={filteredProduct}
         fixedHeader
         fixedHeaderScrollHeight="500px"
         pointerOnHover
@@ -590,7 +592,7 @@ function ManageProducts() {
           <h2>Add shoe size</h2>
           <div className={cx('header')}>Select shoes</div>
           <div className={cx('input-field')}>
-            <CustomSelect data={shoes} setId={setShoeIDSize}></CustomSelect>
+            <CustomSelect data={product} setId={setShoeIDSize}></CustomSelect>
           </div>
           <div className={cx('input-field')}>
             <div className={cx('header')}>Shoe size</div>

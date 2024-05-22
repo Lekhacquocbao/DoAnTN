@@ -36,6 +36,7 @@ function Sidebar() {
         <FontAwesomeIcon className={cx('bx')} icon={faFaceSmile}></FontAwesomeIcon>
         <span className={cx('text')}>ADMIN PAGE</span>
       </Link>
+
       <ul className={cx('side-menu', 'top')}>
         <li
           className={cx({ active: activeIndex === 0 })}
