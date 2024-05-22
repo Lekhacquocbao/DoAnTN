@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react';
 
 import config from '~/config';
 import styles from './Sidebar.module.scss';
-import { faChartLine, faHouse, faList, faRightFromBracket, faShoePrints } from '@fortawesome/free-solid-svg-icons';
+import { faCat, faChartLine, faDog, faHouse, faList, faRightFromBracket, faShoePrints } from '@fortawesome/free-solid-svg-icons';
+import { faServicestack } from '@fortawesome/free-brands-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -45,6 +46,7 @@ function Sidebar() {
             <span className={cx('text')}>Home</span>
           </Link>
         </li>
+
         <li
           className={cx({ active: activeIndex === 1 })}
           onClick={() => window.location.replace(config.routes.manageCategory)}
@@ -54,6 +56,7 @@ function Sidebar() {
             <span className={cx('text')}>Category</span>
           </Link>
         </li>
+
         <li
           className={cx({ active: activeIndex === 2 })}
           onClick={() => window.location.replace(config.routes.manageShoes)}
@@ -63,6 +66,37 @@ function Sidebar() {
             <span className={cx('text')}>Shoes</span>
           </Link>
         </li>
+
+        <li
+          className={cx({ active: activeIndex === 4 })}
+          onClick={() => window.location.replace(config.routes.manageBreeds)}
+        >
+          <Link to="" onClick={() => handleSetActive(4)}>
+            <FontAwesomeIcon className={cx('bx')} icon={faCat}></FontAwesomeIcon>
+            <span className={cx('text')}>Breeds</span>
+          </Link>
+        </li>
+
+        <li
+          className={cx({ active: activeIndex === 5 })}
+          onClick={() => window.location.replace(config.routes.manageProducts)}
+        >
+          <Link to="" onClick={() => handleSetActive(5)}>
+            <FontAwesomeIcon className={cx('bx')} icon={faDog}></FontAwesomeIcon>
+            <span className={cx('text')}>Products</span>
+          </Link>
+        </li>
+
+        <li
+          className={cx({ active: activeIndex === 6 })}
+          onClick={() => window.location.replace(config.routes.manageServices)}
+        >
+          <Link to="" onClick={() => handleSetActive(6)}>
+            <FontAwesomeIcon className={cx('bx')} icon={faServicestack}></FontAwesomeIcon>
+            <span className={cx('text')}>Services</span>
+          </Link>
+        </li>
+
         <li
           className={cx({ active: activeIndex === 3 })}
           onClick={() => window.location.replace(config.routes.revenue)}
