@@ -123,7 +123,7 @@ function Header() {
                   placement="bottom-end"
                   delay={[0, 500]}
                   render={(attrs) => (
-                    <div className={cx('menu-item')} tabIndex="-1" {...attrs}>
+                    <div className={cx('menu')} tabIndex="-1" {...attrs}>
                       <button onClick={Logout} className={cx('user-btn')}>
                         <Icon className={cx('logout-icon')} icon="tabler:logout" />
                         <span>Log out</span>
