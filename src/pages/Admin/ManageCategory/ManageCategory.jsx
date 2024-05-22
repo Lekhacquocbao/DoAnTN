@@ -152,7 +152,7 @@ function ManageCategory() {
     };
 
     const fetchApiShoes = async () => {
-      const response = await axios.get(`http://localhost:8000/api/shoes?category=${selectedCategoryId}`, {
+      const response = await axios.get(`http://localhost:8000/api/shoes?id_breed=${selectedCategoryId}`, {
         headers: {
           Authorization: `Bearer ${GetToken()}`,
         },

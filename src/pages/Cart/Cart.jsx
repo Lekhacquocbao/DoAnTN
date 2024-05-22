@@ -82,7 +82,7 @@ function Cart() {
         return;
       } else {
         const orderItemsPayload = orderItems.map((item) => ({
-          id_size_item: item.id,
+          id_product: item.id,
           quantity: item.cart_item_infor.quantity,
           id_cartItem: item.cart_item_infor.id,
           price: item.Shoes.price,
@@ -136,7 +136,7 @@ function Cart() {
         });
         const orderItemsPayload = orderItems.map((item) => {
           return {
-            id_size_item: item.id,
+            id_product: item.id,
             id_cartItem: item.cart_item_infor.id,
             quantity: item.cart_item_infor.quantity,
             price: item.Shoes.price,

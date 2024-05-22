@@ -154,9 +154,12 @@ function Home() {
                     <div className={cx('category-container')}>
                       <div className={cx('category-title')}>{category.name}</div>
                       <Button
+                        key={category.id}
                         animation
                         className={cx('category-btn')}
                         to={`${config.routes.allProducts}?id1=${category.id}`}
+                        // to={`/detailItem/${category.id}`}
+                        // to={config.routes.allProducts} className={cx('custom-button')}
                       >
                         SHOP NOW
                       </Button>
@@ -171,13 +174,13 @@ function Home() {
       <div className={cx('items')}>
         <h2 className={cx('header')}>BEST-SELLING PRODUCTS</h2>
         <div className={cx('list-item')}>
-          {shoes &&
-            shoes.map((shoe) => {
+          {categories &&  
+            categories.map((categories) => {
               return (
                 <div className={cx('item')}>
-                  <img src={shoe.Image} className={cx('item-img')} alt="img"></img>
+                  <img src={categories.image} className={cx('item-img')} alt="img"></img>
                   <div className={cx('item-overlay')}>
-                    <Link className={cx('item-icon')} to={`detailItem/${shoe.id}`}>
+                    <Link className={cx('item-icon')} to={`detailItem/${categories.id}`}>
                       <Icon icon="iconamoon:search-bold" />
                     </Link>
                   </div>
