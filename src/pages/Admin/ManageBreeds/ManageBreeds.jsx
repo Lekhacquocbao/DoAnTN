@@ -151,29 +151,29 @@ function ManageBreeds() {
     if (!validateForm()) {
       return;
     } else {
-      await axios
-        .put(
-          `http://localhost:8000/api/breed/updateImage/${breedId}`,
-          {
-            image: image
+      const updateRoiNha = await axios
+      .put(
+        `http://localhost:8000/api/breed/updateImage/${breedId}`,
+        {
+          image: image
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${GetToken()}`,
           },
-          {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              Authorization: `Bearer ${GetToken()}`,
-            },
-          },
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        })
-        .catch((e) => {
-          toast.error(e);
-        });
-        console.log("heheheh")
+        },
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch((e) => {
+        toast.error(e);
+      });
+      console.log("update roi nha", updateRoiNha)
   };
   }
 
@@ -279,9 +279,10 @@ function ManageBreeds() {
     reader.onload = (e) => {
       setImage(e.target.result);
     };
-
+    console.log("file nè",file)
     reader.readAsDataURL(file);
     setAvatar(e.target.files[0]);
+    console.log("đã up loaff nha")
   };
 
   // const AvatarDisplay = ({ src, alt }) => {
@@ -337,10 +338,19 @@ function ManageBreeds() {
         <animated.div style={modalAnimationUpdate}>
           <h2>Breed information</h2>
           <div className={cx('input-field')}>
-            {/* <div className={cx('header')}>Breed avatar</div>
-            <AvatarDisplay src={payload.image} alt={payload.name} />
-            {errorMessages.name && <div className={cx('error-message')}>{errorMessages.name}</div>} */}
-
+          <div className={cx('header')}>Image of breed</div>
+          <div className={cx('input-field')}>
+            <div className={cx('upload-field')}>
+              {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+              <label htmlFor="file-upload" className={cx('upload-btn')}>
+                <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
+                <input id="file-upload" type="file" onChange={handleImgChange}></input>
+              </label>
+            </div>
+            <Button onClick={() => handleUpdateImage(payloadUpdate.image)} outline>
+              Change Image
+            </Button>
+          </div>
             <div className={cx('header')}>Breed name</div>
             <InputForm
               placeholder="Enter name breed..."
