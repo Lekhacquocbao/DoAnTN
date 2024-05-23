@@ -49,26 +49,6 @@ function Sidebar() {
         </li>
 
         <li
-          className={cx({ active: activeIndex === 1 })}
-          onClick={() => window.location.replace(config.routes.manageCategory)}
-        >
-          <Link to="" onClick={() => handleSetActive(1)}>
-            <FontAwesomeIcon className={cx('bx')} icon={faList}></FontAwesomeIcon>
-            <span className={cx('text')}>Category</span>
-          </Link>
-        </li>
-
-        <li
-          className={cx({ active: activeIndex === 2 })}
-          onClick={() => window.location.replace(config.routes.manageShoes)}
-        >
-          <Link to="" onClick={() => handleSetActive(2)}>
-            <FontAwesomeIcon className={cx('bx')} icon={faShoePrints}></FontAwesomeIcon>
-            <span className={cx('text')}>Shoes</span>
-          </Link>
-        </li>
-
-        <li
           className={cx({ active: activeIndex === 4 })}
           onClick={() => window.location.replace(config.routes.manageBreeds)}
         >
@@ -113,7 +93,7 @@ function Sidebar() {
         <li>
           <Link to="" onClick={() => Logout()} className={cx('logout')}>
             <FontAwesomeIcon className={cx('bx')} icon={faRightFromBracket}></FontAwesomeIcon>
-            <span className={cx('text')}>Logout</span>
+            <span className={cx('text')}>Log out</span>
           </Link>
         </li>
       </ul>

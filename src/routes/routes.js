@@ -19,9 +19,7 @@ import AdminPending from '~/pages/Admin/AdminPending';
 import AdminDelivering from '~/pages/Admin/AdminDelivering';
 import AdminWaiting from '~/pages/Admin/AdminWaiting';
 import AdminSuccess from '~/pages/Admin/AdminSuccess';
-import ManageCategory from '~/pages/Admin/ManageCategory';
 import ManageBrand from '~/pages/Admin/ManageBrand';
-import ManageShoe from '~/pages/Admin/ManageShoe';
 import ManageBreeds from '~/pages/Admin/ManageBreeds';
 import ManageProducts from '~/pages/Admin/ManageProducts';
 import ManageServices from '~/pages/Admin/ManageServices';
@@ -47,12 +45,10 @@ const adminRoutes = [
   { path: config.routes.adminWaiting, component: AdminWaiting, layout: Admin },
   { path: config.routes.adminDelivering, component: AdminDelivering, layout: Admin },
   { path: config.routes.adminSuccess, component: AdminSuccess, layout: Admin },
-  { path: config.routes.manageCategory, component: ManageCategory, layout: Admin },
   { path: config.routes.manageBrand, component: ManageBrand, layout: Admin },
-  { path: config.routes.manageShoes, component: ManageShoe, layout: Admin },
   { path: config.routes.manageBreeds, component: ManageBreeds, layout: Admin },
   { path: config.routes.manageProducts, component: ManageProducts, layout: Admin },
-  { path: config.routes.services, component: ManageServices, layout: Admin },
+  { path: config.routes.manageServices, component: ManageServices, layout: Admin },
   { path: config.routes.revenue, component: Revenue, layout: Admin },
 ];
 
