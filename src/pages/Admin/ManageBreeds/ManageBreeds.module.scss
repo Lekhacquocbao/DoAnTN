@@ -113,3 +113,36 @@
   pointer-events: none;
   /* Add any other desired styles for the dropdown arrow */
 }
+
+.image-container {
+  position: relative;
+  display: inline-block;
+  width: 80px;
+  height: 100px;
+}
+
+.change-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: none;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px;
+  border-radius: 50%;
+  cursor: pointer;
+  width: 40px;
+  height: 50px;
+}
+
+.image-container:hover .change-icon {
+  display: block;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding: 10px 10px 10px 10px  ;
+}

@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { faAudioDescription, faShoePrints, faMoneyBill, faPlus, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faAudioDescription, faShoePrints, faEdit, faPlus, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { useSpring, animated } from 'react-spring';
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '~/components/Button/Button';
 import InputForm from '~/components/InputForm/InputForm';
 import Popup from '~/components/Popup/Popup';
-import CustomSelect from '~/components/CustomSelect';
 import GetToken from '~/Token/GetToken';
 import styles from './ManageBreeds.module.scss';
 
@@ -20,64 +19,36 @@ function ManageBreeds() {
   const [breeds, setBreeds] = useState([]);
   const [avatar, setAvatar] = useState([]);
   const [image, setImage] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [breedId, setBreedId] = useState();
-  const [shoeIDSize, setShoeIDSize] = useState();
   const [search, setSearch] = useState('');
   const [filteredBreeds, setFilteredBreeds] = useState([]);
-  const [payload, setPayload] = useState({
+  const [payloadUpdate, setPayloadUpdate] = useState({
     name: '',
-    // category: '',
-    // brand: '',
-    // color: '',
-    price: '',
-    import_price: '',
     description: '',
-    // size: '',
-    amount: '',
+    avatar: image
   });
 
-  const [payload2, setPayload2] = useState({
+  const [payloadAddBreed, setPayloadAddBreed] = useState({
     name: '',
-    // category: '',
-    // brand: '',
-    // color: '',
-    price: '',
-    import_price: '',
     description: '',
-    // size: '',
-    amount: '',
   });
 
   const [errorMessages, setErrorMessages] = useState({
     name: null,
-    // category: null,
-    // brand: null,
-    // color: null,
-    price: null,
-    import_price: null,
     description: null,
-    // size: null,
-    amount: null,
   });
 
   const validateForm = () => {
     let isValid = true;
     const errors = {};
 
-    if (!payload.name.trim()) {
+    if (!payloadUpdate.name.trim()) {
       errors.name = 'Please enter breed name';
       isValid = false;
     }
 
-    if (!payload.description.trim()) {
+    if (!payloadUpdate.description.trim()) {
       errors.description = 'Please enter a description';
-      isValid = false;
-    }
-
-    if (!payload.price.toString().trim()) {
-      errors.price = 'Please enter selling price';
       isValid = false;
     }
 
@@ -86,9 +57,8 @@ function ManageBreeds() {
     return isValid;
   };
 
-  const [isModalOpen1, setIsModalOpen1] = useState(false);
-  const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [isModalOpen3, setIsModalOpen3] = useState(false);
+  const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
+  const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
 
   const getbreed = async () => {
     try {
@@ -103,40 +73,31 @@ function ManageBreeds() {
   };
   const fetchApiDetailbreed = async (id) => {
     try {
-      setIsModalOpen1(true);
+      setIsModalOpenUpdate(true);
       const response = await axios.get(`http://localhost:8000/api/breed/${id}`);
 
-      const breed = response.data.result;
-      // console.log("respone 2 ne",response)
-      console.log("breed nè hehe",breed)
-      setPayload((prevPayload) => ({
+      const breed = response.data.breedDetail;
+      // console.log('respone detail breed ne', response);
+      // console.log('breed nè hehe', breed);
+      setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
         name: breed.name,
         description: breed.description,
-        amount: breed.amount,
-        // color: shoe.color,
-        // size: shoe.size,
-        // category: shoe.Category.name,
-        // brand: shoe.Brand.name,
+        image: breed.image,
       }));
     } catch (e) {
       toast.error(e.message);
     }
   };
 
-  const handleAddbreed = async (idCategory, idBrand, name, price, import_price, description, color, image) => {
+  const handleAddbreed = async (image, name, description) => {
     await axios
       .post(
         'http://localhost:8000/api/breed/add',
         {
-          // id_category: idCategory,
-          // id_brand: idBrand,
-          name: name,
-          price: price,
-          import_price: import_price,
-          description: description,
-          // color: color,
           image: image,
+          name: name,
+          description: description,
         },
         {
           headers: {
@@ -156,20 +117,15 @@ function ManageBreeds() {
       });
   };
 
-  const handleUpdatebreed = async (id, name, amount, description) => {
+  const handleUpdatebreed = async (name, description) => {
     if (!validateForm()) {
       return;
     } else {
       await axios
         .put(
-          `http://localhost:8000/api/breed/updateInfor/${id}`,
+          `http://localhost:8000/api/breed/updateInfor/${breedId}`,
           {
-            // id_category: idCategory,
-            // id_brand: idBrand,
             name: name,
-            // size: size,
-            // color: color,
-            amount: amount,
             description: description,
           },
           {
@@ -190,6 +146,36 @@ function ManageBreeds() {
         });
     }
   };
+
+  const handleUpdateImage = async(image) =>{
+    if (!validateForm()) {
+      return;
+    } else {
+      await axios
+        .put(
+          `http://localhost:8000/api/breed/updateImage/${breedId}`,
+          {
+            image: image
+          },
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${GetToken()}`,
+            },
+          },
+        )
+        .then((res) => {
+          toast.success(res.data.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 2000);
+        })
+        .catch((e) => {
+          toast.error(e);
+        });
+        console.log("heheheh")
+  };
+  }
 
   const handleDeletebreed = async (id) => {
     await axios
@@ -216,72 +202,67 @@ function ManageBreeds() {
 
   useEffect(() => {
     if (!breeds || !Array.isArray(breeds)) {
-        console.log("sai rồi")
+      console.log('sai rồi');
     }
 
     const result = breeds.filter((breed) => {
       return breed.name && breed.name.toLowerCase().match(search.toLowerCase());
-  });
-  
+    });
+
     setFilteredBreeds(result);
-}, [search, breeds]);
+  }, [search, breeds]);
 
-
-  const modalAnimation1 = useSpring({
-    opacity: isModalOpen1 ? 1 : 0,
+  const modalAnimationUpdate = useSpring({
+    opacity: isModalOpenUpdate ? 1 : 0,
   });
-  const modalAnimation2 = useSpring({
-    opacity: isModalOpen2 ? 1 : 0,
-  });
-  const modalAnimation3 = useSpring({
-    opacity: isModalOpen3 ? 1 : 0,
+  const modalAnimationAdd = useSpring({
+    opacity: isModalOpenAdd ? 1 : 0,
   });
 
-  const closeModal1 = () => {
-    setIsModalOpen1(false);
+  const closeModalUpdate = () => {
+    setIsModalOpenUpdate(false);
   };
 
-  const openModal2 = () => {
-    setIsModalOpen2(true);
-    setPayload({});
+  const openModalAdd = () => {
+    setIsModalOpenAdd(true);
+    setPayloadUpdate({});
   };
 
-  const openModal3 = () => {
-    setIsModalOpen3(true);
-    setPayload({});
+  const closeModalAdd = () => {
+    setIsModalOpenAdd(false);
   };
 
-  const closeModal2 = () => {
-    setIsModalOpen2(false);
-  };
-
-  const closeModal3 = () => {
-    setIsModalOpen3(false);
-    setShoeIDSize();
+  const ImageWithChangeIcon = ({ row }) => {
+    return (
+      <div className={cx('image-container')}>
+        <img 
+          src={row.image}
+          alt={row.name} 
+          // width="80px" 
+          // height="100px" 
+        />
+        <div className={cx('change-icon')}>
+          <input className={cx('input-change-image')} onChange={handleImgChange} type='file'></input>
+        </div>
+          
+      </div>
+    );
   };
 
   const columns = [
+    {
+      name: 'Avatar',
+      selector: (row) => row.image,
+      cell: (row) => <ImageWithChangeIcon row={row} />,
+    },
     {
       name: 'Breed name',
       selector: (row) => row.name,
       sortable: true,
     },
-    // {
-    //   name: 'Category',
-    //   selector: (row) => row.Category.name,
-    // },
-    // {
-    //   name: 'Brand',
-    //   selector: (row) => row.Brand.name,
-    // },
     {
-      name: 'Selling price',
-      selector: (row) => row.price,
-      sortable: true,
-    },
-    {
-      name: 'Import price',
-      selector: (row) => row.import_price,
+      name: 'Description',
+      selector: (row) => row.description,
       sortable: true,
     },
   ];
@@ -302,6 +283,10 @@ function ManageBreeds() {
     reader.readAsDataURL(file);
     setAvatar(e.target.files[0]);
   };
+
+  // const AvatarDisplay = ({ src, alt }) => {
+  //   return <img src={src} alt={alt} style={{ width: '100px', height: '100px', borderRadius: '50%' }} />;
+  // };
 
   return (
     <div className={cx('wrapper')}>
@@ -331,7 +316,7 @@ function ManageBreeds() {
         subHeader
         subHeaderComponent={
           <div className={cx('wrapper-header')} style={{ zIndex: 0 }}>
-            <Button onClick={openModal2} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
+            <Button onClick={openModalAdd} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
               Add Breed
             </Button>
             <input
@@ -348,150 +333,62 @@ function ManageBreeds() {
         }}
       />
 
-      <Popup isOpen={isModalOpen1} onRequestClose={() => closeModal1()} width={'700px'} height={'700px'}>
-        <animated.div style={modalAnimation1}>
+      <Popup isOpen={isModalOpenUpdate} onRequestClose={() => closeModalUpdate()} width={'700px'} height={'700px'}>
+        <animated.div style={modalAnimationUpdate}>
           <h2>Breed information</h2>
           <div className={cx('input-field')}>
+            {/* <div className={cx('header')}>Breed avatar</div>
+            <AvatarDisplay src={payload.image} alt={payload.name} />
+            {errorMessages.name && <div className={cx('error-message')}>{errorMessages.name}</div>} */}
+
             <div className={cx('header')}>Breed name</div>
             <InputForm
-              placeholder="Enter name shoe..."
+              placeholder="Enter name breed..."
               type="text"
-              value={payload.name}
-              setValue={setPayload}
+              value={payloadUpdate.name}
+              setValue={setPayloadUpdate}
               name={'name'}
               className={cx('input')}
               leftIcon={faShoePrints}
             />
             {errorMessages.name && <div className={cx('error-message')}>{errorMessages.name}</div>}
           </div>
+
           <div className={cx('header')}>Description</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="Enter shoe description..."
+              placeholder="Enter breed description..."
               type="text"
-              value={payload.description}
-              setValue={setPayload}
+              value={payloadUpdate.description}
+              setValue={setPayloadUpdate}
               name={'description'}
               className={cx('input')}
               leftIcon={faAudioDescription}
             />
             {errorMessages.description && <div className={cx('error-message')}>{errorMessages.description}</div>}
           </div>
-          {/* <div className={cx('header')}>Color</div> */}
-          {/* <div className={cx('input-field')}>
-            <InputForm
-              placeholder="Enter shoe color..."
-              type="text"
-              value={payload.color}
-              setValue={setPayload}
-              name={'color'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-            {errorMessages.color && <div className={cx('error-message')}>{errorMessages.color}</div>}
-          </div> */}
-          <div className={cx('header')}>Select breeds</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={categories} setId={setSelectedCategoryId}></CustomSelect>
-            {errorMessages.category && <div className={cx('error-message')}>{errorMessages.category}</div>}
-          </div>
-          {/* <div className={cx('header')}>Select brand</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={brand} setId={selectedBrandId}></CustomSelect>
-            {errorMessages.brand && <div className={cx('error-message')}>{errorMessages.brand}</div>}
-          </div> */}
 
           <div className={cx('options')}>
-            <Button
-              onClick={() =>
-                handleUpdatebreed(
-                  // breedId,
-                  // selectedCategoryId,
-                  // selectedBrandId,
-                  payload.name,
-                  // payload.size,
-                  // payload.color,
-                  payload.amount,
-                  payload.description,
-                )
-              }
-              outline
-            >
+            <Button onClick={() => handleUpdatebreed(payloadUpdate.name, payloadUpdate.description)} outline>
               Change information
             </Button>
             <Button onClick={() => handleDeletebreed(breedId)} primary>
               Delete
             </Button>
           </div>
-
         </animated.div>
       </Popup>
-      
+
       <Popup
-        isOpen={isModalOpen2}
-        onRequestClose={() => closeModal2()}
+        isOpen={isModalOpenAdd}
+        onRequestClose={() => closeModalAdd()}
         width={'700px'}
         height={'700px'}
         className={cx('popup')}
       >
-        <animated.div style={modalAnimation2}>
-          <h2>Breed information</h2>
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Breed name</div>
-            <InputForm
-              placeholder="Enter name breeds..."
-              type="text"
-              value={payload.name}
-              setValue={setPayload2}
-              name={'name'}
-              className={cx('input')}
-              leftIcon={faShoePrints}
-            />
-          </div>
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Price</div>
-            <InputForm
-              placeholder="Enter breed price..."
-              type="text"
-              value={payload.price}
-              setValue={setPayload2}
-              name={'price'}
-              className={cx('input')}
-              leftIcon={faMoneyBill}
-            />
-          </div>
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Import price</div>
-            <InputForm
-              placeholder="Enter breed import price..."
-              type="text"
-              value={payload.import_price}
-              setValue={setPayload2}
-              name={'import_price'}
-              className={cx('input')}
-              leftIcon={faMoneyBill}
-            />
-          </div>
-          <div className={cx('header')}>Description</div>
-          <div className={cx('input-field')}>
-            <InputForm
-              placeholder="Enter breed description..."
-              type="text"
-              value={payload.description}
-              setValue={setPayload2}
-              name={'description'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-          </div>
-          <div className={cx('header')}>Select category</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={categories} setId={setSelectedCategoryId}></CustomSelect>
-          </div>
-          {/* <div className={cx('header')}>Select brand</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={brand} setId={setSelectedBrandId}></CustomSelect>
-          </div> */}
+        <animated.div style={modalAnimationAdd}>
+          <h2>Add Breed</h2>
+
           <div className={cx('header')}>Image of breed</div>
           <div className={cx('input-field')}>
             <div className={cx('upload-field')}>
@@ -502,69 +399,38 @@ function ManageBreeds() {
               </label>
             </div>
           </div>
-          <div className={cx('options')}>
-            <Button
-              onClick={() =>
-                handleAddbreed(
-                  // selectedCategoryId,
-                  // selectedBrandId,
-                  payload2.name,
-                  payload2.price,
-                  payload2.import_price,
-                  payload2.description,
-                  avatar,
-                )
-              }
-              outline
-            >
-              Confirm
-            </Button>
-          </div>
-        </animated.div>
-      </Popup>
 
-      <Popup
-        isOpen={isModalOpen3}
-        onRequestClose={() => closeModal3()}
-        width={'600px'}
-        height={'500px'}
-        className={cx('popup')}
-      >
-        <animated.div style={modalAnimation3}>
-          <h2>Add breed size</h2>
-          <div className={cx('header')}>Select shoes</div>
           <div className={cx('input-field')}>
-            <CustomSelect data={breeds} setId={setShoeIDSize}></CustomSelect>
-          </div>
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe size</div>
+            <div className={cx('header')}>Breed name</div>
             <InputForm
-              placeholder="Enter size breed..."
+              placeholder="Enter name breeds..."
               type="text"
-              value={payload.size}
-              setValue={setPayload}
-              name={'size'}
+              value={payloadUpdate.name}
+              setValue={setPayloadAddBreed}
+              name={'name'}
               className={cx('input')}
               leftIcon={faShoePrints}
             />
           </div>
-          {/* <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe amount</div>
+
+          <div className={cx('header')}>Description</div>
+          <div className={cx('input-field')}>
             <InputForm
-              placeholder="Enter amount shoe..."
+              placeholder="Enter breed description..."
               type="text"
-              value={payload.amount}
-              setValue={setPayload}
-              name={'amount'}
+              value={payloadUpdate.description}
+              setValue={setPayloadAddBreed}
+              name={'description'}
               className={cx('input')}
-              leftIcon={faShoePrints}
+              leftIcon={faAudioDescription}
             />
-          </div> */}
-          {/* <div className={cx('options')}>
-            <Button onClick={() => handleAddShoeSize(payload.size, payload.amount)} outline>
+          </div>
+
+          <div className={cx('options')}>
+            <Button onClick={() => handleAddbreed(avatar, payloadAddBreed.name, payloadAddBreed.description)} outline>
               Confirm
             </Button>
-          </div> */}
+          </div>
         </animated.div>
       </Popup>
     </div>
