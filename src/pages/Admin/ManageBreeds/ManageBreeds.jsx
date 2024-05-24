@@ -25,7 +25,7 @@ function ManageBreeds() {
   const [payloadUpdate, setPayloadUpdate] = useState({
     name: '',
     description: '',
-    avatar: image
+    image: image
   });
 
   const [payloadAddBreed, setPayloadAddBreed] = useState({
@@ -169,6 +169,7 @@ function ManageBreeds() {
         setTimeout(() => {
           window.location.reload();
         }, 2000);
+        console.log("sai")
       })
       .catch((e) => {
         toast.error(e);
