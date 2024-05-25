@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { faAudioDescription, faShoePrints, faEdit, faPlus, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faAudioDescription, faShoePrints, faPlus, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { useSpring, animated } from 'react-spring';
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -50,16 +50,14 @@ function ManageBreeds() {
       errors.description = 'Please enter a description';
       isValid = false;
     }
-
     setErrorMessages(errors);
-
     return isValid;
   };
 
   const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
   const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
 
-  const getbreed = async () => {
+  const getBreed = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/breed?limit=10000');
       setBreeds(response.data.breeds);
@@ -74,10 +72,9 @@ function ManageBreeds() {
     try {
       setIsModalOpenUpdate(true);
       const response = await axios.get(`http://localhost:8000/api/breed/${id}`);
-
       const breed = response.data.breedDetail;
-      // console.log('respone detail breed ne', response);
-      // console.log('breed nè hehe', breed);
+        console.log('respone detail breed ne', response);
+        console.log('breed nè hehe', breed);
       setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
         name: breed.name,
@@ -197,7 +194,7 @@ function ManageBreeds() {
   };
 
   useEffect(() => {
-    getbreed();
+    getBreed();
   }, []);
 
   useEffect(() => {
@@ -232,23 +229,6 @@ function ManageBreeds() {
     setIsModalOpenAdd(false);
   };
 
-  // const ImageWithChangeIcon = ({ row }) => {
-  //   return (
-  //     <div className={cx('image-container')}>
-  //       <img 
-  //         src={row.image}
-  //         alt={row.name} 
-  //         // width="80px" 
-  //         // height="100px" 
-  //       />
-  //       <div className={cx('change-icon')}>
-  //         <input className={cx('input-change-image')} onChange={handleImgChange} type='file'></input>
-  //       </div>
-          
-  //     </div>
-  //   );
-  // };
-
   const columns = [
     {
       name: 'Avatar',
@@ -268,9 +248,9 @@ function ManageBreeds() {
   ];
 
   const handleRowClick = (row) => {
-    const BreedId = row.id;
-    fetchApiDetailbreed(BreedId);
-    setBreedId(BreedId);
+    const breedId = row.id;
+    fetchApiDetailbreed(breedId);
+    setBreedId(breedId);
   };
 
   const handleImgChange = (e) => {

@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { faAudioDescription, faShoePrints, faMoneyBill, faPlus, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faAudioDescription, faShoePrints, faPlus, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { useSpring, animated } from 'react-spring';
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,151 +10,110 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '~/components/Button/Button';
 import InputForm from '~/components/InputForm/InputForm';
 import Popup from '~/components/Popup/Popup';
-import CustomSelect from '~/components/CustomSelect';
 import GetToken from '~/Token/GetToken';
 import styles from './ManageProducts.module.scss';
 
 const cx = classNames.bind(styles);
 
 function ManageProducts() {
-  const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   const [avatar, setAvatar] = useState([]);
   const [image, setImage] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [brand, setBrand] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-  const [selectedBrandId, setSelectedBrandId] = useState(null);
-  const [shoeId, setShoeID] = useState();
-  const [shoeIDSize, setShoeIDSize] = useState();
+  const [productId, setProductId] = useState();
   const [search, setSearch] = useState('');
-  const [filteredProduct, setFilteredProduct] = useState([]);
-  const [payload, setPayload] = useState({
+  const [filteredProducts, setfilteredProducts] = useState([]);
+  const [payloadUpdate, setPayloadUpdate] = useState({
     name: '',
-    // category: '',
-    // brand: '',
-    // color: '',
-    price: '',
-    import_price: '',
-    description: '',
-    // size: '',
     amount: '',
+    import_price: '',
+    price: '',
   });
 
-  const [payload2, setPayload2] = useState({
+  const [payloadAddProduct, setPayloadAddProduct] = useState({
     name: '',
-    // category: '',
-    // brand: '',
-    // color: '',
-    price: '',
-    import_price: '',
-    description: '',
-    // size: '',
     amount: '',
+    import_price: '',
+    price: '',
   });
 
   const [errorMessages, setErrorMessages] = useState({
     name: null,
-    // category: null,
-    // brand: null,
-    // color: null,
-    price: null,
-    import_price: null,
     description: null,
-    // size: null,
-    amount: null,
   });
 
   const validateForm = () => {
     let isValid = true;
     const errors = {};
 
-    if (!payload.name.trim()) {
+    if (!payloadUpdate.name.trim()) {
       errors.name = 'Please enter product name';
       isValid = false;
     }
 
-    if (!payload.description.trim()) {
-      errors.description = 'Please enter a description';
-      isValid = false;
-    }
+    // if (!payloadUpdate.amount.toString().trim()) {
+    //   errors.description = 'Please enter a amount';
+    //   isValid = false;
+    // }
 
-    if (!payload.price.toString().trim()) {
-      errors.price = 'Please enter selling price';
-      isValid = false;
-    }
+    // if (!payloadUpdate.import_price.toString().trim()) {
+    //   errors.description = 'Please enter a import_price';
+    //   isValid = false;
+    // }
 
-    if (!payload.publisher.trim()) {
-      errors.publisher = 'Please enter publisher';
-      isValid = false;
-    }
+    // if (!payloadUpdate.price.toString().trim()) {
+    //   errors.description = 'Please enter a selling price';
+    //   isValid = false;
+    // }
 
     setErrorMessages(errors);
 
     return isValid;
   };
 
-  const [isModalOpen1, setIsModalOpen1] = useState(false);
-  const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [isModalOpen3, setIsModalOpen3] = useState(false);
+  const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
+  const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
 
-  const getshoes = async () => {
+  const getProduct = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/product?limit=10000');
-      setProduct(response.data.result);
-      setFilteredProduct(response.data.result);
-      console.log("respone 1 ne",response);
-      console.log("hehe", response.data.result)
+      setProducts(response.data.result);
+      setfilteredProducts(response.data.result);
+      // console.log("respone 1 ne",response);
+      // console.log("hehe", response.data.result)
     } catch (e) {
       console.log(e);
     }
   };
-  const fetchApiDetailshoe = async (id) => {
+  const fetchApiDetailProduct = async (id) => {
     try {
-      setIsModalOpen1(true);
+      setIsModalOpenUpdate(true);
       const response = await axios.get(`http://localhost:8000/api/product/${id}`);
-
       const product = response.data.result;
-
-      setPayload((prevPayload) => ({
+      console.log('respone detail product ne', response);
+      console.log('product nè hehe', product);
+      setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
         name: product.name,
-        // description: product.description,
+        image: product.image,
         amount: product.amount,
-        // color: product.color,
-        // size: product.size,
-        // category: product.Category.name,
-        // brand: product.Brand.name,
+        import_price: product.import_price,
+        price: product.price,
       }));
     } catch (e) {
       toast.error(e.message);
     }
   };
 
-  const fetchApiCategories = async () => {
-    const response = await axios.get('http://localhost:8000/api/category');
-    const categoriesData = await response.data.categories;
-    setCategories(categoriesData);
-  };
-
-  const fetchApiBrand = async () => {
-    const response = await axios.get('http://localhost:8000/api/brand');
-    const brandData = await response.data.brands;
-    setBrand(brandData);
-  };
-
-  const handleAddshoe = async (idCategory, idBrand, name, price, import_price, description, color, image) => {
+  const handleAddproduct = async (image, name, amount, import_price, price) => {
     await axios
       .post(
-        'http://localhost:8000/api/product/add',
+        'http://localhost:8000/api/product',
         {
-          // id_category: idCategory,
-          // id_brand: idBrand,
+          image: image,
           name: name,
-          price: price,
+          amount: amount,
           import_price: import_price,
-          // description: description,
-          // color: color,
-          // image: image,
+          price: price,
         },
         {
           headers: {
@@ -167,78 +126,76 @@ function ManageProducts() {
         toast.success(res.data.message);
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 1000);
       })
       .catch((err) => {
         toast.error(err);
       });
   };
 
-  const handleAddShoeSize = async (size, amount) => {
-    try {
-      await axios
-        .post(
-          `http://localhost:8000/api/product/add_size/${shoeIDSize}`,
-          {
-            amount: amount,
-            size: size,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${GetToken()}`,
-            },
-          },
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        })
-        .catch((e) => {
-          toast.error(e);
-        });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  const handleUpdateshoe = async (id, idCategory, idBrand, name, size, color, amount, description) => {
+  const handleUpdateProduct = async (name, amount, import_price, price ) => {
     if (!validateForm()) {
       return;
     } else {
-      await axios
-        .put(
-          `http://localhost:8000/api/product/updateInfor/${id}`,
-          {
-            // id_category:   idCategory,
-            // id_brand: idBrand,
-            name: name,
-            // size: size,
-            // color: color,
-            amount: amount,     
-            // description: description,
+      const Dungroine = await axios
+      .put(
+        `http://localhost:8000/api/product/updateInfor/${productId}`,
+        {
+          name: name,
+          amount: amount,
+          import_price: import_price,
+          price: price,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${GetToken()}`,
           },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${GetToken()}`,
-            },
-          },
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        })
-        .catch((e) => {
-          toast.error(e);
-        });
+        },
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((e) => {
+        toast.error(e);
+      });
+      console.log("Dung roi ne", Dungroine)
     }
   };
-  const handleDeleteshoe = async (id) => {
+
+  const handleUpdateImage = async(image) =>{
+    if (!validateForm()) {
+      return;
+    } else {
+    await axios
+      .put(
+        `http://localhost:8000/api/product/updateImages/${productId}`,
+        {
+          image: image
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${GetToken()}`,
+          },
+        },
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((e) => {
+        toast.error(e);
+      });
+  };
+  }
+
+  const handleDeleteProduct = async (id) => {
     await axios
       .delete(`http://localhost:8000/api/product/delete/${id}`, {
         headers: {
@@ -250,7 +207,7 @@ function ManageProducts() {
         toast.success(res.data.message);
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 1000);
       })
       .catch((e) => {
         alert(e);
@@ -258,82 +215,84 @@ function ManageProducts() {
   };
 
   useEffect(() => {
-    getshoes();
-    fetchApiCategories();
-    fetchApiBrand();
+    getProduct();
   }, []);
 
   useEffect(() => {
-    const result = product.filter((product) => {
-      return product.name.toLowerCase().match(search.toLowerCase());
+    if (!products || !Array.isArray(products)) {
+      console.log('Error!');
+    }
+
+    const result = products.filter((product) => {
+      return product.name && product.name.toLowerCase().match(search.toLowerCase());
     });
 
-    setFilteredProduct(result);
-  }, [search, product]);
+    setfilteredProducts(result);
+  }, [search, products]);
 
-  const modalAnimation1 = useSpring({
-    opacity: isModalOpen1 ? 1 : 0,
+  const modalAnimationUpdate = useSpring({
+    opacity: isModalOpenUpdate ? 1 : 0,
   });
-  const modalAnimation2 = useSpring({
-    opacity: isModalOpen2 ? 1 : 0,
-  });
-  const modalAnimation3 = useSpring({
-    opacity: isModalOpen3 ? 1 : 0,
+  const modalAnimationAdd = useSpring({
+    opacity: isModalOpenAdd ? 1 : 0,
   });
 
-  const closeModal1 = () => {
-    setIsModalOpen1(false);
+  const closeModalUpdate = () => {
+    setIsModalOpenUpdate(false);
   };
 
-  const openModal2 = () => {
-    setIsModalOpen2(true);
-    setPayload({});
+  const openModalAdd = () => {
+    setIsModalOpenAdd(true);
+    setPayloadUpdate({});
   };
 
-  const openModal3 = () => {
-    setIsModalOpen3(true);
-    setPayload({});
+  const closeModalAdd = () => {
+    setIsModalOpenAdd(false);
   };
 
-  const closeModal2 = () => {
-    setIsModalOpen2(false);
-  };
-
-  const closeModal3 = () => {
-    setIsModalOpen3(false);
-    setShoeIDSize();
-  };
 
   const columns = [
     {
-      name: 'Shoes name',
+      name: 'Avatar',
+      selector: (row) => row.image,
+      cell: (row) => <img src={row.image} alt={row.name} width="100px" height="100px" />,
+    },
+    {
+      name: 'Product name',
       selector: (row) => row.name,
       sortable: true,
     },
-    // {
-    //   name: 'Category',
-    //   selector: (row) => row.Category.name,
-    // },
-    // {
-    //   name: 'Brand',
-    //   selector: (row) => row.Brand.name,
-    // },
-    // {
-    //   name: 'Selling price',
-    //   selector: (row) => row.price,
-    //   sortable: true,
-    // },
+    {
+      name: 'Amount',
+      selector: (row) => row.amount,
+      sortable: true,
+    },
     {
       name: 'Import price',
       selector: (row) => row.import_price,
       sortable: true,
     },
+    {
+      name: 'Price',
+      selector: (row) => row.price,
+      sortable: true,
+    },
+    {
+      name: 'Total star',
+      selector: (row) => row.totalStar,
+      sortable: true,
+    },
+    {
+      name: 'Sold Product Num',
+      selector: (row) => row.soldProductNum,
+      sortable: true,
+    },
   ];
 
   const handleRowClick = (row) => {
-    const ShoeID = row.id;
-    fetchApiDetailshoe(ShoeID);
-    setShoeID(ShoeID);
+    const productId = row.id;
+    fetchApiDetailProduct(productId);
+    setProductId(productId);
   };
 
   const handleImgChange = (e) => {
@@ -342,7 +301,6 @@ function ManageProducts() {
     reader.onload = (e) => {
       setImage(e.target.result);
     };
-
     reader.readAsDataURL(file);
     setAvatar(e.target.files[0]);
   };
@@ -351,7 +309,7 @@ function ManageProducts() {
     <div className={cx('wrapper')}>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         transition={Flip}
         hideProgressBar={false}
         newestOnTop={false}
@@ -363,9 +321,9 @@ function ManageProducts() {
         theme="light"
       />
       <DataTable
-        title="Shoes list"
+        title="Products list"
         columns={columns}
-        data={filteredProduct}
+        data={filteredProducts}
         fixedHeader
         fixedHeaderScrollHeight="500px"
         pointerOnHover
@@ -375,15 +333,12 @@ function ManageProducts() {
         subHeader
         subHeaderComponent={
           <div className={cx('wrapper-header')} style={{ zIndex: 0 }}>
-            <Button onClick={openModal2} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
-              Add shoe
-            </Button>
-            <Button onClick={openModal3} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
-              Add shoe size
+            <Button onClick={openModalAdd} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
+              Add Product
             </Button>
             <input
               type="text"
-              placeholder="Search for shoes here"
+              placeholder="Search for products here"
               className={cx('search')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -395,162 +350,105 @@ function ManageProducts() {
         }}
       />
 
-      <Popup isOpen={isModalOpen1} onRequestClose={() => closeModal1()} width={'700px'} height={'700px'}>
-        <animated.div style={modalAnimation1}>
-          <h2>Shoe information</h2>
+      <Popup isOpen={isModalOpenUpdate} onRequestClose={() => closeModalUpdate()} width={'700px'} height={'700px'}>
+        <animated.div style={modalAnimationUpdate}>
+          <h2>Product information</h2>
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe name hahahaha</div>
+          <div className={cx('header')}>Image of product</div>
+          <div className={cx('input-field')}>
+            <div className={cx('upload-field')}>
+              {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+              <label htmlFor="file-upload" className={cx('upload-btn')}>
+                <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
+                <input id="file-upload" type="file" onChange={handleImgChange}></input>
+              </label>
+            </div>
+            <Button onClick={() => handleUpdateImage(avatar)} outline>
+              Change Image
+            </Button>
+          </div>
+            <div className={cx('header')}>Product name</div>
             <InputForm
-              placeholder="Enter name shoe..."
+              placeholder="Enter name product..."
               type="text"
-              value={payload.name}
-              setValue={setPayload}
+              value={payloadUpdate.name}
+              setValue={setPayloadUpdate}
               name={'name'}
               className={cx('input')}
               leftIcon={faShoePrints}
             />
             {errorMessages.name && <div className={cx('error-message')}>{errorMessages.name}</div>}
           </div>
-          <div className={cx('header')}>Description</div>
+
+          <div className={cx('header')}>Amount</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="Enter shoe description..."
+              placeholder="Enter product amount..."
               type="text"
-              value={payload.description}
-              setValue={setPayload}
-              name={'description'}
+              value={payloadUpdate.amount}
+              setValue={setPayloadUpdate}
+              name={'amount'}
               className={cx('input')}
               leftIcon={faAudioDescription}
             />
-            {errorMessages.description && <div className={cx('error-message')}>{errorMessages.description}</div>}
+            {errorMessages.amount && <div className={cx('error-message')}>{errorMessages.amount}</div>}
           </div>
-          <div className={cx('header')}>Color</div>
+
+          <div className={cx('header')}>Import price</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="Enter shoe color..."
+              placeholder="Enter product import price..."
               type="text"
-              value={payload.color}
-              setValue={setPayload}
-              name={'color'}
+              value={payloadUpdate.import_price}
+              setValue={setPayloadUpdate}
+              name={'import_name'}
               className={cx('input')}
               leftIcon={faAudioDescription}
             />
-            {errorMessages.color && <div className={cx('error-message')}>{errorMessages.color}</div>}
+            {errorMessages.import_price && <div className={cx('error-message')}>{errorMessages.import_price}</div>}
           </div>
-          <div className={cx('header')}>Select category</div>
+          
+          <div className={cx('header')}>Price</div>
           <div className={cx('input-field')}>
-            <CustomSelect data={categories} setId={setSelectedCategoryId}></CustomSelect>
-            {errorMessages.category && <div className={cx('error-message')}>{errorMessages.category}</div>}
+            <InputForm
+              placeholder="Enter product price..."
+              type="text"
+              value={payloadUpdate.price}
+              setValue={setPayloadUpdate}
+              name={'price'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+            {errorMessages.price && <div className={cx('error-message')}>{errorMessages.price}</div>}
           </div>
-          <div className={cx('header')}>Select brand</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={brand} setId={selectedBrandId}></CustomSelect>
-            {errorMessages.brand && <div className={cx('error-message')}>{errorMessages.brand}</div>}
-          </div>
+
           <div className={cx('options')}>
-            <Button
-              onClick={() =>
-                handleUpdateshoe(
-                  shoeId,
-                  selectedCategoryId,
-                  selectedBrandId,
-                  payload.name,
-                  payload.size,
-                  payload.color,
-                  payload.amount,
-                  payload.description,
-                )
-              }
-              outline
-            >
+            <Button onClick={() => handleUpdateProduct(
+              payloadUpdate.name, 
+              payloadUpdate.amount,
+              payloadUpdate.import_price,
+              payloadUpdate.price
+            )} outline>
               Change information
             </Button>
-            <Button onClick={() => handleDeleteshoe(shoeId)} primary>
+            <Button onClick={() => handleDeleteProduct(productId)} primary>
               Delete
             </Button>
           </div>
         </animated.div>
       </Popup>
+
       <Popup
-        isOpen={isModalOpen2}
-        onRequestClose={() => closeModal2()}
+        isOpen={isModalOpenAdd}
+        onRequestClose={() => closeModalAdd()}
         width={'700px'}
         height={'700px'}
         className={cx('popup')}
       >
-        <animated.div style={modalAnimation2}>
-          <h2>shoe information hahah</h2>
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe name</div>
-            <InputForm
-              placeholder="Enter name shoe..."
-              type="text"
-              value={payload.name}
-              setValue={setPayload2}
-              name={'name'}
-              className={cx('input')}
-              leftIcon={faShoePrints}
-            />
-          </div>
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Price</div>
-            <InputForm
-              placeholder="Enter shoe price..."
-              type="text"
-              value={payload.price}
-              setValue={setPayload2}
-              name={'price'}
-              className={cx('input')}
-              leftIcon={faMoneyBill}
-            />
-          </div>
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Import price</div>
-            <InputForm
-              placeholder="Enter shoe import price..."
-              type="text"
-              value={payload.import_price}
-              setValue={setPayload2}
-              name={'import_price'}
-              className={cx('input')}
-              leftIcon={faMoneyBill}
-            />
-          </div>
-          <div className={cx('header')}>Description</div>
-          <div className={cx('input-field')}>
-            <InputForm
-              placeholder="Enter shoe description..."
-              type="text"
-              value={payload.description}
-              setValue={setPayload2}
-              name={'description'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-          </div>
+        <animated.div style={modalAnimationAdd}>
+          <h2>Add Product</h2>
 
-          <div className={cx('header')}>Color</div>
-          <div className={cx('input-field')}>
-            <InputForm
-              placeholder="Enter shoe color..."
-              type="text"
-              value={payload.color}
-              setValue={setPayload2}
-              name={'color'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-          </div>
-
-          <div className={cx('header')}>Select category</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={categories} setId={setSelectedCategoryId}></CustomSelect>
-          </div>
-          <div className={cx('header')}>Select brand</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={brand} setId={setSelectedBrandId}></CustomSelect>
-          </div>
-          <div className={cx('header')}>Image of shoe</div>
+          <div className={cx('header')}>Image of product</div>
           <div className={cx('input-field')}>
             <div className={cx('upload-field')}>
               {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
@@ -560,67 +458,67 @@ function ManageProducts() {
               </label>
             </div>
           </div>
-          <div className={cx('options')}>
-            <Button
-              onClick={() =>
-                handleAddshoe(
-                  selectedCategoryId,
-                  selectedBrandId,
-                  payload2.name,
-                  payload2.price,
-                  payload2.import_price,
-                  payload2.description,
-                  payload2.color,
-                  avatar,
-                )
-              }
-              outline
-            >
-              Confirm
-            </Button>
-          </div>
-        </animated.div>
-      </Popup>
 
-      <Popup
-        isOpen={isModalOpen3}
-        onRequestClose={() => closeModal3()}
-        width={'600px'}
-        height={'500px'}
-        className={cx('popup')}
-      >
-        <animated.div style={modalAnimation3}>
-          <h2>Add shoe size</h2>
-          <div className={cx('header')}>Select shoes</div>
           <div className={cx('input-field')}>
-            <CustomSelect data={product} setId={setShoeIDSize}></CustomSelect>
-          </div>
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe size</div>
+            <div className={cx('header')}>Product name</div>
             <InputForm
-              placeholder="Enter size shoe..."
+              placeholder="Enter name products..."
               type="text"
-              value={payload.size}
-              setValue={setPayload}
-              name={'size'}
+              value={payloadUpdate.name}
+              setValue={setPayloadAddProduct}
+              name={'name'}
               className={cx('input')}
               leftIcon={faShoePrints}
             />
           </div>
+
+          <div className={cx('header')}>Amount</div>
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe amount</div>
             <InputForm
-              placeholder="Enter amount shoe..."
+              placeholder="Enter product amount..."
               type="text"
-              value={payload.amount}
-              setValue={setPayload}
-              name={'amount'}
+              value={payloadUpdate.amount}
+              setValue={setPayloadAddProduct}
+              name={'description'}
               className={cx('input')}
-              leftIcon={faShoePrints}
+              leftIcon={faAudioDescription}
             />
           </div>
+
+          <div className={cx('header')}>Import price</div>
+          <div className={cx('input-field')}>
+            <InputForm
+              placeholder="Enter product import price..."
+              type="text"
+              value={payloadUpdate.import_price}
+              setValue={setPayloadAddProduct}
+              name={'description'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+          </div>
+
+          <div className={cx('header')}>Price</div>
+          <div className={cx('input-field')}>
+            <InputForm
+              placeholder="Enter product price..."
+              type="text"
+              value={payloadUpdate.price}
+              setValue={setPayloadAddProduct}
+              name={'description'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+          </div>
+
           <div className={cx('options')}>
-            <Button onClick={() => handleAddShoeSize(payload.size, payload.amount)} outline>
+            <Button onClick={() => handleAddproduct(
+                avatar, 
+                payloadAddProduct.name, 
+                payloadAddProduct.amount, 
+                payloadAddProduct.import_price, 
+                payloadAddProduct.price
+            )} outline>
               Confirm
             </Button>
           </div>
