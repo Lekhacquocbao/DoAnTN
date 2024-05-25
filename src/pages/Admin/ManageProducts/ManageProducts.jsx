@@ -212,12 +212,12 @@ function ManageProducts() {
         .put(
           `http://localhost:8000/api/product/updateInfor/${id}`,
           {
-            // id_category: idCategory,
+            // id_category:   idCategory,
             // id_brand: idBrand,
             name: name,
             // size: size,
             // color: color,
-            amount: amount,
+            amount: amount,     
             // description: description,
           },
           {
@@ -399,7 +399,7 @@ function ManageProducts() {
         <animated.div style={modalAnimation1}>
           <h2>Shoe information</h2>
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe name</div>
+            <div className={cx('header')}>Shoe name hahahaha</div>
             <InputForm
               placeholder="Enter name shoe..."
               type="text"
@@ -479,7 +479,7 @@ function ManageProducts() {
         className={cx('popup')}
       >
         <animated.div style={modalAnimation2}>
-          <h2>shoe information</h2>
+          <h2>shoe information hahah</h2>
           <div className={cx('input-field')}>
             <div className={cx('header')}>Shoe name</div>
             <InputForm
@@ -581,6 +581,7 @@ function ManageProducts() {
           </div>
         </animated.div>
       </Popup>
+
       <Popup
         isOpen={isModalOpen3}
         onRequestClose={() => closeModal3()}

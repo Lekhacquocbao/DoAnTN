@@ -24,8 +24,7 @@ function ManageBreeds() {
   const [filteredBreeds, setFilteredBreeds] = useState([]);
   const [payloadUpdate, setPayloadUpdate] = useState({
     name: '',
-    description: '',
-    image: image
+    description: ''
   });
 
   const [payloadAddBreed, setPayloadAddBreed] = useState({
@@ -110,7 +109,7 @@ function ManageBreeds() {
         toast.success(res.data.message);
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 1000);
       })
       .catch((err) => {
         toast.error(err);
@@ -139,7 +138,7 @@ function ManageBreeds() {
           toast.success(res.data.message);
           setTimeout(() => {
             window.location.reload();
-          }, 2000);
+          }, 1000);
         })
         .catch((e) => {
           toast.error(e);
@@ -168,11 +167,11 @@ function ManageBreeds() {
         toast.success(res.data.message);
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
-        console.log("sai")
+        }, 1000);
       })
       .catch((e) => {
         toast.error(e);
+        console.log("sai nha")
       });
       console.log("update roi nha", updateRoiNha)
   };
@@ -190,7 +189,7 @@ function ManageBreeds() {
         toast.success(res.data.message);
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 1000);
       })
       .catch((e) => {
         alert(e);
@@ -233,28 +232,28 @@ function ManageBreeds() {
     setIsModalOpenAdd(false);
   };
 
-  const ImageWithChangeIcon = ({ row }) => {
-    return (
-      <div className={cx('image-container')}>
-        <img 
-          src={row.image}
-          alt={row.name} 
-          // width="80px" 
-          // height="100px" 
-        />
-        <div className={cx('change-icon')}>
-          <input className={cx('input-change-image')} onChange={handleImgChange} type='file'></input>
-        </div>
+  // const ImageWithChangeIcon = ({ row }) => {
+  //   return (
+  //     <div className={cx('image-container')}>
+  //       <img 
+  //         src={row.image}
+  //         alt={row.name} 
+  //         // width="80px" 
+  //         // height="100px" 
+  //       />
+  //       <div className={cx('change-icon')}>
+  //         <input className={cx('input-change-image')} onChange={handleImgChange} type='file'></input>
+  //       </div>
           
-      </div>
-    );
-  };
+  //     </div>
+  //   );
+  // };
 
   const columns = [
     {
       name: 'Avatar',
       selector: (row) => row.image,
-      cell: (row) => <ImageWithChangeIcon row={row} />,
+      cell: (row) => <img src={row.image} alt={row.name} width="100px" height="100px" />,
     },
     {
       name: 'Breed name',
@@ -280,21 +279,15 @@ function ManageBreeds() {
     reader.onload = (e) => {
       setImage(e.target.result);
     };
-    console.log("file nè",file)
     reader.readAsDataURL(file);
     setAvatar(e.target.files[0]);
-    console.log("đã up loaff nha")
   };
-
-  // const AvatarDisplay = ({ src, alt }) => {
-  //   return <img src={src} alt={alt} style={{ width: '100px', height: '100px', borderRadius: '50%' }} />;
-  // };
 
   return (
     <div className={cx('wrapper')}>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         transition={Flip}
         hideProgressBar={false}
         newestOnTop={false}
@@ -348,7 +341,7 @@ function ManageBreeds() {
                 <input id="file-upload" type="file" onChange={handleImgChange}></input>
               </label>
             </div>
-            <Button onClick={() => handleUpdateImage(payloadUpdate.image)} outline>
+            <Button onClick={() => handleUpdateImage(avatar)} outline>
               Change Image
             </Button>
           </div>

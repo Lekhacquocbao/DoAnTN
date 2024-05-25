@@ -401,7 +401,8 @@ function ManageServices() {
 
       <Popup isOpen={isModalOpen1} onRequestClose={() => closeModal1()} width={'700px'} height={'700px'}>
         <animated.div style={modalAnimation1}>
-          <h2>Breed information</h2>
+          <h2>Breed information hahah</h2>
+
           <div className={cx('input-field')}>
             <div className={cx('header')}>Breed name</div>
             <InputForm
@@ -415,6 +416,7 @@ function ManageServices() {
             />
             {errorMessages.name && <div className={cx('error-message')}>{errorMessages.name}</div>}
           </div>
+
           <div className={cx('header')}>Description</div>
           <div className={cx('input-field')}>
             <InputForm
@@ -428,19 +430,8 @@ function ManageServices() {
             />
             {errorMessages.description && <div className={cx('error-message')}>{errorMessages.description}</div>}
           </div>
-          {/* <div className={cx('header')}>Color</div> */}
-          {/* <div className={cx('input-field')}>
-            <InputForm
-              placeholder="Enter shoe color..."
-              type="text"
-              value={payload.color}
-              setValue={setPayload}
-              name={'color'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-            {errorMessages.color && <div className={cx('error-message')}>{errorMessages.color}</div>}
-          </div> */}
+
+
           <div className={cx('header')}>Select category</div>
           <div className={cx('input-field')}>
             <CustomSelect data={categories} setId={setSelectedCategoryId}></CustomSelect>
@@ -451,6 +442,7 @@ function ManageServices() {
             <CustomSelect data={brand} setId={selectedBrandId}></CustomSelect>
             {errorMessages.brand && <div className={cx('error-message')}>{errorMessages.brand}</div>}
           </div>
+
           <div className={cx('options')}>
             <Button
               onClick={() =>
@@ -475,6 +467,7 @@ function ManageServices() {
           </div>
         </animated.div>
       </Popup>
+      
       <Popup
         isOpen={isModalOpen2}
         onRequestClose={() => closeModal2()}
