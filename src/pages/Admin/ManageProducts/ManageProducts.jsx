@@ -12,6 +12,7 @@ import InputForm from '~/components/InputForm/InputForm';
 import Popup from '~/components/Popup/Popup';
 import GetToken from '~/Token/GetToken';
 import styles from './ManageProducts.module.scss';
+import CustomSelect from '~/components/CustomSelect';
 
 const cx = classNames.bind(styles);
 
@@ -20,9 +21,12 @@ function ManageProducts() {
   const [avatar, setAvatar] = useState([]);
   const [image, setImage] = useState([]);
   const [productId, setProductId] = useState();
+  const [categories, setCategories] = useState([]);
+  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
   const [search, setSearch] = useState('');
   const [filteredProducts, setfilteredProducts] = useState([]);
   const [payloadUpdate, setPayloadUpdate] = useState({
+    id_product: '',
     name: '',
     amount: '',
     import_price: '',
@@ -30,7 +34,7 @@ function ManageProducts() {
   });
 
   const [payloadAddProduct, setPayloadAddProduct] = useState({
-    id_breed: '',
+    id_product: '',
     name: '',
     amount: '',
     import_price: '',
@@ -90,10 +94,11 @@ function ManageProducts() {
       setIsModalOpenUpdate(true);
       const response = await axios.get(`http://localhost:8000/api/product/${id}`);
       const product = response.data.result;
-      console.log('respone detail product ne', response);
-      console.log('product nè hehe', product);
+      // console.log('respone detail product ne', response);
+      // console.log('product nè hehe', product);
       setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
+        id_breed: product.id_breed,
         name: product.name,
         image: product.image,
         amount: product.amount,
@@ -105,14 +110,21 @@ function ManageProducts() {
     }
   };
 
-  const handleAddproduct = async (id_breed, image, name, amount, import_price, price) => {
+  const fetchApiCategories = async () => {
+    const response = await axios.get('http://localhost:8000/api/breed');
+    console.log("response", response)
+    const categoriesData = await response.data.breeds;
+    setCategories(categoriesData);
+  };
+
+  const handleAddproduct = async (image, name,id_breed, amount, import_price, price) => {
     await axios
       .post(
         'http://localhost:8000/api/product/add',
         {
-          id_breed: id_breed,
           image: image,
           name: name,
+          id_breed: id_breed,
           amount: amount,
           import_price: import_price,
           price: price,
@@ -135,7 +147,7 @@ function ManageProducts() {
       });
   };
 
-  const handleUpdateProduct = async (name, amount, import_price, price ) => {
+  const handleUpdateProduct = async (id_breed, name, amount, import_price, price ) => {
     if (!validateForm()) {
       return;
     } else {
@@ -143,6 +155,7 @@ function ManageProducts() {
       .put(
         `http://localhost:8000/api/product/updateInfor/${productId}`,
         {
+          id_breed: id_breed,
           name: name,
           amount: amount,
           import_price: import_price,
@@ -218,6 +231,7 @@ function ManageProducts() {
 
   useEffect(() => {
     getProduct();
+    fetchApiCategories();
   }, []);
 
   useEffect(() => {
@@ -265,6 +279,11 @@ function ManageProducts() {
       sortable: true,
     },
     {
+      name: 'Breed name',
+      selector: (row) => row.breeds,
+      sortable: true,
+    },
+    {
       name: 'Amount',
       selector: (row) => row.amount,
       sortable: true,
@@ -277,16 +296,6 @@ function ManageProducts() {
     {
       name: 'Price',
       selector: (row) => row.price,
-      sortable: true,
-    },
-    {
-      name: 'Total star',
-      selector: (row) => row.totalStar,
-      sortable: true,
-    },
-    {
-      name: 'Sold Product Num',
-      selector: (row) => row.soldProductNum,
       sortable: true,
     },
   ];
@@ -426,6 +435,7 @@ function ManageProducts() {
 
           <div className={cx('options')}>
             <Button onClick={() => handleUpdateProduct(
+              selectedCategoryId,
               payloadUpdate.name, 
               payloadUpdate.amount,
               payloadUpdate.import_price,
@@ -474,6 +484,12 @@ function ManageProducts() {
             />
           </div>
 
+          <div className={cx('header')}>Select breed</div>
+          <div className={cx('input-field')}>
+            <CustomSelect data={categories} setId={setSelectedCategoryId}></CustomSelect>
+            {errorMessages.category && <div className={cx('error-message')}>{errorMessages.category}</div>}
+          </div>
+
           <div className={cx('header')}>Amount</div>
           <div className={cx('input-field')}>
             <InputForm
@@ -516,7 +532,8 @@ function ManageProducts() {
           <div className={cx('options')}>
             <Button onClick={() => handleAddproduct(
                 avatar, 
-                payloadAddProduct.name, 
+                payloadAddProduct.name,
+                selectedCategoryId,
                 payloadAddProduct.amount, 
                 payloadAddProduct.import_price, 
                 payloadAddProduct.price
