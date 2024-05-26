@@ -68,7 +68,7 @@ function ManageBreeds() {
       console.log(e);
     }
   };
-  const fetchApiDetailbreed = async (id) => {
+  const fetchApiDetailBreed = async (id) => {
     try {
       setIsModalOpenUpdate(true);
       const response = await axios.get(`http://localhost:8000/api/breed/${id}`);
@@ -249,7 +249,7 @@ function ManageBreeds() {
 
   const handleRowClick = (row) => {
     const breedId = row.id;
-    fetchApiDetailbreed(breedId);
+    fetchApiDetailBreed(breedId);
     setBreedId(breedId);
   };
 

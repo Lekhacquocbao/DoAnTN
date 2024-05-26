@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import DataTable from 'react-data-table-component';
-import { faAudioDescription, faShoePrints, faMoneyBill, faPlus, faUpload } from '@fortawesome/free-solid-svg-icons';
+import { faAudioDescription, faShoePrints, faPlus, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { useSpring, animated } from 'react-spring';
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -10,7 +10,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Button from '~/components/Button/Button';
 import InputForm from '~/components/InputForm/InputForm';
 import Popup from '~/components/Popup/Popup';
-import CustomSelect from '~/components/CustomSelect';
 import GetToken from '~/Token/GetToken';
 import styles from './ManageServices.module.scss';
 
@@ -20,130 +19,95 @@ function ManageServices() {
   const [services, setServices] = useState([]);
   const [avatar, setAvatar] = useState([]);
   const [image, setImage] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [brand, setBrand] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
-  const [selectedBrandId, setSelectedBrandId] = useState(null);
-  const [breedId, setBreedId] = useState();
-  const [shoeIDSize, setShoeIDSize] = useState();
+  const [serviceId, setServiceId] = useState();
   const [search, setSearch] = useState('');
   const [filteredServices, setFilteredServices] = useState([]);
-  const [payload, setPayload] = useState({
+  const [payloadUpdate, setPayloadUpdate] = useState({
     name: '',
-    // category: '',
-    // brand: '',
-    // color: '',
-    // price: '',
-    // import_price: '',
     description: '',
-    // size: '',
-    // amount: '',
+    price: '',
   });
 
-  const [payload2, setPayload2] = useState({
+  const [payloadAddService, setpayloadAddService] = useState({
     name: '',
-    // category: '',
-    // brand: '',
-    // color: '',
-    // price: '',
-    // import_price: '',
     description: '',
-    // size: '',
-    // amount: '',
+    price: '',
   });
 
   const [errorMessages, setErrorMessages] = useState({
     name: null,
-    // category: null,
-    // brand: null,
-    // color: null,
-    // price: null,
-    // import_price: null,
     description: null,
-    // size: null,
-    // amount: null,
+    price: null,
   });
-
+  
   const validateForm = () => {
     let isValid = true;
     const errors = {};
-
-    if (!payload.name.trim()) {
-      errors.name = 'Please enter breed name';
+  
+    const name = (payloadUpdate.name || '').toString().trim();
+    const description = (payloadUpdate.description || '').toString().trim();
+    const price = (payloadUpdate.price || '').toString().trim();
+  
+    if (!name) {
+      errors.name = 'Please enter service name';
       isValid = false;
     }
-
-    if (!payload.description.trim()) {
+    if (!description) {
       errors.description = 'Please enter a description';
       isValid = false;
     }
-
-    // if (!payload.price.toString().trim()) {
-    //   errors.price = 'Please enter selling price';
-    //   isValid = false;
-    // }
-
-    if (!payload.publisher.trim()) {
-      errors.publisher = 'Please enter publisher';
+    if (!price) {
+      errors.price = 'Please enter a price';
       isValid = false;
     }
-
+  
     setErrorMessages(errors);
-
     return isValid;
   };
+  
 
-  const [isModalOpen1, setIsModalOpen1] = useState(false);
-  const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [isModalOpen3, setIsModalOpen3] = useState(false);
+  const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
+  const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
 
-  const getshoes = async () => {
+  const getService = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/service?limit=10000');
-      setServices(response.data.result);
+      setServices(response.data.result);  
       setFilteredServices(response.data.result);
       console.log("respone 1 ne",response);
-      console.log("hehe", response.data.result)
+      console.log("hehe", response.data.breeds)
     } catch (e) {
       console.log(e);
     }
   };
-  const fetchApiDetailshoe = async (id) => {
+  const fetchApiDetailService = async (id) => {
     try {
-      setIsModalOpen1(true);
+      setIsModalOpenUpdate(true);
       const response = await axios.get(`http://localhost:8000/api/service/${id}`);
-
-      const breed = response.data.result;
-      console.log("respone 2 ne",response)
-      console.log("breed nè hehe",breed)
-      setPayload((prevPayload) => ({
+      const service = response.data.result;
+        console.log('respone detail breed ne', response);
+        console.log('breed nè hehe', service);
+      setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
-        name: breed.name,
-        description: breed.description,
-        // amount: shoe.amount,
-        // color: shoe.color,
-        // size: shoe.size,
-        // category: shoe.Category.name,
-        // brand: shoe.Brand.name,
+        name: service.name,
+        description: service.description,
+        image: service.image,
+        price: service.price
       }));
     } catch (e) {
       toast.error(e.message);
     }
   };
 
-  const handleAddshoe = async (idCategory, idBrand, name, price, import_price, description, color, image) => {
+  const handleAddbreed = async (image, name, description, price) => {
     await axios
       .post(
         'http://localhost:8000/api/service/add',
         {
-          // id_category: idCategory,
-          // id_brand: idBrand,
-          name: name,
-          // price: price,
-          // import_price: import_price,
-          description: description,
-          // color: color,
           image: image,
+          name: name,
+          description: description,
+          price: price
         },
         {
           headers: {
@@ -156,59 +120,24 @@ function ManageServices() {
         toast.success(res.data.message);
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 1000);
       })
       .catch((err) => {
         toast.error(err);
       });
   };
 
-  const handleAddShoeSize = async (size, amount) => {
-    try {
-      await axios
-        .post(
-          `http://localhost:8000/api/breed/add_size/${shoeIDSize}`,
-          {
-            amount: amount,
-            size: size,
-          },
-          {
-            headers: {
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${GetToken()}`,
-            },
-          },
-        )
-        .then((res) => {
-          toast.success(res.data.message);
-          setTimeout(() => {
-            window.location.reload();
-          }, 2000);
-        })
-        .catch((e) => {
-          toast.error(e);
-        });
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
-
-  // const handleUpdateshoe = async (id, idCategory, idBrand, name, size, color, amount, description) => {
-  const handleUpdateshoe = async (id, name, description) => {
+  const handleUpdateService = async (name, description, price) => {
     if (!validateForm()) {
       return;
     } else {
       await axios
         .put(
-          `http://localhost:8000/api/service/updateInfor/${id}`,
+          `http://localhost:8000/api/service/updateInfor/${serviceId}`,
           {
-            // id_category: idCategory,
-            // id_brand: idBrand,
             name: name,
-            // size: size,
-            // color: color,
-            // amount: amount,
             description: description,
+            price: price
           },
           {
             headers: {
@@ -221,14 +150,46 @@ function ManageServices() {
           toast.success(res.data.message);
           setTimeout(() => {
             window.location.reload();
-          }, 2000);
+          }, 1000);
         })
         .catch((e) => {
           toast.error(e);
         });
     }
   };
-  const handleDeleteshoe = async (id) => {
+
+  const handleUpdateImage = async(image) =>{
+    if (!validateForm()) {
+      return;
+    } else {
+      const updateRoiNha = await axios
+      .put(
+        `http://localhost:8000/api/service/updateImage/${serviceId}`,
+        {
+          image: image
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${GetToken()}`,
+          },
+        },
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((e) => {
+        toast.error(e);
+        console.log("sai nha")
+      });
+      console.log("update roi nha", updateRoiNha)
+  };
+  }
+
+  const handleDeleteService = async (id) => {
     await axios
       .delete(`http://localhost:8000/api/service/delete/${id}`, {
         headers: {
@@ -240,7 +201,7 @@ function ManageServices() {
         toast.success(res.data.message);
         setTimeout(() => {
           window.location.reload();
-        }, 2000);
+        }, 1000);
       })
       .catch((e) => {
         alert(e);
@@ -248,96 +209,68 @@ function ManageServices() {
   };
 
   useEffect(() => {
-    getshoes();
-    // fetchApiCategories();
-    // fetchApiBrand();
+    getService();
   }, []);
-
-  // useEffect(() => {
-  //   const result = breeds.filter((breeds) => {
-  //     return breeds.name.toLowerCase().match(search.toLowerCase());
-  //   });
-
-  //   setFilteredShoes(result);
-  // }, [search, breeds]);
 
   useEffect(() => {
     if (!services || !Array.isArray(services)) {
-        console.log("sai rồi thằng ngu")
+      console.log('sai rồi');
     }
 
-    const result = services.filter((breed) => {
-      return breed.name && breed.name.toLowerCase().match(search.toLowerCase());
-  });
-  
+    const result = services.filter((service) => {
+      return service.name && service.name.toLowerCase().match(search.toLowerCase());
+    });
 
     setFilteredServices(result);
-}, [search, services]);
+  }, [search, services]);
 
-
-  const modalAnimation1 = useSpring({
-    opacity: isModalOpen1 ? 1 : 0,
+  const modalAnimationUpdate = useSpring({
+    opacity: isModalOpenUpdate ? 1 : 0,
   });
-  const modalAnimation2 = useSpring({
-    opacity: isModalOpen2 ? 1 : 0,
-  });
-  const modalAnimation3 = useSpring({
-    opacity: isModalOpen3 ? 1 : 0,
+  const modalAnimationAdd = useSpring({
+    opacity: isModalOpenAdd ? 1 : 0,
   });
 
-  const closeModal1 = () => {
-    setIsModalOpen1(false);
+  const closeModalUpdate = () => {
+    setIsModalOpenUpdate(false);
   };
 
-  const openModal2 = () => {
-    setIsModalOpen2(true);
-    setPayload({});
+  const openModalAdd = () => {
+    setIsModalOpenAdd(true);
+    setPayloadUpdate({});
   };
 
-  const openModal3 = () => {
-    setIsModalOpen3(true);
-    setPayload({});
-  };
-
-  const closeModal2 = () => {
-    setIsModalOpen2(false);
-  };
-
-  const closeModal3 = () => {
-    setIsModalOpen3(false);
-    setShoeIDSize();
+  const closeModalAdd = () => {
+    setIsModalOpenAdd(false);
   };
 
   const columns = [
     {
-      name: 'Breed name',
+      name: 'Avatar',
+      selector: (row) => row.image,
+      cell: (row) => <img src={row.image} alt={row.name} width="100px" height="100px" />,
+    },
+    {
+      name: 'Service name',
       selector: (row) => row.name,
       sortable: true,
     },
-    // {
-    //   name: 'Category',
-    //   selector: (row) => row.Category.name,
-    // },
-    // {
-    //   name: 'Brand',
-    //   selector: (row) => row.Brand.name,
-    // },
-    // {
-    //   name: 'Selling price',
-    //   selector: (row) => row.price,
-    //   sortable: true,
-    // },
-    // {
-    //   name: 'Import price',
-    //   selector: (row) => row.import_price,
-    //   sortable: true,
-    // },
+    {
+      name: 'Description',
+      selector: (row) => row.description,
+      sortable: true,
+    },
+    {
+      name: 'Price',
+      selector: (row) => row.price,
+      sortable: true,
+    },
   ];
 
   const handleRowClick = (row) => {
-    const BreedId = row.id;
-    fetchApiDetailshoe(BreedId);
-    setBreedId(BreedId);
+    const serviceId = row.id;
+    fetchApiDetailService(serviceId);
+    setServiceId(serviceId );
   };
 
   const handleImgChange = (e) => {
@@ -346,7 +279,6 @@ function ManageServices() {
     reader.onload = (e) => {
       setImage(e.target.result);
     };
-
     reader.readAsDataURL(file);
     setAvatar(e.target.files[0]);
   };
@@ -355,7 +287,7 @@ function ManageServices() {
     <div className={cx('wrapper')}>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={3000}
         transition={Flip}
         hideProgressBar={false}
         newestOnTop={false}
@@ -367,7 +299,7 @@ function ManageServices() {
         theme="light"
       />
       <DataTable
-        title="Shoes list"
+        title="Services list"
         columns={columns}
         data={filteredServices}
         fixedHeader
@@ -379,15 +311,12 @@ function ManageServices() {
         subHeader
         subHeaderComponent={
           <div className={cx('wrapper-header')} style={{ zIndex: 0 }}>
-            <Button onClick={openModal2} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
-              Add Breed
-            </Button>
-            <Button onClick={openModal3} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
-              Add Breed size
+            <Button onClick={openModalAdd} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
+              Add Service
             </Button>
             <input
               type="text"
-              placeholder="Search for shoes here"
+              placeholder="Search for services here"
               className={cx('search')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -399,17 +328,29 @@ function ManageServices() {
         }}
       />
 
-      <Popup isOpen={isModalOpen1} onRequestClose={() => closeModal1()} width={'700px'} height={'700px'}>
-        <animated.div style={modalAnimation1}>
-          <h2>Breed information hahah</h2>
-
+      <Popup isOpen={isModalOpenUpdate} onRequestClose={() => closeModalUpdate()} width={'700px'} height={'700px'}>
+        <animated.div style={modalAnimationUpdate}>
+          <h2>Service information</h2>
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Breed name</div>
+          <div className={cx('header')}>Image of service</div>
+          <div className={cx('input-field')}>
+            <div className={cx('upload-field')}>
+              {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+              <label htmlFor="file-upload" className={cx('upload-btn')}>
+                <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
+                <input id="file-upload" type="file" onChange={handleImgChange}></input>
+              </label>
+            </div>
+            <Button onClick={() => handleUpdateImage(avatar)} outline>
+              Change Image
+            </Button>
+          </div>
+            <div className={cx('header')}>Service name</div>
             <InputForm
-              placeholder="Enter name shoe..."
+              placeholder="Enter name service..."
               type="text"
-              value={payload.name}
-              setValue={setPayload}
+              value={payloadUpdate.name}
+              setValue={setPayloadUpdate}
               name={'name'}
               className={cx('input')}
               leftIcon={faShoePrints}
@@ -420,10 +361,10 @@ function ManageServices() {
           <div className={cx('header')}>Description</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="Enter shoe description..."
+              placeholder="Enter breed description..."
               type="text"
-              value={payload.description}
-              setValue={setPayload}
+              value={payloadUpdate.description}
+              setValue={setPayloadUpdate}
               name={'description'}
               className={cx('input')}
               leftIcon={faAudioDescription}
@@ -431,123 +372,42 @@ function ManageServices() {
             {errorMessages.description && <div className={cx('error-message')}>{errorMessages.description}</div>}
           </div>
 
-
-          <div className={cx('header')}>Select category</div>
+          <div className={cx('header')}>Price</div>
           <div className={cx('input-field')}>
-            <CustomSelect data={categories} setId={setSelectedCategoryId}></CustomSelect>
-            {errorMessages.category && <div className={cx('error-message')}>{errorMessages.category}</div>}
-          </div>
-          <div className={cx('header')}>Select brand</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={brand} setId={selectedBrandId}></CustomSelect>
-            {errorMessages.brand && <div className={cx('error-message')}>{errorMessages.brand}</div>}
+            <InputForm
+              placeholder="Enter price service..."
+              type="text"
+              value={payloadUpdate.price}
+              setValue={setPayloadUpdate}
+              name={'price'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+            {errorMessages.description && <div className={cx('error-message')}>{errorMessages.description}</div>}
           </div>
 
           <div className={cx('options')}>
-            <Button
-              onClick={() =>
-                handleUpdateshoe(
-                  breedId,
-                  selectedCategoryId,
-                  selectedBrandId,
-                  payload.name,
-                  // payload.size,
-                  // payload.color,
-                  // payload.amount,
-                  payload.description,
-                )
-              }
-              outline
-            >
+            <Button onClick={() => handleUpdateService(payloadUpdate.name, payloadUpdate.description, payloadUpdate.price)} outline>
               Change information
             </Button>
-            <Button onClick={() => handleDeleteshoe(breedId)} primary>
+            <Button onClick={() => handleDeleteService(serviceId)} primary>
               Delete
             </Button>
           </div>
         </animated.div>
       </Popup>
-      
+
       <Popup
-        isOpen={isModalOpen2}
-        onRequestClose={() => closeModal2()}
+        isOpen={isModalOpenAdd}
+        onRequestClose={() => closeModalAdd()}
         width={'700px'}
         height={'700px'}
         className={cx('popup')}
       >
-        <animated.div style={modalAnimation2}>
-          <h2>shoe information</h2>
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe name</div>
-            <InputForm
-              placeholder="Enter name shoe..."
-              type="text"
-              value={payload.name}
-              setValue={setPayload2}
-              name={'name'}
-              className={cx('input')}
-              leftIcon={faShoePrints}
-            />
-          </div>
-          {/* <div className={cx('input-field')}>
-            <div className={cx('header')}>Price</div>
-            <InputForm
-              placeholder="Enter shoe price..."
-              type="text"
-              value={payload.price}
-              setValue={setPayload2}
-              name={'price'}
-              className={cx('input')}
-              leftIcon={faMoneyBill}
-            />
-          </div> */}
-          {/* <div className={cx('input-field')}>
-            <div className={cx('header')}>Import price</div>
-            <InputForm
-              placeholder="Enter shoe import price..."
-              type="text"
-              value={payload.import_price}
-              setValue={setPayload2}
-              name={'import_price'}
-              className={cx('input')}
-              leftIcon={faMoneyBill}
-            />
-          </div> */}
-          <div className={cx('header')}>Description</div>
-          <div className={cx('input-field')}>
-            <InputForm
-              placeholder="Enter shoe description..."
-              type="text"
-              value={payload.description}
-              setValue={setPayload2}
-              name={'description'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-          </div>
+        <animated.div style={modalAnimationAdd}>
+          <h2>Add Service</h2>
 
-          {/* <div className={cx('header')}>Color</div>
-          <div className={cx('input-field')}>
-            <InputForm
-              placeholder="Enter shoe color..."
-              type="text"
-              value={payload.color}
-              setValue={setPayload2}
-              name={'color'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-          </div> */}
-
-          <div className={cx('header')}>Select category</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={categories} setId={setSelectedCategoryId}></CustomSelect>
-          </div>
-          <div className={cx('header')}>Select brand</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={brand} setId={setSelectedBrandId}></CustomSelect>
-          </div>
-          <div className={cx('header')}>Image of shoe</div>
+          <div className={cx('header')}>Image of service</div>
           <div className={cx('input-field')}>
             <div className={cx('upload-field')}>
               {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
@@ -557,66 +417,48 @@ function ManageServices() {
               </label>
             </div>
           </div>
-          <div className={cx('options')}>
-            <Button
-              onClick={() =>
-                handleAddshoe(
-                  selectedCategoryId,
-                  selectedBrandId,
-                  payload2.name,
-                  // payload2.price,
-                  // payload2.import_price,
-                  payload2.description,
-                  // payload2.color,
-                  avatar,
-                )
-              }
-              outline
-            >
-              Confirm
-            </Button>
-          </div>
-        </animated.div>
-      </Popup>
-      <Popup
-        isOpen={isModalOpen3}
-        onRequestClose={() => closeModal3()}
-        width={'600px'}
-        height={'500px'}
-        className={cx('popup')}
-      >
-        <animated.div style={modalAnimation3}>
-          <h2>Add shoe size</h2>
-          <div className={cx('header')}>Select shoes</div>
+
           <div className={cx('input-field')}>
-            <CustomSelect data={services} setId={setShoeIDSize}></CustomSelect>
-          </div>
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Shoe size</div>
+            <div className={cx('header')}>Service name</div>
             <InputForm
-              placeholder="Enter size shoe..."
+              placeholder="Enter name service..."
               type="text"
-              value={payload.size}
-              setValue={setPayload}
-              name={'size'}
+              value={payloadUpdate.name}
+              setValue={setpayloadAddService}
+              name={'name'}
               className={cx('input')}
               leftIcon={faShoePrints}
             />
           </div>
+
+          <div className={cx('header')}>Description</div>
           <div className={cx('input-field')}>
-            {/* <div className={cx('header')}>Shoe amount</div>
             <InputForm
-              placeholder="Enter amount shoe..."
+              placeholder="Enter service description..."
               type="text"
-              value={payload.amount}
-              setValue={setPayload}
-              name={'amount'}
+              value={payloadUpdate.description}
+              setValue={setpayloadAddService}
+              name={'description'}
               className={cx('input')}
-              leftIcon={faShoePrints}
-            /> */}
+              leftIcon={faAudioDescription}
+            />
           </div>
+
+          <div className={cx('header')}>Price</div>
+          <div className={cx('input-field')}>
+            <InputForm
+              placeholder="Enter price..."
+              type="text"
+              value={payloadUpdate.price}
+              setValue={setpayloadAddService}
+              name={'description'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+          </div>
+          
           <div className={cx('options')}>
-            <Button onClick={() => handleAddShoeSize(payload.size, payload.amount)} outline>
+            <Button onClick={() => handleAddbreed(avatar, payloadAddService.name, payloadAddService.description, payloadAddService.price)} outline>
               Confirm
             </Button>
           </div>

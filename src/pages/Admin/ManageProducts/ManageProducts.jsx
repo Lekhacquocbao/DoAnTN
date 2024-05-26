@@ -30,6 +30,7 @@ function ManageProducts() {
   });
 
   const [payloadAddProduct, setPayloadAddProduct] = useState({
+    id_breed: '',
     name: '',
     amount: '',
     import_price: '',
@@ -104,11 +105,12 @@ function ManageProducts() {
     }
   };
 
-  const handleAddproduct = async (image, name, amount, import_price, price) => {
+  const handleAddproduct = async (id_breed, image, name, amount, import_price, price) => {
     await axios
       .post(
-        'http://localhost:8000/api/product',
+        'http://localhost:8000/api/product/add',
         {
+          id_breed: id_breed,
           image: image,
           name: name,
           amount: amount,
