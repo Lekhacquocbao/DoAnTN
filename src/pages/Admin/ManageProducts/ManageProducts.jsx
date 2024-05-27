@@ -179,10 +179,10 @@ await axios
         .catch((e) => {
           toast.error(e);
         });
-        console.log("name", name)
-        console.log("amount", amount);
-        console.log("import price", import_price);
-        console.log("peice", price);
+        // console.log("name", name)
+        // console.log("amount", amount);
+        // console.log("import price", import_price);
+        // console.log("peice", price);
     }
   };
 

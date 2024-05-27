@@ -39,32 +39,27 @@ function ManageServices() {
     description: null,
     price: null,
   });
-  
+
   const validateForm = () => {
     let isValid = true;
     const errors = {};
-  
-    const name = (payloadUpdate.name || '').toString().trim();
-    const description = (payloadUpdate.description || '').toString().trim();
-    const price = (payloadUpdate.price || '').toString().trim();
-  
-    if (!name) {
+
+    if (!payloadUpdate.name.trim()) {
       errors.name = 'Please enter service name';
       isValid = false;
     }
-    if (!description) {
+    if (!payloadUpdate.description.trim()) {
       errors.description = 'Please enter a description';
       isValid = false;
     }
-    if (!price) {
+    if (!payloadUpdate.price.toString().trim()) {
       errors.price = 'Please enter a price';
       isValid = false;
     }
-  
+
     setErrorMessages(errors);
     return isValid;
   };
-  
 
   const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
   const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
@@ -72,10 +67,10 @@ function ManageServices() {
   const getService = async () => {
     try {
       const response = await axios.get('http://localhost:8000/api/service?limit=10000');
-      setServices(response.data.result);  
+      setServices(response.data.result);
       setFilteredServices(response.data.result);
-      console.log("respone 1 ne",response);
-      console.log("hehe", response.data.breeds)
+      // console.log("respone 1 ne",response);
+      // console.log("hehe", response.data.breeds)
     } catch (e) {
       console.log(e);
     }
@@ -85,21 +80,21 @@ function ManageServices() {
       setIsModalOpenUpdate(true);
       const response = await axios.get(`http://localhost:8000/api/service/${id}`);
       const service = response.data.result;
-        console.log('respone detail breed ne', response);
-        console.log('breed nè hehe', service);
+      // console.log('respone detail breed ne', response);
+      // console.log('breed nè hehe', service);n 
       setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
         name: service.name,
         description: service.description,
-        image: service.image,
-        price: service.price
+        // image: service.image,
+        price: service.price,
       }));
     } catch (e) {
       toast.error(e.message);
     }
   };
 
-  const handleAddbreed = async (image, name, description, price) => {
+  const handleAddService = async (image, name, description, price) => {
     await axios
       .post(
         'http://localhost:8000/api/service/add',
@@ -107,7 +102,7 @@ function ManageServices() {
           image: image,
           name: name,
           description: description,
-          price: price
+          price: price,
         },
         {
           headers: {
@@ -137,7 +132,7 @@ function ManageServices() {
           {
             name: name,
             description: description,
-            price: price
+            price: price,
           },
           {
             headers: {
@@ -158,36 +153,34 @@ function ManageServices() {
     }
   };
 
-  const handleUpdateImage = async(image) =>{
+  const handleUpdateImage = async (image) => {
     if (!validateForm()) {
       return;
     } else {
-      const updateRoiNha = await axios
-      .put(
-        `http://localhost:8000/api/service/updateImage/${serviceId}`,
-        {
-          image: image
-        },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${GetToken()}`,
+      await axios
+        .put(
+          `http://localhost:8000/api/service/updateImage/${serviceId}`,
+          {
+            image: image,
           },
-        },
-      )
-      .then((res) => {
-        toast.success(res.data.message);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      })
-      .catch((e) => {
-        toast.error(e);
-        console.log("sai nha")
-      });
-      console.log("update roi nha", updateRoiNha)
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${GetToken()}`,
+            },
+          },
+        )
+        .then((res) => {
+          toast.success(res.data.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((e) => {
+          toast.error(e);
+        });
+    }
   };
-  }
 
   const handleDeleteService = async (id) => {
     await axios
@@ -214,7 +207,7 @@ function ManageServices() {
 
   useEffect(() => {
     if (!services || !Array.isArray(services)) {
-      console.log('sai rồi');
+      console.log('Error!');
     }
 
     const result = services.filter((service) => {
@@ -270,7 +263,7 @@ function ManageServices() {
   const handleRowClick = (row) => {
     const serviceId = row.id;
     fetchApiDetailService(serviceId);
-    setServiceId(serviceId );
+    setServiceId(serviceId);
   };
 
   const handleImgChange = (e) => {
@@ -332,19 +325,19 @@ function ManageServices() {
         <animated.div style={modalAnimationUpdate}>
           <h2>Service information</h2>
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Image of service</div>
-          <div className={cx('input-field')}>
-            <div className={cx('upload-field')}>
-              {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
-              <label htmlFor="file-upload" className={cx('upload-btn')}>
-                <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
-                <input id="file-upload" type="file" onChange={handleImgChange}></input>
-              </label>
+            <div className={cx('header')}>Image of service</div>
+            <div className={cx('input-field')}>
+              <div className={cx('upload-field')}>
+                {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+                <label htmlFor="file-upload" className={cx('upload-btn')}>
+                  <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
+                  <input id="file-upload" type="file" onChange={handleImgChange}></input>
+                </label>
+              </div>
+              <Button onClick={() => handleUpdateImage(avatar)} outline>
+                Change Image
+              </Button>
             </div>
-            <Button onClick={() => handleUpdateImage(avatar)} outline>
-              Change Image
-            </Button>
-          </div>
             <div className={cx('header')}>Service name</div>
             <InputForm
               placeholder="Enter name service..."
@@ -387,7 +380,10 @@ function ManageServices() {
           </div>
 
           <div className={cx('options')}>
-            <Button onClick={() => handleUpdateService(payloadUpdate.name, payloadUpdate.description, payloadUpdate.price)} outline>
+            <Button
+              onClick={() => handleUpdateService(payloadUpdate.name, payloadUpdate.description, payloadUpdate.price)}
+              outline
+            >
               Change information
             </Button>
             <Button onClick={() => handleDeleteService(serviceId)} primary>
@@ -451,14 +447,19 @@ function ManageServices() {
               type="text"
               value={payloadUpdate.price}
               setValue={setpayloadAddService}
-              name={'description'}
+              name={'price'}
               className={cx('input')}
               leftIcon={faAudioDescription}
             />
           </div>
-          
+
           <div className={cx('options')}>
-            <Button onClick={() => handleAddbreed(avatar, payloadAddService.name, payloadAddService.description, payloadAddService.price)} outline>
+            <Button
+              onClick={() =>
+                handleAddService(avatar, payloadAddService.name, payloadAddService.description, payloadAddService.price)
+              }
+              outline
+            >
               Confirm
             </Button>
           </div>

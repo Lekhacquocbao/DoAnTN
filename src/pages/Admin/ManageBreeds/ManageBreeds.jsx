@@ -24,7 +24,7 @@ function ManageBreeds() {
   const [filteredBreeds, setFilteredBreeds] = useState([]);
   const [payloadUpdate, setPayloadUpdate] = useState({
     name: '',
-    description: ''
+    description: '',
   });
 
   const [payloadAddBreed, setPayloadAddBreed] = useState({
@@ -73,8 +73,8 @@ function ManageBreeds() {
       setIsModalOpenUpdate(true);
       const response = await axios.get(`http://localhost:8000/api/breed/${id}`);
       const breed = response.data.breedDetail;
-        // console.log('respone detail breed ne', response);
-        // console.log('breed nè hehe', breed);
+      // console.log('respone detail breed ne', response);
+      // console.log('breed nè hehe', breed);
       setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
         image: breed.image,
@@ -143,36 +143,34 @@ function ManageBreeds() {
     }
   };
 
-  const handleUpdateImage = async(image) =>{
+  const handleUpdateImage = async (image) => {
     if (!validateForm()) {
       return;
     } else {
-      const updateRoiNha = await axios
-      .put(
-        `http://localhost:8000/api/breed/updateImage/${breedId}`,
-        {
-          image: image
-        },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${GetToken()}`,
+      await axios
+        .put(
+          `http://localhost:8000/api/breed/updateImage/${breedId}`,
+          {
+            image: image,
           },
-        },
-      )
-      .then((res) => {
-        toast.success(res.data.message);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      })
-      .catch((e) => {
-        toast.error(e);
-        // console.log("sai nha")
-      });
-      // console.log("update roi nha", updateRoiNha)
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${GetToken()}`,
+            },
+          },
+        )
+        .then((res) => {
+          toast.success(res.data.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((e) => {
+          toast.error(e);
+        });
+    }
   };
-  }
 
   const handleDeleteBreed = async (id) => {
     await axios
@@ -312,19 +310,19 @@ function ManageBreeds() {
         <animated.div style={modalAnimationUpdate}>
           <h2>Breed information</h2>
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Image of breed</div>
-          <div className={cx('input-field')}>
-            <div className={cx('upload-field')}>
-              {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
-              <label htmlFor="file-upload" className={cx('upload-btn')}>
-                <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
-                <input id="file-upload" type="file" onChange={handleImgChange}></input>
-              </label>
+            <div className={cx('header')}>Image of breed</div>
+            <div className={cx('input-field')}>
+              <div className={cx('upload-field')}>
+                {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+                <label htmlFor="file-upload" className={cx('upload-btn')}>
+                  <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
+                  <input id="file-upload" type="file" onChange={handleImgChange}></input>
+                </label>
+              </div>
+              <Button onClick={() => handleUpdateImage(avatar)} outline>
+                Change Image
+              </Button>
             </div>
-            <Button onClick={() => handleUpdateImage(avatar)} outline>
-              Change Image
-            </Button>
-          </div>
             <div className={cx('header')}>Breed name</div>
             <InputForm
               placeholder="Enter name breed..."
@@ -356,7 +354,7 @@ function ManageBreeds() {
             <Button onClick={() => handleUpdatebreed(payloadUpdate.name, payloadUpdate.description)} outline>
               Change information
             </Button>
-            <Button onClick={() => handleDeleteBreed (breedId)} primary>
+            <Button onClick={() => handleDeleteBreed(breedId)} primary>
               Delete
             </Button>
           </div>
