@@ -287,7 +287,7 @@ function ManageServices() {
     <div className={cx('wrapper')}>
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={2000}
         transition={Flip}
         hideProgressBar={false}
         newestOnTop={false}
@@ -383,7 +383,7 @@ function ManageServices() {
               className={cx('input')}
               leftIcon={faAudioDescription}
             />
-            {errorMessages.description && <div className={cx('error-message')}>{errorMessages.description}</div>}
+            {errorMessages.price && <div className={cx('error-message')}>{errorMessages.price}</div>}
           </div>
 
           <div className={cx('options')}>

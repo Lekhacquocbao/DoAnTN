@@ -73,13 +73,13 @@ function ManageBreeds() {
       setIsModalOpenUpdate(true);
       const response = await axios.get(`http://localhost:8000/api/breed/${id}`);
       const breed = response.data.breedDetail;
-        console.log('respone detail breed ne', response);
-        console.log('breed nè hehe', breed);
+        // console.log('respone detail breed ne', response);
+        // console.log('breed nè hehe', breed);
       setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
+        image: breed.image,
         name: breed.name,
         description: breed.description,
-        image: breed.image,
       }));
     } catch (e) {
       toast.error(e.message);
@@ -168,13 +168,13 @@ function ManageBreeds() {
       })
       .catch((e) => {
         toast.error(e);
-        console.log("sai nha")
+        // console.log("sai nha")
       });
-      console.log("update roi nha", updateRoiNha)
+      // console.log("update roi nha", updateRoiNha)
   };
   }
 
-  const handleDeletebreed = async (id) => {
+  const handleDeleteBreed = async (id) => {
     await axios
       .delete(`http://localhost:8000/api/breed/delete/${id}`, {
         headers: {
@@ -199,7 +199,7 @@ function ManageBreeds() {
 
   useEffect(() => {
     if (!breeds || !Array.isArray(breeds)) {
-      console.log('sai rồi');
+      console.log('Error!');
     }
 
     const result = breeds.filter((breed) => {
@@ -267,7 +267,7 @@ function ManageBreeds() {
     <div className={cx('wrapper')}>
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={2000}
         transition={Flip}
         hideProgressBar={false}
         newestOnTop={false}
@@ -356,7 +356,7 @@ function ManageBreeds() {
             <Button onClick={() => handleUpdatebreed(payloadUpdate.name, payloadUpdate.description)} outline>
               Change information
             </Button>
-            <Button onClick={() => handleDeletebreed(breedId)} primary>
+            <Button onClick={() => handleDeleteBreed (breedId)} primary>
               Delete
             </Button>
           </div>

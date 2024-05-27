@@ -21,21 +21,21 @@ function ManageProducts() {
   const [avatar, setAvatar] = useState([]);
   const [image, setImage] = useState([]);
   const [productId, setProductId] = useState();
-  const [categories, setCategories] = useState([]);
-  const [selectedCategoryId, setSelectedCategoryId] = useState(null);
+  const [breeds, setBreeds] = useState([]);
+  const [selectedBreedId, setSelectedBreedId] = useState(null);
   const [search, setSearch] = useState('');
   const [filteredProducts, setfilteredProducts] = useState([]);
   const [payloadUpdate, setPayloadUpdate] = useState({
-    id_product: '',
     name: '',
+    breed: '',
     amount: '',
     import_price: '',
     price: '',
   });
 
   const [payloadAddProduct, setPayloadAddProduct] = useState({
-    id_product: '',
     name: '',
+    breed: '',
     amount: '',
     import_price: '',
     price: '',
@@ -43,7 +43,10 @@ function ManageProducts() {
 
   const [errorMessages, setErrorMessages] = useState({
     name: null,
-    description: null,
+    breed: null,
+    amount: null,
+    import_price: null,
+    price: null,
   });
 
   const validateForm = () => {
@@ -54,24 +57,20 @@ function ManageProducts() {
       errors.name = 'Please enter product name';
       isValid = false;
     }
-
-    // if (!payloadUpdate.amount.toString().trim()) {
-    //   errors.description = 'Please enter a amount';
-    //   isValid = false;
-    // }
-
-    // if (!payloadUpdate.import_price.toString().trim()) {
-    //   errors.description = 'Please enter a import_price';
-    //   isValid = false;
-    // }
-
-    // if (!payloadUpdate.price.toString().trim()) {
-    //   errors.description = 'Please enter a selling price';
-    //   isValid = false;
-    // }
+    if (!payloadUpdate.amount.toString().trim()) {
+      errors.amount = 'Please enter a amount';
+      isValid = false;
+    }
+    if (!payloadUpdate.import_price.toString().trim()) {
+      errors.price = 'Please enter a import_price';
+      isValid = false;
+    }
+    if (!payloadUpdate.price.toString().trim()) {
+      errors.price = 'Please enter a selling price';
+      isValid = false;
+    }
 
     setErrorMessages(errors);
-
     return isValid;
   };
 
@@ -89,18 +88,18 @@ function ManageProducts() {
       console.log(e);
     }
   };
+
   const fetchApiDetailProduct = async (id) => {
     try {
       setIsModalOpenUpdate(true);
       const response = await axios.get(`http://localhost:8000/api/product/${id}`);
       const product = response.data.result;
-      // console.log('respone detail product ne', response);
-      // console.log('product nè hehe', product);
+      console.log('respone detail product ne', response);
+      console.log('product nè hehe', product);
       setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
-        id_breed: product.id_breed,
         name: product.name,
-        image: product.image,
+        breed: product.Breed.id,
         amount: product.amount,
         import_price: product.import_price,
         price: product.price,
@@ -110,105 +109,111 @@ function ManageProducts() {
     }
   };
 
-  const fetchApiCategories = async () => {
+  const fetchApiBreeds = async () => {
     const response = await axios.get('http://localhost:8000/api/breed');
-    console.log("response", response)
-    const categoriesData = await response.data.breeds;
-    setCategories(categoriesData);
+    // console.log('response', response);
+    const breedsData = await response.data.breeds;
+    setBreeds(breedsData);
+  };
+  
+  const handleAddProduct = async (image, name, id_breed, amount, import_price, price) => {
+await axios
+   .post(
+     'http://localhost:8000/api/product/add',
+     {
+       image: image,
+       name: name,
+       id_breed: id_breed,
+       amount: amount,
+       import_price: import_price,
+       price: price,
+     },
+     {
+       headers: {
+         'Content-Type': 'multipart/form-data',
+         Authorization: `Bearer ${GetToken()}`,
+       },
+     },
+   )
+   .then((res) => {
+     toast.success(res.data.message);
+     setTimeout(() => {
+       window.location.reload();
+     }, 1000);
+   })
+   .catch((err) => {
+     toast.error(err);
+   });
+  //  console.log("name", name)
+  //  console.log("amount", amount);
+  //  console.log("import price", import_price);
+  //  console.log("peice", price);
   };
 
-  const handleAddproduct = async (image, name,id_breed, amount, import_price, price) => {
-    await axios
-      .post(
-        'http://localhost:8000/api/product/add',
-        {
-          image: image,
-          name: name,
-          id_breed: id_breed,
-          amount: amount,
-          import_price: import_price,
-          price: price,
-        },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${GetToken()}`,
-          },
-        },
-      )
-      .then((res) => {
-        toast.success(res.data.message);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      })
-      .catch((err) => {
-        toast.error(err);
-      });
-  };
-
-  const handleUpdateProduct = async (id_breed, name, amount, import_price, price ) => {
+  const handleUpdateProduct = async (name, amount, import_price, price) => {
     if (!validateForm()) {
       return;
     } else {
-      const Dungroine = await axios
-      .put(
-        `http://localhost:8000/api/product/updateInfor/${productId}`,
-        {
-          id_breed: id_breed,
-          name: name,
-          amount: amount,
-          import_price: import_price,
-          price: price,
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GetToken()}`,
+      await axios
+        .put(
+          `http://localhost:8000/api/product/updateInfor/${productId}`,
+          {
+            name: name,
+            amount: amount,
+            import_price: import_price,
+            price: price,
           },
-        },
-      )
-      .then((res) => {
-        toast.success(res.data.message);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      })
-      .catch((e) => {
-        toast.error(e);
-      });
-      console.log("Dung roi ne", Dungroine)
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${GetToken()}`,
+            },
+          },
+        )
+        .then((res) => {
+          toast.success(res.data.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((e) => {
+          toast.error(e);
+        });
+        console.log("name", name)
+        console.log("amount", amount);
+        console.log("import price", import_price);
+        console.log("peice", price);
     }
   };
 
-  const handleUpdateImage = async(image) =>{
+  const handleUpdateImage = async (image) => {
     if (!validateForm()) {
       return;
     } else {
-    await axios
-      .put(
-        `http://localhost:8000/api/product/updateImages/${productId}`,
-        {
-          image: image
-        },
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-            Authorization: `Bearer ${GetToken()}`,
+      await axios
+        .put(
+          `http://localhost:8000/api/product/updateImages/${productId}`,
+          {
+            image: image,
           },
-        },
-      )
-      .then((res) => {
-        toast.success(res.data.message);
-        setTimeout(() => {
-          window.location.reload();
-        }, 1000);
-      })
-      .catch((e) => {
-        toast.error(e);
-      });
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              Authorization: `Bearer ${GetToken()}`,
+            },
+          },
+        )
+        .then((res) => {
+          toast.success(res.data.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((e) => {
+          toast.error(e);
+        });
+    }
   };
-  }
 
   const handleDeleteProduct = async (id) => {
     await axios
@@ -231,7 +236,7 @@ function ManageProducts() {
 
   useEffect(() => {
     getProduct();
-    fetchApiCategories();
+    fetchApiBreeds();
   }, []);
 
   useEffect(() => {
@@ -266,7 +271,6 @@ function ManageProducts() {
     setIsModalOpenAdd(false);
   };
 
-
   const columns = [
     {
       name: 'Avatar',
@@ -280,7 +284,7 @@ function ManageProducts() {
     },
     {
       name: 'Breed name',
-      selector: (row) => row.breeds,
+      selector: (row) => row.Breed.name,
       sortable: true,
     },
     {
@@ -320,7 +324,7 @@ function ManageProducts() {
     <div className={cx('wrapper')}>
       <ToastContainer
         position="top-right"
-        autoClose={3000}
+        autoClose={2000}
         transition={Flip}
         hideProgressBar={false}
         newestOnTop={false}
@@ -361,95 +365,6 @@ function ManageProducts() {
         }}
       />
 
-      <Popup isOpen={isModalOpenUpdate} onRequestClose={() => closeModalUpdate()} width={'700px'} height={'700px'}>
-        <animated.div style={modalAnimationUpdate}>
-          <h2>Product information</h2>
-          <div className={cx('input-field')}>
-          <div className={cx('header')}>Image of product</div>
-          <div className={cx('input-field')}>
-            <div className={cx('upload-field')}>
-              {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
-              <label htmlFor="file-upload" className={cx('upload-btn')}>
-                <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
-                <input id="file-upload" type="file" onChange={handleImgChange}></input>
-              </label>
-            </div>
-            <Button onClick={() => handleUpdateImage(avatar)} outline>
-              Change Image
-            </Button>
-          </div>
-            <div className={cx('header')}>Product name</div>
-            <InputForm
-              placeholder="Enter name product..."
-              type="text"
-              value={payloadUpdate.name}
-              setValue={setPayloadUpdate}
-              name={'name'}
-              className={cx('input')}
-              leftIcon={faShoePrints}
-            />
-            {errorMessages.name && <div className={cx('error-message')}>{errorMessages.name}</div>}
-          </div>
-
-          <div className={cx('header')}>Amount</div>
-          <div className={cx('input-field')}>
-            <InputForm
-              placeholder="Enter product amount..."
-              type="text"
-              value={payloadUpdate.amount}
-              setValue={setPayloadUpdate}
-              name={'amount'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-            {errorMessages.amount && <div className={cx('error-message')}>{errorMessages.amount}</div>}
-          </div>
-
-          <div className={cx('header')}>Import price</div>
-          <div className={cx('input-field')}>
-            <InputForm
-              placeholder="Enter product import price..."
-              type="text"
-              value={payloadUpdate.import_price}
-              setValue={setPayloadUpdate}
-              name={'import_name'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-            {errorMessages.import_price && <div className={cx('error-message')}>{errorMessages.import_price}</div>}
-          </div>
-          
-          <div className={cx('header')}>Price</div>
-          <div className={cx('input-field')}>
-            <InputForm
-              placeholder="Enter product price..."
-              type="text"
-              value={payloadUpdate.price}
-              setValue={setPayloadUpdate}
-              name={'price'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-            {errorMessages.price && <div className={cx('error-message')}>{errorMessages.price}</div>}
-          </div>
-
-          <div className={cx('options')}>
-            <Button onClick={() => handleUpdateProduct(
-              selectedCategoryId,
-              payloadUpdate.name, 
-              payloadUpdate.amount,
-              payloadUpdate.import_price,
-              payloadUpdate.price
-            )} outline>
-              Change information
-            </Button>
-            <Button onClick={() => handleDeleteProduct(productId)} primary>
-              Delete
-            </Button>
-          </div>
-        </animated.div>
-      </Popup>
-
       <Popup
         isOpen={isModalOpenAdd}
         onRequestClose={() => closeModalAdd()}
@@ -486,59 +401,163 @@ function ManageProducts() {
 
           <div className={cx('header')}>Select breed</div>
           <div className={cx('input-field')}>
-            <CustomSelect data={categories} setId={setSelectedCategoryId}></CustomSelect>
-            {errorMessages.category && <div className={cx('error-message')}>{errorMessages.category}</div>}
+            <CustomSelect data={breeds} setId={setSelectedBreedId}></CustomSelect>
+            {/* {errorMessages.category && <div className={cx('error-message')}>{errorMessages.category}</div>} */}
           </div>
 
-          <div className={cx('header')}>Amount</div>
           <div className={cx('input-field')}>
+          <div className={cx('header')}>Amount</div>
             <InputForm
               placeholder="Enter product amount..."
               type="text"
               value={payloadUpdate.amount}
               setValue={setPayloadAddProduct}
-              name={'description'}
+              name={'amount'}
               className={cx('input')}
               leftIcon={faAudioDescription}
             />
           </div>
 
-          <div className={cx('header')}>Import price</div>
           <div className={cx('input-field')}>
+          <div className={cx('header')}>Import price</div>
             <InputForm
               placeholder="Enter product import price..."
               type="text"
               value={payloadUpdate.import_price}
               setValue={setPayloadAddProduct}
-              name={'description'}
+              name={'import_price'}
               className={cx('input')}
               leftIcon={faAudioDescription}
             />
           </div>
 
-          <div className={cx('header')}>Price</div>
           <div className={cx('input-field')}>
+          <div className={cx('header')}>Price</div>
             <InputForm
               placeholder="Enter product price..."
               type="text"
               value={payloadUpdate.price}
               setValue={setPayloadAddProduct}
-              name={'description'}
+              name={'price'}
               className={cx('input')}
               leftIcon={faAudioDescription}
             />
           </div>
 
           <div className={cx('options')}>
-            <Button onClick={() => handleAddproduct(
-                avatar, 
-                payloadAddProduct.name,
-                selectedCategoryId,
-                payloadAddProduct.amount, 
-                payloadAddProduct.import_price, 
-                payloadAddProduct.price
-            )} outline>
+            <Button
+              onClick={() =>
+                handleAddProduct(
+                  avatar,
+                  payloadAddProduct.name,
+                  selectedBreedId,
+                  payloadAddProduct.amount,
+                  payloadAddProduct.import_price,
+                  payloadAddProduct.price,
+                )
+              }
+              outline
+            >
               Confirm
+            </Button>
+          </div>
+        </animated.div>
+      </Popup>
+
+      <Popup 
+        isOpen={isModalOpenUpdate}
+         onRequestClose={() => closeModalUpdate()} 
+         width={'700px'} 
+         height={'700px'}
+      >
+        <animated.div style={modalAnimationUpdate}>
+          <h2>Product information</h2>
+
+            <div className={cx('header')}>Image of product</div>
+            <div className={cx('input-field')}>
+              <div className={cx('upload-field')}>
+                {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+                <label htmlFor="file-upload" className={cx('upload-btn')}>
+                  <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
+                  <input id="file-upload" type="file" onChange={handleImgChange}></input>
+                </label>
+              </div>
+              <Button onClick={() => handleUpdateImage(avatar)} outline>
+                Change Image
+              </Button>
+            </div>
+
+            <div className={cx('input-field')}>
+            <div className={cx('header')}>Product name</div>
+            <InputForm
+              placeholder="Enter name product..."
+              type="text"
+              value={payloadUpdate.name}
+              setValue={setPayloadUpdate}
+              name={'name'}
+              className={cx('input')}
+              leftIcon={faShoePrints}
+            />
+            {errorMessages.name && <div className={cx('error-message')}>{errorMessages.name}</div>}
+          </div>
+
+          <div className={cx('input-field')}>
+          <div className={cx('header')}>Amount</div>
+            <InputForm
+              placeholder="Enter product amount..."
+              type="text"
+              value={payloadUpdate.amount}
+              setValue={setPayloadUpdate}
+              name={'amount'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+            {errorMessages.amount && <div className={cx('error-message')}>{errorMessages.amount}</div>}
+          </div>
+
+          <div className={cx('input-field')}>
+          <div className={cx('header')}>Import price</div>
+            <InputForm
+              placeholder="Enter product import price..."
+              type="text"
+              value={payloadUpdate.import_price}
+              setValue={setPayloadUpdate}
+              name={'import_price'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+            {errorMessages.import_price && <div className={cx('error-message')}>{errorMessages.import_price}</div>}
+          </div>
+
+          <div className={cx('input-field')}>
+          <div className={cx('header')}>Price</div>
+            <InputForm
+              placeholder="Enter product price..."
+              type="text"
+              value={payloadUpdate.price}
+              setValue={setPayloadUpdate}
+              name={'price'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+            {errorMessages.price && <div className={cx('error-message')}>{errorMessages.price}</div>}
+          </div>
+
+          <div className={cx('options')}>
+            <Button
+              onClick={() =>
+                handleUpdateProduct(
+                  payloadUpdate.name,
+                  payloadUpdate.amount,
+                  payloadUpdate.import_price,
+                  payloadUpdate.price,
+                )}
+              outline
+            >
+              Change information
+            </Button>
+            <Button onClick={() => handleDeleteProduct(productId)} primary>
+              Delete
             </Button>
           </div>
         </animated.div>
