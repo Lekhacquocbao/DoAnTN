@@ -1,0 +1,43 @@
+.box-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-gap: 24px;
+  margin-bottom: 36px;
+
+  li {
+    padding: 24px;
+    background: var(--white);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    grid-gap: 24px;
+    cursor: pointer;
+    box-shadow: 10px 10px 10px var(--grey);
+
+    &:hover {
+      background-color: gainsboro;
+    }
+
+    .bx {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--green);
+    }
+
+    .text h3 {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .text p {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--blue);
+    }
+  }
+}

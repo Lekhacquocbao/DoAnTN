@@ -44,7 +44,17 @@ function Sidebar() {
         >
           <Link to="" onClick={() => handleSetActive(0)}>
             <FontAwesomeIcon className={cx('bx')} icon={faHouse}></FontAwesomeIcon>
-            <span className={cx('text')}>Home</span>
+            <span className={cx('text')}>Order</span>
+          </Link>
+        </li>
+
+        <li
+          className={cx({ active: activeIndex === 1 })}
+          onClick={() => window.location.replace(config.routes.Appointment)}
+        >
+          <Link to="" onClick={() => handleSetActive(1)}>
+            <FontAwesomeIcon className={cx('bx')} icon={faHouse}></FontAwesomeIcon>
+            <span className={cx('text')}>Appointment</span>
           </Link>
         </li>
 

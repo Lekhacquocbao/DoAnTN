@@ -59,10 +59,10 @@ function Revenue() {
 
     const fetchAPICustomers = async (page, limit) => {
       const response = await axios.get('http://localhost:8000/api/revenue/customer', {
-        // params: {
-        //   page:1,
-        //   limit: 20
-        // },
+        params: {
+          page:1,
+          limit: 20
+        },
         headers: {
           Authorization: `Bearer ${GetToken()}`,
         },
@@ -73,10 +73,10 @@ function Revenue() {
 
     const fetchAPIShoes = async (page, limit) => {
       const response = await axios.get('http://localhost:8000/api/revenue/product', {
-        // params: {
-        //   page:1,
-        //   limit: 20
-        // },
+        params: {
+          page:1,
+          limit: 20
+        },
         headers: {
           Authorization: `Bearer ${GetToken()}`,
         },

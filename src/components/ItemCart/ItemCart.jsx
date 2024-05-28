@@ -53,7 +53,7 @@ function BookItemCart({ data, onSelect }) {
     <div className={cx('wrapper')}>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2000}
         transition={Flip}
         hideProgressBar={false}
         newestOnTop={false}
@@ -66,12 +66,11 @@ function BookItemCart({ data, onSelect }) {
       />
       <div className={cx('content-left')}>
         <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} className={cx('checkbox')} />
-        <Image className={cx('img')} src={data.Breed.Image}></Image>
+        <Image className={cx('img')} src={data.Image}></Image>
       </div>
       <div className={cx('content-center')}>
-        <span className={cx('book-name')}>{data.Breed.name}</span>
-        <span className={cx('book-category')}>Size: {data.size}</span>
-        <span className={cx('book-price')}>{data.Breed.price && formatCurrency(data.Breed.price)}</span>
+        <span className={cx('book-name')}>{data.name}</span>
+        <span className={cx('book-price')}>{data.price && formatCurrency(data.price)}</span>
         <span className={cx('book-quantity')}>x{data.cart_item_infor.quantity}</span>
       </div>
       <div className={cx('content-right')}>

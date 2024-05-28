@@ -5,6 +5,7 @@ const routes = {
   detailItem: '/detailItem/:id',
   allProducts: '/allProducts',
   adminPending: '/adminPending',
+  Appointment: '/appointment',
   adminWaiting: '/adminWaiting',
   adminDelivering: '/adminDelivering',
   adminSuccess: '/adminSuccess',

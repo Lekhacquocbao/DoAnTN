@@ -105,7 +105,7 @@ function DetailItem() {
           'http://localhost:8000/api/cart/add',
           {
             quantity: count,
-            id_product: 1424,
+            id_product: id,
           },
           {
             headers: {

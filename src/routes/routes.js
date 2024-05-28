@@ -16,6 +16,7 @@ import Introduce from '~/pages/Introduce';
 
 //ADMIN
 import AdminPending from '~/pages/Admin/AdminPending';
+import Appointment from '~/pages/Admin/Appointment'
 import AdminDelivering from '~/pages/Admin/AdminDelivering';
 import AdminWaiting from '~/pages/Admin/AdminWaiting';
 import AdminSuccess from '~/pages/Admin/AdminSuccess';
@@ -42,6 +43,7 @@ const publicRoutes = [
 
 const adminRoutes = [
   { path: config.routes.adminPending, component: AdminPending, layout: Admin },
+  { path: config.routes.Appointment, component: Appointment, layout: Admin },
   { path: config.routes.adminWaiting, component: AdminWaiting, layout: Admin },
   { path: config.routes.adminDelivering, component: AdminDelivering, layout: Admin },
   { path: config.routes.adminSuccess, component: AdminSuccess, layout: Admin },
