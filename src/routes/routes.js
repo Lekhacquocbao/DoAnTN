@@ -7,6 +7,7 @@ import { HeaderOnly, Admin } from '~/layouts';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
 import DetailItem from '~/pages/DetailItem';
+import DetailService from '~/pages/DetailService';
 import AllProduct from '~/pages/AllProduct';
 import Information from '~/pages/Information';
 import History from '~/pages/History';

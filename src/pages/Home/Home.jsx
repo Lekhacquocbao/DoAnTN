@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 import { Icon } from '@iconify/react';
@@ -14,29 +14,42 @@ import config from '~/config';
 const cx = classNames.bind(styles);
 
 function Home() {
-  const [categories, setCategories] = useState([]);
-  const [shoes, setShoes] = useState([]);
+  const [breeds, setBreeds] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [services, setServices] = useState([]);
+
   useEffect(() => {
     const fetchAPICategories = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/breed/');
-        setCategories(response.data.breeds);
+        setBreeds(response.data.breeds);
       } catch (error) {
         console.log(error);
       }
     };
-    const fetchAPIShoes = async () => {
+    const fetchAPIProducts = async () => {
       try {
-        const response = await axios.get(
-          'http://localhost:8000/api/revenue/product?startDate=2020-01-01 00:00:00&endDate=2025-12-31 08:31:28',
-        );
-        setShoes(response.data.result.products);
+        const response = await axios.get('http://localhost:8000/api/revenue/product');
+        console.log('besst selling', response);
+        setProducts(response.data.result.products);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    const fetchAPIServices = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/service');
+        console.log('service', response);
+        setServices(response.data.result);
+        // setServices(response.data.result.image);
       } catch (error) {
         console.log(error);
       }
     };
     fetchAPICategories();
-    fetchAPIShoes();
+    fetchAPIProducts();
+    fetchAPIServices();
   }, []);
 
   const settings = {
@@ -48,6 +61,15 @@ function Home() {
     autoplay: true,
     autoplaySpeed: 3000,
   };
+
+  const settingSlider = {
+    // dots: true,
+    infinite: true,
+    speed: 400,
+    slidesToShow: 6,
+    slidesToScroll: 2,
+  };
+
 
   return (
     <div className={cx('wrapper')}>
@@ -100,10 +122,10 @@ function Home() {
               alt="Online Order"
             ></img>
             <div className={cx('content-item')}>
-            <h3>
-              <a href="#OnlineOrder">Đặt Hàng Online</a>
-            </h3>
-            <p>Giao hàng hỏa tốc, nội thành trong 2 tiếng</p>
+              <h3>
+                <a href="#OnlineOrder">Đặt Hàng Online</a>
+              </h3>
+              <p>Giao hàng hỏa tốc, nội thành trong 2 tiếng</p>
             </div>
           </div>
           <div className={cx('category-item')}>
@@ -111,42 +133,45 @@ function Home() {
               src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/welcome_2.png?1701914025229"
               alt="Grooming"
             ></img>
-            <div className={cx('content-item')}><h3>
-              <a href="#Service">Cắt Tỉa & Spa</a>
-            </h3>
-            <p>Với quy trình 10 bước cắt tỉa, tạo kiểu cùng những thợ groomer hàng đầu</p></div>
-            
+            <div className={cx('content-item')}>
+              <h3>
+                <a href="#Service">Cắt Tỉa & Spa</a>
+              </h3>
+              <p>Với quy trình 10 bước cắt tỉa, tạo kiểu cùng những thợ groomer hàng đầu</p>
+            </div>
           </div>
           <div className={cx('category-item')}>
             <img
               src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/welcome_3.png?1701914025229"
               alt="Hotel"
             ></img>
-            <div className={cx('content-item')}><h3>
-              <a href="#Service">Lưu chuồng</a>
-            </h3>
-            <p>Chăm sóc và bảo vệ bé cún, mèo của bạn 24/7</p></div>
-            
+            <div className={cx('content-item')}>
+              <h3>
+                <a href="#Service">Lưu chuồng</a>
+              </h3>
+              <p>Chăm sóc và bảo vệ bé cún, mèo của bạn 24/7</p>
+            </div>
           </div>
           <div className={cx('category-item')}>
             <img
               src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/welcome_4.png?1701914025229"
               alt="Veterinarian"
             ></img>
-            <div className={cx('content-item')}><h3>
-              <a href="#Service">Bác Sĩ Thú Y</a>
-            </h3>
-            <p>Khám chữa bệnh với các thiết bị hiện đại</p></div>
-            
+            <div className={cx('content-item')}>
+              <h3>
+                <a href="#Service">Bác Sĩ Thú Y</a>
+              </h3>
+              <p>Khám chữa bệnh với các thiết bị hiện đại</p>
+            </div>
           </div>
         </div>
       </div>
 
       <div className={cx('categories')}>
-        <h2 className={cx('header')}>Category</h2>
-        <div className={cx('list-category')}>
-          {categories &&
-            categories.map((category) => {
+        <h2 className={cx('header')}>BREED</h2>
+        <Slider {...settingSlider}>
+        {breeds &&
+            breeds.map((category) => {
               return (
                 <div className={cx('category')}>
                   <Link>
@@ -168,26 +193,52 @@ function Home() {
                 </div>
               );
             })}
-        </div>
+        </Slider> 
       </div>
 
-      <div className={cx('items')}>
-        <h2 className={cx('header')}>BEST-SELLING PRODUCTS</h2>
-        <div className={cx('list-item')}>
-          {categories &&  
-            categories.map((categories) => {
+      <div className={cx('categories')}>
+        <h2 className={cx('header')}>BEST SELLING PRODUCTS</h2>
+        <Slider {...settingSlider}>
+        {products &&
+            products.map((products) => {
               return (
-                <div className={cx('item')}>
-                  <img src={categories.image} className={cx('item-img')} alt="img"></img>
-                  <div className={cx('item-overlay')}>
-                    <Link className={cx('item-icon')} to={`detailItem/${categories.id}`}>
-                      <Icon icon="iconamoon:search-bold" />
-                    </Link>
-                  </div>
+                <div className={cx('category')}>
+                  <Link>
+                    <img className={cx('category-image')} src={products.image} alt="products"></img>
+                    <div className={cx('category-container')}>
+                    
+                      <div className={cx('category-title')}>{products.name}</div>
+                      <Button
+                        key={products.id}
+                        animation
+                        className={cx('category-btn')}
+                        to={`detailItem/${products.id}`}
+                      >
+                        SHOP NOW
+                      </Button>
+                    </div>
+                  </Link>
                 </div>
               );
             })}
-        </div>
+        </Slider>
+      </div>
+
+      <div className={cx('items')}>
+        <h2 className={cx('header')}>SERVICES</h2>
+        <Slider {...settingSlider}>
+        {services &&
+            services.map((services, index) => {
+              return (
+                <div key={index} className={cx('item')}>
+                  <img src={services.image} className={cx('item-img')} alt="img"></img>
+                  <div className={cx('category-container')}>
+                      <div className={cx('category-title')}>{services.name}</div>
+                    </div>
+                </div>
+              );
+            })}
+        </Slider>
       </div>
 
       <div className={cx('btn-wrap')}>
