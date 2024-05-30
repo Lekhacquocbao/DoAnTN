@@ -7,6 +7,19 @@
   background-color: #fff;
 }
 
+
+.product-quantity {
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+  // border: solid 2px red;
+}
+
+.quantity{
+  width: 50px;
+}
+
+
 .content-left {
   display: flex;
   .img {
@@ -67,4 +80,8 @@
 
 .btn {
   margin: 0 8px;
+}
+
+.disble{
+  display: none;
 }

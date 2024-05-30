@@ -7,13 +7,13 @@ import { HeaderOnly, Admin } from '~/layouts';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
 import DetailItem from '~/pages/DetailItem';
-import DetailService from '~/pages/DetailService';
 import AllProduct from '~/pages/AllProduct';
 import Information from '~/pages/Information';
 import History from '~/pages/History';
 import ItemHistory from '~/pages/ItemHistory';
 import Cart from '~/pages/Cart';
 import Introduce from '~/pages/Introduce';
+import Checkout from '~/pages/Checkout/Checkout';
 
 //ADMIN
 import AdminPending from '~/pages/Admin/AdminPending';
@@ -38,6 +38,7 @@ const publicRoutes = [
   { path: config.routes.history, component: History, layout: HeaderOnly },
   { path: config.routes.historydetails, component: ItemHistory, layout: HeaderOnly },
   { path: config.routes.cart, component: Cart, layout: HeaderOnly },
+  { path: config.routes.checkout, component: Checkout, layout: HeaderOnly },
   { path: config.routes.introduce, component: Introduce, layout: HeaderOnly},
   { path: config.routes.contact, component: Contact, layout: HeaderOnly}
 ];

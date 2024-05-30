@@ -18,6 +18,7 @@ const routes = {
   history: '/customer/history',
   historydetails: '/customer/historydetails',
   cart: '/cart',
+  checkout: '/checkout',
   introduce: '/introduce',
   contact: '/contact'
 };
