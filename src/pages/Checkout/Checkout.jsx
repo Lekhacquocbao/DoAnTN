@@ -19,6 +19,7 @@ function Checkout() {
   const {items} = location.state || {items : []};
   const [autocompleteInputValue, setAutocompleteInputValue] = useState('');
   const [subTotal, setSubTotal] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState('');
   const [payload, setPayload] = useState({
     phoneNumber: '',
   });
@@ -55,41 +56,45 @@ function Checkout() {
 
   const handleOrderAll = async (address, phoneNumber) => {
     if (items.length === 0) {
-      toast.error('Please select to pay');
-    } else {
-      if (!validateForm()) {
-        return;
-      } else {
-        const orderItemsPayload = items.map((item) => ({
-          id_product: item.id,
-          quantity: item.cart_item_infor.quantity,
-          id_cartItem: item.cart_item_infor.id,
-          price: item.Shoes.price,
-        }));
-
-        await axios
-          .post(
-            'http://localhost:8000/api/order/create',
-            {
-              cartItems: orderItemsPayload,
-              address: address,
-              phoneNumber: phoneNumber,
-            },
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${GetToken()}`,
-              },
-            },
-          )
-          .then((res) => {
-            toast.success(res.data.message);
-            window.location.reload();
-          })
-          .catch((e) => {
-            toast.error(e.message);
-          });
-      }
+      toast.error('Please select items to pay');
+      return;
+    }
+  
+    if (!validateForm()) {
+      return;
+    }
+  
+    const orderItemsPayload = items.map((item) => ({
+      id_product: item.id,
+      quantity: item.cart_item_infor.quantity,
+      id_cartItem: item.cart_item_infor.id,
+      price: item.price
+    }));
+   console.log("heheh",orderItemsPayload);
+    const apiUrl = paymentMethod === 'COD' 
+      ? 'http://localhost:8000/api/order/create' 
+      : 'your_momo_api_endpoint';
+  
+    try {
+      const response = await axios.post(
+        apiUrl,
+        {
+          Items: orderItemsPayload,
+          address: address,
+          phoneNumber: phoneNumber,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${GetToken()}`,
+          },
+        }
+      );
+      // console.log('Response:', response);
+      toast.success(response.data.message);
+      window.location.reload();
+    } catch (error) {
+      toast.error(error.message);
     }
   };
 
@@ -121,13 +126,16 @@ function Checkout() {
           ))
         )}
       </div>
+
       <div className={cx('right-column')}>
         <div className={cx('order-summary')}>
           <h2>Shipping Information</h2>
+
           <div className={cx('input-field')}>
             <div className={cx('header')}>Enter address</div>
             <AutoComplete setParentInputValue={setAutocompleteInputValue} />
           </div>
+
           <div className={cx('input-field')}>
             <div className={cx('header')}>Enter phone number</div>
             <InputForm
@@ -140,18 +148,47 @@ function Checkout() {
               leftIcon={faPhone}
             />
           </div>
-          <div className={cx('subtotal')}>
-            <span>Subtotal</span>
-            <span className="price">{subTotal}</span>
+
+          <div className={cx('input-field')}>
+          <div className={cx('header')}>Payment Method</div>
+          <div className={cx('radio-group')}>
+            <label>
+              <input
+                type="radio"
+                value="COD"
+                checked={paymentMethod === 'COD'}
+                onChange={() => setPaymentMethod('COD')}
+              />
+              COD
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="Momo"
+                checked={paymentMethod === 'Momo'}
+                onChange={() => setPaymentMethod('Momo')}
+              />
+              Momo
+            </label>
           </div>
-          <Button
-            className={cx('order-button')}
-            onClick={() => handleOrderAll(autocompleteInputValue, payload.phoneNumber)}
-          >
-            Place Order
-          </Button>
+        </div>
+
+        <div className={cx('subtotal')}>
+          <span>Subtotal</span>
+          <span className="price">{subTotal}</span>
+        </div>
+
+        <Button
+          to="/"
+          className={cx('order-button')}
+          onClick={() => handleOrderAll(autocompleteInputValue, payload.phoneNumber)}
+        >
+          Place Order
+        </Button>
+
         </div>
       </div>
+
     </div>
   );
 }

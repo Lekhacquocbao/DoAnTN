@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import classNames from 'classnames/bind';
 import { Flip, ToastContainer, toast } from 'react-toastify';
@@ -498,10 +498,12 @@ export default Cart;
 //     <Popup isOpen={isModalOpen} onRequestClose={() => closeModal()} width={String('500px')} height={'350px'}>
 //       <animated.div style={modalAnimation}>
 //         <h2>Payment confirmation</h2>
+
 //         <div className={cx('input-field')}>
 //           <div className={cx('header')}>Enter address</div>
 //           <AutoComplete setParentInputValue={setAutocompleteInputValue} />
 //         </div>
+
 //         <div className={cx('input-field')}>
 //           <div className={cx('header')}>Enter phone number</div>
 //           <InputForm
@@ -514,6 +516,7 @@ export default Cart;
 //             leftIcon={faPhone}
 //           />
 //         </div>
+
 //         <div className={cx('options')}>
 //           <Button
 //             onClick={() => {
