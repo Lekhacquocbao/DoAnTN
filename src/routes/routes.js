@@ -17,7 +17,10 @@ import Checkout from '~/pages/Checkout/Checkout';
 
 //ADMIN
 import AdminPending from '~/pages/Admin/AdminPending';
-import Appointment from '~/pages/Admin/Appointment'
+import Menu2 from '~/pages/Admin/Menu2';
+import AppointmentPending from '~/pages/Admin/AppointmentPending';
+import AppointmentAccepted from '~/pages/Admin/AppointmentAccepted';
+import AppointmentCanceled from '~/pages/Admin/AppointmentCanceled';
 import AdminDelivering from '~/pages/Admin/AdminDelivering';
 import AdminWaiting from '~/pages/Admin/AdminWaiting';
 import AdminSuccess from '~/pages/Admin/AdminSuccess';
@@ -45,7 +48,10 @@ const publicRoutes = [
 
 const adminRoutes = [
   { path: config.routes.adminPending, component: AdminPending, layout: Admin },
-  { path: config.routes.Appointment, component: Appointment, layout: Admin },
+  { path: config.routes.appointment, component: Menu2, layout: Admin },
+  { path: config.routes.appointmentPending, component: AppointmentPending, layout: Admin },
+  { path: config.routes.appointmentAccepted, component: AppointmentAccepted, layout: Admin },
+  { path: config.routes.appointmentCanceled, component: AppointmentCanceled, layout: Admin },
   { path: config.routes.adminWaiting, component: AdminWaiting, layout: Admin },
   { path: config.routes.adminDelivering, component: AdminDelivering, layout: Admin },
   { path: config.routes.adminSuccess, component: AdminSuccess, layout: Admin },

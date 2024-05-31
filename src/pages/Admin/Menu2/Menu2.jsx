@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import config from '~/config';
-import styles from './Appointment.module.scss';
-import { faStopwatch, faTruck } from '@fortawesome/free-solid-svg-icons';
+import styles from './Menu2.module.scss';
+import { faCancel, faStopwatch, faTruck } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function Appointment() {
+function Menu2() {
   const [countPending, setCountPending] = useState();
   const [countApproval, setCountApproval] = useState();
   const [countCanceled , setCountCanceled] = useState();
@@ -33,60 +33,59 @@ function Appointment() {
   }
   useEffect(() => {
     const getApiOrderPending = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/All/status/1', {
+      const response = await axios.get('http://localhost:8000/api/appointment/1', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
       });
-      setCountPending(response.data.result.length);
+      setCountPending(response.data.detailAppointment.length);
     };
-    const getApiAppointmentApproval = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/All/status/2', {
+    const getApiAppointmentPrepared = async () => {
+      const response = await axios.get('http://localhost:8000/api/appointment/6', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
       });
-      setCountApproval(response.data.result.length);
+      setCountApproval(response.data.detailAppointment.length);
     };
     const getApiAppointmentCanceled = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/All/status/3', {
+      const response = await axios.get('http://localhost:8000/api/appointment/5', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
       });
-      setCountCanceled(response.data.result.length);
+      setCountCanceled(response.data.detailAppointment.length);
     };
 
     getApiOrderPending();
-    getApiAppointmentApproval();
+    getApiAppointmentPrepared();
     getApiAppointmentCanceled();
   }, []);
   return (
     <ul className={cx('box-info')}>
-      <li onClick={() => window.location.replace(config.routes.adminPending)}>
+      <li onClick={() => window.location.replace(config.routes.appointmentPending)}>
         <FontAwesomeIcon className={cx('bx')} icon={faHourglassHalf}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countPending}</h3>
           <p>Appointment is pending</p>
         </span>
       </li>
-      <li onClick={() => window.location.replace(config.routes.adminWaiting)}>
+      <li onClick={() => window.location.replace(config.routes.appointmentAccepted)}>
         <FontAwesomeIcon className={cx('bx')} icon={faStopwatch}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countApproval}</h3>
-          <p>Appointment is prepared</p>
+          <p>Appointment is accepted</p>
         </span>
       </li>
-      <li onClick={() => window.location.replace(config.routes.adminDelivering)}>
-        <FontAwesomeIcon className={cx('bx')} icon={faTruck}></FontAwesomeIcon>
+      <li onClick={() => window.location.replace(config.routes.appointmentCanceled)}>
+        <FontAwesomeIcon className={cx('bx')} icon={faCancel}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countCanceled}</h3>
           <p>Appointment is canceled</p>
         </span>
       </li>
-
     </ul>
   );
 }
 
-export default Appointment;
+export default Menu2;

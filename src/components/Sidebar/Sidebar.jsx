@@ -50,7 +50,7 @@ function Sidebar() {
 
         <li
           className={cx({ active: activeIndex === 1 })}
-          onClick={() => window.location.replace(config.routes.Appointment)}
+          onClick={() => window.location.replace(config.routes.appointmentPending)}
         >
           <Link to="" onClick={() => handleSetActive(1)}>
             <FontAwesomeIcon className={cx('bx')} icon={faHouse}></FontAwesomeIcon>

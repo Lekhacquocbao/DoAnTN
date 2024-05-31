@@ -11,12 +11,11 @@ import GetToken from '~/Token/GetToken';
 import Image from '~/components/Image';
 import Button from '~/components/Button';
 import Popup from '../Popup';
-import styles from './Order.module.scss';
-import { json } from 'react-router-dom';
+import styles from './Appointment.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Order({ data, icon }) {
+function Appointment({ data, icon }) {
   const [orderList, setOrderList] = useState({});
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const modalAnimation1 = useSpring({
@@ -27,30 +26,31 @@ function Order({ data, icon }) {
     return null;
   }
 
+  console.log("data: " + data);
 
   const openModal1 = async (id) => {
     setIsModalOpen1(true);
-    const response = await axios.get(`http://localhost:8000/api/order/${id}`, {
+    const response = await axios.get(`http://localhost:8000/api/appointment/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
       },
     });
-    setOrderList(response.data.result.Order_items);
+    const Appointment = response.data.detailAppointment.map(appointment => appointment.Order)
+    setOrderList(Appointment);
   };
+
+  // console.log("data hhee: " + JSON.stringify(data));
+
 
   const closeModal1 = () => {
     setIsModalOpen1(false);
   };
-  // console.log("data hhee lalala: " + JSON.stringify(data.Account));
-  console.log("data order", data.Account);
-  // console.log("data hhee: " + JSON.stringify(data));
-  //data nó nè
 
   const handleChangeStatus = async (id) => {
     await axios
       .put(
-        `http://localhost:8000/api/order/updateStatus/${id}`,
+        `http://localhost:8000/api/appointment/update/${id}`,
         {},
         {
           headers: {
@@ -86,14 +86,14 @@ function Order({ data, icon }) {
           className={cx('btn')}
           outline
         >
-          Get Detail hehehe
+          Get Detail
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
           Confirm
         </Button>
       </div>
     );
-  } else if (data.id_status === 2) {
+  } else if (data.id_status === 6) {
     iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
     buttonComponent = (
       <div>
@@ -104,21 +104,14 @@ function Order({ data, icon }) {
           className={cx('btn')}
           outline
         >
-          Get Detail huhu
+          Get Detail
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
           Confirm
         </Button>
       </div>
     );
-  } else if (data.id_status === 3) {
-    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
-    buttonComponent = (
-      <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
-        Confirm
-      </Button>
-    );
-  } else if (data.id_status === 4) {
+  } else if (data.id_status === 5) {
     iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCheckCircle} beat />;
   }
 
@@ -145,7 +138,7 @@ function Order({ data, icon }) {
         pauseOnHover
         theme="light"
       />
-      <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>1
+      <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>
       {iconComponent}
 
       <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div>
@@ -174,4 +167,4 @@ function Order({ data, icon }) {
   );
 }
 
-export default Order;
+export default Appointment;
