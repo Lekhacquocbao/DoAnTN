@@ -1,18 +1,18 @@
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faHourglassHalf } from '@fortawesome/free-regular-svg-icons';
+import { faHourglassHalf } from '@fortawesome/free-regular-svg-icons';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import config from '~/config';
 import styles from './Menu2.module.scss';
-import { faCancel, faStopwatch, faTruck } from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faCheck} from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
 function Menu2() {
   const [countPending, setCountPending] = useState();
-  const [countApproval, setCountApproval] = useState();
+  const [countAccepted, setCountAccepted] = useState();
   const [countCanceled , setCountCanceled] = useState();
 
   function getJwtFromCookie() {
@@ -46,7 +46,7 @@ function Menu2() {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
       });
-      setCountApproval(response.data.detailAppointment.length);
+      setCountAccepted(response.data.detailAppointment.length);
     };
     const getApiAppointmentCanceled = async () => {
       const response = await axios.get('http://localhost:8000/api/appointment/5', {
@@ -71,9 +71,9 @@ function Menu2() {
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.appointmentAccepted)}>
-        <FontAwesomeIcon className={cx('bx')} icon={faStopwatch}></FontAwesomeIcon>
+        <FontAwesomeIcon className={cx('bx')} icon={faCheck}></FontAwesomeIcon>
         <span className={cx('text')}>
-          <h3>{countApproval}</h3>
+          <h3>{countAccepted}</h3>
           <p>Appointment is accepted</p>
         </span>
       </li>

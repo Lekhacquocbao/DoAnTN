@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import axios from 'axios';
-import { faBoxOpen, faCheckCircle, faSpinner, faTruckFast } from '@fortawesome/free-solid-svg-icons';
+import { faBoxOpen, faCheckCircle, faSpinner} from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState,startTransition, Suspense } from 'react';
 
 import GetToken from '~/Token/GetToken';

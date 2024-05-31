@@ -5,7 +5,7 @@ import { useSpring, animated } from 'react-spring';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Flip, ToastContainer, toast } from 'react-toastify';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCancel} from '@fortawesome/free-solid-svg-icons';
 
 import GetToken from '~/Token/GetToken';
 import Image from '~/components/Image';
@@ -17,34 +17,34 @@ const cx = classNames.bind(styles);
 
 function Appointment({ data, icon }) {
   const [orderList, setOrderList] = useState({});
-  const [isModalOpen1, setIsModalOpen1] = useState(false);
+  const [isModalOpenDetail, setIsModalOpenDetail] = useState(false);
   const modalAnimation1 = useSpring({
-    opacity: isModalOpen1 ? 1 : 0,
+    opacity: isModalOpenDetail ? 1 : 0,
   });
 
   if (!data) {
     return null;
   }
 
-  console.log("data: " + data);
+  // console.log("data: " + data);
 
   const openModal1 = async (id) => {
-    setIsModalOpen1(true);
+    setIsModalOpenDetail(true);
     const response = await axios.get(`http://localhost:8000/api/appointment/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
       },
     });
+    console.log("response hhee: " + JSON.stringify(response));
     const Appointment = response.data.detailAppointment.map(appointment => appointment.Order)
     setOrderList(Appointment);
   };
 
   // console.log("data hhee: " + JSON.stringify(data));
 
-
   const closeModal1 = () => {
-    setIsModalOpen1(false);
+    setIsModalOpenDetail(false);
   };
 
   const handleChangeStatus = async (id) => {
@@ -88,6 +88,7 @@ function Appointment({ data, icon }) {
         >
           Get Detail
         </Button>
+
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
           Confirm
         </Button>
@@ -106,13 +107,14 @@ function Appointment({ data, icon }) {
         >
           Get Detail
         </Button>
+
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
           Confirm
         </Button>
       </div>
     );
   } else if (data.id_status === 5) {
-    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCheckCircle} beat />;
+    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCancel} beat />;
   }
 
   function formatCurrency(number) {
@@ -122,7 +124,6 @@ function Appointment({ data, icon }) {
     });
     return formatter.format(number);
   }
-
   return (
     <div className={cx('order')}>
       <ToastContainer
@@ -142,29 +143,34 @@ function Appointment({ data, icon }) {
       {iconComponent}
 
       <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div>
-
       <div className={cx('day-order')}>{formattedDate}</div>
-      <div className={cx('address')}>{data.order_address}</div>
       <div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
+
       {buttonComponent}
-      <Popup isOpen={isModalOpen1} onRequestClose={() => closeModal1()} width={'700px'} height={'500px'}>
+      
+      <Popup isOpen={isModalOpenDetail} onRequestClose={() => closeModal1()} width={'700px'} height={'500px'}>
         <animated.div style={modalAnimation1}>
-          <h2>Detail information</h2>
+          <h2>Detail information hehe</h2>
+  
           {orderList.length > 0 &&
             orderList.map((orderItem) => {
               return (
                 <div className={cx('information')}>
-                  <Image alt="Image" className={cx('order-image')} src={orderItem.Shoes.image}></Image>
-                  <span>Name: {orderItem.Shoes.name}</span>
-                  <span>{formatCurrency(orderItem.Shoes.price)}</span>
-                  <span> Amount: {orderItem.order_item_infor.quantity}</span>
+                  <div className={cx('name-order')}>{orderItem.name}</div>
+                  <div className={cx('day-order')}>{orderItem.OrderDate}</div>
+                  <div className={cx('price-order')}>{orderItem.totalPrice && formatCurrency(orderItem.totalPrice)}</div>
                 </div>
               );
             })}
         </animated.div>
       </Popup>
+      
     </div>
   );
 }
+
+{/* <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div>
+<div className={cx('day-order')}>{formattedDate}</div>
+<div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div> */}
 
 export default Appointment;
