@@ -79,3 +79,78 @@
 .btn + .btn {
   margin-left: 12px;
 }
+
+.modal-container {
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.detail {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  width: 100%;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.detail-label {
+  flex: 0 0 100px;
+  font-weight: bold;
+  color: #333;
+}
+
+.detail-value {
+  flex-grow: 1;
+  color: #555;
+}
+
+.detail-value img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 50%;
+}
+
+h2 {
+  text-align: center;
+  font-size: 24px;
+  color: #d90368;
+  margin-bottom: 20px;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+}
+
+.button-container button {
+  padding: 10px 20px;
+  background-color: #d90368;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+  background-color: #b00054;
+}
+
+.modal-container-centered {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}

@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -5,19 +6,22 @@ import { faCircleCheck, faSpinner, faTruckFast, faX } from '@fortawesome/free-so
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import moment from 'moment';
 import { Flip, ToastContainer, toast } from 'react-toastify';
-import React, { useEffect, useState } from 'react';
+import Modal from 'react-modal';
 
 import GetToken from '~/Token/GetToken';
-import config from '~/config';
 import styles from './History.module.scss';
-
 import Button from '~/components/Button';
+
 const cx = classNames.bind(styles);
 
 const Profile = React.lazy(() => import('~/layouts/Profile'));
 
+Modal.setAppElement('#root'); // Đảm bảo Modal hoạt động tốt với React
+
 function History() {
   const [historyOrder, setHistoryOrder] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const getApiHistoryOrder = async () => {
@@ -56,6 +60,16 @@ function History() {
       });
   };
 
+  const handleOpenModal = (order) => {
+    setSelectedOrder(order);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedOrder(null);
+  };
+
   function formatCurrency(number) {
     const formatter = new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -86,6 +100,7 @@ function History() {
             let iconComponent;
             let statusComponent;
             let btnComponent;
+
             if (order.Status.status === 'đang chờ') {
               iconComponent = <FontAwesomeIcon icon={faSpinner} className={cx('icon')} spinPulse></FontAwesomeIcon>;
               statusComponent = <span className={cx('status-name')}>Order is pending</span>;
@@ -113,13 +128,16 @@ function History() {
               iconComponent = <FontAwesomeIcon icon={faX} className={cx('icon1')} beatFade></FontAwesomeIcon>;
               statusComponent = <span className={cx('status-name1')}>The order has been cancelled</span>;
             }
+
             if (!order) {
               return null;
             }
+
             const orderDate = order.OrderDate;
             const formattedDate = moment(orderDate).format('DD-MM-YYYY');
+
             return (
-              <div className={cx('wrapper')}>
+              <div className={cx('wrapper')} key={order.id}>
                 <div className={cx('content-center')}>
                   <span className={cx('book-price')}>{order.totalPrice && formatCurrency(order.totalPrice)}</span>
                   <span className={cx('book-date')}>Order date: {formattedDate}</span>
@@ -128,12 +146,12 @@ function History() {
                 </div>
                 <div className={cx('content-right')}>
                   <div className={cx('status')}>
-                    {order && iconComponent}
-                    {order && statusComponent}
+                    {iconComponent}
+                    {statusComponent}
                   </div>
                   <div className={cx('options')}>
-                    {order && btnComponent}
-                    <Button to={`${config.routes.historydetails}?id=${order.id}`} white className={cx('btn')}>
+                    {btnComponent}
+                    <Button onClick={() => handleOpenModal(order)} white className={cx('btn')}>
                       View order details
                     </Button>
                   </div>
@@ -142,6 +160,54 @@ function History() {
             );
           })}
       </div>
+      {selectedOrder && (
+        <Modal 
+          className={cx('custom-modal', 'modal-container-centered')} 
+          isOpen={isModalOpen} 
+          onRequestClose={handleCloseModal} 
+          contentLabel="Order Details"
+          style={{
+            content: {
+              width: '700px',
+              height: '500px',
+              margin: 'auto',
+            }
+          }}
+        >
+          <div className={cx('detail')}>
+          <h2>Order Details</h2>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>OrderID:</label>
+              <div className={cx('detail-value')}>
+                {selectedOrder.id}
+              </div>
+            </div>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Order Date:</label>
+              <div className={cx('detail-value')}>
+                {moment(selectedOrder.OrderDate).format('DD-MM-YYYY')}
+              </div>
+            </div>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Delivery Address:</label>
+              <div className={cx('detail-value')}>{selectedOrder.order_address}</div>
+            </div>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Phone Number:</label>
+              <div className={cx('detail-value')}>{selectedOrder.order_phoneNumber}</div>
+            </div>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Status:</label>
+              <div className={cx('detail-value')}>{selectedOrder.Status.status}</div>
+            </div>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Price:</label>
+              <div className={cx('detail-value')}>{formatCurrency(selectedOrder.totalPrice)}</div>
+            </div>
+          </div>
+          {/* <Button onClick={handleCloseModal}>Close</Button> */}
+        </Modal>
+      )}
     </Profile>
   );
 }
