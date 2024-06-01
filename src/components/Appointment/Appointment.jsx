@@ -36,12 +36,12 @@ function Appointment({ data, icon }) {
         Authorization: `Bearer ${GetToken()}`,
       },
     });
-    // console.log("response hhee: " + JSON.stringify(response));
+    console.log("response hhee: " + JSON.stringify(response));
     const Appointment = response.data.detailAppointment.map((appointment) => appointment.Order);
     setOrderList(Appointment);
   };
 
-  console.log('data hhee: ' + JSON.stringify(data));
+  // console.log('data hhee: ' + JSON.stringify(data));
 
   const closeModalDetail = () => {
     setIsModalOpenDetail(false);

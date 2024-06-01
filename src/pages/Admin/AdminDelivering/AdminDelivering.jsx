@@ -20,6 +20,7 @@ function AdminDelivering() {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       setOrderList(response.data.result);
+      console.log("respen cccc nhé", response); 
     };
     getApiOrderPending();
   }, []);

@@ -12,40 +12,39 @@ import Image from '~/components/Image';
 import Button from '~/components/Button';
 import Popup from '../Popup';
 import styles from './Order.module.scss';
-import { json } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
 function Order({ data, icon }) {
   const [orderList, setOrderList] = useState({});
-  const [isModalOpen1, setIsModalOpen1] = useState(false);
-  const modalAnimation1 = useSpring({
-    opacity: isModalOpen1 ? 1 : 0,
+  const [isModalOpenDetail, setIsModalOpenDetail] = useState(false);
+  const modalAnimationDetail = useSpring({
+    opacity: isModalOpenDetail ? 1 : 0,
   });
 
   if (!data) {
     return null;
   }
 
-
   const openModal1 = async (id) => {
-    setIsModalOpen1(true);
+    setIsModalOpenDetail(true);
     const response = await axios.get(`http://localhost:8000/api/order/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
       },
     });
-    setOrderList(response.data.result.Order_items);
+    // console.log("response hhee: " + JSON.stringify(response));
+    const Order = response.data.result;
+    setOrderList(Order);
   };
 
   const closeModal1 = () => {
-    setIsModalOpen1(false);
+    setIsModalOpenDetail(false);
   };
   // console.log("data hhee lalala: " + JSON.stringify(data.Account));
-  console.log("data order", data.Account);
+  // console.log("data order", data.Account);
   // console.log("data hhee: " + JSON.stringify(data));
-  //data nó nè
 
   const handleChangeStatus = async (id) => {
     await axios
@@ -86,7 +85,7 @@ function Order({ data, icon }) {
           className={cx('btn')}
           outline
         >
-          Get Detail hehehe
+          Get Detail
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
           Confirm
@@ -104,7 +103,7 @@ function Order({ data, icon }) {
           className={cx('btn')}
           outline
         >
-          Get Detail huhu
+          Get Detail
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
           Confirm
@@ -114,12 +113,36 @@ function Order({ data, icon }) {
   } else if (data.id_status === 3) {
     iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
     buttonComponent = (
-      <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
+      <div>
+        <Button
+          onClick={() => {
+            openModal1(data.id);
+          }}
+          className={cx('btn')}
+          outline
+        >
+          Get Detail
+        </Button>
+        <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
         Confirm
       </Button>
+      </div>
     );
   } else if (data.id_status === 4) {
     iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCheckCircle} beat />;
+    buttonComponent = (
+      <div>
+        <Button
+          onClick={() => {
+            openModal1(data.id);
+          }}
+          className={cx('btn')}
+          outline
+        >
+          Get Detail
+        </Button>
+      </div>
+    );
   }
 
   function formatCurrency(number) {
@@ -149,25 +172,35 @@ function Order({ data, icon }) {
       {iconComponent}
 
       <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div>
-
       <div className={cx('day-order')}>{formattedDate}</div>
       <div className={cx('address')}>{data.order_address}</div>
       <div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
+      
       {buttonComponent}
-      <Popup isOpen={isModalOpen1} onRequestClose={() => closeModal1()} width={'700px'} height={'500px'}>
-        <animated.div style={modalAnimation1}>
+      <Popup isOpen={isModalOpenDetail} onRequestClose={() => closeModal1()} width={'700px'} height={'500px'}>
+        <animated.div style={modalAnimationDetail}>
           <h2>Detail information</h2>
-          {orderList.length > 0 &&
-            orderList.map((orderItem) => {
-              return (
-                <div className={cx('information')}>
-                  <Image alt="Image" className={cx('order-image')} src={orderItem.Shoes.image}></Image>
-                  <span>Name: {orderItem.Shoes.name}</span>
-                  <span>{formatCurrency(orderItem.Shoes.price)}</span>
-                  <span> Amount: {orderItem.order_item_infor.quantity}</span>
-                </div>
-              );
-            })}
+              <div className={cx('detail')}>
+            <Image className={cx('detail-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Name:</label>
+              <div className={cx('detail-value')}>
+                {data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}
+              </div>
+            </div>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Address:</label>
+              <div className={cx('detail-value')}>{data.order_address}</div>
+            </div>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Date:</label>
+              <div className={cx('detail-value')}>{formattedDate}</div>
+            </div>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Price:</label>
+              <div className={cx('detail-value')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
+            </div>
+          </div>
         </animated.div>
       </Popup>
     </div>

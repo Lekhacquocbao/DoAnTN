@@ -82,14 +82,14 @@ function Menu() {
         <FontAwesomeIcon className={cx('bx')} icon={faStopwatch}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countPreparing}</h3>
-          <p>Order is prepared</p>
+          <p>Order is preparing</p>
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.adminDelivering)}>
         <FontAwesomeIcon className={cx('bx')} icon={faTruck}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countDelivering}</h3>
-          <p>Order is delivered</p>
+          <p>Order is delivering</p>
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.adminSuccess)}>
