@@ -9,7 +9,7 @@ import styles from './AppointmentPending.module.scss';
 const cx = classNames.bind(styles);
 
 const Appointment = React.lazy(() => import('~/components/Appointment'));
-const Menu2 = React.lazy(() => import('~/pages/Admin/Menu2'));
+const MenuAppointment = React.lazy(() => import('~/pages/Admin/MenuAppointment'));
 
 function AppointmentPending() {
   const [appointmentList, setAppointmentList] = useState([]);
@@ -42,7 +42,7 @@ function AppointmentPending() {
   return (
     <div className={cx('content')}>
     <Suspense fallback={<div>Loading...</div>}>
-      <Menu2 />
+      <MenuAppointment />
       </Suspense>
       <div className={cx('header-content')}>
         <span className={cx('title-content')}>Appointment is pending</span>

@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import config from '~/config';
-import styles from './Menu2.module.scss';
+import styles from './MenuAppointment.module.scss';
 import { faCancel, faCheck} from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function Menu2() {
+function MenuAppointment() {
   const [countPending, setCountPending] = useState();
   const [countAccepted, setCountAccepted] = useState();
   const [countCanceled , setCountCanceled] = useState();
@@ -88,4 +88,4 @@ function Menu2() {
   );
 }
 
-export default Menu2;
+export default MenuAppointment;

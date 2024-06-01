@@ -9,7 +9,7 @@ import GetToken from '~/Token/GetToken';
 const cx = classNames.bind(styles);
 
 const Appointment = React.lazy(() => import('~/components/Appointment'));
-const Menu2 = React.lazy(() => import('~/pages/Admin/Menu2'));
+const MenuAppointment = React.lazy(() => import('~/pages/Admin/MenuAppointment'));
 
 function AppointmentCanceled() {
   const [orderList, setOrderList] = useState([]);
@@ -27,7 +27,7 @@ function AppointmentCanceled() {
 
   return (
     <div className={cx('content')}>
-      <Menu2 />
+      <MenuAppointment />
       <div className={cx('header-content')}>
         <span className={cx('title-content')}>Appointment is canceled</span>
       </div>

@@ -9,7 +9,7 @@ import GetToken from '~/Token/GetToken';
 const cx = classNames.bind(styles);
 
 const Appointment = React.lazy(() => import('~/components/Appointment'));
-const Menu2 = React.lazy(() => import('~/pages/Admin/Menu2'));
+const MenuAppointment = React.lazy(() => import('~/pages/Admin/MenuAppointment'));
 
 function AppointmentAccepted() {
   const [orderList, setOrderList] = useState([]);
@@ -20,7 +20,15 @@ function AppointmentAccepted() {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       console.log("response", response);
-      const Appointment = response.data.detailAppointment.map(appointment =>appointment.Order)
+      // const Appointment = response.data.detailAppointment.map(appointment =>appointment.Order)
+      const Appointment = response.data.detailAppointment.map((appointment) => {
+        return {
+          appointment_time: appointment.appointment_time,
+          end_time: appointment.end_time,
+          note: appointment.note,
+          ...appointment.Order,
+        };
+      });
       setOrderList(Appointment);
     };
     getApiAppointmentAccepted();
@@ -28,7 +36,7 @@ function AppointmentAccepted() {
 
   return (
     <div className={cx('content')}>
-      <Menu2 />
+      <MenuAppointment />
       <div className={cx('header-content')}>
         <span className={cx('title-content')}>Appointment is accepted</span>
       </div>
