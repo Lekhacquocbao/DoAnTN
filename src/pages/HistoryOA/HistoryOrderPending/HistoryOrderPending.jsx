@@ -4,15 +4,15 @@ import { faBoxOpen, faCheckCircle, faSpinner, faTruckFast } from '@fortawesome/f
 import React, { useEffect, useState, Suspense } from 'react';
 
 import GetToken from '~/Token/GetToken';
-import styles from './OrderPending.module.scss';
+import styles from './HistoryOrderPending.module.scss';
 import { Profile } from '~/layouts';
 
 const cx = classNames.bind(styles);
 
-const OrderHistory = React.lazy(() => import('~/components/OrderHistory'));
-const MenuOrder = React.lazy(() => import('~/pages/HistoryOA/MenuOrder'));
+const HistoryOrder = React.lazy(() => import('~/components/HistoryOrder'));
+const HistoryMenuOrder = React.lazy(() => import('~/pages/HistoryOA/HistoryMenuOrder'));
 
-function OrderPending() {
+function HistoryOrderPending() {
   const [orderList, setOrderList] = useState([]);
 
   const getIcon = (id) => {
@@ -52,14 +52,14 @@ function OrderPending() {
       <div className={cx('main-content')}>
         <div className={cx('header-content')}>
           <Suspense fallback={<div>Loading Menu...</div>}>
-            <MenuOrder />
+            <HistoryMenuOrder />
           </Suspense>
         </div>
         <span className={cx('title-content')}>Pending orders</span>
         <div className={cx('order-list')}>
           {orderList.map((order) => (
             <Suspense key={order.id} fallback={<div>Loading...</div>}>
-              <OrderHistory data={order} icon={getIcon(order.id_status)} />
+              <HistoryOrder data={order} icon={getIcon(order.id_status)} />
             </Suspense>
           ))}
         </div>
@@ -68,4 +68,4 @@ function OrderPending() {
   );
 }
 
-export default OrderPending;
+export default HistoryOrderPending;

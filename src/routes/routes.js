@@ -9,13 +9,10 @@ import Login from '~/pages/Login';
 import DetailItem from '~/pages/DetailItem';
 import AllProduct from '~/pages/AllProduct';
 import Information from '~/pages/Information';
-// import AppointmentHistory from '~/pages/AppointmentHistory';
 import ItemHistory from '~/pages/ItemHistory';
 import Cart from '~/pages/Cart';
 import Introduce from '~/pages/Introduce';
 import Checkout from '~/pages/Checkout/Checkout';
-
-//ADMIN
 import AdminPending from '~/pages/Admin/AdminPending';
 import MenuAppointment from '~/pages/Admin/MenuAppointment';
 import AppointmentPending from '~/pages/Admin/AppointmentPending';
@@ -30,34 +27,32 @@ import ManageProducts from '~/pages/Admin/ManageProducts';
 import ManageServices from '~/pages/Admin/ManageServices';
 import Revenue from '~/pages/Admin/Revenue';
 import Contact from '~/pages/Contact';
-import OrderPending from '~/pages/HistoryOA/OrderPending';
-import OrderDelivering from '~/pages/HistoryOA/OrderDelivering';
-import OrderWaiting from '~/pages/HistoryOA/OrderWaiting';
-import OrderSuccess from '~/pages/HistoryOA/OrderSuccess';
-import OrderCanceled from '~/pages/HistoryOA/OrderCanceled';
+import HistoryOrderPending from '~/pages/HistoryOA/HistoryOrderPending';
+import HistoryOrderDelivering from '~/pages/HistoryOA/HistoryOrderDelivering';
+import HistoryOrderWaiting from '~/pages/HistoryOA/HistoryOrderWaiting';
+import HistoryOrderSuccess from '~/pages/HistoryOA/HistoryOrderSuccess';
+import HistoryOrderCanceled from '~/pages/HistoryOA/HistoryOrderCanceled';
 import HistoryAppointmentCanceled from '~/pages/HistoryOA/HistoryAppointmentCanceled';
 import HistoryAppointmentAccepted from '~/pages/HistoryOA/HistoryAppointmentAccepted';
 import HistoryAppointmentPending from '~/pages/HistoryOA/HistoryAppointmentPending';
 import HistoryAppointmentFinished from '~/pages/HistoryOA/HistoryAppointmentFinished';
 
-// Public routes
 const publicRoutes = [
   { path: config.routes.login, component: Login, layout: null },
   { path: config.routes.home, component: Home },
   { path: config.routes.detailItem, component: DetailItem },
   { path: config.routes.allProducts, component: AllProduct },
   { path: config.routes.information, component: Information, layout: HeaderOnly },
-  // { path: config.routes.appointmentHistory, component: AppointmentHistory, layout: HeaderOnly },
   { path: config.routes.historydetails, component: ItemHistory, layout: HeaderOnly },
   { path: config.routes.cart, component: Cart, layout: HeaderOnly },
   { path: config.routes.checkout, component: Checkout, layout: HeaderOnly },
   { path: config.routes.introduce, component: Introduce, layout: HeaderOnly},
   { path: config.routes.contact, component: Contact, layout: HeaderOnly},
-  { path: config.routes.orderPending, component: OrderPending, layout: HeaderOnly },
-  { path: config.routes.orderWaiting, component: OrderWaiting, layout: HeaderOnly },
-  { path: config.routes.orderDelivering, component: OrderDelivering, layout: HeaderOnly },
-  { path: config.routes.orderSuccess, component: OrderSuccess, layout: HeaderOnly },
-  { path: config.routes.orderCanceled, component: OrderCanceled, layout: HeaderOnly },
+  { path: config.routes.historyOrderPending, component: HistoryOrderPending, layout: HeaderOnly },
+  { path: config.routes.historyOrderWaiting, component: HistoryOrderWaiting, layout: HeaderOnly },
+  { path: config.routes.historyOrderDelivering, component: HistoryOrderDelivering, layout: HeaderOnly },
+  { path: config.routes.historyOrderSuccess, component: HistoryOrderSuccess, layout: HeaderOnly },
+  { path: config.routes.historyOrderCanceled, component: HistoryOrderCanceled, layout: HeaderOnly },
   { path: config.routes.historyAppointmentPending, component: HistoryAppointmentPending, layout: HeaderOnly},
   { path: config.routes.historyAppointmentAccepted, component: HistoryAppointmentAccepted, layout: HeaderOnly },
   { path: config.routes.historyAppointmentCanceled, component: HistoryAppointmentCanceled, layout: HeaderOnly },

@@ -1,23 +1,23 @@
 import classNames from 'classnames/bind';
 import React, { useEffect, useState, Suspense } from 'react';
-import {  faCancel } from '@fortawesome/free-solid-svg-icons';
+import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Profile } from '~/layouts';
 
-import styles from './OrderCanceled.module.scss';
+import styles from './HistoryOrderWaiting.module.scss';
 import GetToken from '~/Token/GetToken';
 
 const cx = classNames.bind(styles);
 
-const OrderHistory = React.lazy(() => import('~/components/OrderHistory'));
-const MenuOrder = React.lazy(() => import('~/pages/HistoryOA/MenuOrder'));
+const HistoryOrder = React.lazy(() => import('~/components/HistoryOrder'));
+const HistoryMenuOrder = React.lazy(() => import('~/pages/HistoryOA/HistoryMenuOrder'));
 
-function OrderCanceled() {
+function HistoryOrderWaiting() {
   const [orderList, setOrderList] = useState([]);
 
   useEffect(() => {
     const getApiOrderPending = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/status/5', {
+      const response = await axios.get('http://localhost:8000/api/order/status/2', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       setOrderList(response.data.result);
@@ -33,14 +33,14 @@ function OrderCanceled() {
       <div className={cx('main-content')}>
       <div className={cx('header-content')}>
         <Suspense fallback={<div>Loading Menu...</div>}>
-          <MenuOrder />
+          <HistoryMenuOrder />
         </Suspense>
       </div>
-      <span className={cx('title-content')}>Order is canceled</span>
+      <span className={cx('title-content')}>Order is prepared</span>
       <div className={cx('order-list')}>
         {orderList.map((order) => (
           <Suspense key={order.id} fallback={<div>Loading...</div>}>
-            <OrderHistory key={order.id} data={order} icon={faCancel}></OrderHistory>
+            <HistoryOrder key={order.id} data={order} icon={faBoxOpen}></HistoryOrder>
           </Suspense>
         ))}
       </div>
@@ -49,4 +49,4 @@ function OrderCanceled() {
   );
 }
 
-export default OrderCanceled;
+export default HistoryOrderWaiting;

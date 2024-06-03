@@ -11,11 +11,11 @@ import GetToken from '~/Token/GetToken';
 import Image from '~/components/Image';
 import Button from '~/components/Button';
 import Popup from '../Popup';
-import styles from './OrderHistory.module.scss';
+import styles from './HistoryOrder.module.scss';
 
 const cx = classNames.bind(styles);
 
-function OrderHistory({ data, icon }) {
+function HistoryOrder({ data, icon }) {
   const [orderList, setOrderList] = useState({});
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const modalAnimation1 = useSpring({
@@ -201,4 +201,4 @@ function OrderHistory({ data, icon }) {
   );
 }
 
-export default OrderHistory;
+export default HistoryOrder;

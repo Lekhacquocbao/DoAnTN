@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import config from '~/config';
-import styles from './MenuOrder.module.scss';
+import styles from './HistoryMenuOrder.module.scss';
 import { faCancel, faStopwatch, faTruck } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-function MenuOrder() {
+function HistoryMenuOrder() {
   const [countPending, setCountPending] = useState();
   const [countPreparing, setCountPreparing] = useState();
   const [countDelivering, setCountDelivering] = useState();
@@ -81,35 +81,35 @@ function MenuOrder() {
   }, []);
   return (
     <ul className={cx('box-info')}>
-      <li onClick={() => window.location.replace(config.routes.orderPending)}>
+      <li onClick={() => window.location.replace(config.routes.historyOrderPending)}>
         <FontAwesomeIcon className={cx('bx')} icon={faHourglassHalf}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countPending}</h3>
           <p>Order is pending</p>
         </span>
       </li>
-      <li onClick={() => window.location.replace(config.routes.orderWaiting)}>
+      <li onClick={() => window.location.replace(config.routes.historyOrderWaiting)}>
         <FontAwesomeIcon className={cx('bx')} icon={faStopwatch}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countPreparing}</h3>
           <p>Order is preparing</p>
         </span>
       </li>
-      <li onClick={() => window.location.replace(config.routes.orderDelivering)}>
+      <li onClick={() => window.location.replace(config.routes.historyOrderDelivering)}>
         <FontAwesomeIcon className={cx('bx')} icon={faTruck}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countDelivering}</h3>
           <p>Order is delivering</p>
         </span>
       </li>
-      <li onClick={() => window.location.replace(config.routes.orderSuccess)}>
+      <li onClick={() => window.location.replace(config.routes.historyOrderSuccess)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCheckCircle}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countSuccess}</h3>
           <p>Order delivered successfully</p>
         </span>
       </li>
-      <li onClick={() => window.location.replace(config.routes.orderCanceled)}>
+      <li onClick={() => window.location.replace(config.routes.historyOrderCanceled)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCancel}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countCanceled}</h3>
@@ -120,4 +120,4 @@ function MenuOrder() {
   );
 }
 
-export default MenuOrder;
+export default HistoryMenuOrder;
