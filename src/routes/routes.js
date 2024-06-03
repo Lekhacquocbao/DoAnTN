@@ -12,7 +12,6 @@ import Information from '~/pages/Information';
 import History from '~/pages/HistoryMenu';
 import AppointmentHistory from '~/pages/AppointmentHistory';
 import ItemHistory from '~/pages/ItemHistory';
-import HistoryPending from '~/pages/HistoryPending';
 import Cart from '~/pages/Cart';
 import Introduce from '~/pages/Introduce';
 import Checkout from '~/pages/Checkout/Checkout';
@@ -32,6 +31,10 @@ import ManageProducts from '~/pages/Admin/ManageProducts';
 import ManageServices from '~/pages/Admin/ManageServices';
 import Revenue from '~/pages/Admin/Revenue';
 import Contact from '~/pages/Contact';
+import OrderPending from '~/pages/HistoryOA/OrderPending';
+import OrderDelivering from '~/pages/HistoryOA/OrderDelivering';
+import OrderWaiting from '~/pages/HistoryOA/OrderWaiting';
+import OrderSuccess from '~/pages/HistoryOA/OrderSuccess';
 
 // Public routes
 const publicRoutes = [
@@ -43,11 +46,14 @@ const publicRoutes = [
   { path: config.routes.history, component: History, layout: HeaderOnly },
   { path: config.routes.appointmentHistory, component: AppointmentHistory, layout: HeaderOnly },
   { path: config.routes.historydetails, component: ItemHistory, layout: HeaderOnly },
-  { path: config.routes.historyPending, component: HistoryPending, layout: HeaderOnly },
   { path: config.routes.cart, component: Cart, layout: HeaderOnly },
   { path: config.routes.checkout, component: Checkout, layout: HeaderOnly },
   { path: config.routes.introduce, component: Introduce, layout: HeaderOnly},
-  { path: config.routes.contact, component: Contact, layout: HeaderOnly}
+  { path: config.routes.contact, component: Contact, layout: HeaderOnly},
+  { path: config.routes.orderPending, component: OrderPending, layout: HeaderOnly },
+  { path: config.routes.orderWaiting, component: OrderWaiting, layout: HeaderOnly },
+  { path: config.routes.orderDelivering, component: OrderDelivering, layout: HeaderOnly },
+  { path: config.routes.orderSuccess, component: OrderSuccess, layout: HeaderOnly },
 ];
 
 const adminRoutes = [

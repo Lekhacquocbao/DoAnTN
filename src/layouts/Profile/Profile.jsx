@@ -26,6 +26,7 @@ function Profile({ children }) {
     <div className={cx('wrapper')}>
       <div className={cx('sidebar')}>
         <ul className={cx('side-menu', 'top')}>
+
           <li
             className={cx({ active: activeIndex === 0 })}
             onClick={() => window.location.replace(config.routes.information)}
@@ -35,24 +36,26 @@ function Profile({ children }) {
               <span className={cx('text')}>Personal Page</span>
             </Link>
           </li>
+          
           <li
-            className={cx({ active: activeIndex === 1 })}
-            onClick={() => window.location.replace(config.routes.history)}
-          >
-            <Link to="" onClick={() => handleSetActive(1)}>
-              <FontAwesomeIcon className={cx('bx')} icon={faClock}></FontAwesomeIcon>
-              <span className={cx('text')}>Order history</span>
-            </Link>
-          </li>
-          <li
-            className={cx({ active: activeIndex === 2 })}
-            onClick={() => window.location.replace(config.routes.appointmentHistory)}
-          >
-            <Link to="" onClick={() => handleSetActive(2)}>
-              <FontAwesomeIcon className={cx('bx')} icon={faClock}></FontAwesomeIcon>
-              <span className={cx('text')}>Appointment History</span>
-            </Link>
-          </li>
+          className={cx({ active: activeIndex === 1 })}
+          onClick={() => window.location.replace(config.routes.orderPending)}
+        >
+          <Link to="" onClick={() => handleSetActive(1)}>
+            <FontAwesomeIcon className={cx('bx')} icon={faClock}></FontAwesomeIcon>
+            <span className={cx('text')}>Order History</span>
+          </Link>
+        </li>
+
+        <li
+          className={cx({ active: activeIndex === 2 })}
+          onClick={() => window.location.replace(config.routes.appointmentPending)}
+        >
+          <Link to="" onClick={() => handleSetActive(2)}>
+            <FontAwesomeIcon className={cx('bx')} icon={faClock}></FontAwesomeIcon>
+            <span className={cx('text')}>Appointment History</span>
+          </Link>
+        </li>
         </ul>
       </div>
       {children}

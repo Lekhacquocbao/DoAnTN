@@ -167,7 +167,6 @@ function OrderHistory({ data, icon }) {
       />
       {/* <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>1{iconComponent} */}
       {/* <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div> */}
-      <div className={cx('address')}>{data.order_phoneNumber}</div>
       <div className={cx('day-order')}>{formattedDate}</div>
       <div className={cx('address')}>{data.order_address}</div>
       <div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>

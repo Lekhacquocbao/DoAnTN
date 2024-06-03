@@ -4,15 +4,17 @@
   flex: 1 1;
   padding-left: 12px;
   padding-top: 12px;
-  background-color: #f5f5fb;
+  // background-color: #f5f5fb;
   max-height: 100vh;
   overflow-y: auto;
+  padding-left: 20px;
 }
 
 .main-header {
   font-size: 3.6rem;
   font-weight: 600;
   color: var(--black);
+
 }
 
 .information-field {

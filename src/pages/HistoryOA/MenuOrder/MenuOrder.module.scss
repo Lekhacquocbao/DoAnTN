@@ -1,0 +1,45 @@
+.box-info {
+  display: flex; /* Thay vì sử dụng Grid, chuyển sang sử dụng Flexbox */
+  overflow-x: auto; /* Cho phép cuộn ngang nếu nội dung quá rộng */
+  gap: 24px; /* Khoảng cách giữa các mục */
+  padding-bottom: 36px; 
+
+
+  li {
+    flex: 0 0 auto;
+    padding: 24px;
+    background: var(--white);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 10px 10px 10px var(--grey);
+    width: 215px;
+
+    &:hover {
+      background-color: gainsboro;
+    }
+
+    .bx {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: var(--green);
+    }
+
+    .text h3 {
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .text p {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--blue);
+    }
+  }
+}
