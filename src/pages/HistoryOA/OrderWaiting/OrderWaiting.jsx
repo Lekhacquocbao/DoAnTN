@@ -1,16 +1,16 @@
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
+import { Profile } from '~/layouts';
 
 import styles from './OrderWaiting.module.scss';
 import GetToken from '~/Token/GetToken';
-import OrderHistory from '~/components/OrderHistory';
 
 const cx = classNames.bind(styles);
 
-const Order = React.lazy(() => import('~/components/Order'));
-const Menu = React.lazy(() => import('~/pages/Admin/Menu'));
+const OrderHistory = React.lazy(() => import('~/components/OrderHistory'));
+const MenuOrder = React.lazy(() => import('~/pages/HistoryOA/MenuOrder'));
 
 function OrderWaiting() {
   const [orderList, setOrderList] = useState([]);
@@ -27,14 +27,23 @@ function OrderWaiting() {
 
   return (
     <div className={cx('content')}>
-      <Menu />
-      <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Order is prepared</span>
+      <div className={cx('sidebar')}>
+        <Profile />
       </div>
+      <div className={cx('main-content')}>
+      <div className={cx('header-content')}>
+        <Suspense fallback={<div>Loading Menu...</div>}>
+          <MenuOrder />
+        </Suspense>
+      </div>
+      <span className={cx('title-content')}>Order is prepared</span>
       <div className={cx('order-list')}>
-        {orderList.map((order) => {
-          return <OrderHistory key={order.id} data={order} icon={faBoxOpen}></OrderHistory>;
-        })}
+        {orderList.map((order) => (
+          <Suspense key={order.id} fallback={<div>Loading...</div>}>
+            <OrderHistory key={order.id} data={order} icon={faBoxOpen}></OrderHistory>
+          </Suspense>
+        ))}
+      </div>
       </div>
     </div>
   );

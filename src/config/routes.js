@@ -20,6 +20,7 @@ const routes = {
   orderWaiting: '/orderWaiting',
   orderDelivering: '/orderDelivering',
   orderSuccess: '/orderSuccess',
+  orderCanceled: '/orderCanceled',
   revenue: '/revenue',
   information: '/information',
   history: '/history',

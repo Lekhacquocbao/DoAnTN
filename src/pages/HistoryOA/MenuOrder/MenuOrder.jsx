@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import config from '~/config';
 import styles from './MenuOrder.module.scss';
-import { faStopwatch, faTruck } from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faStopwatch, faTruck } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -15,6 +15,7 @@ function MenuOrder() {
   const [countPreparing, setCountPreparing] = useState();
   const [countDelivering, setCountDelivering] = useState();
   const [countSuccess, setCountSuccess] = useState();
+  const [countCanceled, setCountCanceled] = useState();
   function getJwtFromCookie() {
     //lấy token được lưu trong cookie ra
     const name = 'token=';
@@ -64,10 +65,19 @@ function MenuOrder() {
       });
       setCountSuccess(response.data.result.length);
     };
+    const getApiOrderCanceled = async () => {
+      const response = await axios.get('http://localhost:8000/api/order/status/5', {
+        headers: {
+          Authorization: `Bearer ${getJwtFromCookie()}`,
+        },
+      });
+      setCountCanceled(response.data.result.length);
+    };
     getApiOrderPending();
     getApiOrderPreparing();
     getApiOrderDelivering();
     getApiOrderSuccess();
+    getApiOrderCanceled();
   }, []);
   return (
     <ul className={cx('box-info')}>
@@ -99,10 +109,10 @@ function MenuOrder() {
           <p>Order delivered successfully</p>
         </span>
       </li>
-      <li onClick={() => window.location.replace(config.routes.orderSuccess)}>
-        <FontAwesomeIcon className={cx('bx')} icon={faCheckCircle}></FontAwesomeIcon>
+      <li onClick={() => window.location.replace(config.routes.orderCanceled)}>
+        <FontAwesomeIcon className={cx('bx')} icon={faCancel}></FontAwesomeIcon>
         <span className={cx('text')}>
-          <h3>{countSuccess}</h3>
+          <h3>{countCanceled}</h3>
           <p>Order is canceled</p>
         </span>
       </li>

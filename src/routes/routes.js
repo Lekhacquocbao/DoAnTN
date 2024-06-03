@@ -9,7 +9,6 @@ import Login from '~/pages/Login';
 import DetailItem from '~/pages/DetailItem';
 import AllProduct from '~/pages/AllProduct';
 import Information from '~/pages/Information';
-import History from '~/pages/HistoryMenu';
 import AppointmentHistory from '~/pages/AppointmentHistory';
 import ItemHistory from '~/pages/ItemHistory';
 import Cart from '~/pages/Cart';
@@ -35,6 +34,7 @@ import OrderPending from '~/pages/HistoryOA/OrderPending';
 import OrderDelivering from '~/pages/HistoryOA/OrderDelivering';
 import OrderWaiting from '~/pages/HistoryOA/OrderWaiting';
 import OrderSuccess from '~/pages/HistoryOA/OrderSuccess';
+import OrderCanceled from '~/pages/HistoryOA/OrderCanceled';
 
 // Public routes
 const publicRoutes = [
@@ -54,6 +54,7 @@ const publicRoutes = [
   { path: config.routes.orderWaiting, component: OrderWaiting, layout: HeaderOnly },
   { path: config.routes.orderDelivering, component: OrderDelivering, layout: HeaderOnly },
   { path: config.routes.orderSuccess, component: OrderSuccess, layout: HeaderOnly },
+  { path: config.routes.orderCanceled, component: OrderCanceled, layout: HeaderOnly },
 ];
 
 const adminRoutes = [

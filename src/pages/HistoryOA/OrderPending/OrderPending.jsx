@@ -38,7 +38,7 @@ function OrderPending() {
         });
         setOrderList(response.data.result);
       } catch (error) {
-        console.error('Failed to fetch order list:', error);
+        // console.error('Failed to fetch order list:', error);
       }
     };
     getApiOrderList();
@@ -51,9 +51,9 @@ function OrderPending() {
       </div>
       <div className={cx('main-content')}>
         <div className={cx('header-content')}>
-        <Suspense fallback={<div>Loading Menu...</div>}>
-          <MenuOrder />
-        </Suspense>
+          <Suspense fallback={<div>Loading Menu...</div>}>
+            <MenuOrder />
+          </Suspense>
         </div>
         <span className={cx('title-content')}>Pending orders</span>
         <div className={cx('order-list')}>
