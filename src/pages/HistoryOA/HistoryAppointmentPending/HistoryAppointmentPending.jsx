@@ -1,15 +1,16 @@
 import classNames from 'classnames/bind';
 import axios from 'axios';
-import { faBoxOpen, faCheckCircle, faSpinner} from '@fortawesome/free-solid-svg-icons';
-import React, { useEffect, useState,startTransition, Suspense } from 'react';
+import { faBoxOpen, faCancel, faCheckCircle, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import React, { useEffect, useState, startTransition, Suspense } from 'react';
 
 import GetToken from '~/Token/GetToken';
 import styles from './HistoryAppointmentPending.module.scss';
+import { Profile } from '~/layouts';
 
 const cx = classNames.bind(styles);
 
-const Appointment = React.lazy(() => import('~/components/Appointment'));
-const MenuAppointment = React.lazy(() => import('~/pages/Admin/MenuAppointment'));
+const HistoryAppointment = React.lazy(() => import('~/components/HistoryAppointment'));
+const HistoryMenuAppointment = React.lazy(() => import('~/pages/HistoryOA/HistoryMenuAppointment'));
 
 function HistoryAppointmentPending() {
   const [appointmentList, setAppointmentList] = useState([]);
@@ -20,6 +21,8 @@ function HistoryAppointmentPending() {
       case 2:
         return faBoxOpen;
       case 3:
+        return faCancel;
+        case 4:
         return faCheckCircle;
       default:
         return null;
@@ -30,7 +33,6 @@ function HistoryAppointmentPending() {
       const response = await axios.get('http://localhost:8000/api/appointment/1', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
-      // console.log("response", response);
       startTransition(() => {
         const Appointment = response.data.detailAppointment.map((appointment) => {
           return {
@@ -48,19 +50,24 @@ function HistoryAppointmentPending() {
 
   return (
     <div className={cx('content')}>
-    <Suspense fallback={<div>Loading...</div>}>
-      <MenuAppointment />
-      </Suspense>
-      <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Appointment is pending</span>
+      <div className={cx('sidebar')}>
+        <Profile />
       </div>
-      <div className={cx('order-list')}>
-      {appointmentList &&
-        appointmentList.map((order) => (
-            <Suspense key={order.id} fallback={<div>Loading...</div>}>
-              <Appointment data={order} icon={getIcon(order.id_status)} />
-            </Suspense>
-          ))}
+      <div className={cx('main-content')}>
+        <div className={cx('header-content')}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <HistoryMenuAppointment />
+          </Suspense>
+        </div>
+        <span className={cx('title-content')}>Appointment is pending</span>
+        <div className={cx('order-list')}>
+          {appointmentList &&
+            appointmentList.map((order) => (
+              <Suspense key={order.id} fallback={<div>Loading...</div>}>
+                <HistoryAppointment data={order} icon={getIcon(order.id_status)} />
+              </Suspense>
+            ))}
+        </div>
       </div>
     </div>
   );

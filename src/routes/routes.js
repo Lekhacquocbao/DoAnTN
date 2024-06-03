@@ -9,7 +9,7 @@ import Login from '~/pages/Login';
 import DetailItem from '~/pages/DetailItem';
 import AllProduct from '~/pages/AllProduct';
 import Information from '~/pages/Information';
-import AppointmentHistory from '~/pages/AppointmentHistory';
+// import AppointmentHistory from '~/pages/AppointmentHistory';
 import ItemHistory from '~/pages/ItemHistory';
 import Cart from '~/pages/Cart';
 import Introduce from '~/pages/Introduce';
@@ -35,6 +35,10 @@ import OrderDelivering from '~/pages/HistoryOA/OrderDelivering';
 import OrderWaiting from '~/pages/HistoryOA/OrderWaiting';
 import OrderSuccess from '~/pages/HistoryOA/OrderSuccess';
 import OrderCanceled from '~/pages/HistoryOA/OrderCanceled';
+import HistoryAppointmentCanceled from '~/pages/HistoryOA/HistoryAppointmentCanceled';
+import HistoryAppointmentAccepted from '~/pages/HistoryOA/HistoryAppointmentAccepted';
+import HistoryAppointmentPending from '~/pages/HistoryOA/HistoryAppointmentPending';
+import HistoryAppointmentFinished from '~/pages/HistoryOA/HistoryAppointmentFinished';
 
 // Public routes
 const publicRoutes = [
@@ -43,8 +47,7 @@ const publicRoutes = [
   { path: config.routes.detailItem, component: DetailItem },
   { path: config.routes.allProducts, component: AllProduct },
   { path: config.routes.information, component: Information, layout: HeaderOnly },
-  { path: config.routes.history, component: History, layout: HeaderOnly },
-  { path: config.routes.appointmentHistory, component: AppointmentHistory, layout: HeaderOnly },
+  // { path: config.routes.appointmentHistory, component: AppointmentHistory, layout: HeaderOnly },
   { path: config.routes.historydetails, component: ItemHistory, layout: HeaderOnly },
   { path: config.routes.cart, component: Cart, layout: HeaderOnly },
   { path: config.routes.checkout, component: Checkout, layout: HeaderOnly },
@@ -55,17 +58,21 @@ const publicRoutes = [
   { path: config.routes.orderDelivering, component: OrderDelivering, layout: HeaderOnly },
   { path: config.routes.orderSuccess, component: OrderSuccess, layout: HeaderOnly },
   { path: config.routes.orderCanceled, component: OrderCanceled, layout: HeaderOnly },
+  { path: config.routes.historyAppointmentPending, component: HistoryAppointmentPending, layout: HeaderOnly},
+  { path: config.routes.historyAppointmentAccepted, component: HistoryAppointmentAccepted, layout: HeaderOnly },
+  { path: config.routes.historyAppointmentCanceled, component: HistoryAppointmentCanceled, layout: HeaderOnly },
+  { path: config.routes.historyAppointmentFinished, component: HistoryAppointmentFinished, layout: HeaderOnly },
 ];
 
 const adminRoutes = [
   { path: config.routes.adminPending, component: AdminPending, layout: Admin },
+  { path: config.routes.adminWaiting, component: AdminWaiting, layout: Admin },
+  { path: config.routes.adminDelivering, component: AdminDelivering, layout: Admin },
+  { path: config.routes.adminSuccess, component: AdminSuccess, layout: Admin },
   { path: config.routes.appointment, component: MenuAppointment, layout: Admin },
   { path: config.routes.appointmentPending, component: AppointmentPending, layout: Admin },
   { path: config.routes.appointmentAccepted, component: AppointmentAccepted, layout: Admin },
   { path: config.routes.appointmentCanceled, component: AppointmentCanceled, layout: Admin },
-  { path: config.routes.adminWaiting, component: AdminWaiting, layout: Admin },
-  { path: config.routes.adminDelivering, component: AdminDelivering, layout: Admin },
-  { path: config.routes.adminSuccess, component: AdminSuccess, layout: Admin },
   { path: config.routes.manageBrand, component: ManageBrand, layout: Admin },
   { path: config.routes.manageBreeds, component: ManageBreeds, layout: Admin },
   { path: config.routes.manageProducts, component: ManageProducts, layout: Admin },

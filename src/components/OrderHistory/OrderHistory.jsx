@@ -12,7 +12,6 @@ import Image from '~/components/Image';
 import Button from '~/components/Button';
 import Popup from '../Popup';
 import styles from './OrderHistory.module.scss';
-import { json } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -41,10 +40,6 @@ function OrderHistory({ data, icon }) {
   const closeModal1 = () => {
     setIsModalOpen1(false);
   };
-  // console.log("data hhee lalala: " + JSON.stringify(data.Account));
-  // console.log('data order', data.Account);
-  // console.log("data hhee: " + JSON.stringify(data));
-
 
   const handleChangeStatus = async (id) => {
     await axios

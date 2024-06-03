@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import config from '~/config';
 import styles from './HistoryMenuAppointment.module.scss';
-import { faCancel, faCheck} from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faCheck, faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -63,22 +63,29 @@ function HistoryMenuAppointment() {
   }, []);
   return (
     <ul className={cx('box-info')}>
-      <li onClick={() => window.location.replace(config.routes.appointmentPending)}>
+      <li onClick={() => window.location.replace(config.routes.historyAppointmentPending)}>
         <FontAwesomeIcon className={cx('bx')} icon={faHourglassHalf}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countPending}</h3>
           <p>Appointment is pending</p>
         </span>
       </li>
-      <li onClick={() => window.location.replace(config.routes.appointmentAccepted)}>
+      <li onClick={() => window.location.replace(config.routes.historyAppointmentAccepted)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCheck}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countAccepted}</h3>
           <p>Appointment is accepted</p>
         </span>
       </li>
-      <li onClick={() => window.location.replace(config.routes.appointmentCanceled)}>
+      <li onClick={() => window.location.replace(config.routes.historyAppointmentCanceled)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCancel}></FontAwesomeIcon>
+        <span className={cx('text')}>
+          <h3>{countCanceled}</h3>
+          <p>Appointment is canceled</p>
+        </span>
+      </li>
+      <li onClick={() => window.location.replace(config.routes.historyAppointmentFinished)}>
+        <FontAwesomeIcon className={cx('bx')} icon={faCheckCircle}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countCanceled}</h3>
           <p>Appointment is canceled</p>

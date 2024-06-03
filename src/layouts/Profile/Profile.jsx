@@ -49,7 +49,7 @@ function Profile({ children }) {
 
         <li
           className={cx({ active: activeIndex === 2 })}
-          onClick={() => window.location.replace(config.routes.appointmentPending)}
+          onClick={() => window.location.replace(config.routes.historyAppointmentPending)}
         >
           <Link to="" onClick={() => handleSetActive(2)}>
             <FontAwesomeIcon className={cx('bx')} icon={faClock}></FontAwesomeIcon>

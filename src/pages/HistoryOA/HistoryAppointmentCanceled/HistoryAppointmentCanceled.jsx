@@ -1,15 +1,17 @@
 import classNames from 'classnames/bind';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 import styles from './HistoryAppointmentCanceled.module.scss';
 import GetToken from '~/Token/GetToken';
+import { Profile } from '~/layouts';
 
 const cx = classNames.bind(styles);
 
-const Appointment = React.lazy(() => import('~/components/Appointment'));
-const MenuAppointment = React.lazy(() => import('~/pages/Admin/MenuAppointment'));
+
+const HistoryAppointment = React.lazy(() => import('~/components/HistoryAppointment'));
+const HistoryMenuAppointment = React.lazy(() => import('~/pages/HistoryOA/HistoryMenuAppointment'));
 
 function HistoryAppointmentCanceled() {
   const [orderList, setOrderList] = useState([]);
@@ -34,14 +36,23 @@ function HistoryAppointmentCanceled() {
 
   return (
     <div className={cx('content')}>
-      <MenuAppointment />
-      <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Appointment is canceled</span>
+      <div className={cx('sidebar')}>
+        <Profile />
       </div>
-      <div className={cx('order-list')}>
-        {orderList.map((order) => {
-          return <Appointment key={order.id} data={order} icon={faBoxOpen}></Appointment>;
-        })}
+      <div className={cx('main-content')}>
+        <div className={cx('header-content')}>
+          <Suspense fallback={<div>Loading...</div>}>
+            <HistoryMenuAppointment />
+          </Suspense>
+        </div>
+        <span className={cx('title-content')}>Appointment is canceled</span>
+        <div className={cx('order-list')}>
+          {orderList.map((order) => (
+              <Suspense key={order.id} fallback={<div>Loading...</div>}>
+                <HistoryAppointment key={order.id} data={order} icon={faBoxOpen} />
+              </Suspense>
+            ))}
+        </div>
       </div>
     </div>
   );

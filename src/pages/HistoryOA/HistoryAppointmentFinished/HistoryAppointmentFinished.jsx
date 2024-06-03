@@ -3,7 +3,7 @@ import React, { useEffect, useState,Suspense } from 'react';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
-import styles from './HistoryAppointmentAccepted.module.scss';
+import styles from './HistoryAppointmentFinished.module.scss';
 import GetToken from '~/Token/GetToken';
 import { Profile } from '~/layouts';
 
@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 const HistoryAppointment = React.lazy(() => import('~/components/HistoryAppointment'));
 const HistoryMenuAppointment = React.lazy(() => import('~/pages/HistoryOA/HistoryMenuAppointment'));
 
-function HistoryAppointmentAccepted() {
+function HistoryAppointmentFinished() {
   const [orderList, setOrderList] = useState([]);
 
   useEffect(() => {
@@ -60,4 +60,4 @@ function HistoryAppointmentAccepted() {
   );
 }
 
-export default HistoryAppointmentAccepted;
+export default HistoryAppointmentFinished;
