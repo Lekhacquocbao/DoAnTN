@@ -19,7 +19,14 @@ function AppointmentCanceled() {
       const response = await axios.get('http://localhost:8000/api/appointment/5', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
-      const Appointment = response.data.detailAppointment.map(appointment => appointment.Order)
+      const Appointment = response.data.detailAppointment.map((appointment) => {
+        return {
+          appointment_time: appointment.appointment_time,
+          end_time: appointment.end_time,
+          note: appointment.note,
+          ...appointment.Order,
+        };
+      });
       setOrderList(Appointment);
     };
     getApiAppointmentCanceled();

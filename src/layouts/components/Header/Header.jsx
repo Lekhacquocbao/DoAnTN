@@ -33,7 +33,7 @@ function Header() {
           Authorization: `Bearer ${GetToken()}`,
         },
       });
-      console.log(response.data.user);
+      // console.log(response.data.user);
       if ((response.data.success === true) & (localStorage.getItem('Role') === 'customer')) {
         setIsLogin(true);
         setInfor(response.data.user.inforUser);

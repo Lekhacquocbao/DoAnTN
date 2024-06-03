@@ -1,0 +1,115 @@
+.order {
+  display: flex;
+  align-items: center;
+  background-color: var(--white);
+  border-radius: 10px;
+  margin: 10px 0; /* Reduce margin for compactness */
+  box-shadow: 5px 5px 5px var(--gray);
+  padding: 10px; /* Add padding for spacing */
+  height: 70px; /* Reduce height to fit better with the sidebar */
+}
+
+.order-image {
+  width: 40px; /* Reduce size for compactness */
+  height: 40px; /* Reduce size for compactness */
+  border-radius: 50%;
+  margin: 10px; /* Reduce margin */
+}
+
+.icon {
+  color: var(--primary);
+  margin-left: 10px; /* Reduce margin */
+}
+
+.name-order,
+.day-order,
+.address,
+.price-order {
+  color: var(--text-color);
+  margin-left: 10px; /* Reduce margin */
+}
+
+.address {
+  max-width: 150px; /* Reduce width */
+  overflow: auto;
+}
+
+.price-order {
+  padding-right: 10px; /* Reduce padding */
+  color: var(--primary);
+}
+
+.btn {
+  margin-right: 10px; /* Reduce margin */
+}
+
+.information {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px; /* Reduce padding */
+  background-color: aliceblue;
+  margin: 10px 0; /* Reduce margin */
+  border-radius: 12px;
+  box-shadow: 2px 2px 2px lavender;
+  height: 70px; /* Reduce height */
+}
+
+.information span:nth-child(2) {
+  width: 200px; /* Adjust width for better fit */
+}
+
+.modal-container {
+  background: #f9f9f9;
+  padding: 20px; /* Reduce padding */
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  margin: 0 auto;
+  font-family: Arial, sans-serif;
+}
+
+.detail {
+  background: #ffffff;
+  padding: 15px; /* Reduce padding */
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  width: 100%;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+.detail-label {
+  font-weight: bold;
+  width: 80px; /* Adjust width */
+  color: #333;
+}
+
+.detail-note {
+  font-style: italic;
+  color: #555;
+}
+
+.detail-value {
+  flex-grow: 1;
+  color: #555;
+}
+
+.detail-image {
+  width: 100px; /* Reduce size */
+  height: 100px; /* Reduce size */
+  border-radius: 50%;
+  margin: 0 auto 10px; /* Reduce margin */
+}
+
+h2 {
+  text-align: center;
+  font-size: 20px; /* Reduce font size */
+  color: #d90368;
+  margin-bottom: 15px; /* Reduce margin */
+}

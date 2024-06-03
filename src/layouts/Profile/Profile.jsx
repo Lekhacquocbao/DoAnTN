@@ -44,6 +44,15 @@ function Profile({ children }) {
               <span className={cx('text')}>Order history</span>
             </Link>
           </li>
+          <li
+            className={cx({ active: activeIndex === 2 })}
+            onClick={() => window.location.replace(config.routes.appointmentHistory)}
+          >
+            <Link to="" onClick={() => handleSetActive(2)}>
+              <FontAwesomeIcon className={cx('bx')} icon={faClock}></FontAwesomeIcon>
+              <span className={cx('text')}>Appointment History</span>
+            </Link>
+          </li>
         </ul>
       </div>
       {children}

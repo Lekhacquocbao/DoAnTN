@@ -9,8 +9,10 @@ import Login from '~/pages/Login';
 import DetailItem from '~/pages/DetailItem';
 import AllProduct from '~/pages/AllProduct';
 import Information from '~/pages/Information';
-import History from '~/pages/History';
+import History from '~/pages/HistoryMenu';
+import AppointmentHistory from '~/pages/AppointmentHistory';
 import ItemHistory from '~/pages/ItemHistory';
+import HistoryPending from '~/pages/HistoryPending';
 import Cart from '~/pages/Cart';
 import Introduce from '~/pages/Introduce';
 import Checkout from '~/pages/Checkout/Checkout';
@@ -39,7 +41,9 @@ const publicRoutes = [
   { path: config.routes.allProducts, component: AllProduct },
   { path: config.routes.information, component: Information, layout: HeaderOnly },
   { path: config.routes.history, component: History, layout: HeaderOnly },
+  { path: config.routes.appointmentHistory, component: AppointmentHistory, layout: HeaderOnly },
   { path: config.routes.historydetails, component: ItemHistory, layout: HeaderOnly },
+  { path: config.routes.historyPending, component: HistoryPending, layout: HeaderOnly },
   { path: config.routes.cart, component: Cart, layout: HeaderOnly },
   { path: config.routes.checkout, component: Checkout, layout: HeaderOnly },
   { path: config.routes.introduce, component: Introduce, layout: HeaderOnly},
