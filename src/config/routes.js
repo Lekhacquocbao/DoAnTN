@@ -25,6 +25,7 @@ const routes = {
   historyAppointmentAccepted: '/historyAppointmentAccepted',
   historyAppointmentCanceled: '/historyAppointmentCanceled',
   historyAppointmentFinished: '/historyAppointmentFinished',
+  historyDetails: '/historyDetails',
   revenue: '/revenue',
   information: '/information',
   history: '/history',

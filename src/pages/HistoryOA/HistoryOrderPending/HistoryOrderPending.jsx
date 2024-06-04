@@ -56,6 +56,11 @@ function HistoryOrderPending() {
           </Suspense>
         </div>
         <span className={cx('title-content')}>Pending orders</span>
+        {/* <div style={{ display: 'flex'}}>
+          <div style={{paddingLeft: '200px'}}>Date order</div>
+          <div style={{paddingLeft: '270px', paddingRight: '270px'}}>Address</div>
+          <div style={{paddingRight: '200px'}}>Total price</div>
+        </div> */}
         <div className={cx('order-list')}>
           {orderList.map((order) => (
             <Suspense key={order.id} fallback={<div>Loading...</div>}>

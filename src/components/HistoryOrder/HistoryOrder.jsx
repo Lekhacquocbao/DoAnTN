@@ -5,8 +5,9 @@ import { useSpring, animated } from 'react-spring';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Flip, ToastContainer, toast } from 'react-toastify';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-
+import { faCancel, faCheckCircle, faBook } from '@fortawesome/free-solid-svg-icons';
+import InputForm from '~/components/InputForm/InputForm';
+import Star from '~/components/Star';
 import GetToken from '~/Token/GetToken';
 import Image from '~/components/Image';
 import Button from '~/components/Button';
@@ -17,17 +18,53 @@ const cx = classNames.bind(styles);
 
 function HistoryOrder({ data, icon }) {
   const [orderList, setOrderList] = useState({});
-  const [isModalOpen1, setIsModalOpen1] = useState(false);
-  const modalAnimation1 = useSpring({
-    opacity: isModalOpen1 ? 1 : 0,
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpenSuccessfully, setIsModalOpenSuccessfully] = useState(false);
+  const [isModalOpenRating, setIsModalOpenRating] = useState(false);
+  const [idProduct, setIDProduct] = useState();
+  const [idOrder, setIDOrder] = useState();
+  const [rating, setRating] = useState(5);
+  const [payload, setPayload] = useState({
+    comment: '',
   });
+
+  const modalAnimation = useSpring({
+    opacity: isModalOpen ? 1 : 0,
+  });
+
+  const modalAnimationSuccessfully = useSpring({
+    opacity: isModalOpenSuccessfully ? 1 : 0,
+  });
+
+  const modalAnimationRating = useSpring({
+    opacity: isModalOpenRating ? 1 : 0,
+  });
+
+  const orderDate = data.OrderDate;
+  const formattedDate = moment(orderDate).format('YYYY-MM-DD');
 
   if (!data) {
     return null;
   }
 
-  const openModal1 = async (id) => {
-    setIsModalOpen1(true);
+  const openModalRating = () => {
+    setIsModalOpenRating(true);
+  };
+
+  const closeModalRating = () => {
+    setIsModalOpenRating(false);
+  };
+
+  const closeModalPending = () => {
+    setIsModalOpen(false);
+  };
+
+  const closeModalSuccessfully = () => {
+    setIsModalOpenSuccessfully(false);
+  };
+
+  const openModalPending = async (id) => {
+    setIsModalOpen(true);
     const response = await axios.get(`http://localhost:8000/api/order/${id}`, {
       headers: {
         'Content-Type': 'application/json',
@@ -37,14 +74,50 @@ function HistoryOrder({ data, icon }) {
     setOrderList(response.data.result.Products);
   };
 
-  const closeModal1 = () => {
-    setIsModalOpen1(false);
+  const openModalSuccessfully = async (id) => {
+    setIsModalOpenSuccessfully(true);
+    const response = await axios.get(`http://localhost:8000/api/order/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${GetToken()}`,
+      },
+    });
+    setOrderList(response.data.result.Products);
   };
 
-  const handleChangeStatus = async (id) => {
+  const handleRating = async (id_product, idOrder, star, comment) => {
+    await axios
+      .post(
+        `http://localhost:8000/api/rating/add`,
+        {
+          id_product: id_product,
+          id_order_item: idOrder,
+          comment: comment,
+          star: star,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${GetToken()}`,
+          },
+        },
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
+
+  const cancelOrder = async (orderId) => {
+    console.log('gettoke', GetToken());
     await axios
       .put(
-        `http://localhost:8000/api/order/updateStatus/${id}`,
+        `http://localhost:8000/api/order/cancel/${orderId}`,
         {},
         {
           headers: {
@@ -59,28 +132,36 @@ function HistoryOrder({ data, icon }) {
           window.location.reload();
         }, 2000);
       })
-      .catch((e) => {
-        toast.success(e);
+      .catch((err) => {
+        toast.error(err.response ? err.response.data.message : 'An error occurred');
       });
   };
 
-  const orderDate = data.OrderDate;
-  const formattedDate = moment(orderDate).format('YYYY-MM-DD');
 
   let iconComponent;
   let buttonComponent;
   if (data.id_status === 1) {
     iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} spinPulse />;
+    console.log('data', data);
     buttonComponent = (
       <div>
         <Button
           onClick={() => {
-            openModal1(data.id);
+            cancelOrder(data.id);
           }}
           className={cx('btn')}
           outline
         >
-          Get Detail
+          Cancel order
+        </Button>
+        <Button
+          onClick={() => {
+            openModalPending(data.id);
+          }}
+          className={cx('btn')}
+          outline
+        >
+          View order details
         </Button>
       </div>
     );
@@ -90,15 +171,12 @@ function HistoryOrder({ data, icon }) {
       <div>
         <Button
           onClick={() => {
-            openModal1(data.id);
+            openModalPending(data.id);
           }}
           className={cx('btn')}
           outline
         >
-          Get Detail
-        </Button>
-        <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
-          Confirm
+          View order details
         </Button>
       </div>
     );
@@ -108,15 +186,12 @@ function HistoryOrder({ data, icon }) {
       <div>
         <Button
           onClick={() => {
-            openModal1(data.id);
+            openModalPending(data.id);
           }}
           className={cx('btn')}
           outline
         >
-          Get Detail
-        </Button>
-        <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
-          Confirm
+          View order details
         </Button>
       </div>
     );
@@ -126,12 +201,27 @@ function HistoryOrder({ data, icon }) {
       <div>
         <Button
           onClick={() => {
-            openModal1(data.id);
+            openModalSuccessfully(data.id);
           }}
           className={cx('btn')}
           outline
         >
-          Get Detail
+          View order details
+        </Button>
+      </div>
+    );
+  } else if (data.id_status === 5) {
+    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCancel} beat />;
+    buttonComponent = (
+      <div>
+        <Button
+          onClick={() => {
+            openModalPending(data.id);
+          }}
+          className={cx('btn')}
+          outline
+        >
+          View order details
         </Button>
       </div>
     );
@@ -144,7 +234,7 @@ function HistoryOrder({ data, icon }) {
     });
     return formatter.format(number);
   }
-
+  // console.log("ccccc", data);
   return (
     <div className={cx('order')}>
       <ToastContainer
@@ -160,14 +250,13 @@ function HistoryOrder({ data, icon }) {
         pauseOnHover
         theme="light"
       />
-      {/* <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>1{iconComponent} */}
-      {/* <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div> */}
       <div className={cx('day-order')}>{formattedDate}</div>
       <div className={cx('address')}>{data.order_address}</div>
       <div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
       {buttonComponent}
-      <Popup isOpen={isModalOpen1} onRequestClose={() => closeModal1()} width={'700px'} height={'500px'}>
-        <animated.div style={modalAnimation1}>
+    
+      <Popup isOpen={isModalOpen} onRequestClose={() => closeModalPending()} width={'700px'} height={'500px'}>
+        <animated.div style={modalAnimation}>
           <h2>Detail information</h2>
           {orderList.length > 0 &&
             orderList.map((orderItem) => {
@@ -182,9 +271,45 @@ function HistoryOrder({ data, icon }) {
 
                   <div className={cx('detail-item')}>
                     <label className={cx('detail-label')}>Amount:</label>
-                    <div className={cx('detail-value')}>
-                      {orderItem.order_item_infor.quantity}
-                    </div>
+                    <div className={cx('detail-value')}>{orderItem.order_item_infor.quantity}</div>
+                  </div>
+
+                  <div className={cx('detail-item')}>
+                    <label className={cx('detail-label')}>Price:</label>
+                    <div className={cx('detail-value')}>{orderItem.price && formatCurrency(data.totalPrice)}</div>
+                  </div>
+                  
+                  <Button to={`/detailItem/${orderItem.id}`} white className={cx('btn')}>
+                    View products
+                  </Button>
+                </div>
+              );
+            })}
+        </animated.div>
+      </Popup>
+
+      <Popup
+        isOpen={isModalOpenSuccessfully}
+        onRequestClose={() => closeModalSuccessfully()}
+        width={'700px'}
+        height={'500px'}
+      >
+        <animated.div style={modalAnimationSuccessfully}>
+          <h2>Detail information</h2>
+          {orderList.length > 0 &&
+            orderList.map((orderItem) => {
+              return (
+                <div className={cx('detail')}>
+                  <Image className={cx('detail-image')} src={orderItem.image} alt="avatar"></Image>
+
+                  <div className={cx('detail-item')}>
+                    <label className={cx('detail-label')}>Name:</label>
+                    <div className={cx('detail-value')}>{orderItem.name}</div>
+                  </div>
+
+                  <div className={cx('detail-item')}>
+                    <label className={cx('detail-label')}>Amount:</label>
+                    <div className={cx('detail-value')}>{orderItem.order_item_infor.quantity}</div>
                   </div>
 
                   <div className={cx('detail-item')}>
@@ -192,9 +317,59 @@ function HistoryOrder({ data, icon }) {
                     <div className={cx('detail-value')}>{orderItem.price && formatCurrency(data.totalPrice)}</div>
                   </div>
 
+                  {!orderItem.order_item_infor.isRate ? (
+                    <Button
+                      onClick={() => {
+                        openModalRating();
+                        setIDProduct(orderItem.id);
+                        setIDOrder(orderItem.order_item_infor.id);
+                      }}
+                      blue
+                      className={cx('btn')}
+                    >
+                      Rating
+                    </Button>
+                  ) : (
+                    <Button disabled blue className={cx('btn')}>
+                      Have evaluated
+                    </Button>
+                  )}
+                  <Button to={`/detailItem/${orderItem.id}`} white className={cx('btn')}>
+                    Repurchase
+                  </Button>
                 </div>
               );
             })}
+        </animated.div>
+      </Popup>
+
+      <Popup isOpen={isModalOpenRating} onRequestClose={() => closeModalRating()} width={'700px'} height={'400px'}>
+        <animated.div style={modalAnimationRating}>
+          <h2>Rating</h2>
+          <div className={cx('input-field')}>
+            <div className={cx('header')}>Stars</div>
+            <div className={cx('star')}>
+              <Star rating={rating} setRating={setRating} isUpdate={true}></Star>
+            </div>
+          </div>
+          <div className={cx('input-field')}>
+            <div className={cx('header')}>Enter comment</div>
+            <InputForm
+              placeholder=""
+              type="text"
+              value={payload.comment}
+              setValue={setPayload}
+              name={'comment'}
+              className={cx('input')}
+              leftIcon={faBook}
+            />
+          </div>
+
+          <div className={cx('options1')}>
+            <Button onClick={() => handleRating(idProduct, idOrder, rating, payload.comment)} primary>
+              Confirm
+            </Button>
+          </div>
         </animated.div>
       </Popup>
     </div>
