@@ -5,7 +5,7 @@ import { useSpring, animated } from 'react-spring';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Flip, ToastContainer, toast } from 'react-toastify';
-import { faCancel } from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faCheck, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import GetToken from '~/Token/GetToken';
 import Image from '~/components/Image';
 import Button from '~/components/Button';
@@ -19,10 +19,9 @@ function HistoryAppointment({ data, icon }) {
   const [isModalOpenDetailPending, setIsModalOpenDetailPending] = useState(false);
   const [isModalOpenDetail, setIsModalOpenDetail] = useState(false);
 
-
   const [formData, setFormData] = useState({
     note: data.note,
-    appointment_time: data.appointment_time, 
+    appointment_time: data.appointment_time,
     end_time: data.end_time,
   });
   const modalAnimationDetailPending = useSpring({
@@ -38,7 +37,7 @@ function HistoryAppointment({ data, icon }) {
       appointment_time: data.appointment_time,
       end_time: data.end_time,
     });
-  }, [data]); 
+  }, [data]);
 
   if (!data) {
     return null;
@@ -48,7 +47,7 @@ function HistoryAppointment({ data, icon }) {
     const { name, value } = e.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -112,16 +111,12 @@ function HistoryAppointment({ data, icon }) {
 
   const handleUpdate = async (id) => {
     await axios
-      .put(
-        `http://localhost:8000/api/appointment/update/${id}`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${GetToken()}`, // Điều chỉnh nếu cần
-          },
+      .put(`http://localhost:8000/api/appointment/update/${id}`, formData, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${GetToken()}`, // Điều chỉnh nếu cần
         },
-      )
+      })
       .then((res) => {
         toast.success(res.data.message);
         setTimeout(() => {
@@ -144,18 +139,18 @@ function HistoryAppointment({ data, icon }) {
             openModalDetailPending(data.id);
           }}
           className={cx('btn')}
-          outline
+          blue
         >
           Get Detail
         </Button>
 
-        <Button onClick={() => handleChangeAppointmentCancel(data.id)} className={cx('btn')} blue>
+        <Button onClick={() => handleChangeAppointmentCancel(data.id)} className={cx('btn')} outline>
           Cancel
         </Button>
       </div>
     );
   } else if (data.id_status === 6) {
-    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
+    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCheck} beat />;
     buttonComponent = (
       <div>
         <Button
@@ -163,7 +158,7 @@ function HistoryAppointment({ data, icon }) {
             openModalDetail(data.id);
           }}
           className={cx('btn')}
-          outline
+          blue
         >
           Get Detail
         </Button>
@@ -178,14 +173,29 @@ function HistoryAppointment({ data, icon }) {
             openModalDetail(data.id);
           }}
           className={cx('btn')}
-          outline
+          blue
+        >
+          Get Detail
+        </Button>
+      </div>
+    );
+  } else if (data.id_status === 7) {
+    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCheckCircle} beat />;
+    buttonComponent = (
+      <div>
+        <Button
+          onClick={() => {
+            openModalDetail(data.id);
+          }}
+          className={cx('btn')}
+          blue
         >
           Get Detail
         </Button>
       </div>
     );
   }
-  
+
   function formatCurrency(number) {
     const formatter = new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -259,14 +269,8 @@ function HistoryAppointment({ data, icon }) {
 
             <div className={cx('detail-item')}>
               <label className={cx('detail-label')}>Note:</label>
-              <input
-                className={cx('detail-input')}
-                name="note"
-                value={formData.note}
-                onChange={handleInputChange}
-              />
+              <input className={cx('detail-input')} name="note" value={formData.note} onChange={handleInputChange} />
             </div>
-
 
             <div className={cx('detail-item')}>
               <label className={cx('detail-label')}>Start Time:</label>
@@ -352,9 +356,7 @@ function HistoryAppointment({ data, icon }) {
 
             <div className={cx('detail-item')}>
               <label className={cx('detail-label')}>Note:</label>
-              <div className={cx('detail-value')}>
-                {data.note}
-              </div>
+              <div className={cx('detail-value')}>{data.note}</div>
             </div>
 
             <div className={cx('detail-item')}>
@@ -371,7 +373,6 @@ function HistoryAppointment({ data, icon }) {
               <label className={cx('detail-label')}>Price:</label>
               <div className={cx('detail-value')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
             </div>
-
           </div>
         </animated.div>
       </Popup>

@@ -5,7 +5,7 @@ import { useSpring, animated } from 'react-spring';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Flip, ToastContainer, toast } from 'react-toastify';
-import { faCancel, faCheckCircle, faBook } from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faCheckCircle, faBook, faShippingFast } from '@fortawesome/free-solid-svg-icons';
 import InputForm from '~/components/InputForm/InputForm';
 import Star from '~/components/Star';
 import GetToken from '~/Token/GetToken';
@@ -142,9 +142,18 @@ function HistoryOrder({ data, icon }) {
   let buttonComponent;
   if (data.id_status === 1) {
     iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} spinPulse />;
-    console.log('data', data);
     buttonComponent = (
       <div>
+        
+        <Button
+          onClick={() => {
+            openModalPending(data.id);
+          }}
+          className={cx('btn')}
+          blue
+        >
+          Get Detail
+        </Button>
         <Button
           onClick={() => {
             cancelOrder(data.id);
@@ -152,21 +161,12 @@ function HistoryOrder({ data, icon }) {
           className={cx('btn')}
           outline
         >
-          Cancel order
-        </Button>
-        <Button
-          onClick={() => {
-            openModalPending(data.id);
-          }}
-          className={cx('btn')}
-          outline
-        >
-          View order details
+          Cancel
         </Button>
       </div>
     );
   } else if (data.id_status === 2) {
-    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
+    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} beat />;
     buttonComponent = (
       <div>
         <Button
@@ -174,14 +174,14 @@ function HistoryOrder({ data, icon }) {
             openModalPending(data.id);
           }}
           className={cx('btn')}
-          outline
+          blue
         >
-          View order details
+          Get Detail
         </Button>
       </div>
     );
   } else if (data.id_status === 3) {
-    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
+    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faShippingFast} beat />;
     buttonComponent = (
       <div>
         <Button
@@ -189,9 +189,9 @@ function HistoryOrder({ data, icon }) {
             openModalPending(data.id);
           }}
           className={cx('btn')}
-          outline
+          blue
         >
-          View order details
+          Get Detail
         </Button>
       </div>
     );
@@ -204,9 +204,9 @@ function HistoryOrder({ data, icon }) {
             openModalSuccessfully(data.id);
           }}
           className={cx('btn')}
-          outline
+          blue
         >
-          View order details
+          Get Detail
         </Button>
       </div>
     );
@@ -219,9 +219,9 @@ function HistoryOrder({ data, icon }) {
             openModalPending(data.id);
           }}
           className={cx('btn')}
-          outline
+          blue
         >
-          View order details
+          Get Detail
         </Button>
       </div>
     );

@@ -99,8 +99,8 @@ function HistoryMenuAppointment() {
       <li onClick={() => window.location.replace(config.routes.historyAppointmentFinished)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCheckCircle}></FontAwesomeIcon>
         <span className={cx('text')}>
-          <h3>{countFinished}</h3>
-          <p>Appointment is finished</p>
+          <h3>{countFinished}</h3>  
+          <p>Appointment is completed</p>
         </span>
       </li>
     </ul>
