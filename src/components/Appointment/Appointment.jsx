@@ -254,7 +254,7 @@ import { useSpring, animated } from 'react-spring';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Flip, ToastContainer, toast } from 'react-toastify';
-import { faCancel } from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 
 import GetToken from '~/Token/GetToken';
 import Image from '~/components/Image';
@@ -339,6 +339,29 @@ function Appointment({ data, icon }) {
         toast.success(e);
       });
   };
+
+  const handleChangeAppointmentCompleted = async (id) => {
+    await axios
+      .put(
+        `http://localhost:8000/api/appointment/complete/${id}`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${GetToken()}`,
+          },
+        },
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch((e) => {
+        toast.success(e);
+      });
+  };
   // console.log("data hhee: " + JSON.stringify(data));
 
   const orderDate = data.appointment_time;
@@ -372,6 +395,7 @@ function Appointment({ data, icon }) {
       </div>
     );
   } else if (data.id_status === 6) {
+    console.log("data", data);
     iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
     buttonComponent = (
       <div>
@@ -385,9 +409,9 @@ function Appointment({ data, icon }) {
           Get Detail
         </Button>
 
-        {/* <Button onClick={() => handleChangeAppointment(data.id)} className={cx('btn')} blue>
-          Confirm
-        </Button> */}
+        <Button onClick={() => handleChangeAppointmentCompleted(data.id)} className={cx('btn')} blue>
+          Completed
+        </Button>
       </div>
     );
   } else if (data.id_status === 5) {
@@ -410,6 +434,27 @@ function Appointment({ data, icon }) {
       </div>
     );
   }
+  else if (data.id_status === 7) {
+    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCheckCircle} beat />;
+    buttonComponent = (
+      <div>
+        <Button
+          onClick={() => {
+            openModalDetail(data.id);
+          }}
+          className={cx('btn')}
+          outline
+        >
+          Get Detail
+        </Button>
+
+        {/* <Button onClick={() => handleChangeAppointment(data.id)} className={cx('btn')} blue>
+          Confirm
+        </Button> */}
+      </div>
+    );
+  }
+  
 
   function formatCurrency(number) {
     const formatter = new Intl.NumberFormat('vi-VN', {

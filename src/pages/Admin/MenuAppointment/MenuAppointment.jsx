@@ -6,7 +6,7 @@ import axios from 'axios';
 
 import config from '~/config';
 import styles from './MenuAppointment.module.scss';
-import { faCancel, faCheck} from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faCheck, faCheckCircle} from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -14,6 +14,7 @@ function MenuAppointment() {
   const [countPending, setCountPending] = useState();
   const [countAccepted, setCountAccepted] = useState();
   const [countCanceled , setCountCanceled] = useState();
+  const [countCompleted , setCountCompleted] = useState();
 
   function getJwtFromCookie() {
     //lấy token được lưu trong cookie ra
@@ -56,10 +57,19 @@ function MenuAppointment() {
       });
       setCountCanceled(response.data.detailAppointment.length);
     };
+    const getApiAppointmentCompleted = async () => {
+      const response = await axios.get('http://localhost:8000/api/appointment/7', {
+        headers: {
+          Authorization: `Bearer ${getJwtFromCookie()}`,
+        },
+      });
+      setCountCompleted(response.data.detailAppointment.length);
+    };
 
     getApiOrderPending();
     getApiAppointmentPrepared();
     getApiAppointmentCanceled();
+    getApiAppointmentCompleted();
   }, []);
   return (
     <ul className={cx('box-info')}>
@@ -82,6 +92,13 @@ function MenuAppointment() {
         <span className={cx('text')}>
           <h3>{countCanceled}</h3>
           <p>Appointment is canceled</p>
+        </span>
+      </li>
+      <li onClick={() => window.location.replace(config.routes.appointmentCompleted)}>
+        <FontAwesomeIcon className={cx('bx')} icon={faCheckCircle}></FontAwesomeIcon>
+        <span className={cx('text')}>
+          <h3>{countCompleted}</h3>
+          <p>Appointment is completed</p>
         </span>
       </li>
     </ul>

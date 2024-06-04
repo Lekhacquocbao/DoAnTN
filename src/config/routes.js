@@ -12,6 +12,7 @@ const routes = {
   appointmentPending: '/appointmentPending',
   appointmentAccepted: '/appointmentAccepted',
   appointmentCanceled: '/appointmentCanceled',
+  appointmentCompleted: '/appointmentCompleted',
   manageBrand: '/manageBrand',
   manageBreeds: '/manageBreeds',
   manageProducts: '/manageProducts',

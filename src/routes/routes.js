@@ -18,6 +18,7 @@ import MenuAppointment from '~/pages/Admin/MenuAppointment';
 import AppointmentPending from '~/pages/Admin/AppointmentPending';
 import AppointmentAccepted from '~/pages/Admin/AppointmentAccepted';
 import AppointmentCanceled from '~/pages/Admin/AppointmentCanceled';
+import AppointmentCompleted from '~/pages/Admin/AppointmentCompleted';
 import AdminDelivering from '~/pages/Admin/AdminDelivering';
 import AdminWaiting from '~/pages/Admin/AdminWaiting';
 import AdminSuccess from '~/pages/Admin/AdminSuccess';
@@ -44,7 +45,7 @@ const publicRoutes = [
   { path: config.routes.detailItem, component: DetailItem },
   { path: config.routes.allProducts, component: AllProduct },
   { path: config.routes.information, component: Information, layout: HeaderOnly },
-  { path: config.routes.historydetails, component: ItemHistory, layout: HeaderOnly },
+  { path: config.routes.historyDetails, component: ItemHistory, layout: HeaderOnly },
   { path: config.routes.cart, component: Cart, layout: HeaderOnly },
   { path: config.routes.checkout, component: Checkout, layout: HeaderOnly },
   { path: config.routes.introduce, component: Introduce, layout: HeaderOnly},
@@ -70,6 +71,7 @@ const adminRoutes = [
   { path: config.routes.appointmentPending, component: AppointmentPending, layout: Admin },
   { path: config.routes.appointmentAccepted, component: AppointmentAccepted, layout: Admin },
   { path: config.routes.appointmentCanceled, component: AppointmentCanceled, layout: Admin },
+  { path: config.routes.appointmentCompleted, component: AppointmentCompleted, layout: Admin },
   { path: config.routes.manageBrand, component: ManageBrand, layout: Admin },
   { path: config.routes.manageBreeds, component: ManageBreeds, layout: Admin },
   { path: config.routes.manageProducts, component: ManageProducts, layout: Admin },
