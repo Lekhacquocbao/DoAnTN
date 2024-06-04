@@ -85,8 +85,6 @@ function Search() {
     }
   };
 
-  console.log(shoeList);
-
   function formatCurrency(number) {
     const formatter = new Intl.NumberFormat('vi-VN', {
       style: 'currency',
@@ -108,7 +106,7 @@ function Search() {
       return;
     }
     const fetchApi = async () => {
-      const response = await axios.get(`http://localhost:4000/api/products?search=${searchValue}&limit=5`);
+      const response = await axios.get(`http://localhost:8000/api/product?search=${searchValue}&limit=5`);
       setSearchResult(response.data.result);
     };
 
@@ -137,7 +135,7 @@ function Search() {
                         <h4 className={cx('name')}>
                           <span>{result.name}</span>
                         </h4>
-                        <span className={cx('author')}>{result.Brand.name}</span>
+                        <span className={cx('author')}>{result.Breed.name}</span>
                       </div>
                     </Link>
                   );
@@ -165,7 +163,8 @@ function Search() {
           </button>
         </div>
       </HeadlessTippy>
-      <Popup isOpen={isModalOpen2} onRequestClose={() => closeModal2()} width={'600px'} height={'600px'}>
+
+      {/* <Popup isOpen={isModalOpen2} onRequestClose={() => closeModal2()} width={'600px'} height={'600px'}>
         <animated.div style={modalAnimation2}>
           <div className={cx('header')}>TOP 10</div>
           {shoeList &&
@@ -179,7 +178,8 @@ function Search() {
               );
             })}
         </animated.div>
-      </Popup>
+      </Popup> */}
+
     </div>
   );
 }

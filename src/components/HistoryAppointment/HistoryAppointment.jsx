@@ -16,12 +16,17 @@ const cx = classNames.bind(styles);
 
 function HistoryAppointment({ data, icon }) {
   const [appointmentDetail, setAppointmentDetail] = useState({});
+  const [isModalOpenDetailPending, setIsModalOpenDetailPending] = useState(false);
   const [isModalOpenDetail, setIsModalOpenDetail] = useState(false);
+
 
   const [formData, setFormData] = useState({
     note: data.note,
     appointment_time: data.appointment_time, 
     end_time: data.end_time,
+  });
+  const modalAnimationDetailPending = useSpring({
+    opacity: isModalOpenDetailPending ? 1 : 0,
   });
   const modalAnimationDetail = useSpring({
     opacity: isModalOpenDetail ? 1 : 0,
@@ -52,6 +57,17 @@ function HistoryAppointment({ data, icon }) {
   const formattedStartTime = moment(orderStartTime).format('YYYY-MM-DD HH:mm:ss');
   const formattedEndTime = moment(orderEndTime).format('YYYY-MM-DD HH:mm:ss');
 
+  const openModalDetailPending = async (id) => {
+    setIsModalOpenDetailPending(true);
+    const response = await axios.get(`http://localhost:8000/api/appointment/detail/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${GetToken()}`,
+      },
+    });
+    setAppointmentDetail(response.data.detailAppointment);
+  };
+
   const openModalDetail = async (id) => {
     setIsModalOpenDetail(true);
     const response = await axios.get(`http://localhost:8000/api/appointment/detail/${id}`, {
@@ -61,6 +77,10 @@ function HistoryAppointment({ data, icon }) {
       },
     });
     setAppointmentDetail(response.data.detailAppointment);
+  };
+
+  const closeModalDetailPending = () => {
+    setIsModalOpenDetailPending(false);
   };
 
   const closeModalDetail = () => {
@@ -121,7 +141,7 @@ function HistoryAppointment({ data, icon }) {
       <div>
         <Button
           onClick={() => {
-            openModalDetail(data.id);
+            openModalDetailPending(data.id);
           }}
           className={cx('btn')}
           outline
@@ -199,12 +219,12 @@ function HistoryAppointment({ data, icon }) {
       {buttonComponent}
       <Popup
         className={cx('modal-container')}
-        isOpen={isModalOpenDetail}
-        onRequestClose={() => closeModalDetail()}
+        isOpen={isModalOpenDetailPending}
+        onRequestClose={() => closeModalDetailPending()}
         width={'700px'}
         height={'500px'}
       >
-        <animated.div style={modalAnimationDetail}>
+        <animated.div style={modalAnimationDetailPending}>
           <h2>Detail information</h2>
           {/* {orderList.length > 0 && */}
           {/* orderList.map((data) => { */}
@@ -256,7 +276,7 @@ function HistoryAppointment({ data, icon }) {
             <div className={cx('detail-item')}>
               <label className={cx('detail-label')}>Update Start Time:</label>
               <input
-                className={cx('detail-value-input')}
+                className={cx('detail-value')}
                 name="appointmentTime"
                 type="datetime-local"
                 // value={formData.appointmentTime}
@@ -291,6 +311,68 @@ function HistoryAppointment({ data, icon }) {
           </div>
           {/* ); */}
           {/* })} */}
+        </animated.div>
+      </Popup>
+
+      <Popup
+        className={cx('modal-container')}
+        isOpen={isModalOpenDetail}
+        onRequestClose={() => closeModalDetail()}
+        width={'700px'}
+        height={'500px'}
+      >
+        <animated.div style={modalAnimationDetail}>
+          <h2>Detail information</h2>
+          <div className={cx('detail')}>
+            <Image
+              className={cx('detail-image')}
+              src={appointmentDetail.Service ? appointmentDetail.Service.image : ''}
+              alt="avatar"
+            ></Image>
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Name:</label>
+              <div className={cx('detail-value')}>
+                {data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}
+              </div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Service:</label>
+              <div className={cx('detail-value')}>
+                {appointmentDetail.Service ? appointmentDetail.Service.name : ''}
+              </div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Description:</label>
+              <div className={cx('detail-value')}>
+                {appointmentDetail.Service ? appointmentDetail.Service.description : ''}
+              </div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Note:</label>
+              <div className={cx('detail-value')}>
+                {data.note}
+              </div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Start Time:</label>
+              <div className={cx('detail-value')}>{formattedStartTime}</div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>End Time:</label>
+              <div className={cx('detail-value')}>{formattedEndTime}</div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Price:</label>
+              <div className={cx('detail-value')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
+            </div>
+
+          </div>
         </animated.div>
       </Popup>
     </div>

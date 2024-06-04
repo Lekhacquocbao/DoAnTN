@@ -14,6 +14,8 @@ function HistoryMenuAppointment() {
   const [countPending, setCountPending] = useState();
   const [countAccepted, setCountAccepted] = useState();
   const [countCanceled , setCountCanceled] = useState();
+  const [countFinished , setCountFinished] = useState();
+  
 
   function getJwtFromCookie() {
     //lấy token được lưu trong cookie ra
@@ -57,9 +59,19 @@ function HistoryMenuAppointment() {
       setCountCanceled(response.data.detailAppointment.length);
     };
 
+    const getApiAppointmentFinished = async () => {
+      const response = await axios.get('http://localhost:8000/api/appointment/7', {
+        headers: {
+          Authorization: `Bearer ${getJwtFromCookie()}`,
+        },
+      });
+      setCountFinished(response.data.detailAppointment.length);
+    };
+
     getApiOrderPending();
     getApiAppointmentPrepared();
     getApiAppointmentCanceled();
+    getApiAppointmentFinished();
   }, []);
   return (
     <ul className={cx('box-info')}>
@@ -87,8 +99,8 @@ function HistoryMenuAppointment() {
       <li onClick={() => window.location.replace(config.routes.historyAppointmentFinished)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCheckCircle}></FontAwesomeIcon>
         <span className={cx('text')}>
-          <h3>{countCanceled}</h3>
-          <p>Appointment is canceled</p>
+          <h3>{countFinished}</h3>
+          <p>Appointment is finished</p>
         </span>
       </li>
     </ul>

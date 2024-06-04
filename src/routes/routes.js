@@ -36,6 +36,7 @@ import HistoryAppointmentCanceled from '~/pages/HistoryOA/HistoryAppointmentCanc
 import HistoryAppointmentAccepted from '~/pages/HistoryOA/HistoryAppointmentAccepted';
 import HistoryAppointmentPending from '~/pages/HistoryOA/HistoryAppointmentPending';
 import HistoryAppointmentFinished from '~/pages/HistoryOA/HistoryAppointmentFinished';
+import BookingAppointment from '~/pages/BookingAppointment';
 
 const publicRoutes = [
   { path: config.routes.login, component: Login, layout: null },
@@ -57,6 +58,7 @@ const publicRoutes = [
   { path: config.routes.historyAppointmentAccepted, component: HistoryAppointmentAccepted, layout: HeaderOnly },
   { path: config.routes.historyAppointmentCanceled, component: HistoryAppointmentCanceled, layout: HeaderOnly },
   { path: config.routes.historyAppointmentFinished, component: HistoryAppointmentFinished, layout: HeaderOnly },
+  { path: config.routes.bookingAppointment, component: BookingAppointment, layout: HeaderOnly },
 ];
 
 const adminRoutes = [

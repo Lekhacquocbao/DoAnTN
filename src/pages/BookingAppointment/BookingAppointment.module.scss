@@ -1,0 +1,80 @@
+
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding-top: 50px;
+}
+
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+
+  label {
+      font-weight: bold;
+      display: block;
+      margin-bottom: 5px;
+  }
+
+  select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; // Đảm bảo các phần tử nằm ở trung tâm theo chiều dọc
+  margin-top: 20px;
+
+  button {
+    height: 100%; // Đặt chiều cao của nút là 100% của phần tử cha
+    width: 48%; // Đặt chiều rộng của nút là 48% của phần tử cha
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    text-align: center;
+
+    &.primary {
+      background-color: #007bff;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+    }
+
+    &.secondary {
+      background-color: #6c757d;
+
+      &:hover {
+        background-color: #5a6268;
+      }
+
+      &:disabled {
+        background-color: #e9ecef;
+        cursor: not-allowed;
+      }
+    }
+  }
+}
+

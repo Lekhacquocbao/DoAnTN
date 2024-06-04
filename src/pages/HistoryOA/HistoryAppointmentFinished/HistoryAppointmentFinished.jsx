@@ -17,7 +17,7 @@ function HistoryAppointmentFinished() {
 
   useEffect(() => {
     const getApiAppointmentAccepted = async () => {
-      const response = await axios.get('http://localhost:8000/api/appointment/6', {
+      const response = await axios.get('http://localhost:8000/api/appointment/7', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       // console.log("response", response);
@@ -46,7 +46,7 @@ function HistoryAppointmentFinished() {
             <HistoryMenuAppointment />
           </Suspense>
         </div>
-        <span className={cx('title-content')}>Appointment is accepted</span>
+        <span className={cx('title-content')}>Appointment is finished</span>
         <div className={cx('order-list')}>
           {orderList &&
             orderList.map((order) => (
