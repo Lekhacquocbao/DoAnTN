@@ -234,7 +234,7 @@ function HistoryOrder({ data, icon }) {
     });
     return formatter.format(number);
   }
-  // console.log("ccccc", data);
+  console.log("ccccc", data);
   return (
     <div className={cx('order')}>
       <ToastContainer

@@ -81,6 +81,7 @@ function Checkout() {
         {
           Items: orderItemsPayload,
           address: address,
+          // paymentMethod: paymentMethod,
           phoneNumber: phoneNumber,
         },
         {
@@ -164,11 +165,11 @@ function Checkout() {
             <label>
               <input
                 type="radio"
-                value="Momo"
-                checked={paymentMethod === 'Momo'}
-                onChange={() => setPaymentMethod('Momo')}
+                value="MOMO"
+                checked={paymentMethod === 'MOMO'}
+                onChange={() => setPaymentMethod('MOMO')}
               />
-              Momo
+              MOMO
             </label>
           </div>
         </div>

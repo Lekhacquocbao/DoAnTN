@@ -5,19 +5,29 @@ import { useSpring, animated } from 'react-spring';
 import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Flip, ToastContainer, toast } from 'react-toastify';
-import { faCancel, faCheck, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faCheck, faCheckCircle, faBook } from '@fortawesome/free-solid-svg-icons';
 import GetToken from '~/Token/GetToken';
 import Image from '~/components/Image';
 import Button from '~/components/Button';
 import Popup from '../Popup';
 import styles from './HistoryAppointment.module.scss';
+import InputForm from '~/components/InputForm/InputForm';
+import Star from '~/components/Star';
 
 const cx = classNames.bind(styles);
 
 function HistoryAppointment({ data, icon }) {
   const [appointmentDetail, setAppointmentDetail] = useState({});
   const [isModalOpenDetailPending, setIsModalOpenDetailPending] = useState(false);
+  const [isModalOpenDetailCompleted, setIsModalOpenDetailCompleted] = useState(false);
   const [isModalOpenDetail, setIsModalOpenDetail] = useState(false);
+  const [isModalOpenRating, setIsModalOpenRating] = useState(false);
+  const [idService, setIDService] = useState();
+  const [idAppointment, setIDAppointment] = useState();
+  const [rating, setRating] = useState(5);
+  const [payload, setPayload] = useState({
+    comment: '',
+  });
 
   const [formData, setFormData] = useState({
     note: data.note,
@@ -27,8 +37,19 @@ function HistoryAppointment({ data, icon }) {
   const modalAnimationDetailPending = useSpring({
     opacity: isModalOpenDetailPending ? 1 : 0,
   });
+  const modalAnimationDetailCompleted = useSpring({
+    opacity: isModalOpenDetailCompleted ? 1 : 0,
+  });
   const modalAnimationDetail = useSpring({
     opacity: isModalOpenDetail ? 1 : 0,
+  });
+
+  const closeModalRating = () => {
+    setIsModalOpenRating(false);
+  };
+
+  const modalAnimationRating = useSpring({
+    opacity: isModalOpenRating ? 1 : 0,
   });
 
   useEffect(() => {
@@ -56,6 +77,34 @@ function HistoryAppointment({ data, icon }) {
   const formattedStartTime = moment(orderStartTime).format('YYYY-MM-DD HH:mm:ss');
   const formattedEndTime = moment(orderEndTime).format('YYYY-MM-DD HH:mm:ss');
 
+  const handleRating = async (id_service, idAppointment, star, comment) => {
+    await axios
+      .post(
+        `http://localhost:8000/api/rating/add`,
+        {
+          id_service: id_service,
+          id_order_item: idAppointment,
+          comment: comment,
+          star: star,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${GetToken()}`,
+          },
+        },
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
+  };
+
   const openModalDetailPending = async (id) => {
     setIsModalOpenDetailPending(true);
     const response = await axios.get(`http://localhost:8000/api/appointment/detail/${id}`, {
@@ -78,12 +127,31 @@ function HistoryAppointment({ data, icon }) {
     setAppointmentDetail(response.data.detailAppointment);
   };
 
+  const openModalDetailCompleted = async (id) => {
+    setIsModalOpenDetailCompleted(true);
+    const response = await axios.get(`http://localhost:8000/api/appointment/detail/${id}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${GetToken()}`,
+      },
+    });
+    setAppointmentDetail(response.data.detailAppointment);
+  };
+
   const closeModalDetailPending = () => {
     setIsModalOpenDetailPending(false);
   };
 
+  const closeModalDetailCompleted = () => {
+    setIsModalOpenDetailCompleted(false);
+  };
+
   const closeModalDetail = () => {
     setIsModalOpenDetail(false);
+  };
+
+  const openModalRating = () => {
+    setIsModalOpenRating(true);
   };
 
   const handleChangeAppointmentCancel = async (id) => {
@@ -185,7 +253,7 @@ function HistoryAppointment({ data, icon }) {
       <div>
         <Button
           onClick={() => {
-            openModalDetail(data.id);
+            openModalDetailCompleted(data.id);
           }}
           className={cx('btn')}
           blue
@@ -195,6 +263,7 @@ function HistoryAppointment({ data, icon }) {
       </div>
     );
   }
+  console.log('data cai cc', data);
 
   function formatCurrency(number) {
     const formatter = new Intl.NumberFormat('vi-VN', {
@@ -203,6 +272,7 @@ function HistoryAppointment({ data, icon }) {
     });
     return formatter.format(number);
   }
+
   return (
     <div className={cx('order')}>
       <ToastContainer
@@ -320,6 +390,84 @@ function HistoryAppointment({ data, icon }) {
 
       <Popup
         className={cx('modal-container')}
+        isOpen={isModalOpenDetailCompleted}
+        onRequestClose={() => closeModalDetailCompleted()}
+        width={'700px'}
+        height={'500px'}
+      >
+        <animated.div style={modalAnimationDetailCompleted}>
+          <h2>Detail information hahaha</h2>
+          <div className={cx('detail')}>
+            <Image
+              className={cx('detail-image')}
+              src={appointmentDetail.Service ? appointmentDetail.Service.image : ''}
+              alt="avatar"
+            ></Image>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Name:</label>
+              <div className={cx('detail-value')}>
+                {data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}
+              </div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Service:</label>
+              <div className={cx('detail-value')}>
+                {appointmentDetail.Service ? appointmentDetail.Service.name : ''}
+              </div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Description:</label>
+              <div className={cx('detail-value')}>
+                {appointmentDetail.Service ? appointmentDetail.Service.description : ''}
+              </div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Note:</label>
+              <div className={cx('detail-value')}>{data.note}</div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Start Time:</label>
+              <div className={cx('detail-value')}>{formattedStartTime}</div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>End Time:</label>
+              <div className={cx('detail-value')}>{formattedEndTime}</div>
+            </div>
+
+            <div className={cx('detail-item')}>
+              <label className={cx('detail-label')}>Price:</label>
+              <div className={cx('detail-value')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
+            </div>
+
+            {!data.Account.isService ? (
+            <Button
+              onClick={() => {
+                openModalRating();
+                setIDService(data.Account.id);
+                setIDAppointment(data.Account.order_item_infor);
+              }}
+              blue
+              className={cx('btn')}
+            >
+              Rating
+            </Button>
+            ) : (
+                    <Button disabled blue className={cx('btn')}>
+                      Have evaluated
+                    </Button>
+                  )}
+          </div>
+        </animated.div>
+      </Popup>
+
+      <Popup
+        className={cx('modal-container')}
         isOpen={isModalOpenDetail}
         onRequestClose={() => closeModalDetail()}
         width={'700px'}
@@ -373,6 +521,36 @@ function HistoryAppointment({ data, icon }) {
               <label className={cx('detail-label')}>Price:</label>
               <div className={cx('detail-value')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
             </div>
+          </div>
+        </animated.div>
+      </Popup>
+
+      <Popup isOpen={isModalOpenRating} onRequestClose={() => closeModalRating()} width={'700px'} height={'400px'}>
+        <animated.div style={modalAnimationRating}>
+          <h2>Rating</h2>
+          <div className={cx('input-field')}>
+            <div className={cx('header')}>Stars</div>
+            <div className={cx('star')}>
+              <Star rating={rating} setRating={setRating} isUpdate={true}></Star>
+            </div>
+          </div>
+          <div className={cx('input-field')}>
+            <div className={cx('header')}>Enter comment</div>
+            <InputForm
+              placeholder=""
+              type="text"
+              value={payload.comment}
+              setValue={setPayload}
+              name={'comment'}
+              className={cx('input')}
+              leftIcon={faBook}
+            />
+          </div>
+
+          <div className={cx('options1')}>
+            <Button onClick={() => handleRating(idService, idAppointment, rating, payload.comment)} primary>
+              Confirm
+            </Button>
           </div>
         </animated.div>
       </Popup>
