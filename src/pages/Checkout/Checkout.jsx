@@ -70,10 +70,10 @@ function Checkout() {
       id_cartItem: item.cart_item_infor.id,
       price: item.price
     }));
-   console.log("heheh",orderItemsPayload);
+  //  console.log("heheh",orderItemsPayload);
     const apiUrl = paymentMethod === 'COD' 
       ? 'http://localhost:8000/api/order/create' 
-      : 'your_momo_api_endpoint';
+      : 'http://localhost:8000/api/order/create';
   
     try {
       const response = await axios.post(

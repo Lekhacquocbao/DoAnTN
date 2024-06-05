@@ -13,10 +13,10 @@ import styles from './AllProduct.module.scss';
 const ProductItem = React.lazy(() => import('~/components/ProductItem'));
 const cx = classNames.bind(styles);
 
-function AllBook() {
-  const [shoes, setShoes] = useState({});
-  const [categories, setCategories] = useState({});
-  const [brands, setBrands] = useState({});
+function AllProduct() {
+  const [products, setProducts] = useState({});
+  const [breeds, setBreeds] = useState({});
+  // const [brands, setBrands] = useState({});
   const location = useLocation();
   const { id1, search } = queryString.parse(location.search);
   const [descPrice, setDescPrice] = useState(0);
@@ -43,13 +43,13 @@ function AllBook() {
     window.location.href = newUrl;
   };
 
-  const handleBrandClick = (buttonId) => {
-    const urlParams = new URLSearchParams(window.location.search);
-    urlParams.set('id2', buttonId);
-    const newSearch = urlParams.toString();
-    const newUrl = `${window.location.pathname}?${newSearch}`;
-    window.location.href = newUrl;
-  };
+  // const handleBrandClick = (buttonId) => {
+  //   const urlParams = new URLSearchParams(window.location.search);
+  //   urlParams.set('id2', buttonId);
+  //   const newSearch = urlParams.toString();
+  //   const newUrl = `${window.location.pathname}?${newSearch}`;
+  //   window.location.href = newUrl;
+  // };
 
   const pagesToShow = 10;
 
@@ -63,21 +63,21 @@ function AllBook() {
   }, [page]);
 
   useEffect(() => {
-    const fetchApiShoes = async () => {
+    const fetchApiProducts = async () => {
       const response = await axios.get(
         `http://localhost:8000/api/product?limit=100&id_breed=${idBreed}&page=${page}&search=${searchValue}&isDesc=${descPrice}`,
       );
-      setShoes(response.data.result);
+      setProducts(response.data.result);
       setTotalPage(response.data.totalPages);
     };
 
     const fetchApiBreeds = async () => {
       const response = await axios.get('http://localhost:8000/api/breed/');
       const breedData = await response.data.breeds;
-      setCategories(breedData);
+      setBreeds(breedData);
     };
     fetchApiBreeds();
-    fetchApiShoes();
+    fetchApiProducts();
   }, [idBreed, totalPage, page, searchValue, descPrice]);
 
   return (
@@ -101,11 +101,11 @@ function AllBook() {
           </ul>
         </div>
         <div className={cx('select-input')}>
-          <span className={cx('select-input__label')}>Category</span>
+          <span className={cx('select-input__label')}>Breed</span>
           <FontAwesomeIcon className={cx('select-input__icon')} icon={faChevronDown}></FontAwesomeIcon>
           <ul className={cx('select-input__list')}>
-            {categories.length &&
-              categories.map((category) => {
+            {breeds.length &&
+              breeds.map((category) => {
                 return (
                   <li className={cx('select-input__item')} key={category.id}>
                     <Link
@@ -120,7 +120,7 @@ function AllBook() {
               })}
           </ul>
         </div>
-        <div className={cx('select-input')}>
+        {/* <div className={cx('select-input')}>
           <span className={cx('select-input__label')}>Brand</span>
           <FontAwesomeIcon className={cx('select-input__icon')} icon={faChevronDown}></FontAwesomeIcon>
           <ul className={cx('select-input__list')}>
@@ -139,11 +139,11 @@ function AllBook() {
                 );
               })}
           </ul>
-        </div>
+        </div> */}
       </div>
       <div className={cx('book-list')}>
         <React.Suspense fallback={<div>Loading...</div>}>
-          <ProductItem items={shoes.length && shoes} />
+          <ProductItem items={products.length && products} />
         </React.Suspense>
 
         <ul className={cx('pagination')}>
@@ -178,5 +178,5 @@ function AllBook() {
   );
 }
 
-export default AllBook;
+export default AllProduct;
 
