@@ -71,17 +71,13 @@ function Checkout() {
       price: item.price
     }));
   //  console.log("heheh",orderItemsPayload);
-    const apiUrl = paymentMethod === 'COD' 
-      ? 'http://localhost:8000/api/order/create' 
-      : 'http://localhost:8000/api/order/create';
-  
     try {
       const response = await axios.post(
-        apiUrl,
+        'http://localhost:8000/api/order/create',
         {
           Items: orderItemsPayload,
           address: address,
-          // paymentMethod: paymentMethod,
+          paymentMethod: paymentMethod,
           phoneNumber: phoneNumber,
         },
         {
@@ -93,7 +89,14 @@ function Checkout() {
       );
       // console.log('Response:', response);
       toast.success(response.data.message);
-      window.location.reload();
+      if (paymentMethod === 'MOMO'){
+        window.location.href = response.data.payURL;
+      } else{
+        setTimeout(() => {
+          window.location.href = '/';
+        }, 2000);
+      }
+        
     } catch (error) {
       toast.error(error.message);
     }
@@ -180,9 +183,9 @@ function Checkout() {
         </div>
 
         <Button
-          to="/"
           className={cx('order-button')}
           onClick={() => handleOrderAll(autocompleteInputValue, payload.phoneNumber)}
+
         >
           Place Order
         </Button>
