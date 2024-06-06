@@ -1,18 +1,36 @@
 // @import 'swiper/swiper-bundle.min.css';
 
 .slide-bar {
-  margin-top: -60px;
-  margin-left: -120px;
-  margin-right: -120px;
+  // margin-top: -60px;
+  // margin-left: -120px;
+  // margin-right: -120px;
 
-  img {
+  // img {
+  //   width: 100%;
+  // }
     width: 100%;
-  }
+    display: block;
+    margin: 0 auto;
+    .slick-prev,
+    .slick-next {
+      width: 50px;
+      height: 50px;
+      color: red; /* semi-transparent white */
+      z-index: 1; /* ensure buttons are above the slider images */
+    }
+
+    .slick-prev::before,
+    .slick-next::before {
+      font-size: 50px; /* make the icons larger */
+      color: red; /* semi-transparent white */
+    }
+
+    .slide{
+      height: 500px;
+    }
 }
 
-.slide{
-  height: 650px;
-}
+
 
 .categories {
   box-shadow: 5px 5px 5px var(--grey);

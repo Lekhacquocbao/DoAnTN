@@ -60,18 +60,10 @@ function Header() {
     <header className={cx('header')}>
       <div className={cx('container')}>
         <div className={cx('header-nav')}>
-          <div className={cx('header-logo')}>
             <div className={cx('logo-wrap')}>
               <Link to="/" title="BHStore">
-                {/* <div className={cx('logo')}>
-                  <img
-                    alt="logo"
-                    src="https://logowik.com/content/uploads/images/black-circle-pet-shop5686.logowik.com.webp"
-                  />
-                </div> */}
                 <div className={cx('store-name')}>BH STORE</div>
               </Link>
-            </div>
           </div>
 
           <nav className={cx('nav-bar')}>

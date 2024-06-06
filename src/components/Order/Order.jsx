@@ -286,7 +286,7 @@ function Order({ data, icon }) {
   let iconComponent;
   let buttonComponent;
   if (data.id_status === 1) {
-    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} spinPulse />;
+    // iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} spinPulse />;
     buttonComponent = (
       <div>
         <Button
@@ -304,7 +304,7 @@ function Order({ data, icon }) {
       </div>
     );
   } else if (data.id_status === 2) {
-    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
+    // iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
     buttonComponent = (
       <div>
         <Button
@@ -322,7 +322,7 @@ function Order({ data, icon }) {
       </div>
     );
   } else if (data.id_status === 3) {
-    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
+    // iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
     buttonComponent = (
       <div>
         <Button
@@ -340,7 +340,7 @@ function Order({ data, icon }) {
       </div>
     );
   } else if (data.id_status === 4) {
-    iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCheckCircle} beat />;
+    // iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCheckCircle} beat />;
     buttonComponent = (
       <div>
         <Button
@@ -379,12 +379,15 @@ function Order({ data, icon }) {
         pauseOnHover
         theme="light"
       />
-      <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>1{iconComponent}
+      <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>{iconComponent}
       <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div>
+      <div className={cx('name-order')}>{data.payment ? data.payment.paymentMethod : "" }</div>
+      <div className={cx('name-order')}>{data.payment?.isPaid ? "Da thanh toan" : "Chua thanh toan"}</div>
       <div className={cx('day-order')}>{formattedDate}</div>
       <div className={cx('address')}>{data.order_address}</div>
       <div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
       {buttonComponent}
+
       <Popup isOpen={isModalOpen1} onRequestClose={() => closeModal1()} width={'700px'} height={'500px'}>
         <animated.div style={modalAnimation1}>
           <h2>Detail information</h2>
@@ -408,7 +411,7 @@ function Order({ data, icon }) {
 
                   <div className={cx('detail-item')}>
                     <label className={cx('detail-label')}>Price:</label>
-                    <div className={cx('detail-value')}>{orderItem.price && formatCurrency(data.totalPrice)}</div>
+                    <div className={cx('detail-value')}>{orderItem.order_item_infor.fixed_price && formatCurrency(orderItem.order_item_infor.fixed_price)}</div>
                   </div>
 
                 </div>

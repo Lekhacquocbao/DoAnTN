@@ -25,16 +25,11 @@ header {
   height: 80px;
 }
 
-.header-logo {
-  width: 150px;
-  // display: flex;
-  // align-items: center;
-}
 
 .logo-wrap a {
   font-size: 22px;
   font-weight: 600;
-  padding-left: 100px;
+  padding-left: 80px;
   // display: flex;
   // align-items: center;
 }
@@ -42,15 +37,16 @@ header {
 .header-actions {
   display: flex;
   align-items: center;
+  margin-left: auto;
 }
 
-.nav-bar-container {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  background-color: #f8f8f8;
-  padding: 10px 0;
-}
+// .nav-bar-container {
+//   margin-top: 10px;
+//   display: flex;
+//   justify-content: center;
+//   background-color: #f8f8f8;
+//   padding: 10px 0;
+// }
 
 .nav-bar {
   display: flex;
@@ -128,50 +124,48 @@ header {
   }
 }
 
-.has-child {
-  display: flex;
-  align-items: flex-end;
-  cursor: pointer;
+// .has-child {
+//   display: flex;
+//   align-items: flex-end;
+//   cursor: pointer;
   
-}
+// }
 
-.has-child:hover .menu-child {
-  top: 100%;
-  visibility: visible;
-  opacity: 1;
-  background: rgba(255, 255, 255, 0.95);
+// .has-child:hover .menu-child {
+//   top: 100%;
+//   visibility: visible;
+//   opacity: 1;
+//   background: rgba(255, 255, 255, 0.95);
   
-}
+// }
 
-.menu-child {
-  padding: 24px 15.4% 32px;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  position: absolute;
-  top: 200%;
-  left: 0;
-  z-index: 99;
-  background: #fff;
-  color: #000;
-  visibility: hidden;
-  opacity: 0;
-  transition: all 0.5s ease;
+// .menu-child {
+//   padding: 24px 15.4% 32px;
+//   display: flex;
+//   justify-content: center;
+//   width: 100%;
+//   position: absolute;
+//   top: 200%;
+//   left: 0;
+//   z-index: 99;
+//   background: #fff;
+//   color: #000;
+//   visibility: hidden;
+//   opacity: 0;
+//   transition: all 0.5s ease;
 
-  a {
-    font-size: 1.7rem;
-  }
-  li::after {
-    content: ' ';
-    display: block;
-    bottom: 0;
-    border: 1px solid var(--text-color);
-  }
-}
+//   a {
+//     font-size: 1.7rem;
+//   }
+//   li::after {
+//     content: ' ';
+//     display: block;
+//     bottom: 0;
+//     border: 1px solid var(--text-color);
+//   }
+// }
 
-.header-actions {
-  margin-left: auto;
-}
+
 
 .actions {
   display: flex;
@@ -193,58 +187,58 @@ header {
   border-radius: 9999px;
 }
 
-.login-btn {
-  background-color: var(--red);
-}
+// .login-btn {
+//   background-color: var(--red);
+// }
 
-.register-btn {
-  background-color: var(--blue);
-}
+// .register-btn {
+//   background-color: var(--blue);
+// }
 
-.login-btn,
-.register-btn {
-  margin: 0 6px;
-  width: 130px;
-  height: 40px;
-  border-radius: 20px;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: 0.5s;
-  z-index: 1;
-  color: var(--white);
-  border: 2px solid var(--text-color);
+// .login-btn,
+// .register-btn {
+//   margin: 0 6px;
+//   width: 130px;
+//   height: 40px;
+//   border-radius: 20px;
+//   cursor: pointer;
+//   position: relative;
+//   overflow: hidden;
+//   transition: 0.5s;
+//   z-index: 1;
+//   color: var(--white);
+//   border: 2px solid var(--text-color);
 
-  &::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: auto;
-    right: 0;
-    width: 0;
-    height: 100%;
-    background-color: var(--white);
-    transition: all 0.5s;
-    z-index: -1;
-  }
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     bottom: 0;
+//     left: auto;
+//     right: 0;
+//     width: 0;
+//     height: 100%;
+//     background-color: var(--white);
+//     transition: all 0.5s;
+//     z-index: -1;
+//   }
 
-  &:hover {
-    color: var(--red);
-    &::before {
-      width: 100%;
-      left: 0;
-      right: auto;
-    }
-  }
-}
+//   &:hover {
+//     color: var(--red);
+//     &::before {
+//       width: 100%;
+//       left: 0;
+//       right: auto;
+//     }
+//   }
+// }
 
 .login-register-btn{
   padding-right: 50px !important;
 }
 
-.menu-item {
-  width: 160px;
-}
+// .menu-item {
+//   width: 160px;
+// }
 
 .user-btn {
   background-color: var(--red-warning);
@@ -366,16 +360,6 @@ header {
 .logo-wrap {
   display: flex;
   align-items: center;
-}
-
-.logo {
-  margin-right: 10px; 
-}
-
-.logo img {
-  width: 120px; 
-  height: 120px; 
-  border-radius: 50%;
 }
 
 // .store-name {
