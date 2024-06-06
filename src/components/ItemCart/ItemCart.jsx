@@ -7,13 +7,13 @@ import { Icon } from '@iconify/react';
 
 
 import Image from '~/components/Image';
-import Button from '~/components/Button';
+import Button from '~/components/Button'; 
 import GetToken from '~/Token/GetToken';
 import styles from './ItemCart.module.scss';
 
 const cx = classNames.bind(styles);
 
-function ItemCart({ data, onSelect, isCheckoutPage}) {
+function ItemCart({ data, onSelect, isCheckoutPage, onQuantityChange}) {
   const [isChecked, setIsChecked] = useState(false);  
   const [quantity, setQuantity] = useState(data.cart_item_infor.quantity)
 
@@ -52,14 +52,18 @@ function ItemCart({ data, onSelect, isCheckoutPage}) {
   }
 
   async function handleIncrement() {
-    setQuantity(quantity + 1);
-    await updateQuantity(data.cart_item_infor.id,quantity+1)
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    await updateQuantity(data.cart_item_infor.id, newQuantity);
+    onQuantityChange(data.cart_item_infor.id, newQuantity); // Báo cáo số lượng mới lên Cart
   }
 
   async function handleDecrement() {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
-      await updateQuantity(data.cart_item_infor.id,quantity-1)
+      const newQuantity = quantity - 1;
+      setQuantity(newQuantity);
+      await updateQuantity(data.cart_item_infor.id, newQuantity);
+      onQuantityChange(data.cart_item_infor.id, newQuantity); // Báo cáo số lượng mới lên Cart
     }
   }
 
@@ -135,9 +139,11 @@ function ItemCart({ data, onSelect, isCheckoutPage}) {
   );
 }
 
-ItemCart.protoTypes = {
-  data: PropTypes.node.isRequired,
+ItemCart.propTypes = {
+  data: PropTypes.object.isRequired,
   onSelect: PropTypes.func,
+  isCheckoutPage: PropTypes.bool,
+  onQuantityChange: PropTypes.func.isRequired,
 };
 
 export default ItemCart;

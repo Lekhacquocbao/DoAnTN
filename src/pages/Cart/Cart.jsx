@@ -92,47 +92,69 @@ function Cart() {
   //   setSubTotal(total);
   // };
 
+  const handleQuantityChange = (cartItemId, newQuantity) => {
+    const updatedCartItems = cartItems.map((item) =>
+      item.cart_item_infor.id === cartItemId
+        ? { ...item, cart_item_infor: { ...item.cart_item_infor, quantity: newQuantity } }
+        : item
+    );
+    setCartItems(updatedCartItems);
 
-  const handleOrderAll = async (address, phoneNumber) => {
-    if (orderItems.length === 0) {
-      toast.error('Please select to pay');
-    } else {
-      if (!validateForm()) {
-        return;
-      } else {
-        const orderItemsPayload = orderItems.map((item) => ({
-          id_product: item.id,
-          quantity: item.cart_item_infor.quantity,
-          id_cartItem: item.cart_item_infor.id,
-          price: item.Shoes.price,
-        }));
-        console.log(orderItemsPayload);
+    const updatedOrderItems = orderItems.map((item) =>
+      item.cart_item_infor.id === cartItemId
+        ? { ...item, cart_item_infor: { ...item.cart_item_infor, quantity: newQuantity } }
+        : item
+    );
+    setOrderItems(updatedOrderItems);
 
-        await axios
-          .post(
-            'http://localhost:8000/api/order/create',
-            {
-              cartItems: orderItemsPayload,
-              address: address,
-              phoneNumber: phoneNumber,
-            },
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${GetToken()}`,
-              },
-            },
-          )
-          .then((res) => {
-            toast.success(res.data.message);
-            window.location.reload();
-          })
-          .catch((e) => {
-            toast.error(e.message);
-          });
-      }
-    }
+    let total = 0;
+    updatedOrderItems.forEach((item) => {
+      total += item.price * item.cart_item_infor.quantity;
+    });
+    setSubTotal(total);
   };
+
+
+  // const handleOrderAll = async (address, phoneNumber) => {
+  //   if (orderItems.length === 0) {
+  //     toast.error('Please select to pay');
+  //   } else {
+  //     if (!validateForm()) {
+  //       return;
+  //     } else {
+  //       const orderItemsPayload = orderItems.map((item) => ({
+  //         id_product: item.id,
+  //         quantity: item.cart_item_infor.quantity,
+  //         id_cartItem: item.cart_item_infor.id,
+  //         price: item.Shoes.price,
+  //       }));
+  //       console.log(orderItemsPayload);
+
+  //       await axios
+  //         .post(
+  //           'http://localhost:8000/api/order/create',
+  //           {
+  //             cartItems: orderItemsPayload,
+  //             address: address,
+  //             phoneNumber: phoneNumber,
+  //           },
+  //           {
+  //             headers: {
+  //               'Content-Type': 'application/json',
+  //               Authorization: `Bearer ${GetToken()}`,
+  //             },
+  //           },
+  //         )
+  //         .then((res) => {
+  //           toast.success(res.data.message);
+  //           window.location.reload();
+  //         })
+  //         .catch((e) => {
+  //           toast.error(e.message);
+  //         });
+  //     }
+  //   }
+  // };
 
   useEffect(() => {
     const fetchApiCarts = async () => {
@@ -190,9 +212,8 @@ function Cart() {
             return (
               <ItemCart
                 data={cartItem}
-                onSelect={() => {
-                  handleItemSelect(cartItem);
-                }}
+                onSelect={() => handleItemSelect(cartItem)}
+                onQuantityChange={handleQuantityChange} // Truyền hàm xử lý số lượng thay đổi
                 key={cartItem.id}
               />
             );

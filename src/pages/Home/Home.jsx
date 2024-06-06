@@ -81,7 +81,7 @@ function Home() {
             src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-2.jpg"
           ></img>
 
-          <img
+          <img  
             className={cx('slide')}
             alt="slide3"
             src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-3.jpg"
@@ -366,7 +366,23 @@ function Home() {
         </div>
 
         <div className={cx('rightColumn')}>
-          <h2>ĐẶT LỊCH CHĂM SÓC THÚ CƯNG</h2>
+        <img
+          src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/banner_index.png?1701914025229"
+          alt="Slider"
+        ></img>
+        <img
+          src="https://png.pngtree.com/thumb_back/fw800/background/20220827/pngtree-pet-shop-cat-and-dog-vector-background-image_1462686.jpg"
+          alt="Slider"
+        ></img>
+        {/* <img
+          src="https://file.hstatic.net/200000391405/file/gtheffghjgf_d6d591ac6b534a6cbf99b4472757bca9.jpg"
+          alt="Slider"
+        ></img> */}
+        <img
+          src="https://vetad.net/wp-content/uploads/2018/10/Banner3-1.jpg"
+          alt="Slider"
+        ></img>
+          {/* <h2>ĐẶT LỊCH CHĂM SÓC THÚ CƯNG</h2>
           <form>
             <div className={cx('radioColumn')}>
               <div className={cx('input-name')}>
@@ -455,7 +471,7 @@ function Home() {
               </div>
               <button type="submit">Gửi PET CƯNG</button>
             </div>
-          </form>
+          </form> */}
         </div>
       </div>
     </div>

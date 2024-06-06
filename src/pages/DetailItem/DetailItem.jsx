@@ -73,9 +73,6 @@ function DetailItem() {
       const response = await axios.get(`http://localhost:8000/api/product/${id}`);
       setProduct(response.data.result);
       setRatings(response.data.result.rating);
-      // if (response.data.result.Size_items && response.data.result.Size_items.length > 0) {
-      //   setIdProduct(response.data.result.Size_items[0].id);
-      // }
     };
 
     const fetchAPIProducts = async () => {
@@ -86,20 +83,24 @@ function DetailItem() {
       } catch (error) {        console.log(error);
       }
     };
+    getAPIDetailItem();
+    fetchAPIProducts();
+    
+  }, [id]);
 
+  useEffect(() => {
     const fetchAPIRelaredProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/product');
-        console.log('related', response);
+        const BreedId = product.Breed.id
+        const response = await axios.get(`http://localhost:8000/api/product?id_breed=${BreedId}`);
+        console.log('related', product);
         setRelated(response.data.result);
       } catch (error) {
         console.log(error);
       }
     };
-    getAPIDetailItem();
-    fetchAPIProducts();
     fetchAPIRelaredProducts();
-  }, [id]);
+  },[product])
 
   function formatCurrency(number) {
     const formatter = new Intl.NumberFormat('vi-VN', {
@@ -191,7 +192,6 @@ function DetailItem() {
         </Slider>
       </div>
       
-
       <div className={cx('categories')}>
         <h2 className={cx('header')}>RELATED PRODUCTS</h2>
         <Slider {...settingSlider}>
