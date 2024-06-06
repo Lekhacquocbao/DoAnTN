@@ -13,55 +13,144 @@
 
 .content {
   padding-top: 30px;
-}
 
-.header-content {
-  display: flex;
-  justify-content: space-between;
-  padding-bottom: 20px;
+  .header-content {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+  
+    .title-content {
+      color: var(--black);
+      font-weight: 600;
+      font-size: 2rem;
+    }
+  }
+  
+  .order-table {
+    width: 100%;
+    border-collapse: collapse;
+  
+    .order-header {
+      background-color: #f5f5f5; // Adjust as needed
+  
+      .order-header-item {
+        padding: 20px;
+        font-weight: bold;
+        text-align: left;  
+      }
+      .order-header-dayorder {
+        padding: 20px;
+        font-weight: bold;
+        text-align: left;  
+        width: 190px;
+      }
+      .order-header-address {
+        padding: 20px;
+        font-weight: bold;
+        text-align: left; 
+        width: 190px;  
+      }
+      .order-header-action {
+        padding: 20px;
+        font-weight: bold;
+        text-align: center; 
+        // margin-right: 100px;
+        width: 250px;
+      }
+    }
+    
+    // tbody {
+    //   .order-row {
+    //     // Row styles can be defined here, if needed
+        
+    //     .order-item {
+    //       padding: 10px;
+    //       text-align: left;  // Adjust as needed for different columns
+    //       border-bottom: 1px solid #e0e0e0; // Row separator, adjust if needed
+    //     }
+        
+    //   }
+    // }
+  }
 }
+// .order {
+  //   display: table-row;
+  // }
+  
+  // .btn-group {
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: 10px;
+  // }
+  
+  // .order-image {
+  //   width: 50px;
+  //   height: 50px;
+  //   border-radius: 50%;
+  // }
+  
+  // .detail {
+  //   display: flex;
+  //   align-items: center;
+  //   margin-bottom: 10px;
+  
+  //   .detail-image {
+  //     width: 50px;
+  //     height: 50px;
+  //     border-radius: 50%;
+  //     margin-right: 10px;
+  //   }
+  
+  //   .detail-item {
+  //     margin-right: 20px;
+  
+  //     .detail-label {
+  //       font-weight: bold;
+  //     }
+  
+  //     .detail-value {
+  //       display: inline-block;
+  //       margin-left: 5px;
+  //     }
+  //   }
+  // }
 
-.title-content {
-  color: var(--black);
-  font-weight: 600;
-  font-size: 2rem;
-}
+// .all-order {
+//   color: var(--blue);
+//   font-weight: 600;
+//   font-size: 1.8rem;
+//   text-decoration: underline;
+// }
 
-.all-order {
-  color: var(--blue);
-  font-weight: 600;
-  font-size: 1.8rem;
-  text-decoration: underline;
-}
+// .order {
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   background-color: var(--white);
+//   border-radius: 10px;
+//   margin: 20px 0;
+//   box-shadow: 5px 5px 5px var(--gray);
+// }
 
-.order {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--white);
-  border-radius: 10px;
-  margin: 20px 0;
-  box-shadow: 5px 5px 5px var(--gray);
-}
+// .order-image {
+//   width: 50px;
+//   height: 50px;
+//   border-radius: 50%;
+//   margin: 30px;
+// }
 
-.order-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin: 30px;
-}
+// .icon {
+//   color: var(--primary);
+// }
 
-.icon {
-  color: var(--primary);
-}
+// .name-order,
+// .day-order,
+// .time-order {
+//   color: var(--text-color);
+// }
 
-.name-order,
-.day-order,
-.time-order {
-  color: var(--text-color);
-}
+// .price-order {
+//   padding-right: 30px;
+//   color: var(--primary);
+// }
 
-.price-order {
-  padding-right: 30px;
-  color: var(--primary);
-}

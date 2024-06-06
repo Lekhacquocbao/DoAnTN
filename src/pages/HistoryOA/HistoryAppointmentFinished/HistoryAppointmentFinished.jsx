@@ -24,6 +24,9 @@ function HistoryAppointmentFinished() {
       // const Appointment = response.data.detailAppointment.map(appointment =>appointment.Order)
       const Appointment = response.data.detailAppointment.map((appointment) => {
         return {
+          id_appointment: appointment.id,
+          id_service: appointment.id_service,
+          isRate: appointment.isRate,
           appointment_time: appointment.appointment_time,
           end_time: appointment.end_time,
           note: appointment.note,

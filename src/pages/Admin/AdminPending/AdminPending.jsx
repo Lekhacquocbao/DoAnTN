@@ -39,17 +39,30 @@ function AdminPending() {
 
   return (
     <div className={cx('content')}>
-      <Menu />
-      <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Pending orders</span>
-      </div>
-      <div className={cx('order-list')}>
-        {orderList &&
-          orderList.map((order) => {
-            return <Order data={order} icon={getIcon(order.id_status)}></Order>;
-          })}
-      </div>
-    </div>
+  <Menu />
+  <div className={cx('header-content')}>
+    <span className={cx('title-content')}>Pending orders</span>
+  </div>
+  <table className={cx('order-table')}>
+    <thead className={cx('order-header')}>
+      <tr>
+        <th className={cx('order-header-item')}>Avatar</th>
+        <th className={cx('order-header-item')}>Name</th>
+        <th className={cx('order-header-item')}>Method</th>
+        <th className={cx('order-header-item')}>Payment Status</th>
+        <th className={cx('order-header-dayorder')}>Day Order</th>
+        <th className={cx('order-header-address')}>Address</th>
+        <th className={cx('order-header-item')}>Price</th>
+        <th className={cx('order-header-action')}>Action</th>
+      </tr>
+    </thead>
+    </table>
+      {orderList &&
+        orderList.map((order, index) => (
+          <Order data={order} icon={getIcon(order.id_status)} key={index} />
+        ))}
+    
+</div>
   );
 }
 

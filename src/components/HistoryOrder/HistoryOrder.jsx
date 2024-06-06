@@ -234,7 +234,7 @@ function HistoryOrder({ data, icon }) {
     });
     return formatter.format(number);
   }
-  console.log("ccccc", data);
+  // console.log("ccccc", data);
   return (
     <div className={cx('order')}>
       <ToastContainer
@@ -251,6 +251,8 @@ function HistoryOrder({ data, icon }) {
         theme="light"
       />
       <div className={cx('day-order')}>{formattedDate}</div>
+      <div className={cx('address')}>{data.payment ? data.payment.paymentMethod : ''}</div>
+      <div className={cx('address')}>{data.payment?.isPaid ? 'Đã thanh toán' : 'Chưa thanh toán'}</div>
       <div className={cx('address')}>{data.order_address}</div>
       <div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
       {buttonComponent}

@@ -71,19 +71,20 @@ function HistoryAppointment({ data, icon }) {
       [name]: value,
     }));
   };
+  console.log("dataaaaa", data);
 
   const orderStartTime = data.appointment_time;
   const orderEndTime = data.end_time;
   const formattedStartTime = moment(orderStartTime).format('YYYY-MM-DD HH:mm:ss');
   const formattedEndTime = moment(orderEndTime).format('YYYY-MM-DD HH:mm:ss');
 
-  const handleRating = async (id_service, idAppointment, star, comment) => {
+  const handleRating = async (id_service, id_appointment, star, comment) => {
     await axios
       .post(
         `http://localhost:8000/api/rating/add`,
         {
           id_service: id_service,
-          id_order_item: idAppointment,
+          id_appointment: id_appointment,
           comment: comment,
           star: star,
         },
@@ -445,12 +446,12 @@ function HistoryAppointment({ data, icon }) {
               <div className={cx('detail-value')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
             </div>
 
-            {!data.Account.isService ? (
+            {!data.isRate? (
             <Button
               onClick={() => {
                 openModalRating();
-                setIDService(data.Account.id);
-                setIDAppointment(data.Account.order_item_infor);
+                setIDService(data.id_service);
+                setIDAppointment(data.id_appointment);
               }}
               blue
               className={cx('btn')}

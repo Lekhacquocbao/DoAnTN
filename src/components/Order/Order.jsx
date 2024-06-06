@@ -382,7 +382,7 @@ function Order({ data, icon }) {
       <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>{iconComponent}
       <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div>
       <div className={cx('name-order')}>{data.payment ? data.payment.paymentMethod : "" }</div>
-      <div className={cx('name-order')}>{data.payment?.isPaid ? "Da thanh toan" : "Chua thanh toan"}</div>
+      <div className={cx('name-order')}>{data.payment?.isPaid ? "da thanh toan" : "Chua thanh toan"}</div>
       <div className={cx('day-order')}>{formattedDate}</div>
       <div className={cx('address')}>{data.order_address}</div>
       <div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
