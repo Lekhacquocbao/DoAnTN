@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import axios from 'axios';
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSpring } from 'react-spring';
 import { Link } from 'react-router-dom';
 import Button from '~/components/Button';
 import { Icon } from '@iconify/react';
@@ -85,7 +84,6 @@ function DetailItem() {
     };
     getAPIDetailItem();
     fetchAPIProducts();
-    
   }, [id]);
 
   useEffect(() => {

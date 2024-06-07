@@ -1,44 +1,17 @@
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import GetToken from '~/Token/GetToken';
-
-
-// const BlogPost = ({ postId }) => {
-//   const [post, setPost] = useState('');
-
-//   useEffect(() => {
-//     const getApiPost = async () => {
-//       const response = await axios.get('http://localhost:8000/api/post', {
-//         headers: { Authorization: `Bearer ${GetToken()}` },
-//       });
-//       setPost(response.data.result);
-//       // console.log("respen cccc nhé", response); 
-//     };
-//     getApiPost();
-//   }, []);
-
-//   return (
-//     <div dangerouslySetInnerHTML={{ __html: post }} />
-//   );
-// };
-
-// export default BlogPost;
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './Blog.module.scss';
 import GetToken from '~/Token/GetToken';
 import classNames from 'classnames/bind';
+import { Link } from 'react-router-dom';
+import config from '~/config';
+
 
 const cx = classNames.bind(styles);
 
 const BlogList = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
 
   const fetchPosts = async () => {
     try {
@@ -56,6 +29,11 @@ const BlogList = () => {
     }
   };
 
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -67,7 +45,8 @@ const BlogList = () => {
   return (
     <div className={cx('blogContainer')} >
       {data.map((post, index) => (
-        <div key={index} className={cx('blogPost')} >
+        <Link to={`/detailBlog/${post.id}`} key={index} className={cx('blogPost')}>
+       
         <img src={post.thumbnail || 'default-thumbnail.jpg'} alt={post.title} className={cx('thumbnail')} />
           <div className={cx('blogContent')} >
             <h2 className={cx('blogTitle')} >{post.title}</h2>
@@ -76,7 +55,8 @@ const BlogList = () => {
               <span className={cx('blogDate')} >{new Date(post.createdAt).toLocaleDateString()}</span>
             </div>
           </div>
-        </div>
+        </Link>
+        
       ))}
     </div>
   );

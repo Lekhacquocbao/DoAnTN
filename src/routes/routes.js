@@ -41,11 +41,13 @@ import HistoryAppointmentFinished from '~/pages/HistoryOA/HistoryAppointmentFini
 import BookingAppointment from '~/pages/BookingAppointment';
 import BlogAdd from '~/pages/Admin/BlogAdd';
 import Blog from '~/pages/Blog';
+import BlogDetail from '~/pages/BlogDetail';
 
 const publicRoutes = [
   { path: config.routes.login, component: Login, layout: null },
   { path: config.routes.home, component: Home },
   { path: config.routes.detailItem, component: DetailItem },
+  { path: config.routes.detailBlog, component: BlogDetail },
   { path: config.routes.allProducts, component: AllProduct },
   { path: config.routes.information, component: Information, layout: HeaderOnly },
   { path: config.routes.historyDetails, component: ItemHistory, layout: HeaderOnly },
@@ -53,7 +55,7 @@ const publicRoutes = [
   { path: config.routes.checkout, component: Checkout, layout: HeaderOnly },
   { path: config.routes.introduce, component: Introduce, layout: HeaderOnly},
   { path: config.routes.contact, component: Contact, layout: HeaderOnly},
-  { path: config.routes.blog, component: Blog, layout: HeaderOnly},
+  { path: config.routes.blog, component: Blog},
   { path: config.routes.historyOrderPending, component: HistoryOrderPending, layout: HeaderOnly },
   { path: config.routes.historyOrderWaiting, component: HistoryOrderWaiting, layout: HeaderOnly },
   { path: config.routes.historyOrderDelivering, component: HistoryOrderDelivering, layout: HeaderOnly },
@@ -80,7 +82,7 @@ const adminRoutes = [
   { path: config.routes.manageBreeds, component: ManageBreeds, layout: Admin },
   { path: config.routes.manageProducts, component: ManageProducts, layout: Admin },
   { path: config.routes.manageServices, component: ManageServices, layout: Admin },
-  { path: config.routes.blog, component: BlogPost, layout: Admin },
+  { path: config.routes.manageBlog, component: BlogPost, layout: Admin },
   { path: config.routes.blogAdd, component: BlogAdd, layout: Admin },
   { path: config.routes.revenue, component: Revenue, layout: Admin },
 ];

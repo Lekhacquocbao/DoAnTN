@@ -90,7 +90,7 @@ function Sidebar() {
 
         <li
           className={cx({ active: activeIndex === 7 })}
-          onClick={() => window.location.replace(config.routes.blog)}
+          onClick={() => window.location.replace(config.routes.manageBlog)}
         >
           <Link to="" onClick={() => handleSetActive(7)}>
             <FontAwesomeIcon className={cx('bx')} icon={faBook}></FontAwesomeIcon>
