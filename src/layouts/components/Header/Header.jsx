@@ -90,6 +90,10 @@ function Header() {
     }
   };
 
+  const handleGoToAddPost = () => {
+    navigate('/blog',);
+  };
+
   useEffect(() => {
     getAPIProfiler();
     fetchNotifications();
@@ -123,18 +127,14 @@ function Header() {
               <Link to={config.routes.allProducts} className={cx('nav-link')}>
                 Sản phẩm
               </Link>
-              <div className={cx('dropdown-content')}>
+              {/* <div className={cx('dropdown-content')}>
                 <Link to="/san-pham/subitem1">Subitem 1</Link>
                 <Link to="/san-pham/subitem2">Subitem 2</Link>
-              </div>
+              </div> */}
             </div>
             <div className={cx('nav-item', 'dropdown')}>
-              <Link to="/dich-vu" className={cx('nav-link')}>
-                Dịch vụ
-              </Link>
-              <div className={cx('dropdown-content')}>
-                <Link to="/dich-vu/subitem1">Subitem 1</Link>
-                <Link to="/dich-vu/subitem2">Subitem 2</Link>
+              <div className={cx('nav-link')} onClick={handleGoToAddPost}>
+                Bài viết
               </div>
             </div>
 

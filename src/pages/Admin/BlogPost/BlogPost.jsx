@@ -1,29 +1,3 @@
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios';
-// import GetToken from '~/Token/GetToken';
-
-
-// const BlogPost = ({ postId }) => {
-//   const [post, setPost] = useState('');
-
-//   useEffect(() => {
-//     const getApiPost = async () => {
-//       const response = await axios.get('http://localhost:8000/api/post', {
-//         headers: { Authorization: `Bearer ${GetToken()}` },
-//       });
-//       setPost(response.data.result);
-//       // console.log("respen cccc nhé", response); 
-//     };
-//     getApiPost();
-//   }, []);
-
-//   return (
-//     <div dangerouslySetInnerHTML={{ __html: post }} />
-//   );
-// };
-
-// export default BlogPost;
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './BlogPost.module.scss';

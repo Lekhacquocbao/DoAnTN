@@ -40,6 +40,7 @@ import HistoryAppointmentPending from '~/pages/HistoryOA/HistoryAppointmentPendi
 import HistoryAppointmentFinished from '~/pages/HistoryOA/HistoryAppointmentFinished';
 import BookingAppointment from '~/pages/BookingAppointment';
 import BlogAdd from '~/pages/Admin/BlogAdd';
+import Blog from '~/pages/Blog';
 
 const publicRoutes = [
   { path: config.routes.login, component: Login, layout: null },
@@ -52,6 +53,7 @@ const publicRoutes = [
   { path: config.routes.checkout, component: Checkout, layout: HeaderOnly },
   { path: config.routes.introduce, component: Introduce, layout: HeaderOnly},
   { path: config.routes.contact, component: Contact, layout: HeaderOnly},
+  { path: config.routes.blog, component: Blog, layout: HeaderOnly},
   { path: config.routes.historyOrderPending, component: HistoryOrderPending, layout: HeaderOnly },
   { path: config.routes.historyOrderWaiting, component: HistoryOrderWaiting, layout: HeaderOnly },
   { path: config.routes.historyOrderDelivering, component: HistoryOrderDelivering, layout: HeaderOnly },
