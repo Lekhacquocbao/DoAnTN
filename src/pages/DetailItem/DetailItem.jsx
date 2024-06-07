@@ -157,6 +157,9 @@ function DetailItem() {
               className={cx('custom-btn', 'btn-5')}
               onClick={() => {
                 handleAddToCart();
+                setTimeout(() => {
+                  window.location.reload();
+                }, 1000);
               }}
             >
               <span>ADD TO CART</span>
