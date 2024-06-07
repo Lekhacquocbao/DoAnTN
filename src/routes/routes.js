@@ -7,41 +7,40 @@ import { HeaderOnly, Admin } from '~/layouts';
 import Home from '~/pages/Home';
 import Login from '~/pages/Login';
 import DetailItem from '~/pages/DetailItem';
-import AllProduct from '~/pages/AllProduct';
+import AllProduct from '~/pages/Navbar/AllProduct';
 import Information from '~/pages/Information';
 import ItemHistory from '~/pages/ItemHistory';
 import Cart from '~/pages/Cart';
-import Introduce from '~/pages/Introduce';
-import Checkout from '~/pages/Checkout/Checkout';
-import AdminPending from '~/pages/Admin/AdminPending';
-import MenuAppointment from '~/pages/Admin/MenuAppointment';
-import AppointmentPending from '~/pages/Admin/AppointmentPending';
-import AppointmentAccepted from '~/pages/Admin/AppointmentAccepted';
-import AppointmentCanceled from '~/pages/Admin/AppointmentCanceled';
-import AppointmentCompleted from '~/pages/Admin/AppointmentCompleted';
-import AdminDelivering from '~/pages/Admin/AdminDelivering';
-import AdminWaiting from '~/pages/Admin/AdminWaiting';
-import AdminSuccess from '~/pages/Admin/AdminSuccess';
-import ManageBrand from '~/pages/Admin/ManageBrand';
+import Introduce from '~/pages/Navbar/Introduce';
+import Checkout from '~/pages/Cart/Checkout/Checkout';
+import AdminPending from '~/pages/Admin/ManageOrder/OrderPending';
+import MenuAppointment from '~/pages/Admin/ManageAppointment/MenuAppointment';
+import AppointmentPending from '~/pages/Admin/ManageAppointment/AppointmentPending';
+import AppointmentAccepted from '~/pages/Admin/ManageAppointment/AppointmentAccepted';
+import AppointmentCanceled from '~/pages/Admin/ManageAppointment/AppointmentCanceled';
+import AppointmentCompleted from '~/pages/Admin/ManageAppointment/AppointmentCompleted';
+import AdminDelivering from '~/pages/Admin/ManageOrder/OrderDelivering';
+import AdminWaiting from '~/pages/Admin/ManageOrder/OrderWaiting';
+import AdminSuccess from '~/pages/Admin/ManageOrder/OrderSuccess';
 import ManageBreeds from '~/pages/Admin/ManageBreeds';
 import ManageProducts from '~/pages/Admin/ManageProducts';
 import ManageServices from '~/pages/Admin/ManageServices';
-import BlogPost from '~/pages/Admin/BlogPost';
-import Revenue from '~/pages/Admin/Revenue';
-import Contact from '~/pages/Contact';
-import HistoryOrderPending from '~/pages/HistoryOA/HistoryOrderPending';
-import HistoryOrderDelivering from '~/pages/HistoryOA/HistoryOrderDelivering';
-import HistoryOrderWaiting from '~/pages/HistoryOA/HistoryOrderWaiting';
-import HistoryOrderSuccess from '~/pages/HistoryOA/HistoryOrderSuccess';
-import HistoryOrderCanceled from '~/pages/HistoryOA/HistoryOrderCanceled';
-import HistoryAppointmentCanceled from '~/pages/HistoryOA/HistoryAppointmentCanceled';
-import HistoryAppointmentAccepted from '~/pages/HistoryOA/HistoryAppointmentAccepted';
-import HistoryAppointmentPending from '~/pages/HistoryOA/HistoryAppointmentPending';
-import HistoryAppointmentFinished from '~/pages/HistoryOA/HistoryAppointmentFinished';
+import ManageBlog from '~/pages/Admin/ManageBlog';
+import Revenue from '~/pages/Admin/ManageRevenue';
+import Contact from '~/pages/Navbar/Contact';
+import HistoryOrderPending from '~/pages/HistoryOA/HistoryOrder/HistoryOrderPending';
+import HistoryOrderDelivering from '~/pages/HistoryOA/HistoryOrder/HistoryOrderDelivering';
+import HistoryOrderWaiting from '~/pages/HistoryOA/HistoryOrder/HistoryOrderWaiting';
+import HistoryOrderSuccess from '~/pages/HistoryOA/HistoryOrder/HistoryOrderSuccess';
+import HistoryOrderCanceled from '~/pages/HistoryOA/HistoryOrder/HistoryOrderCanceled';
+import HistoryAppointmentCanceled from '~/pages/HistoryOA/HistoryAppointment/HistoryAppointmentCanceled';
+import HistoryAppointmentAccepted from '~/pages/HistoryOA/HistoryAppointment/HistoryAppointmentAccepted';
+import HistoryAppointmentPending from '~/pages/HistoryOA/HistoryAppointment/HistoryAppointmentPending';
+import HistoryAppointmentFinished from '~/pages/HistoryOA/HistoryAppointment/HistoryAppointmentCompleted';
 import BookingAppointment from '~/pages/BookingAppointment';
-import BlogAdd from '~/pages/Admin/BlogAdd';
+import AddBlog from '~/pages/Admin/ManageBlog/AddBlog';
 import Blog from '~/pages/Blog';
-import BlogDetail from '~/pages/BlogDetail';
+import BlogDetail from '~/pages/Blog/BlogDetail';
 
 const publicRoutes = [
   { path: config.routes.login, component: Login, layout: null },
@@ -78,12 +77,11 @@ const adminRoutes = [
   { path: config.routes.appointmentAccepted, component: AppointmentAccepted, layout: Admin },
   { path: config.routes.appointmentCanceled, component: AppointmentCanceled, layout: Admin },
   { path: config.routes.appointmentCompleted, component: AppointmentCompleted, layout: Admin },
-  { path: config.routes.manageBrand, component: ManageBrand, layout: Admin },
   { path: config.routes.manageBreeds, component: ManageBreeds, layout: Admin },
   { path: config.routes.manageProducts, component: ManageProducts, layout: Admin },
   { path: config.routes.manageServices, component: ManageServices, layout: Admin },
-  { path: config.routes.manageBlog, component: BlogPost, layout: Admin },
-  { path: config.routes.blogAdd, component: BlogAdd, layout: Admin },
+  { path: config.routes.manageBlog, component: ManageBlog, layout: Admin },
+  { path: config.routes.addBlog, component: AddBlog, layout: Admin },
   { path: config.routes.revenue, component: Revenue, layout: Admin },
 ];
 

@@ -31,7 +31,7 @@ const routes = {
   historyDetails: '/historyDetails',
   manageBlog: '/manageBlog',
   blog: '/blog',
-  blogAdd: '/blogAdd',
+  addBlog: '/addBlog',
   revenue: '/revenue',
   information: '/information',
   history: '/history',

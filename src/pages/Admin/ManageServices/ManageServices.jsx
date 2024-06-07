@@ -6,7 +6,6 @@ import { faAudioDescription, faShoePrints, faPlus, faUpload } from '@fortawesome
 import { useSpring, animated } from 'react-spring';
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 import Button from '~/components/Button/Button';
 import InputForm from '~/components/InputForm/InputForm';
 import Popup from '~/components/Popup/Popup';
