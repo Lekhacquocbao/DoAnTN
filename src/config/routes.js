@@ -28,6 +28,8 @@ const routes = {
   historyAppointmentFinished: '/historyAppointmentFinished',
   bookingAppointment: '/bookingAppointment',
   historyDetails: '/historyDetails',
+  blog: '/blog',
+  blogAdd: '/blogAdd',
   revenue: '/revenue',
   information: '/information',
   history: '/history',

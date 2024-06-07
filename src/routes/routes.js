@@ -26,6 +26,7 @@ import ManageBrand from '~/pages/Admin/ManageBrand';
 import ManageBreeds from '~/pages/Admin/ManageBreeds';
 import ManageProducts from '~/pages/Admin/ManageProducts';
 import ManageServices from '~/pages/Admin/ManageServices';
+import BlogPost from '~/pages/Admin/BlogPost';
 import Revenue from '~/pages/Admin/Revenue';
 import Contact from '~/pages/Contact';
 import HistoryOrderPending from '~/pages/HistoryOA/HistoryOrderPending';
@@ -38,6 +39,7 @@ import HistoryAppointmentAccepted from '~/pages/HistoryOA/HistoryAppointmentAcce
 import HistoryAppointmentPending from '~/pages/HistoryOA/HistoryAppointmentPending';
 import HistoryAppointmentFinished from '~/pages/HistoryOA/HistoryAppointmentFinished';
 import BookingAppointment from '~/pages/BookingAppointment';
+import BlogAdd from '~/pages/Admin/BlogAdd';
 
 const publicRoutes = [
   { path: config.routes.login, component: Login, layout: null },
@@ -76,6 +78,8 @@ const adminRoutes = [
   { path: config.routes.manageBreeds, component: ManageBreeds, layout: Admin },
   { path: config.routes.manageProducts, component: ManageProducts, layout: Admin },
   { path: config.routes.manageServices, component: ManageServices, layout: Admin },
+  { path: config.routes.blog, component: BlogPost, layout: Admin },
+  { path: config.routes.blogAdd, component: BlogAdd, layout: Admin },
   { path: config.routes.revenue, component: Revenue, layout: Admin },
 ];
 
