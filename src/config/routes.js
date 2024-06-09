@@ -2,6 +2,7 @@ const routes = {
   //header
   home: '/',
   login: '/login',
+  loginSuccess: '/login-success/:id',
   detailItem: '/detailItem/:id',
   detailBlog: '/detailBlog/:id',
   allProducts: '/allProducts',
@@ -31,6 +32,7 @@ const routes = {
   historyDetails: '/historyDetails',
   manageBlog: '/manageBlog',
   blog: '/blog',
+  forum: 'forum',
   addBlog: '/addBlog',
   revenue: '/revenue',
   information: '/information',

@@ -94,6 +94,10 @@ function Header() {
     navigate('/blog',);
   };
 
+  const handleGoToForum = () => {
+    navigate('/forum',);
+  };
+
   useEffect(() => {
     getAPIProfiler();
     fetchNotifications();
@@ -135,6 +139,12 @@ function Header() {
             <div className={cx('nav-item', 'dropdown')}>
               <div className={cx('nav-link')} onClick={handleGoToAddPost}>
                 Bài viết
+              </div>
+            </div>
+
+            <div className={cx('nav-item', 'dropdown')}>
+              <div className={cx('nav-link')} onClick={handleGoToForum}>
+                Diễn đàn
               </div>
             </div>
 

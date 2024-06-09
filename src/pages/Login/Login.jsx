@@ -11,6 +11,7 @@ import InputForm from '~/components/InputForm';
 import config from '~/config';
 import styles from './Login.module.scss';
 
+
 const cx = classNames.bind(styles);
 
 function Login() {
@@ -92,7 +93,7 @@ function Login() {
       });
 
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       if (data.success === true) {
         toast.success('Login successful');
         localStorage.setItem('Role', data.role);
@@ -117,6 +118,11 @@ function Login() {
       toast.error(error.message);
     }
   };
+
+  const handleLoginWithGoogle = () => {
+    window.location.replace('http://localhost:8000/api/user/auth/google');
+  };
+
   const HandleSubmitSignUp = async () => {
     try {
       const response = await fetch('http://localhost:8000/api/user/register', {
@@ -134,7 +140,7 @@ function Login() {
         }),
       });
       const data = await response.json();
-      console.log(data);
+      // console.log(data);
       if (data.success === true) {
         toast.success('Register successful!');
         setTimeout(() => {
@@ -197,10 +203,16 @@ function Login() {
                 setValue={setPayload}
                 name={'PasswordLogin'}
               />
+              
+              <div className={cx('button-container')}>
+                <Button signin_signup className={cx('btn')} onClick={handleLoginSubmit} id="LoginBtn">
+                  Login
+                </Button>
 
-              <Button signin_signup className={cx('btn')} onClick={handleLoginSubmit} id="LoginBtn">
-                Login
-              </Button>
+                <Button signin_signup className={cx('btn')} onClick={handleLoginWithGoogle} id="LoginBtn">
+                  Login with google
+                </Button>
+              </div>
             </div>
             <div className={cx('sign-up-form')}>
               <h2 className={cx('title')}>Register Page</h2>
@@ -276,10 +288,10 @@ function Login() {
             </div>
             <img className={cx('image')} src={images.log} alt="logo-log"></img>
           </div>
-          
+
           <div className={cx('panel', 'right-panel')}>
             <div className={cx('content')}>
-            <h3>BH SHOP </h3>
+              <h3>BH SHOP </h3>
               <p>Fouder: Lê Khắc Quốc Bảo - Trần Anh Hào</p>
               <button className={cx('btn', 'transparent')} onClick={handleSigninClick} id="Login">
                 Login

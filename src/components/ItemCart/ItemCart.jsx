@@ -5,17 +5,16 @@ import { Flip, ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 import { Icon } from '@iconify/react';
 
-
 import Image from '~/components/Image';
-import Button from '~/components/Button'; 
+import Button from '~/components/Button';
 import GetToken from '~/Token/GetToken';
 import styles from './ItemCart.module.scss';
 
 const cx = classNames.bind(styles);
 
-function ItemCart({ data, onSelect, isCheckoutPage, onQuantityChange}) {
-  const [isChecked, setIsChecked] = useState(false);  
-  const [quantity, setQuantity] = useState(data.cart_item_infor.quantity)
+function ItemCart({ data, onSelect, isCheckoutPage, onQuantityChange }) {
+  const [isChecked, setIsChecked] = useState(false);
+  const [quantity, setQuantity] = useState(data.cart_item_infor.quantity);
 
   useEffect(() => {
     // setQuantity(data)
@@ -67,75 +66,69 @@ function ItemCart({ data, onSelect, isCheckoutPage, onQuantityChange}) {
     }
   }
 
-  async function updateQuantity( id_cartItem, quantity){
+  async function updateQuantity(id_cartItem, quantity) {
     await axios
-          .put(
-            `http://localhost:8000/api/cart/updateQuantity/${id_cartItem}`,
-            {
-             quantity: quantity
-            },  
-            {
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${GetToken()}`,
-              },
-            },
-          )
-          .catch((e) => {
-            toast.error(e.message);
-          });
+      .put(
+        `http://localhost:8000/api/cart/updateQuantity/${id_cartItem}`,
+        {
+          quantity: quantity,
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${GetToken()}`,
+          },
+        },
+      )
+      .catch((e) => {
+        toast.error(e.message);
+      });
   }
 
   return (
     <>
-    <div className={cx('wrapper')}>
-      <ToastContainer
-        position="top-right"
-        autoClose={2000}
-        transition={Flip}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <div className={cx('content-left')}>
-        {!isCheckoutPage &&(
-          <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} className={cx('checkbox')} />
-        )}
-        <Image className={cx('img')} src={data.Image}></Image>
-      </div>
-      <div className={cx('content-center')}>
-        <span className={cx('book-name')}>{data.name}</span>
-        <span className={cx('book-breed')}>{data.Breed.name}</span>
-        <span className={cx('book-price')}>{data.price && formatCurrency(data.price)}</span>
-        <span className={cx('book-quantity')}>x{quantity}</span>
-      </div>
-      {!isCheckoutPage &&(
-        <div  className={cx('content-right')}>
-        <div className={cx('options')}>
-          <Button onClick={() => handleDeleteCart()} outline className={cx('btn')}>
-            Delete
-          </Button>
+      <div className={cx('wrapper')}>
+        <ToastContainer
+          position="top-right"
+          autoClose={2000}
+          transition={Flip}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        <div className={cx('content-left')}>
+          {!isCheckoutPage && (
+            <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange} className={cx('checkbox')} />
+          )}
+          <Image className={cx('img')} src={data.Image}></Image>
         </div>
-        <div className={cx('product-quantity')}>
+        <div className={cx('content-center')}>
+          <span className={cx('book-name')}>{data.name}</span>
+          <span className={cx('book-breed')}>{data.Breed.name}</span>
+          <span className={cx('book-price')}>{data.price && formatCurrency(data.price)}</span>
+          <span className={cx('book-quantity')}>x{quantity}</span>
+        </div>
+        {!isCheckoutPage && (
+          <div className={cx('content-right')}>
+            <div className={cx('options')}>
+              <Button onClick={() => handleDeleteCart()} outline className={cx('btn')}>
+                Delete
+              </Button>
+            </div>
+            <div className={cx('product-quantity')}>
               <Icon className={cx('minus')} icon="typcn:minus" onClick={handleDecrement} />
-              <input
-                disabled
-                type="text"
-                className={cx('quantity')}
-                value={quantity}
-              />
+              <input disabled type="text" className={cx('quantity')} value={quantity} />
               <Icon className={cx('plus')} icon="typcn:plus" onClick={handleIncrement} />
             </div>
+          </div>
+        )}
       </div>
-      )}
-      
-    </div>
-    </>     
+    </>
   );
 }
 
@@ -147,4 +140,3 @@ ItemCart.propTypes = {
 };
 
 export default ItemCart;
-

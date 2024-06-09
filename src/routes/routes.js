@@ -41,9 +41,11 @@ import BookingAppointment from '~/pages/BookingAppointment';
 import AddBlog from '~/pages/Admin/ManageBlog/AddBlog';
 import Blog from '~/pages/Blog';
 import BlogDetail from '~/pages/Blog/BlogDetail';
+import LoginSuccess from '~/pages/LoginSuccess';
 
 const publicRoutes = [
   { path: config.routes.login, component: Login, layout: null },
+  { path: config.routes.loginSuccess, component: LoginSuccess, layout: null },
   { path: config.routes.home, component: Home },
   { path: config.routes.detailItem, component: DetailItem },
   { path: config.routes.detailBlog, component: BlogDetail },
@@ -55,6 +57,7 @@ const publicRoutes = [
   { path: config.routes.introduce, component: Introduce, layout: HeaderOnly},
   { path: config.routes.contact, component: Contact, layout: HeaderOnly},
   { path: config.routes.blog, component: Blog},
+  { path: config.routes.forum, component: Blog},
   { path: config.routes.historyOrderPending, component: HistoryOrderPending, layout: HeaderOnly },
   { path: config.routes.historyOrderWaiting, component: HistoryOrderWaiting, layout: HeaderOnly },
   { path: config.routes.historyOrderDelivering, component: HistoryOrderDelivering, layout: HeaderOnly },
