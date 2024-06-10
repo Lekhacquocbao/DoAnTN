@@ -117,6 +117,9 @@ function DetailForum() {
       console.log("commet", response);
       toast.success('Comment posted successfully!');
       setNewComment('');
+      setTimeout(() => {
+        window.location.reload();
+      }, 2000);
       // setComments([...comments, response.data.result]);
     } catch (error) {
       console.error('Error submitting comment:', error);

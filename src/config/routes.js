@@ -43,7 +43,6 @@ const routes = {
   historyPending: 'historyPending',
   cart: '/cart',
   checkout: '/checkout',
-  introduce: '/introduce',
   contact: '/contact'
 };
 

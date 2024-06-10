@@ -11,7 +11,6 @@ import AllProduct from '~/pages/Navbar/AllProduct';
 import Information from '~/pages/Information';
 import ItemHistory from '~/pages/ItemHistory';
 import Cart from '~/pages/Cart';
-import Introduce from '~/pages/Navbar/Introduce';
 import Checkout from '~/pages/Cart/Checkout/Checkout';
 import AdminPending from '~/pages/Admin/ManageOrder/OrderPending';
 import MenuAppointment from '~/pages/Admin/ManageAppointment/MenuAppointment';
@@ -58,7 +57,6 @@ const publicRoutes = [
   { path: config.routes.historyDetails, component: ItemHistory, layout: HeaderOnly },
   { path: config.routes.cart, component: Cart, layout: HeaderOnly },
   { path: config.routes.checkout, component: Checkout, layout: HeaderOnly },
-  { path: config.routes.introduce, component: Introduce, layout: HeaderOnly},
   { path: config.routes.contact, component: Contact, layout: HeaderOnly},
   { path: config.routes.blog, component: Blog},
   { path: config.routes.forum, component: Forum},

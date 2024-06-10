@@ -43,7 +43,11 @@ const AddPost = () => {
       )
       .then((response) => {
         toast.success(response.data.message);
+        setTimeout(() => {
+          window.location.href = `/forum`;
+        }, 2000);
       })
+      
       .catch((error) => {
         toast.error(error.message);
       });

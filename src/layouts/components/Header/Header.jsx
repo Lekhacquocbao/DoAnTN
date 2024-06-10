@@ -122,12 +122,12 @@ function Header() {
           </div>
 
           <nav className={cx('nav-bar')}>
-            <div className={cx('nav-item', 'dropdown')}>
+            {/* <div className={cx('nav-item', 'dropdown')}>
               <Link to={config.routes.introduce} className={cx('nav-link')}>
                 Giới thiệu
               </Link>
-            </div>
-            <div className={cx('nav-item', 'dropdown')}>
+            </div> */}
+            <div className={cx('nav-item')}>
               <Link to={config.routes.allProducts} className={cx('nav-link')}>
                 Sản phẩm
               </Link>
@@ -136,19 +136,19 @@ function Header() {
                 <Link to="/san-pham/subitem2">Subitem 2</Link>
               </div> */}
             </div>
-            <div className={cx('nav-item', 'dropdown')}>
+            <div className={cx('nav-item')}>
               <div className={cx('nav-link')} onClick={handleGoToAddPost}>
                 Bài viết
               </div>
             </div>
 
-            <div className={cx('nav-item', 'dropdown')}>
+            <div className={cx('nav-item')}>
               <div className={cx('nav-link')} onClick={handleGoToForum}>
                 Diễn đàn
               </div>
             </div>
 
-            <div className={cx('nav-item', 'dropdown')}>
+            <div className={cx('nav-item')}>
               <Link to={config.routes.contact} className={cx('nav-link')}>
                 Liên hệ
               </Link>
