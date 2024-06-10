@@ -20,7 +20,7 @@ const BlogList = () => {
       });
       if (response.data.success && Array.isArray(response.data.result)) {
         setData(response.data.result);
-        console.log("post haha", response);
+        console.log("post haha", response );
       }
     } catch (error) {
       console.error('Error fetching posts: ', error);
