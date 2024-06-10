@@ -1,11 +1,31 @@
-.blogContainer {
+.forumContainer {
   display: flex;
   flex-direction: column;
   gap: 2rem;
   padding: 4rem;
+
+  .createPostButton {
+    margin-bottom: 20px;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    width: 20vh;
+  }
+  
+  .createPostButton:hover {
+  background-color: #0056b3;
+  }  
 }
 
-.blogPost {
+
+
+.forumPost {
   display: flex;
   background: #fff;
   border-radius: 8px;
@@ -31,31 +51,33 @@
   object-fit: cover;
 }
 
-.blogContent {
+.forumContent {
   padding: 1rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 
-.blogTitle {
+.forumTitle {
   font-size: 2.5rem;
   margin: 0 0 0.5rem 0;
 }
 
-.blogExcerpt {
+.forumExcerpt {
   font-size: 1.5rem;
   color: #333;
   margin: 0 0 1rem 0;
 }
 
-.blogMeta {
+.forumMeta {
   display: flex;
   gap: 1rem;
   font-size: 1.25rem;
   color: #aaa;
 
-  .blogDate{
+  .forumDate,
+  .forumViews,
+  .forumReplies{
     display: flex;
     align-items: center;
     gap: 0.5rem;
