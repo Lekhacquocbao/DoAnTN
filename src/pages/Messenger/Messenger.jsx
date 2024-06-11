@@ -271,7 +271,6 @@ export default function Messenger() {
       });
       setMessages([...messages, {id: Math.random(),content: message, createdAt: (new Date()).toISOString()}])
       setNewMessage('')
-      
     }
   };
 
@@ -280,6 +279,7 @@ export default function Messenger() {
   }
 
   return (
+    
     <div className={cx('container')}>
       <div className={cx('sidebar')}>
         {data.map((chat) => {

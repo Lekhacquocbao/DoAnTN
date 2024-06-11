@@ -53,7 +53,7 @@ const publicRoutes = [
   { path: config.routes.home, component: Home },
   { path: config.routes.detailItem, component: DetailItem },
   { path: config.routes.detailBlog, component: BlogDetail },
-  { path: config.routes.otherProfiles, component: OtherProfiles},
+  { path: config.routes.otherProfiles, component: OtherProfiles, layout: HeaderOnly},
   { path: config.routes.detailForum, component: ForumDetail, layout: HeaderOnly },
   { path: config.routes.messenger, component: Messages, layout: HeaderOnly },
   { path: config.routes.allProducts, component: AllProduct },
