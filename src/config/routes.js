@@ -6,6 +6,7 @@ const routes = {
   detailItem: '/detailItem/:id',
   detailBlog: '/detailBlog/:id',
   detailForum: '/detailForum/:id',
+  otherProfiles: '/otherProfiles/:id',
   allProducts: '/allProducts',
   adminPending: '/adminPending',
   adminWaiting: '/adminWaiting',
@@ -44,7 +45,7 @@ const routes = {
   cart: '/cart',
   checkout: '/checkout',
   contact: '/contact',
-  messenger: '/messenger'
+  messenger: '/messenger',
 };
 
 export default routes;

@@ -43,12 +43,16 @@ const ForumList = () => {
       {data.map((post, index) => (
         <div key={index} className={cx('forumPost')}>
           <div className={cx('forumPostLeft')}>
+          <Link to={`/otherProfiles/${post.Account.id}`}>
             <img src={post.Account.inforUser.avatar || 'default-thumbnail.jpg'} alt={post.title} className={cx('avatar')} />
+          </Link>
             <div className={cx('forumPostContent')}>
               <Link to={`/detailForum/${post.id}`} className={cx('forumTitle')}>{post.title}</Link>
               <div className={cx('forumMetaTitle')}>
-                <span className={cx('author')}>{post.Account.inforUser.firstname + ' '+ post.Account.inforUser.lastname}</span> 
-                {/* • <span>{new Date(post.createdAt).toLocaleDateString()}</span> */}
+                <Link to={`/otherProfiles/${post.Account.id}`}>
+                  <span className={cx('author')}>{post.Account.inforUser.firstname + ' '+ post.Account.inforUser.lastname}</span> 
+                  {/* • <span>{new Date(post.createdAt).toLocaleDateString()}</span> */}
+                </Link>
               </div>
               <div className={cx('forumExcerpt')}>{post.content ? post.content.slice(0, 100) + '...' : 'No content available.'}</div>
             </div>
