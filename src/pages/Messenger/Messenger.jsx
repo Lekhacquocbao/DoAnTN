@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { io } from 'socket.io-client';
 import axios from 'axios';
 import GetToken from '~/Token/GetToken';
@@ -18,6 +18,8 @@ export default function Messenger() {
   const [chatUserId, setChatUserId] = useState();
   const [socket, setSocket] = useState(null);
 
+  const messagesEndRef = useRef(null);
+
   useEffect(() => {
     fetchListMessage();
     fetchMe();
@@ -30,6 +32,10 @@ export default function Messenger() {
       }
     };
   }, [socket]);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   const fetchListMessage = async () => {
     try {
@@ -64,20 +70,25 @@ export default function Messenger() {
         id: idUser,
       };
       newSocket.on('receive_message', (data) => {
-          // data bao gồm id người gửi và content
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            { id: Math.random(), chatUser: { id: data.id_sender }, content: data.content, createdAt: new Date().toISOString() }
-          ]);
-    });
+        // data bao gồm id người gửi và content
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          { id: Math.random(), chatUser: { id: data.id_sender }, content: data.content, createdAt: new Date().toISOString() }
+        ]);
+      });
 
       const response = await axios.get(`http://localhost:8000/api/message/${id}?limit=100&page=1`, {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       if (response.data.success && Array.isArray(response.data.messages)) {
+        // Sắp xếp tin nhắn theo thứ tự giảm dần của createdAt
         const sortedMessages = response.data.messages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
         setMessages(sortedMessages);
         setChatUserName(name);
+        // Cuộn xuống cuối cùng sau khi cập nhật tin nhắn
+        setTimeout(() => {
+          scrollToBottom();
+        }, 0);
       }
     } catch (error) {
       console.error('Error fetching posts: ', error);
@@ -105,9 +116,13 @@ export default function Messenger() {
         content: message,
         id_receiver: chatUserId,
       });
-      setMessages([...messages, {id: Math.random(),content: message, createdAt: (new Date()).toISOString()}])
-      setNewMessage('')
+      setMessages([...messages, { id: Math.random(), content: message, createdAt: new Date().toISOString() }]);
+      setNewMessage('');
     }
+  };
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
   if (loading) {
@@ -155,6 +170,7 @@ export default function Messenger() {
               <div className={cx('messageTime')}>{format(new Date(msg.createdAt), 'PPpp')}</div>
             </div>
           ))}
+          <div ref={messagesEndRef} />
         </div>
 
         <div className={cx('messageInput')}>

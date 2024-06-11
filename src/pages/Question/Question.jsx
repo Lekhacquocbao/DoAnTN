@@ -10,11 +10,12 @@ const ChatGPTUI = () => {
   const [question, setQuestion] = useState('');
 
   const handleSubmit = async (prompt) => {
-    const response = await axios.post('http://localhost:8000/api/research', {
-      prompt: prompt,
-    });
+    // const response = await axios.post('http://localhost:8000/api/research', {
+    //   prompt: prompt,
+    // });
 
-    const newAnswer = response.data.result; 
+    // const newAnswer = response.data.result; 
+    const newAnswer = "hhee " + Math.random()
     const newQuestionAns = { question: prompt, answer: newAnswer };
 
     // Add the new question and answer to the array
