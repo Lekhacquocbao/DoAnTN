@@ -1,0 +1,92 @@
+// src/components/ProfileCard.scss
+.profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  margin: 0 auto;
+
+  .profile-picture {
+    border-radius: 50%;
+    overflow: hidden;
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  h2 {
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+    margin: 10px 0;
+    .verified {
+      color: green;
+      margin-left: 8px;
+    }
+  }
+
+  .email, .phone, .join-date {
+    color: #666;
+  }
+
+  .points {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 20px 0;
+
+    .point-label {
+      display: flex;
+      align-items: center;
+
+      .icon {
+        font-size: 20px;
+        margin-right: 8px;
+      }
+    }
+    .point-value {
+      font-size: 20px;
+      font-weight: bold;
+    }
+  }
+
+  .message-input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+
+    &::placeholder {
+      color: #ccc;
+    }
+  }
+
+  .send-message {
+    background-color: #1E90FF;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #1C86EE;
+    }
+  }
+}

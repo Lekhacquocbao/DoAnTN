@@ -1,0 +1,144 @@
+.container {
+  display: flex;
+  height: 100vh;
+  background-color: #1d1d1d;
+  color: white;
+}
+
+.sidebar {
+  width: 25%;
+  background-color: #2c2c2c;
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.chat {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #333;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &.active {
+    background-color: #444;
+  }
+
+  &:hover {
+    background-color: #444;
+  }
+}
+
+.avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.chatInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.chatName {
+  font-weight: bold;
+}
+
+.chatMessage {
+  font-size: 0.85rem;
+  color: #bbb;
+}
+
+.chatWindow {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  background-color: #1d1d1d;
+}
+
+.chatHeader {
+  padding: 20px;
+  background-color: #2c2c2c;
+  border-bottom: 1px solid #444;
+}
+
+.messageList {
+  padding: 20px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.message {
+  max-width: 60%;
+  margin-bottom: 10px;
+  padding: 10px 20px;
+  border-radius: 20px;
+  position: relative;
+
+  &.sent {
+    align-self: flex-end;
+    background-color: #007bff;
+  }
+
+  &.received {
+    align-self: flex-start;
+    background-color: #444;
+  }
+}
+
+.messageContent {
+  font-size: 1rem;
+}
+
+.messageTime {
+  font-size: 0.85rem;
+  color: #bbb;
+  margin-top: 5px;
+}
+
+.messageInput {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #2c2c2c;
+  border-top: 1px solid #444;
+
+  input[type="text"] {
+    flex: 1;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    font-size: 1rem;
+    background-color: #333;
+    color: #fff;
+    margin-right: 10px;
+    transition: background-color 0.2s;
+
+    &:focus {
+      background-color: #444;
+    }
+  }
+
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 20px;
+    background-color: #007bff;
+    color: #fff;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

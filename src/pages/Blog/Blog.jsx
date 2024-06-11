@@ -4,7 +4,6 @@ import styles from './Blog.module.scss';
 import GetToken from '~/Token/GetToken';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import config from '~/config';
 
 
 const cx = classNames.bind(styles);

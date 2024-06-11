@@ -44,6 +44,7 @@ import LoginSuccess from '~/pages/LoginSuccess';
 import Forum from '~/pages/Forum';
 import AddPost from '~/pages/Forum/AddPost';
 import ForumDetail from '~/pages/Forum/ForumDetail';
+import Messages from '~/pages/Messenger/Messenger';
 
 const publicRoutes = [
   { path: config.routes.login, component: Login, layout: null },
@@ -52,6 +53,7 @@ const publicRoutes = [
   { path: config.routes.detailItem, component: DetailItem },
   { path: config.routes.detailBlog, component: BlogDetail },
   { path: config.routes.detailForum, component: ForumDetail, layout: HeaderOnly },
+  { path: config.routes.messenger, component: Messages, layout: HeaderOnly },
   { path: config.routes.allProducts, component: AllProduct },
   { path: config.routes.information, component: Information, layout: HeaderOnly },
   { path: config.routes.historyDetails, component: ItemHistory, layout: HeaderOnly },

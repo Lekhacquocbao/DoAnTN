@@ -43,7 +43,8 @@ const routes = {
   historyPending: 'historyPending',
   cart: '/cart',
   checkout: '/checkout',
-  contact: '/contact'
+  contact: '/contact',
+  messenger: '/messenger'
 };
 
 export default routes;

@@ -21,7 +21,6 @@ function Header() {
   const [infor, setInfor] = useState({});
   const [notifications, setNotifications] = useState([]);
   const [unreadCount, setUnreadCount] = useState(0);
-  const [cartItems, setCartItems] = useState([]);
   const [quantity, setQuantity] = useState(0);
   const navigate = useNavigate();
   const goLogin = useCallback(
@@ -38,7 +37,6 @@ function Header() {
           Authorization: `Bearer ${GetToken()}`,
         },
       });
-      // console.log(response.data.user);
       if ((response.data.success === true) & (localStorage.getItem('Role') === 'customer')) {
         setIsLogin(true);
         setInfor(response.data.user.inforUser);
@@ -57,51 +55,50 @@ function Header() {
         Authorization: `Bearer ${GetToken()}`,
       },
     });
-    // console.log('response cua ta', response.data);
     const cartsData = await response.data.Cart.Cart_Items;
     // let cart_quantity = 0;
     // for (let i = 0; i < cartsData.length; i++) {
     //   cart_quantity += cartsData[i].cart_item_infor.quantity;
     // }
-
     setQuantity(cartsData.length);
-    // console.log("quantity hihi", cart_quantity);
   };
 
-  const fetchNotifications = async () => {
+  const fetchUnreadCount = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/user/notify/', {
+      const responseNotifyNum = await axios.get('http://localhost:8000/api/user/notifyNum/', {
         headers: {
           Authorization: `Bearer ${GetToken()}`,
         },
       });
-
-      if (response.data.success && Array.isArray(response.data.result)) {
-        setNotifications(response.data.result);
-        setUnreadCount(response.data.result.filter((notification) => !notification.read).length);
-      } else {
-        setNotifications([]);
-        setUnreadCount(0);
-      }
+      setUnreadCount(responseNotifyNum.data.unreadNotifyNum);
     } catch (error) {
-      console.error('Failed to fetch notifications:', error);
-      setNotifications([]);
-      setUnreadCount(0);
+      console.error('Failed to fetch unread count:', error);
     }
   };
 
-  const handleGoToAddPost = () => {
-    navigate('/blog',);
-  };
-
-  const handleGoToForum = () => {
-    navigate('/forum',);
+  const fetchNotifications = async () => {
+    try {
+      const responseNotify = await axios.get('http://localhost:8000/api/user/notify/', {
+        headers: {
+          Authorization: `Bearer ${GetToken()}`,
+        },
+      });
+      if (responseNotify.data.success && Array.isArray(responseNotify.data.result)) {
+        setNotifications(responseNotify.data.result);
+      } else {
+        setNotifications([]);
+      }
+      setUnreadCount(0);
+    } catch (error) {
+      console.error('Failed to fetch notifications:', error);
+      setNotifications([]);
+    }
   };
 
   useEffect(() => {
     getAPIProfiler();
-    fetchNotifications();
     fetchApiCarts();
+    fetchUnreadCount();
   }, []);
 
   function Logout() {
@@ -115,6 +112,7 @@ function Header() {
     <header className={cx('header')}>
       <div className={cx('container')}>
         <div className={cx('header-nav')}>
+
           <div className={cx('logo-wrap')}>
             <Link to="/" title="BHStore">
               <div className={cx('store-name')}>BH STORE</div>
@@ -122,30 +120,21 @@ function Header() {
           </div>
 
           <nav className={cx('nav-bar')}>
-            {/* <div className={cx('nav-item', 'dropdown')}>
-              <Link to={config.routes.introduce} className={cx('nav-link')}>
-                Giới thiệu
-              </Link>
-            </div> */}
             <div className={cx('nav-item')}>
               <Link to={config.routes.allProducts} className={cx('nav-link')}>
                 Sản phẩm
               </Link>
-              {/* <div className={cx('dropdown-content')}>
-                <Link to="/san-pham/subitem1">Subitem 1</Link>
-                <Link to="/san-pham/subitem2">Subitem 2</Link>
-              </div> */}
             </div>
             <div className={cx('nav-item')}>
-              <div className={cx('nav-link')} onClick={handleGoToAddPost}>
+              <Link to={config.routes.blog} className={cx('nav-link')}>
                 Bài viết
-              </div>
+              </Link>
             </div>
 
             <div className={cx('nav-item')}>
-              <div className={cx('nav-link')} onClick={handleGoToForum}>
+              <Link to={config.routes.forum} className={cx('nav-link')}>
                 Diễn đàn
-              </div>
+              </Link>
             </div>
 
             <div className={cx('nav-item')}>
@@ -153,72 +142,78 @@ function Header() {
                 Liên hệ
               </Link>
             </div>
-
-            {/* <div className={cx('nav-item', 'dropdown')}>
-              <Link to="/thongbao" className={cx('nav-link')}>Thông báo</Link>
-              <div className={cx('dropdown-content')}>
-                {notifications.length > 0 ? (
-                  notifications.map((notification, index) => (
-                    <Link key={index} to={`/thongbao/${notification.id}`}>
-                      {notification.notify}
-                    </Link>
-                  ))
-                ) : (
-                  <div>Không có thông báo nào</div>
-                )}
-              </div>
-            </div> */}
-
-            <div className={cx('nav-item', 'dropdown')}>
-              <HeadlessTippy
-                interactive
-                placement="bottom-end"
-                delay={[0, 100]}
-                render={(attrs) => (
-                  <div className={cx('notification-dropdown')} tabIndex="-1" {...attrs}>
-                    {notifications.length > 0 ? (
-                      notifications.map((notification, index) => (
-                        <div key={index} className={cx('notification-item')}>
-                          {/* <div className={cx('notification-avatar')}>
-                            <Image src={notification.avatar || 'placeholder.png'} alt="Avatar" />
-                          </div> */}
-                          <div className={cx('notification-content')}>
-                            {/* <div className={cx('notification-title')}>{notification.title}</div> */}
-                            <div className={cx('notification-text')}>{notification.notify}</div>
-                          </div>
-                        </div>
-                      ))
-                    ) : (
-                      <div>Không có thông báo nào</div>
-                    )}
-                  </div>
-                )}
-              >
-                <div className={cx('nav-link')}>
-                  <Icon icon="mdi:bell-outline" width="28" height="28" />
-                  {unreadCount > 0 && <span className={cx('notification-count')}>{unreadCount}</span>}
-                </div>
-              </HeadlessTippy>
-            </div>
           </nav>
 
-          <Search />
+          <Search/>
 
           <div className={cx('header-actions')}>
             {isLogin ? (
               <div className={cx('actions')}>
+                <div className={cx('nav-item')}>
+                  <Link to={config.routes.messenger} className={cx('nav-link')}>
+                    <Icon icon="mdi:message-outline" width="28" height="28" />
+                    {unreadCount > 0 && <span className={cx('notification-count')}>{unreadCount}</span>}
+                  </Link>
+                </div>
+
+                <div className={cx('nav-item')}>
+                  <HeadlessTippy
+                    interactive
+                    placement="bottom-end"
+                    delay={[0, 100]}  
+                    trigger="click"
+                    render={(attrs) => (
+                      <div className={cx('notification-dropdown')} tabIndex="-1" {...attrs}>
+                        {notifications.length > 0 ? (
+                          notifications.map((notification, index) => (
+                            notification.isRead ?  
+                            <div key={index} className={cx('notification-item')}>
+                              {/* <div className={cx('notification-avatar')}>
+                                <Image src={notification.avatar || 'placeholder.png'} alt="Avatar" />
+                              </div> */}
+                              <div className={cx('notification-content')}>
+                                <div className={cx('notification-title')}>{notification.title}</div>
+                                <div className={cx('notification-text')}>{notification.notify}</div>
+                              </div>
+                            </div> :
+                            <div key={index} className={cx('notification-item', 'unRead')}>
+                              {/* <div className={cx('notification-avatar')}>
+                                <Image src={notification.avatar || 'placeholder.png'} alt="Avatar" />
+                              </div> */}
+                              <div className={cx('notification-content')}>
+                                <div className={cx('notification-title')}>{notification.title}</div>
+                                <div className={cx('notification-text')}>{notification.notify}</div>
+                              </div>
+                            </div>
+                          ))
+                        ) : (
+                          <div>Không có thông báo nào</div>
+                        )}
+                      </div>
+                    )}
+                  >
+                    <div className={cx('nav-link')}>
+                    <Icon icon="mdi:bell-outline" width="28" height="28" onClick={fetchNotifications}/>
+                    {unreadCount > 0 && <span className={cx('notification-count')}>{unreadCount}</span>}
+                    </div>
+                  </HeadlessTippy>
+                  </div>
+
+                  <div className={cx('nav-item')}>
                 <Tippy content="CART">
                   <div
                     onClick={() => {
                       window.location.replace(config.routes.cart);
                     }}
                   >
-                  <div className={cx('nav-link')}>
-                    <Icon icon="mdi:cart-outline" width="28" height="28"/>
-                    {quantity > 0 && <span className={cx('cart-count')}>{quantity}</span>}
-                  </div>
+                    <div className={cx('nav-link')}>
+                      <Icon icon="mdi:cart-outline" width="28" height="28" />
+                      {quantity > 0 && <span className={cx('cart-count')}>{quantity}</span>}
+                    </div>
                   </div>
                 </Tippy>
+                </div>
+
                 <HeadlessTippy
                   interactive
                   placement="bottom-end"
