@@ -7,6 +7,7 @@ const routes = {
   detailBlog: '/detailBlog/:id',
   detailForum: '/detailForum/:id',
   otherProfiles: '/otherProfiles/:id',
+  question: '/question',
   allProducts: '/allProducts',
   adminPending: '/adminPending',
   adminWaiting: '/adminWaiting',

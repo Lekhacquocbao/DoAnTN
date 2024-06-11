@@ -138,10 +138,16 @@ function Header() {
             </div>
 
             <div className={cx('nav-item')}>
+              <Link to={config.routes.question} className={cx('nav-link')}>
+                Hỏi đáp
+              </Link>
+            </div>
+
+            {/* <div className={cx('nav-item')}>
               <Link to={config.routes.contact} className={cx('nav-link')}>
                 Liên hệ
               </Link>
-            </div>
+            </div> */}
           </nav>
 
           <Search/>

@@ -351,16 +351,6 @@ function Home() {
             <p>Điện thoại: (012) 345-6789</p>
             <p>Email: contact@petstore.com</p>
           </div>
-          <div className={cx('left-column-content1')}>
-            <p>54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</p>
-            <p>Điện thoại: (012) 345-6789</p>
-            <p>Email: contact@petstore.com</p>
-          </div>
-          <div className={cx('left-column-content1')}>
-            <p>54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</p>
-            <p>Điện thoại: (012) 345-6789</p>
-            <p>Email: contact@petstore.com</p>
-          </div>
         </div>
 
         <div className={cx('rightColumn')}>
