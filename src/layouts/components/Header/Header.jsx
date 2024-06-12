@@ -31,6 +31,7 @@ function Header() {
   );
 
   const getAPIProfiler = async () => {
+    console.log("api profile")
     try {
       const response = await axios.get('http://localhost:8000/api/user/profile/me', {
         headers: {
@@ -96,8 +97,10 @@ function Header() {
   };
 
   useEffect(() => {
+    if(GetToken()){
     getAPIProfiler();
     fetchApiCarts();
+    }
     fetchUnreadCount();
   }, []);
 

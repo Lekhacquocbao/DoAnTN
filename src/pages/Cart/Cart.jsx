@@ -60,6 +60,7 @@ function Cart() {
 
   useEffect(() => {
     const fetchApiCarts = async () => {
+    // console.log("hahahah");
       const response = await axios.get(`http://localhost:8000/api/cart/details`, {
         headers: {
           Authorization: `Bearer ${GetToken()}`,

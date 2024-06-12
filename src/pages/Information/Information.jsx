@@ -381,7 +381,9 @@ function Information() {
         console.error('Error fetching profile:', error);
       }
     };
-    fetchAPIProfile();
+    if(GetToken()) {
+      fetchAPIProfile();
+    }
   }, []);
 
   const handleUpdateInfor = async () => {
@@ -501,10 +503,12 @@ function Information() {
         <div className={cx('information-field')}>
           <div className={cx('avatar-section')}>
             {image && <img src={image} className={cx('image')} alt="Avatar" />}
+            
             <label htmlFor="file-upload1" className={cx('upload-btn')}>
               <FontAwesomeIcon icon={faUpload} />
               <input id="file-upload1" type="file" onChange={(e) => handleImgChange(e)} />
             </label>
+
             <Button
               animation
               className={cx('upd-ava')}
@@ -516,9 +520,9 @@ function Information() {
             </Button>
           </div>
           <div className={cx('info-section')}>
-            {/* <div className={cx('info-header')}>
-              {payload1.firstName && payload1.lastName ? `${payload1.firstName} ${payload1.lastName}` : 'Full name'}
-            </div> */}
+            <div className={cx('info-header')}>
+              Full name
+            </div>
             {/* <div className={cx('description-field')}>
               <div>Update your avatar and information here</div>
             </div> */}
