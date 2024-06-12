@@ -5,7 +5,10 @@ import { Icon } from '@iconify/react';
 import baselineDeleteForever from '@iconify/icons-mdi/delete';
 import GetToken from '~/Token/GetToken';
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames/bind';
+import { format } from 'date-fns';
 
+const cx = classNames.bind(styles);
 
 function ManageBlog() {
   const [data, setData] = useState([]);
@@ -49,10 +52,10 @@ function ManageBlog() {
   };
 
   return (
-    <div className={styles.tableContainer}>
-      <div className={styles.tableHeader}>
-        <div className={styles.actions}>
-          <button className={styles.btn} onClick={handleGoToAddBlog}>
+    <div className={cx('tableContainer')}>
+      <div className={cx('tableHeader')} >
+        <div className={cx('actions')} >
+          <button className={cx('btn')} onClick={handleGoToAddBlog}>
             Add Post
           </button>
         </div>
@@ -71,13 +74,13 @@ function ManageBlog() {
             data.map((row, index) => (
               <tr key={index}>
                 <td>
-                  <img src={row.thumbnail} alt="Thumbnail" className={styles.thumbnail} />
+                  <img src={row.thumbnail} alt="Thumbnail" className={cx('styles.thumbnail')} />
                 </td>
                 <td>{row.title}</td>
-                <td>{row.createdAt}</td>
+                <td>{format(new Date(row.createdAt), 'dd/MM/yyyy')}</td>
                 <td>
-                  <div className={styles.actions}>
-                    <button className={`${styles.actionBtn} ${styles.delete}`} onClick={() => handleDelete(index, row.id)}>
+                  <div className={cx('actions')}>
+                    <button className={cx('actionBtn','delete')} onClick={() => handleDelete(index, row.id)}>
                       <Icon icon={baselineDeleteForever} width={20} height={20} />
                     </button>
                   </div>
@@ -86,7 +89,7 @@ function ManageBlog() {
             ))
           ) : (
             <tr>
-              <td colSpan="9" className={styles.noData}>No data available</td>
+              <td colSpan="9" className={cx('noData')}>No data available</td>
             </tr>
           )}
         </tbody>

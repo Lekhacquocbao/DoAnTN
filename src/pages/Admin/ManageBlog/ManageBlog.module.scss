@@ -5,6 +5,7 @@
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 30px;
 
   .tableHeader {
     display: flex;
@@ -20,8 +21,10 @@
         cursor: pointer;
         background-color: #007bff;
         color: #fff;
-        font-size: 1rem;
+        font-size: 1.5rem;
         transition: background-color 0.3s;
+        height: 35px;
+        width: 120px;
 
         &:hover {
           background-color: #0056b3;
