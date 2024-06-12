@@ -4,6 +4,7 @@ import styles from './Blog.module.scss';
 import GetToken from '~/Token/GetToken';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 
 
 const cx = classNames.bind(styles);
@@ -28,9 +29,20 @@ const BlogList = () => {
     }
   };
 
+  const getRecentPosts = (num) => {
+    return data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, num);
+  };
+
+  const recentPosts = getRecentPosts(5);
+
+
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  const sanitizeContent = (content) => {
+    return DOMPurify.sanitize(content, { SAFE_FOR_TEMPLATES: true });
+  };
 
 
   if (loading) {
@@ -42,22 +54,40 @@ const BlogList = () => {
   }
 
   return (
-    <div className={cx('blogContainer')} >
+    <>
+      <div className={cx('blogContainer')} >
+        {data.map((post, index) => (
+          <Link to={`/detailBlog/${post.id}`} key={index} className={cx('blogPost')}>
+        
+          <img src={post.thumbnail || 'default-thumbnail.jpg'} alt={post.title} className={cx('thumbnail')} />
+            <div className={cx('blogContent')} >
+              <h2 className={cx('blogTitle')} >{post.title}</h2>
+              <p className={cx('blogExcerpt')} dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content ? post.content.slice(0, 100) + '...' : 'No content available.') }} />
+              <div className={cx('blogMeta')} >
+                <span className={cx('blogDate')} >{new Date(post.createdAt).toLocaleDateString()}</span>
+              </div>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <div className={cx('blogContainer', 'recent-post')} >
+      <h3 className={cx('rencent')}>Recent Posts</h3>
       {data.map((post, index) => (
         <Link to={`/detailBlog/${post.id}`} key={index} className={cx('blogPost')}>
        
         <img src={post.thumbnail || 'default-thumbnail.jpg'} alt={post.title} className={cx('thumbnail')} />
           <div className={cx('blogContent')} >
             <h2 className={cx('blogTitle')} >{post.title}</h2>
-            <p className={cx('blogExcerpt')} >{post.content ? post.content.slice(0, 100) + '...' : 'No content available.'}</p>
+            <p className={cx('blogExcerpt')} dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content ? post.content.slice(0, 100) + '...' : 'No content available.') }} />
             <div className={cx('blogMeta')} >
               <span className={cx('blogDate')} >{new Date(post.createdAt).toLocaleDateString()}</span>
             </div>
           </div>
         </Link>
-        
       ))}
     </div>
+    </>
   );
 };
 

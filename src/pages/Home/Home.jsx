@@ -14,6 +14,7 @@ const cx = classNames.bind(styles);
 function Home() {
   const [breeds, setBreeds] = useState([]);
   const [products, setProducts] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
   const [services, setServices] = useState([]);
 
   useEffect(() => {
@@ -25,10 +26,11 @@ function Home() {
         console.log(error);
       }
     };
+    
     const fetchAPIProducts = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/revenue/product');
-        console.log('besst selling', response);
+        // console.log('besst selling', response);
         setProducts(response.data.result.products);
       } catch (error) {
         console.log(error);
@@ -38,16 +40,28 @@ function Home() {
     const fetchAPIServices = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/service');
-        console.log('service', response);
+        // console.log('service', response);
         setServices(response.data.result);
         // setServices(response.data.result.image);
       } catch (error) {
         console.log(error);
       }
     };
+
+    const fetchAPIAllProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/product');
+        console.log('product', response);
+        setAllProducts(response.data.result);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     fetchAPICategories();
     fetchAPIProducts();
     fetchAPIServices();
+    fetchAPIAllProducts();
   }, []);
 
   const settings = {
@@ -222,6 +236,7 @@ function Home() {
         </Slider>
       </div>
 
+      
       <div className={cx('items')}>
         <h2 className={cx('header')}>SERVICES</h2>
         <Slider {...settingSlider}>
@@ -259,6 +274,33 @@ function Home() {
         </div>
       </div>
 
+      <div className={cx('categories')}>
+        <h2 className={cx('header')}>PRODUCTS</h2>
+        <Slider {...settingSlider}>
+        {allProducts &&
+          allProducts.map((products) => {
+              return (
+                <div className={cx('category')}>
+                  <Link>
+                    <img className={cx('category-image')} src={products.image} alt="products"></img>
+                    <div className={cx('category-container')}>
+                    
+                      <div className={cx('category-title')}>{products.name}</div>
+                      <Button
+                        key={products.id}
+                        animation
+                        className={cx('category-btn')}
+                        to={`detailItem/${products.id}`}
+                      >
+                        SHOP NOW
+                      </Button>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+        </Slider>
+      </div>
 
       <div className={cx('btn-wrap')}>
         <div className={cx('custom-button-container')}>

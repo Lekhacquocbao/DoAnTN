@@ -125,6 +125,13 @@ function Header() {
                 Sản phẩm
               </Link>
             </div>
+
+            <div className={cx('nav-item')}>
+              <Link to={config.routes.bookingAppointment} className={cx('nav-link')}>
+                Dịch vụ
+              </Link>
+            </div>
+
             <div className={cx('nav-item')}>
               <Link to={config.routes.blog} className={cx('nav-link')}>
                 Bài viết

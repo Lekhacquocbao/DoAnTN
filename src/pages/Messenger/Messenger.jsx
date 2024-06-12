@@ -52,15 +52,60 @@ export default function Messenger() {
     }
   };
 
+  // const fetchDetailMessage = async (id, name) => {
+  //   try {
+  //     setChatUserId(id);
+
+  //     // Khởi tạo socket khi vào chi tiết tin nhắn
+  //     if (socket) {
+  //       socket.disconnect();
+  //     }
+
+  //     const newSocket = io('http://localhost:8000/');
+  //     setSocket(newSocket);
+  //     newSocket.on('connect', () => {
+  //       console.log(newSocket.id);
+  //     });
+  //     newSocket.auth = {
+  //       id: idUser,
+  //     };
+  //     newSocket.on('receive_message', (data) => {
+  //       // data bao gồm id người gửi và content
+  //       setMessages((prevMessages) => [
+  //         ...prevMessages,
+  //         { id: Math.random(), chatUser: { id: data.id_sender }, content: data.content, createdAt: new Date().toISOString() }
+  //       ]);
+  //     });
+
+  //     const response = await axios.get(`http://localhost:8000/api/message/${id}?limit=100&page=1`, {
+  //       headers: { Authorization: `Bearer ${GetToken()}` },
+  //     });
+  //     if (response.data.success && Array.isArray(response.data.messages)) {
+  //       // Sắp xếp tin nhắn theo thứ tự giảm dần của createdAt
+  //       const sortedMessages = response.data.messages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+  //       setMessages(sortedMessages);
+  //       setChatUserName(name);
+  //       // Cuộn xuống cuối cùng sau khi cập nhật tin nhắn
+  //       setTimeout(() => {
+  //         scrollToBottom();
+  //       }, 0);
+  //     }
+  //   } catch (error) {
+  //     console.error('Error fetching posts: ', error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
   const fetchDetailMessage = async (id, name) => {
     try {
       setChatUserId(id);
-
+  
       // Khởi tạo socket khi vào chi tiết tin nhắn
       if (socket) {
         socket.disconnect();
       }
-
+  
       const newSocket = io('http://localhost:8000/');
       setSocket(newSocket);
       newSocket.on('connect', () => {
@@ -75,16 +120,19 @@ export default function Messenger() {
           ...prevMessages,
           { id: Math.random(), chatUser: { id: data.id_sender }, content: data.content, createdAt: new Date().toISOString() }
         ]);
+        // Cuộn xuống cuối cùng sau khi tin nhắn mới được thêm
+        setTimeout(() => {
+          scrollToBottom();
+        }, 0);
       });
-
+  
       const response = await axios.get(`http://localhost:8000/api/message/${id}?limit=100&page=1`, {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       if (response.data.success && Array.isArray(response.data.messages)) {
-        // Sắp xếp tin nhắn theo thứ tự giảm dần của createdAt
-        const sortedMessages = response.data.messages.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
-        setMessages(sortedMessages);
+        setMessages(response.data.messages);
         setChatUserName(name);
+  
         // Cuộn xuống cuối cùng sau khi cập nhật tin nhắn
         setTimeout(() => {
           scrollToBottom();
@@ -110,14 +158,32 @@ export default function Messenger() {
     }
   };
 
+  // const handleSendMessage = async (message, chatUserId) => {
+  //   if (socket) {
+  //     socket.emit('send_message', {
+  //       content: message,
+  //       id_receiver: chatUserId,
+  //     });
+  //     setMessages([...messages, { id: Math.random(), content: message, createdAt: new Date().toISOString() }]);
+  //     setNewMessage('');
+  //   }
+  // };
+
   const handleSendMessage = async (message, chatUserId) => {
     if (socket) {
       socket.emit('send_message', {
         content: message,
         id_receiver: chatUserId,
       });
-      setMessages([...messages, { id: Math.random(), content: message, createdAt: new Date().toISOString() }]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { id: Math.random(), content: message, createdAt: new Date().toISOString() },
+      ]);
       setNewMessage('');
+      // Cuộn xuống cuối cùng sau khi gửi tin nhắn
+      setTimeout(() => {
+        scrollToBottom();
+      }, 0);
     }
   };
 

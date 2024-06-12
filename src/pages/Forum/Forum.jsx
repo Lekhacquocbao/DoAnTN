@@ -3,6 +3,7 @@ import axios from 'axios';
 import styles from './Forum.module.scss'; // Use your forum specific styles
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import DOMPurify from 'dompurify';
 
 const cx = classNames.bind(styles);
 
@@ -26,6 +27,10 @@ const ForumList = () => {
   useEffect(() => {
     fetchPosts();
   }, []);
+
+  const sanitizeContent = (content) => {
+    return DOMPurify.sanitize(content, { SAFE_FOR_TEMPLATES: true });
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -54,7 +59,8 @@ const ForumList = () => {
                   {/* • <span>{new Date(post.createdAt).toLocaleDateString()}</span> */}
                 </Link>
               </div>
-              <div className={cx('forumExcerpt')}>{post.content ? post.content.slice(0, 100) + '...' : 'No content available.'}</div>
+              {/* <div className={cx('forumExcerpt')}>{post.content ? post.content.slice(0, 100) + '...' : 'No content available.'}</div> */}
+              <div className={cx('forumExcerpt')} dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content ? post.content.slice(0, 100) + '...' : 'No content available.') }}></div>
             </div>
           </div>
           <div className={cx('forumPostRight')}>

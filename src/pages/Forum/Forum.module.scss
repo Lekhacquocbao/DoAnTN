@@ -35,12 +35,12 @@
 
 .forumPostLeft {
   display: flex;
-  align-items: center;
+  align-items: left
 }
 
 .avatar {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   margin-right: 10px;
 }
@@ -72,7 +72,7 @@
 }
 
 .forumExcerpt {
-  font-size: 14px;
+  font-size: 1px;
   color: #666;
 }
 

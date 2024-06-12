@@ -1,3 +1,100 @@
+// .chatgpt-ui {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   padding: 20px;
+//   font-family: Arial, sans-serif;
+//   background-color: #f8f9fa;
+//   min-height: 90vh;
+  
+//   .header {
+//     display: flex;
+//     align-items: center;
+//     margin-bottom: 20px;
+//     // padding: 20px;
+//     // background-color: #f2f2f2;
+
+//     .profile-picture {
+//       width: 50px;
+//       height: 50px;
+//       border-radius: 50%;
+//       margin-right: 10px;
+//     }
+
+//     .welcome-text {
+//       h1 {
+//         font-size: 24px;
+//         margin: 0;
+//       }
+
+//       p {
+//         margin: 0;
+//         color: #666;
+//       }
+//     }
+//   }
+
+//   .chat-history {
+//     padding: 20px;
+//     background-color: #f9f9f9;
+//     max-height: 100%;
+//     overflow-y: auto; // Enable scrolling when content overflows
+//   }
+
+//   .chat-message {
+//     margin-bottom: 10px;
+//   }
+
+//   .question {
+//     text-align: right;
+//     background-color: #e0e0e0;
+//     padding: 10px;
+//     border-radius: 10px;
+//     max-width: 70%;
+//     margin-left: auto; // Align to the right
+//   }
+
+//   .answer {
+//     background-color: #d1e7dd;
+//     padding: 10px;
+//     border-radius: 10px;
+//     max-width: 70%;
+//     margin-right: auto; 
+//     color: #333; 
+//   }
+
+//   .chat-input {
+//     display: flex;
+//     align-items: center;
+//     width: 100%;
+//     max-width: 800px;
+//     padding: 10px;
+//     background-color: white;
+//     border: 1px solid #ddd;
+//     border-radius: 20px;
+//     margin-top: auto;
+//     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+//     // border-top: 1px solid #e5e5e5;
+
+//     .plus-icon {
+//       font-size: 20px;
+//       margin-right: 10px;
+//       // cursor: pointer;
+//     }
+
+//     input {
+//       flex: 1;
+//       padding: 10px;
+//       // border: 1px solid #e5e5e5;
+//       border-radius: 20px;
+//       font-size: 16px;
+//       outline: none;
+//       border: none;
+//       outline: none;
+//     }
+//   }
+// }
+
 .chatgpt-ui {
   display: flex;
   flex-direction: column;
@@ -6,13 +103,11 @@
   font-family: Arial, sans-serif;
   background-color: #f8f9fa;
   min-height: 90vh;
-  
+
   .header {
     display: flex;
     align-items: center;
     margin-bottom: 20px;
-    // padding: 20px;
-    // background-color: #f2f2f2;
 
     .profile-picture {
       width: 50px;
@@ -38,7 +133,7 @@
     padding: 20px;
     background-color: #f9f9f9;
     max-height: 100%;
-    overflow-y: auto; // Enable scrolling when content overflows
+    overflow-y: auto;
   }
 
   .chat-message {
@@ -51,16 +146,30 @@
     padding: 10px;
     border-radius: 10px;
     max-width: 70%;
-    margin-left: auto; // Align to the right
+    margin-left: auto;
   }
 
   .answer {
     background-color: #d1e7dd;
+    margin-top: 10px;
     padding: 10px;
     border-radius: 10px;
     max-width: 70%;
-    margin-right: auto; 
-    color: #333; 
+    margin-right: auto;
+    color: #333;
+
+    pre {
+      background: #2d2d2d;
+      color: #f8f8f2;
+      padding: 10px;
+      border-radius: 5px;
+      overflow: auto;
+    }
+
+    code {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+    }
   }
 
   .chat-input {
@@ -74,23 +183,55 @@
     border-radius: 20px;
     margin-top: auto;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    // border-top: 1px solid #e5e5e5;
+    position: relative;
 
     .plus-icon {
       font-size: 20px;
       margin-right: 10px;
-      // cursor: pointer;
     }
 
     input {
       flex: 1;
       padding: 10px;
-      // border: 1px solid #e5e5e5;
       border-radius: 20px;
       font-size: 16px;
-      outline: none;
       border: none;
       outline: none;
     }
+
+    /* HTML: <div class="loader"></div> */
+.loader {
+  width: 14px;
+  aspect-ratio: 1;
+  position: relative;
+}
+.loader:before,
+.loader:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: -8px 0 0 -8px;
+  width: 8px;
+  aspect-ratio: 1;
+  background: #3FB8AF;
+  animation:
+    l1-1 2s  infinite,
+    l1-2 .5s infinite;
+}
+.loader:after {
+  background:#FF3D7F;
+  animation-delay: -1s,0s;
+}
+@keyframes l1-1 {
+  0%   {top:0   ;left:0}
+  25%  {top:100%;left:0}
+  50%  {top:100%;left:100%}
+  75%  {top:0   ;left:100%}
+  100% {top:0   ;left:0}
+}
+@keyframes l1-2 {
+   80%,100% {transform: rotate(0.5turn)}
+}
   }
 }
