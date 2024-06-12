@@ -71,9 +71,9 @@ const BlogList = () => {
         ))}
       </div>
 
-      <div className={cx('blogContainer', 'recent-post')} >
+      <div className={cx('blogContainer')} >
       <h3 className={cx('rencent')}>Recent Posts</h3>
-      {data.map((post, index) => (
+      {recentPosts.map((post, index) => (
         <Link to={`/detailBlog/${post.id}`} key={index} className={cx('blogPost')}>
        
         <img src={post.thumbnail || 'default-thumbnail.jpg'} alt={post.title} className={cx('thumbnail')} />

@@ -141,12 +141,14 @@
   }
 
   .question {
-    text-align: right;
+    text-align: left;
     background-color: #e0e0e0;
     padding: 10px;
     border-radius: 10px;
     max-width: 70%;
     margin-left: auto;
+    word-wrap: break-word; 
+    word-break: break-word; 
   }
 
   .answer {

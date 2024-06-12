@@ -108,18 +108,18 @@ function DetailForum() {
     e.preventDefault();
 
     try {
-      const response = await axios.post(`http://localhost:8000/api/post/forum/comment`, 
+      await axios.post(`http://localhost:8000/api/post/forum/comment`, 
       { 
         content: newComment,
         id_post: id,
       },
       { headers: { Authorization: `Bearer ${GetToken()}` } });
-      console.log("commet", response);
+      // console.log("commet", response);
       toast.success('Comment posted successfully!');
       setNewComment('');
       setTimeout(() => {
         window.location.reload();
-      }, 2000);
+      }, 1000);
       // setComments([...comments, response.data.result]);
     } catch (error) {
       console.error('Error submitting comment:', error);
@@ -147,12 +147,12 @@ function DetailForum() {
         theme="light"
       />
       <div className={cx('forumPost')}>
-        <div className={cx('forum-img')}>
-          {forum.thumbnail && <img src={forum.thumbnail} alt={forum.title} className={cx('thumbnail')} />}
-        </div>
         <div className={cx('forum-info')}>
           <h1 className={cx('forum-title')}>{forum.title}</h1>
           <p className={cx('forum-date')}>{new Date(forum.createdAt).toLocaleDateString()}</p>
+          <div className={cx('forum-img')}>
+          {forum.thumbnail && <img src={forum.thumbnail} alt={forum.title} className={cx('thumbnail')} />}
+        </div>
           <div className={cx('forum-content')} dangerouslySetInnerHTML={{ __html: forum.content }} />
         </div>
       </div>
@@ -167,9 +167,9 @@ function DetailForum() {
             {comments.map((comment, index) => (
               <li key={index} className={cx('comment')}>
                 <img src={comment.Account.inforUser.avatar || 'default-thumbnail.jpg'} alt={comment.title} className={cx('avatar')} />
-                <p className={cx('commentContent')}>{comment.content}</p>
                 <div className={cx('commentMeta')}>
                   <span className={cx('commentAuthor')}>{comment.Account.inforUser.firstname+ ' '+comment.Account.inforUser.lastname }</span>
+                  <p className={cx('commentContent')}>{comment.content}</p>
                   <span className={cx('commentDate')}>{new Date(comment.createdAt).toLocaleDateString()}</span>
                 </div>
               </li>
