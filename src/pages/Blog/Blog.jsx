@@ -20,7 +20,7 @@ const BlogList = () => {
       });
       if (response.data.success && Array.isArray(response.data.result)) {
         setData(response.data.result);
-        console.log("post haha", response );
+        // console.log("post haha", response );
       }
     } catch (error) {
       console.error('Error fetching posts: ', error);
@@ -28,13 +28,6 @@ const BlogList = () => {
       setLoading(false);
     }
   };
-
-  const getRecentPosts = (num) => {
-    return data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, num);
-  };
-
-  const recentPosts = getRecentPosts(5);
-
 
   useEffect(() => {
     fetchPosts();
@@ -70,23 +63,6 @@ const BlogList = () => {
           </Link>
         ))}
       </div>
-
-      <div className={cx('blogContainer')} >
-      <h3 className={cx('rencent')}>Recent Posts</h3>
-      {recentPosts.map((post, index) => (
-        <Link to={`/detailBlog/${post.id}`} key={index} className={cx('blogPost')}>
-       
-        <img src={post.thumbnail || 'default-thumbnail.jpg'} alt={post.title} className={cx('thumbnail')} />
-          <div className={cx('blogContent')} >
-            <h2 className={cx('blogTitle')} >{post.title}</h2>
-            <p className={cx('blogExcerpt')} dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content ? post.content.slice(0, 100) + '...' : 'No content available.') }} />
-            <div className={cx('blogMeta')} >
-              <span className={cx('blogDate')} >{new Date(post.createdAt).toLocaleDateString()}</span>
-            </div>
-          </div>
-        </Link>
-      ))}
-    </div>
     </>
   );
 };

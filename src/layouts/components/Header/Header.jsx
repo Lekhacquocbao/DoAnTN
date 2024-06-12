@@ -100,8 +100,8 @@ function Header() {
     if(GetToken()){
     getAPIProfiler();
     fetchApiCarts();
-    }
     fetchUnreadCount();
+    }
   }, []);
 
   function Logout() {

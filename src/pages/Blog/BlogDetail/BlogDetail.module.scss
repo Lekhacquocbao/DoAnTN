@@ -3,6 +3,16 @@
   flex-direction: column;
   gap: 2rem;
   padding: 4rem;
+  // border: solid 2px grey;
+  margin-top: 160px;
+  margin-bottom: 100px;
+}
+
+.rencent{
+  text-align: center;
+  color: rgba(11, 11, 215, 0.87);
+  padding-bottom: 20px;
+  font-size: 30px;
 }
 
 .blogPost {
@@ -14,6 +24,15 @@
   height: 150px;
   margin-left: 50px;
   margin-right: 50px;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+  }
 }
 
 .thumbnail {
@@ -35,7 +54,7 @@
 }
 
 .blogExcerpt {
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: #333;
   margin: 0 0 1rem 0;
 }

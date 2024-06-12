@@ -28,12 +28,6 @@ const ForumList = () => {
     fetchPosts();
   }, []);
 
-  const getRecentPosts = (num) => {
-    return data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)).slice(0, num);
-  };
-
-  const recentPosts = getRecentPosts(5);
-
   const sanitizeContent = (content) => {
     return DOMPurify.sanitize(content, { SAFE_FOR_TEMPLATES: true });
   };
@@ -54,39 +48,6 @@ const ForumList = () => {
       <div className={cx('forumContainer')}>
       
       {data.map((post, index) => (
-        <div key={index} className={cx('forumPost')}>
-          <div className={cx('forumPostLeft')}>
-          <Link to={`/otherProfiles/${post.Account.id}`}>
-            <img src={post.Account.inforUser.avatar || 'default-thumbnail.jpg'} alt={post.title} className={cx('avatar')} />
-          </Link>
-            <div className={cx('forumPostContent')}>
-              <Link to={`/detailForum/${post.id}`} className={cx('forumTitle')}>{post.title}</Link>
-              <div className={cx('forumMetaTitle')}>
-                <Link to={`/otherProfiles/${post.Account.id}`}>
-                  <span className={cx('author')}>{post.Account.inforUser.firstname + ' '+ post.Account.inforUser.lastname}</span> 
-                  {/* • <span>{new Date(post.createdAt).toLocaleDateString()}</span> */}
-                </Link>
-              </div>
-              {/* <div className={cx('forumExcerpt')}>{post.content ? post.content.slice(0, 100) + '...' : 'No content available.'}</div> */}
-              <div className={cx('forumExcerpt')} dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content ? post.content.slice(0, 100) + '...' : 'No content available.') }}></div>
-            </div>
-          </div>
-          <div className={cx('forumPostRight')}>
-            <div className={cx('forumMeta')}>
-              <div>Replies: {post.replyNum}</div>
-              <div>Views: {post.view}</div>
-            </div>
-            <div className={cx('forumDateTime')}>
-              {new Date(post.createdAt).toLocaleString()}
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
-
-    <div className={cx('forumContainerRecent')}>
-    <h3 className={cx('rencent')}>Recent Posts</h3>
-      {recentPosts.map((post, index) => (
         <div key={index} className={cx('forumPost')}>
           <div className={cx('forumPostLeft')}>
           <Link to={`/otherProfiles/${post.Account.id}`}>

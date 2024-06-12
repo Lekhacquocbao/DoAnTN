@@ -12,7 +12,6 @@ import GetToken from '~/Token/GetToken';
 import styles from './DetailItem.module.scss';
 import Slider from 'react-slick';
 
-
 const cx = classNames.bind(styles);
 
 function DetailItem() {
@@ -20,7 +19,6 @@ function DetailItem() {
   const [count, setCount] = useState(1);
   const [product, setProduct] = useState({});
   const [ratings, setRatings] = useState([]);
-  const [idProduct, setIdProduct] = useState();
   const [products, setProducts] = useState([]);
   const [related, setRelated] = useState([]);
 
@@ -33,6 +31,11 @@ function DetailItem() {
       setCount(count - 1);
     }
   }
+
+  const handleLinkClick = (products) => {
+    window.location.href = `/detailItem/${products}`;
+  };
+
   const handleAddToCart = async () => {
     if (!GetToken()) {
       toast.warning('Please login first!');
@@ -65,7 +68,7 @@ function DetailItem() {
     speed: 400,
     slidesToShow: 6,
     slidesToScroll: 2,
-  };  
+  };
 
   useEffect(() => {
     const getAPIDetailItem = async () => {
@@ -79,7 +82,8 @@ function DetailItem() {
         const response = await axios.get('http://localhost:8000/api/revenue/product');
         // console.log('besst selling', response);
         setProducts(response.data.result.products);
-      } catch (error) {        console.log(error);
+      } catch (error) {
+        console.log(error);
       }
     };
     getAPIDetailItem();
@@ -89,7 +93,7 @@ function DetailItem() {
   useEffect(() => {
     const fetchAPIRelaredProducts = async () => {
       try {
-        const BreedId = product.Breed.id
+        const BreedId = product.Breed.id;
         const response = await axios.get(`http://localhost:8000/api/product?id_breed=${BreedId}`);
         console.log('related', product);
         setRelated(response.data.result);
@@ -98,7 +102,7 @@ function DetailItem() {
       }
     };
     fetchAPIRelaredProducts();
-  },[product])
+  }, [product]);
 
   function formatCurrency(number) {
     const formatter = new Intl.NumberFormat('vi-VN', {
@@ -169,11 +173,11 @@ function DetailItem() {
       <div className={cx('categories')}>
         <h2 className={cx('header')}>BEST SELLING PRODUCTS</h2>
         <Slider {...settingSlider}>
-        {products &&
+          {products &&
             products.map((products) => {
               return (
                 <div className={cx('category')}>
-                  <Link >
+                  <Link>
                     <img className={cx('category-image')} src={products.image} alt="products"></img>
                     <div className={cx('category-container')}>
                       <div className={cx('category-title')}>{products.name}</div>
@@ -181,7 +185,11 @@ function DetailItem() {
                         key={products.id}
                         animation
                         className={cx('category-btn')}
-                        to={`/detailItem/${products.id}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleLinkClick(products.id);
+                        }}
+                        // to={`/detailItem/${products.id}`}
                       >
                         SHOP NOW
                       </Button>
@@ -192,11 +200,11 @@ function DetailItem() {
             })}
         </Slider>
       </div>
-      
+
       <div className={cx('categories')}>
         <h2 className={cx('header')}>RELATED PRODUCTS</h2>
         <Slider {...settingSlider}>
-        {related &&
+          {related &&
             related.map((products) => {
               return (
                 <div className={cx('category')}>
@@ -208,7 +216,11 @@ function DetailItem() {
                         key={products.id}
                         animation
                         className={cx('category-btn')}
-                        to={`/detailItem/${products.id}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleLinkClick(products.id);
+                        }}
+                        // to={`/detailItem/${products.id}`}
                       >
                         SHOP NOW
                       </Button>
@@ -218,7 +230,7 @@ function DetailItem() {
               );
             })}
         </Slider>
-      </div>  
+      </div>
 
       <div className={cx('extra-detail')}>
         <div className={cx('header-field')}>
