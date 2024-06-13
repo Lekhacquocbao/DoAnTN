@@ -129,7 +129,7 @@ function DetailItem() {
       />
       <div className={cx('product')}>
         <div className={cx('product-img')}>
-          <img alt="img" src={product.image && product.image[0].image} className={cx('img')}></img>
+          <img alt="img" src={product.image[0].image ? product.image[0].image : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg' } className={cx('img')}></img>
         </div>
         <div className={cx('prouduct-info')}>
           <h1 className={cx('product-name')}>{product.name}</h1>
@@ -178,7 +178,7 @@ function DetailItem() {
               return (
                 <div className={cx('category')}>
                   <Link>
-                    <img className={cx('category-image')} src={products.image} alt="products"></img>
+                    <img className={cx('category-image')} src={products.image ? products.image: "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="products"></img>
                     <div className={cx('category-container')}>
                       <div className={cx('category-title')}>{products.name}</div>
                       <Button
@@ -209,7 +209,7 @@ function DetailItem() {
               return (
                 <div className={cx('category')}>
                   <Link>
-                    <img className={cx('category-image')} src={products.image} alt="products"></img>
+                    <img className={cx('category-image')} src={products.image ? products.image: "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="products"></img>
                     <div className={cx('category-container')}>
                       <div className={cx('category-title')}>{products.name}</div>
                       <Button

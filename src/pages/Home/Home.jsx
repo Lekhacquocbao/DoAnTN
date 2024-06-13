@@ -282,7 +282,7 @@ function Home() {
               return (
                 <div className={cx('category')}>
                   <Link>
-                    <img className={cx('category-image')} src={products.image} alt="products"></img>
+                    <img className={cx('category-image')} src={products.image ? products.image: "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="products"></img>
                     <div className={cx('category-container')}>
                     
                       <div className={cx('category-title')}>{products.name}</div>
