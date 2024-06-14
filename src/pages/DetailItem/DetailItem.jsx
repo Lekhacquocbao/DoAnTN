@@ -129,7 +129,7 @@ function DetailItem() {
       />
       <div className={cx('product')}>
         <div className={cx('product-img')}>
-          <img alt="img" src={product.image[0].image ? product.image[0].image : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg' } className={cx('img')}></img>
+          <img alt="img" src={product.image && product.image[0]?.image ? product.image[0].image : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg' } className={cx('img')}></img>
         </div>
         <div className={cx('prouduct-info')}>
           <h1 className={cx('product-name')}>{product.name}</h1>
@@ -170,6 +170,7 @@ function DetailItem() {
         </div>
       </div>
 
+      
       <div className={cx('categories')}>
         <h2 className={cx('header')}>BEST SELLING PRODUCTS</h2>
         <Slider {...settingSlider}>
@@ -201,6 +202,9 @@ function DetailItem() {
         </Slider>
       </div>
 
+      <div class="categories-wrapper">
+        
+      </div>
       <div className={cx('categories')}>
         <h2 className={cx('header')}>RELATED PRODUCTS</h2>
         <Slider {...settingSlider}>
@@ -220,7 +224,6 @@ function DetailItem() {
                           e.preventDefault();
                           handleLinkClick(products.id);
                         }}
-                        // to={`/detailItem/${products.id}`}
                       >
                         SHOP NOW
                       </Button>

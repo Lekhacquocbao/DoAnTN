@@ -240,7 +240,7 @@ function ManageBreeds() {
     },
     {
       name: 'Description',
-      selector: (row) => row.description,
+      selector: (row) => row.description.slice(0, 100),
       sortable: true,
     },
   ];

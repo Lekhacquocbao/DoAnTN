@@ -26,7 +26,7 @@ function Home() {
         console.log(error);
       }
     };
-    
+
     const fetchAPIProducts = async () => {
       try {
         const response = await axios.get('http://localhost:8000/api/revenue/product');
@@ -64,6 +64,28 @@ function Home() {
     fetchAPIAllProducts();
   }, []);
 
+  const CustomNextArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`${className} ${cx('slick-next')}`}
+        style={{ ...style }}
+        onClick={onClick}
+      />
+    );
+  };
+
+  const CustomPrevArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`${className} ${cx('slick-prev')}`}
+        style={{ ...style }}
+        onClick={onClick}
+      />
+    );
+  };
+
   const settings = {
     // dots: true,
     infinite: true,
@@ -72,6 +94,8 @@ function Home() {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 3000,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   const settingSlider = {
@@ -80,8 +104,9 @@ function Home() {
     speed: 400,
     slidesToShow: 6,
     slidesToScroll: 2,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
-
 
   return (
     <div className={cx('wrapper')}>
@@ -93,7 +118,7 @@ function Home() {
             src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-2.jpg"
           ></img>
 
-          <img  
+          <img
             className={cx('slide')}
             alt="slide3"
             src="https://cosp.com.vn/uploaded/Nhi/pet%20shop/thiet-ke-pet-shop-kim-cuong-3.jpg"
@@ -182,7 +207,7 @@ function Home() {
       <div className={cx('categories')}>
         <h2 className={cx('header')}>BREED</h2>
         <Slider {...settingSlider}>
-        {breeds &&
+          {breeds &&
             breeds.map((category) => {
               return (
                 <div className={cx('category')}>
@@ -205,20 +230,27 @@ function Home() {
                 </div>
               );
             })}
-        </Slider> 
+        </Slider>
       </div>
 
       <div className={cx('categories')}>
         <h2 className={cx('header')}>BEST SELLING PRODUCTS</h2>
         <Slider {...settingSlider}>
-        {products &&
+          {products &&
             products.map((products) => {
               return (
                 <div className={cx('category')}>
                   <Link>
-                    <img className={cx('category-image')} src={products.image ? products.image: "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="products"></img>
+                    <img
+                      className={cx('category-image')}
+                      src={
+                        products.image
+                          ? products.image
+                          : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg'
+                      }
+                      alt="products"
+                    ></img>
                     <div className={cx('category-container')}>
-                    
                       <div className={cx('category-title')}>{products.name}</div>
                       <Button
                         key={products.id}
@@ -236,55 +268,24 @@ function Home() {
         </Slider>
       </div>
 
-      
-      <div className={cx('items')}>
-        <h2 className={cx('header')}>SERVICES</h2>
-        <Slider {...settingSlider}>
-        {services &&
-            services.map((services, index) => {
-              return (
-                <div key={index} className={cx('item')}>
-                  <img src={services.image} className={cx('item-img')} alt="img"></img>
-                  <div className={cx('category-container')}>
-                      <div className={cx('category-title')}>{services.name}</div>
-                    </div>
-                </div>
-              );
-            })}
-        </Slider>
-      </div>
-
-      <div className={cx('btn-wrap')}>
-        <div className={cx('custom-button-container')}>
-          <Link to={config.routes.bookingAppointment} className={cx('custom-button')}>
-            <span className={cx('bg-transition')}></span>
-            <span className={cx('icon-transition')}>
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-              </svg>
-            </span>
-            <span className={cx('button-text')}>Booking Appoitment Now</span>
-          </Link>
-        </div>
-      </div>
-
       <div className={cx('categories')}>
         <h2 className={cx('header')}>PRODUCTS</h2>
         <Slider {...settingSlider}>
-        {allProducts &&
-          allProducts.map((products) => {
+          {allProducts &&
+            allProducts.map((products) => {
               return (
                 <div className={cx('category')}>
                   <Link>
-                    <img className={cx('category-image')} src={products.image ? products.image: "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="products"></img>
+                    <img
+                      className={cx('category-image')}
+                      src={
+                        products.image
+                          ? products.image
+                          : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg'
+                      }
+                      alt="products"
+                    ></img>
                     <div className={cx('category-container')}>
-                    
                       <div className={cx('category-title')}>{products.name}</div>
                       <Button
                         key={products.id}
@@ -318,6 +319,43 @@ function Home() {
               </svg>
             </span>
             <span className={cx('button-text')}>See all</span>
+          </Link>
+        </div>
+      </div>
+
+      <div className={cx('items')}>
+        <h2 className={cx('header')}>SERVICES</h2>
+        <Slider {...settingSlider}>
+          {services &&
+            services.map((services, index) => {
+              return (
+                <div key={index} className={cx('item')}>
+                  <img src={services.image} className={cx('item-img')} alt="img"></img>
+                  <div className={cx('category-container')}>
+                    <div className={cx('category-title')}>{services.name}</div>
+                  </div>
+                </div>
+              );
+            })}
+        </Slider>
+      </div>
+
+      <div className={cx('btn-wrap')}>
+        <div className={cx('custom-button-container')}>
+          <Link to={config.routes.bookingAppointment} className={cx('custom-button')}>
+            <span className={cx('bg-transition')}></span>
+            <span className={cx('icon-transition')}>
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+              </svg>
+            </span>
+            <span className={cx('button-text')}>Booking Appoitment Now</span>
           </Link>
         </div>
       </div>
@@ -396,22 +434,19 @@ function Home() {
         </div>
 
         <div className={cx('rightColumn')}>
-        <img
-          src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/banner_index.png?1701914025229"
-          alt="Slider"
-        ></img>
-        <img
-          src="https://png.pngtree.com/thumb_back/fw800/background/20220827/pngtree-pet-shop-cat-and-dog-vector-background-image_1462686.jpg"
-          alt="Slider"
-        ></img>
-        {/* <img
+          <img
+            src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/banner_index.png?1701914025229"
+            alt="Slider"
+          ></img>
+          <img
+            src="https://png.pngtree.com/thumb_back/fw800/background/20220827/pngtree-pet-shop-cat-and-dog-vector-background-image_1462686.jpg"
+            alt="Slider"
+          ></img>
+          {/* <img
           src="https://file.hstatic.net/200000391405/file/gtheffghjgf_d6d591ac6b534a6cbf99b4472757bca9.jpg"
           alt="Slider"
         ></img> */}
-        <img
-          src="https://vetad.net/wp-content/uploads/2018/10/Banner3-1.jpg"
-          alt="Slider"
-        ></img>
+          <img src="https://vetad.net/wp-content/uploads/2018/10/Banner3-1.jpg" alt="Slider"></img>
           {/* <h2>ĐẶT LỊCH CHĂM SÓC THÚ CƯNG</h2>
           <form>
             <div className={cx('radioColumn')}>

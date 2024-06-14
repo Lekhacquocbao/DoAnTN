@@ -1,13 +1,35 @@
-// @import 'swiper/swiper-bundle.min.css';
+
+.slick-prev, .slick-next {
+  background: #eee !important;
+  width: 50px !important;
+  height: 50px !important;
+  z-index: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  opacity: 0.75;
+  border-radius: 50%;
+}
+
+.slick-prev::before, .slick-next::before {
+  font-size: 30px !important;
+  color: white !important;
+}
+
+.slick-prev {
+  left: 10px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+
+.slick-next {
+  right: 10px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
 
 .slide-bar {
-  // margin-top: -60px;
-  // margin-left: -120px;
-  // margin-right: -120px;
 
-  // img {
-  //   width: 100%;
-  // }
     width: 100%;
     display: block;
     margin: 0 auto;
@@ -15,21 +37,20 @@
     .slick-next {
       width: 50px;
       height: 50px;
-      color: red; /* semi-transparent white */
-      z-index: 1; /* ensure buttons are above the slider images */
+      // color: red !important; 
+      z-index: 1; 
     }
 
     .slick-prev::before,
     .slick-next::before {
-      font-size: 50px; /* make the icons larger */
-      color: red; /* semi-transparent white */
+      font-size: 50px; 
+      // color: red !important;
     }
 
     .slide{
       height: 500px;
     }
 }
-
 
 
 .categories {
