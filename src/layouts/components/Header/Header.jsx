@@ -31,7 +31,7 @@ function Header() {
   );
 
   const getAPIProfiler = async () => {
-    console.log("api profile")
+    console.log('api profile');
     try {
       const response = await axios.get('http://localhost:8000/api/user/profile/me', {
         headers: {
@@ -97,10 +97,10 @@ function Header() {
   };
 
   useEffect(() => {
-    if(GetToken()){
-    getAPIProfiler();
-    fetchApiCarts();
-    fetchUnreadCount();
+    if (GetToken()) {
+      getAPIProfiler();
+      fetchApiCarts();
+      fetchUnreadCount();
     }
   }, []);
 
@@ -115,7 +115,6 @@ function Header() {
     <header className={cx('header')}>
       <div className={cx('container')}>
         <div className={cx('header-nav')}>
-
           <div className={cx('logo-wrap')}>
             <Link to="/" title="BHStore">
               <div className={cx('store-name')}>BH STORE</div>
@@ -160,7 +159,7 @@ function Header() {
             </div> */}
           </nav>
 
-          <Search/>
+          <Search />
 
           <div className={cx('header-actions')}>
             {isLogin ? (
@@ -176,32 +175,31 @@ function Header() {
                   <HeadlessTippy
                     interactive
                     placement="bottom-end"
-                    delay={[0, 100]}  
+                    delay={[0, 100]}
                     trigger="click"
                     render={(attrs) => (
                       <div className={cx('notification-dropdown')} tabIndex="-1" {...attrs}>
                         {notifications.length > 0 ? (
-                          notifications.map((notification, index) => (
-                            notification.isRead ?  
-                            <div key={index} className={cx('notification-item')}>
-                              {/* <div className={cx('notification-avatar')}>
+                          notifications.map((notification, index) =>
+                            notification.isRead ? (
+                              <a href={notification.url} key={index} className={cx('notification-item')}>
+                                {/* <div className={cx('notification-avatar')}>
                                 <Image src={notification.avatar || 'placeholder.png'} alt="Avatar" />
                               </div> */}
-                              <div className={cx('notification-content')}>
-                                <div className={cx('notification-title')}>{notification.title}</div>
-                                <div className={cx('notification-text')}>{notification.notify}</div>
-                              </div>
-                            </div> :
-                            <div key={index} className={cx('notification-item', 'unRead')}>
-                              {/* <div className={cx('notification-avatar')}>
-                                <Image src={notification.avatar || 'placeholder.png'} alt="Avatar" />
-                              </div> */}
-                              <div className={cx('notification-content')}>
-                                <div className={cx('notification-title')}>{notification.title}</div>
-                                <div className={cx('notification-text')}>{notification.notify}</div>
-                              </div>
-                            </div>
-                          ))
+                                <div className={cx('notification-content')}>
+                                  <div className={cx('notification-title')}>{notification.title}</div>
+                                  <div className={cx('notification-text')}>{notification.notify}</div>
+                                </div>
+                              </a>
+                            ) : (
+                              <a href={notification.url} key={index} className={cx('notification-item', 'unRead')}>
+                                <div className={cx('notification-content')}>
+                                  <div className={cx('notification-title')}>{notification.title}</div>
+                                  <div className={cx('notification-text')}>{notification.notify}</div>
+                                </div>
+                              </a>
+                            ),
+                          )
                         ) : (
                           <div>Không có thông báo nào</div>
                         )}
@@ -209,25 +207,25 @@ function Header() {
                     )}
                   >
                     <div className={cx('nav-link')}>
-                    <Icon icon="mdi:bell-outline" width="28" height="28" onClick={fetchNotifications}/>
-                    {unreadCount > 0 && <span className={cx('notification-count')}>{unreadCount}</span>}
+                      <Icon icon="mdi:bell-outline" width="28" height="28" onClick={fetchNotifications} />
+                      {unreadCount > 0 && <span className={cx('notification-count')}>{unreadCount}</span>}
                     </div>
                   </HeadlessTippy>
-                  </div>
+                </div>
 
-                  <div className={cx('nav-item')}>
-                <Tippy content="CART">
-                  <div
-                    onClick={() => {
-                      window.location.replace(config.routes.cart);
-                    }}
-                  >
-                    <div className={cx('nav-link')}>
-                      <Icon icon="mdi:cart-outline" width="28" height="28" />
-                      {quantity > 0 && <span className={cx('cart-count')}>{quantity}</span>}
+                <div className={cx('nav-item')}>
+                  <Tippy content="CART">
+                    <div
+                      onClick={() => {
+                        window.location.replace(config.routes.cart);
+                      }}
+                    >
+                      <div className={cx('nav-link')}>
+                        <Icon icon="mdi:cart-outline" width="28" height="28" />
+                        {quantity > 0 && <span className={cx('cart-count')}>{quantity}</span>}
+                      </div>
                     </div>
-                  </div>
-                </Tippy>
+                  </Tippy>
                 </div>
 
                 <HeadlessTippy
