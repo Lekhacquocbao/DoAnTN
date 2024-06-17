@@ -65,6 +65,30 @@ function Order({ data, icon }) {
       });
   };
 
+  const cancelOrder = async (orderId) => {
+    console.log('gettoke', GetToken());
+    await axios
+      .put(
+        `http://localhost:8000/api/order/cancel/${orderId}`,
+        {},
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${GetToken()}`,
+          },
+        },
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch((err) => {
+        toast.error(err.response ? err.response.data.message : 'An error occurred');
+      });
+  };
+
   const orderDate = data.OrderDate;
   const formattedDate = moment(orderDate).format('YYYY-MM-DD');
 
@@ -115,12 +139,21 @@ function Order({ data, icon }) {
             openModal1(data.id);
           }}
           className={cx('btn')}
-          outline
+          blue
         >
           Get Detail
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
           Confirm
+        </Button>
+        <Button
+          onClick={() => {
+            cancelOrder(data.id);
+          }}
+          className={cx('btn')}
+          outline
+        >
+          Cancel
         </Button>
       </div>
     );
