@@ -185,9 +185,8 @@ function Checkout() {
         <Button
           className={cx('order-button')}
           onClick={() => handleOrderAll(autocompleteInputValue, payload.phoneNumber)}
-
         >
-          Place Order
+          Book Now
         </Button>
 
         </div>

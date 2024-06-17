@@ -25,6 +25,7 @@ function ManageProducts() {
   const [selectedBreedId, setSelectedBreedId] = useState(null);
   const [search, setSearch] = useState('');
   const [filteredProducts, setfilteredProducts] = useState([]);
+  const [isModalWareHouse, setIsModalWareHouse] = useState(false);
   const [payloadUpdate, setPayloadUpdate] = useState({
     name: '',
     breed: '',
@@ -76,6 +77,7 @@ function ManageProducts() {
 
   const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
   const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
+  const [isModalOpenWareHouse, setIsModalOpenWareHouse] = useState(false);
 
   const getProduct = async () => {
     try {
@@ -257,6 +259,9 @@ await axios
   const modalAnimationAdd = useSpring({
     opacity: isModalOpenAdd ? 1 : 0,
   });
+  const modalAnimationWareHouse = useSpring({
+    opacity: isModalOpenWareHouse ? 1 : 0,
+  });
 
   const closeModalUpdate = () => {
     setIsModalOpenUpdate(false);
@@ -269,6 +274,14 @@ await axios
 
   const closeModalAdd = () => {
     setIsModalOpenAdd(false);
+  };
+
+  const showModalWareHouse = (record) => {
+    setIsModalWareHouse(true);
+  };
+
+  const closeModalWareHouse = () => {
+    setIsModalWareHouse(false);
   };
 
   const columns = [
@@ -301,6 +314,12 @@ await axios
       name: 'Price',
       selector: (row) => row.price,
       sortable: true,
+    },
+    {
+      name: 'Warehouse',
+      render: (text, record) => (
+        <Button onClick={() => showModalWareHouse(record)}>Nhập kho</Button>
+      ),
     },
   ];
 
@@ -558,6 +577,96 @@ await axios
             </Button>
             <Button onClick={() => handleDeleteProduct(productId)} primary>
               Delete
+            </Button>
+          </div>
+        </animated.div>
+      </Popup>
+
+      <Popup
+        isOpen={isModalOpenWareHouse}
+        onRequestClose={() => closeModalWareHouse()}
+        width={'700px'}
+        height={'700px'}
+        className={cx('popup')}
+      >
+        <animated.div style={modalAnimationWareHouse}>
+          <h2>Add Product WareHouse</h2>
+
+          <div className={cx('header')}>Image of product</div>
+
+          <div className={cx('input-field')}>
+            <div className={cx('header')}>Product name</div>
+            <InputForm
+              placeholder="Enter name products..."
+              type="text"
+              value={payloadUpdate.name}
+              setValue={setPayloadAddProduct}
+              name={'name'}
+              className={cx('input')}
+              leftIcon={faShoePrints}
+            />
+          </div>
+
+          <div className={cx('header')}>Select breed</div>
+          <div className={cx('input-field')}>
+            <CustomSelect data={breeds} setId={setSelectedBreedId}></CustomSelect>
+            {/* {errorMessages.category && <div className={cx('error-message')}>{errorMessages.category}</div>} */}
+          </div>
+
+          <div className={cx('input-field')}>
+          <div className={cx('header')}>Amount</div>
+            <InputForm
+              placeholder="Enter product amount..."
+              type="text"
+              value={payloadUpdate.amount}
+              setValue={setPayloadAddProduct}
+              name={'amount'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+          </div>
+
+          <div className={cx('input-field')}>
+          <div className={cx('header')}>Import price</div>
+            <InputForm
+              placeholder="Enter product import price..."
+              type="text"
+              value={payloadUpdate.import_price}
+              setValue={setPayloadAddProduct}
+              name={'import_price'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+          </div>
+
+          <div className={cx('input-field')}>
+          <div className={cx('header')}>Price</div>
+            <InputForm
+              placeholder="Enter product price..."
+              type="text"
+              value={payloadUpdate.price}
+              setValue={setPayloadAddProduct}
+              name={'price'}
+              className={cx('input')}
+              leftIcon={faAudioDescription}
+            />
+          </div>
+
+          <div className={cx('options')}>
+            <Button
+              onClick={() =>
+                handleAddProduct(
+                  avatar,
+                  payloadAddProduct.name,
+                  selectedBreedId,
+                  payloadAddProduct.amount,
+                  payloadAddProduct.import_price,
+                  payloadAddProduct.price,
+                )
+              }
+              outline
+            >
+              Confirm
             </Button>
           </div>
         </animated.div>

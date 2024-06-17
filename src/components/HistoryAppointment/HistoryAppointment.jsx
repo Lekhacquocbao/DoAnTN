@@ -71,7 +71,7 @@ function HistoryAppointment({ data, icon }) {
       [name]: value,
     }));
   };
-  console.log("dataaaaa", data);
+  // console.log("dataaaaa", data);
 
   const orderStartTime = data.appointment_time;
   const orderEndTime = data.end_time;
@@ -264,7 +264,6 @@ function HistoryAppointment({ data, icon }) {
       </div>
     );
   }
-  console.log('data cai cc', data);
 
   function formatCurrency(number) {
     const formatter = new Intl.NumberFormat('vi-VN', {

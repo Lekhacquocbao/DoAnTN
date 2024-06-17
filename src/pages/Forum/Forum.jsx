@@ -37,48 +37,65 @@ const ForumList = () => {
   }
 
   if (data.length === 0) {
-    return <div>No forum posts available.</div>;
+    return (
+      <div>
+        <Link to="/createPost" className={cx('createPostButton')}>
+          Thêm bài viết
+        </Link>
+      </div>
+    );
   }
 
   return (
     <>
-    <Link to="/createPost" className={cx('createPostButton')}>
+      <Link to="/createPost" className={cx('createPostButton')}>
         Thêm bài viết
       </Link>
       <div className={cx('forumContainer')}>
-      
-      {data.map((post, index) => (
-        <div key={index} className={cx('forumPost')}>
-          <div className={cx('forumPostLeft')}>
-          <Link to={`/otherProfiles/${post.Account.id}`}>
-            <img src={post.Account.inforUser.avatar || 'default-thumbnail.jpg'} alt={post.title} className={cx('avatar')} />
-          </Link>
-            <div className={cx('forumPostContent')}>
-              <Link to={`/detailForum/${post.id}`} className={cx('forumTitle')}>{post.title}</Link>
-              <div className={cx('forumMetaTitle')}>
-                <Link to={`/otherProfiles/${post.Account.id}`}>
-                  <span className={cx('author')}>{post.Account.inforUser.firstname + ' '+ post.Account.inforUser.lastname}</span> 
-                  {/* • <span>{new Date(post.createdAt).toLocaleDateString()}</span> */}
+        {data.map((post, index) => (
+          <div key={index} className={cx('forumPost')}>
+            <div className={cx('forumPostLeft')}>
+              <Link to={`/otherProfiles/${post.Account.id}`}>
+                <img
+                  src={post.Account.inforUser.avatar || 'default-thumbnail.jpg'}
+                  alt={post.title}
+                  className={cx('avatar')}
+                />
+              </Link>
+              <div className={cx('forumPostContent')}>
+                <Link to={`/detailForum/${post.id}`} className={cx('forumTitle')}>
+                  {post.title}
                 </Link>
+                <div className={cx('forumMetaTitle')}>
+                  <Link to={`/otherProfiles/${post.Account.id}`}>
+                    <span className={cx('author')}>
+                      {post.Account.inforUser.firstname + ' ' + post.Account.inforUser.lastname}
+                    </span>
+                    {/* • <span>{new Date(post.createdAt).toLocaleDateString()}</span> */}
+                  </Link>
+                </div>
+                {/* <div className={cx('forumExcerpt')}>{post.content ? post.content.slice(0, 100) + '...' : 'No content available.'}</div> */}
+                <div
+                  className={cx('forumExcerpt')}
+                  dangerouslySetInnerHTML={{
+                    __html: sanitizeContent(
+                      post.content ? post.content.slice(0, 100) + '...' : 'No content available.',
+                    ),
+                  }}
+                ></div>
               </div>
-              {/* <div className={cx('forumExcerpt')}>{post.content ? post.content.slice(0, 100) + '...' : 'No content available.'}</div> */}
-              <div className={cx('forumExcerpt')} dangerouslySetInnerHTML={{ __html: sanitizeContent(post.content ? post.content.slice(0, 100) + '...' : 'No content available.') }}></div>
+            </div>
+            <div className={cx('forumPostRight')}>
+              <div className={cx('forumMeta')}>
+                <div>Replies: {post.replyNum}</div>
+                <div>Views: {post.view}</div>
+              </div>
+              <div className={cx('forumDateTime')}>{new Date(post.createdAt).toLocaleString()}</div>
             </div>
           </div>
-          <div className={cx('forumPostRight')}>
-            <div className={cx('forumMeta')}>
-              <div>Replies: {post.replyNum}</div>
-              <div>Views: {post.view}</div>
-            </div>
-            <div className={cx('forumDateTime')}>
-              {new Date(post.createdAt).toLocaleString()}
-            </div>
-          </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
     </>
-    
   );
 };
 

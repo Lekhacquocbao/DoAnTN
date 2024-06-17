@@ -330,10 +330,10 @@ function Home() {
             services.map((services, index) => {
               return (
                 <div key={index} className={cx('item')}>
-                  <img src={services.image} className={cx('item-img')} alt="img"></img>
-                  <div className={cx('category-container')}>
-                    <div className={cx('category-title')}>{services.name}</div>
-                  </div>
+                  <img src={services.image} className={cx('item-img-service')} alt="img"></img>
+                  {/* <div className={cx('category-container')}> */}
+                    <div className={cx('category-title-service')}>{services.name}</div>
+                  {/* </div> */}
                 </div>
               );
             })}
