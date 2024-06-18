@@ -47,6 +47,7 @@ import ForumDetail from '~/pages/Forum/ForumDetail';
 import Messages from '~/pages/Messenger/Messenger';
 import OtherProfiles from '~/pages/OtherProfiles';
 import Question from '~/pages/Question';
+import ManagerMessenger from '~/pages/Admin/ManagerMessenger';
 
 const publicRoutes = [
   { path: config.routes.login, component: Login, layout: null },
@@ -93,6 +94,7 @@ const adminRoutes = [
   { path: config.routes.manageProducts, component: ManageProducts, layout: Admin },
   { path: config.routes.manageServices, component: ManageServices, layout: Admin },
   { path: config.routes.manageBlog, component: ManageBlog, layout: Admin },
+  { path: config.routes.managerMessenger, component: ManagerMessenger, layout: Admin },
   { path: config.routes.addBlog, component: AddBlog, layout: Admin },
   { path: config.routes.revenue, component: Revenue, layout: Admin },
 ];

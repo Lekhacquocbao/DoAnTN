@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 
 import config from '~/config';
 import styles from './Sidebar.module.scss';
-import { faBook, faCat, faChartLine, faDog, faHouse, faList, faRightFromBracket, faShoePrints } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faCat, faChartLine, faDog, faHouse, faList, faMessage, faRightFromBracket, faShoePrints } from '@fortawesome/free-solid-svg-icons';
 import { faServicestack } from '@fortawesome/free-brands-svg-icons';
 
 const cx = classNames.bind(styles);
@@ -95,6 +95,16 @@ function Sidebar() {
           <Link to="" onClick={() => handleSetActive(7)}>
             <FontAwesomeIcon className={cx('bx')} icon={faBook}></FontAwesomeIcon>
             <span className={cx('text')}>Blog</span>
+          </Link>
+        </li>
+
+        <li
+          className={cx({ active: activeIndex === 8 })}
+          onClick={() => window.location.replace(config.routes.managerMessenger)}
+        >
+          <Link to="" onClick={() => handleSetActive(7)}>
+            <FontAwesomeIcon className={cx('bx')} icon={faMessage}></FontAwesomeIcon>
+            <span className={cx('text')}>Messenger</span>
           </Link>
         </li>
 
