@@ -25,7 +25,6 @@ function ManageProducts() {
   const [selectedBreedId, setSelectedBreedId] = useState(null);
   const [search, setSearch] = useState('');
   const [filteredProducts, setfilteredProducts] = useState([]);
-  const [isModalWareHouse, setIsModalWareHouse] = useState(false);
   const [payloadUpdate, setPayloadUpdate] = useState({
     name: '',
     breed: '',
@@ -70,10 +69,22 @@ function ManageProducts() {
       errors.price = 'Please enter a selling price';
       isValid = false;
     }
-
     setErrorMessages(errors);
     return isValid;
   };
+
+  const validateQuantityForm = () => {
+    let isValid = true;
+    const errors = {};
+    if (!payloadUpdate.amount.toString().trim()) {
+      errors.amount = 'Please enter a amount';
+      isValid = false;
+    }
+    setErrorMessages(errors);
+    return isValid;
+  };
+
+
 
   const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
   const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
@@ -81,11 +92,9 @@ function ManageProducts() {
 
   const getProduct = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/product?limit=10000');
+      const response = await axios.get('https://2hm-store.click/api/product?limit=10000');
       setProducts(response.data.result);
       setfilteredProducts(response.data.result);
-      // console.log("respone 1 ne",response);
-      // console.log("hehe", response.data.result)
     } catch (e) {
       console.log(e);
     }
@@ -94,10 +103,8 @@ function ManageProducts() {
   const fetchApiDetailProduct = async (id) => {
     try {
       setIsModalOpenUpdate(true);
-      const response = await axios.get(`http://localhost:8000/api/product/${id}`);
+      const response = await axios.get(`https://2hm-store.click/api/product/${id}`);
       const product = response.data.result;
-      console.log('respone detail product ne', response);
-      console.log('product nè hehe', product);
       setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
         name: product.name,
@@ -112,8 +119,7 @@ function ManageProducts() {
   };
 
   const fetchApiBreeds = async () => {
-    const response = await axios.get('http://localhost:8000/api/breed');
-    // console.log('response', response);
+    const response = await axios.get('https://2hm-store.click/api/breed');
     const breedsData = await response.data.breeds;
     setBreeds(breedsData);
   };
@@ -121,7 +127,7 @@ function ManageProducts() {
   const handleAddProduct = async (image, name, id_breed, amount, import_price, price) => {
 await axios
    .post(
-     'http://localhost:8000/api/product/add',
+     'https://2hm-store.click/api/product/add',
      {
        image: image,
        name: name,
@@ -146,10 +152,6 @@ await axios
    .catch((err) => {
      toast.error(err);
    });
-  //  console.log("name", name)
-  //  console.log("amount", amount);
-  //  console.log("import price", import_price);
-  //  console.log("peice", price);
   };
 
   const handleUpdateProduct = async (name, amount, import_price, price) => {
@@ -158,7 +160,7 @@ await axios
     } else {
       await axios
         .put(
-          `http://localhost:8000/api/product/updateInfor/${productId}`,
+          `https://2hm-store.click/api/product/updateInfor/${productId}`,
           {
             name: name,
             amount: amount,
@@ -181,20 +183,43 @@ await axios
         .catch((e) => {
           toast.error(e);
         });
-        // console.log("name", name)
-        // console.log("amount", amount);
-        // console.log("import price", import_price);
-        // console.log("peice", price);
     }
   };
-
+  const handleQuantityProduct = async (amount) => {
+    if (!validateQuantityForm()) {
+      return;
+    } else {
+      await axios
+        .put(
+          `https://2hm-store.click/api/product/updateInfor/${productId}`,
+          {      
+            amount: amount,
+          },
+          {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${GetToken()}`,
+            },
+          },
+        )
+        .then((res) => {
+          toast.success(res.data.message);
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((e) => {
+          toast.error(e);
+        });
+    }
+  };
   const handleUpdateImage = async (image) => {
     if (!validateForm()) {
       return;
     } else {
       await axios
         .put(
-          `http://localhost:8000/api/product/updateImages/${productId}`,
+          `https://2hm-store.click/api/product/updateImages/${productId}`,
           {
             image: image,
           },
@@ -219,7 +244,7 @@ await axios
 
   const handleDeleteProduct = async (id) => {
     await axios
-      .delete(`http://localhost:8000/api/product/delete/${id}`, {
+      .delete(`https://2hm-store.click/api/product/delete/${id}`, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${GetToken()}`,
@@ -272,16 +297,24 @@ await axios
     setPayloadUpdate({});
   };
 
+  const openModalWareHouse = (id,name, amount, soldProductNum) => {
+    setPayloadUpdate((prevPayload) => ({
+      ...prevPayload,
+      id,
+      name,
+      amount,
+      soldProductNum,
+    }));
+    setProductId(id); 
+    setIsModalOpenWareHouse(true);
+  };
+
   const closeModalAdd = () => {
     setIsModalOpenAdd(false);
   };
 
-  const showModalWareHouse = (record) => {
-    setIsModalWareHouse(true);
-  };
-
   const closeModalWareHouse = () => {
-    setIsModalWareHouse(false);
+    setIsModalOpenWareHouse(false);
   };
 
   const columns = [
@@ -317,10 +350,15 @@ await axios
     },
     {
       name: 'Warehouse',
-      render: (text, record) => (
-        <Button onClick={() => showModalWareHouse(record)}>Nhập kho</Button>
+      sbutton: true,
+      cell: (row) => (
+        <Button
+          onClick={() => openModalWareHouse(row.id, row.name, row.amount, row.soldProductNum)}
+          className={cx('btn')} blue>
+          Warehouse
+        </Button>
       ),
-    },
+    }
   ];
 
   const handleRowClick = (row) => {
@@ -328,6 +366,7 @@ await axios
     fetchApiDetailProduct(productId);
     setProductId(productId);
   };
+
 
   const handleImgChange = (e) => {
     const file = e.target.files[0];
@@ -582,91 +621,49 @@ await axios
         </animated.div>
       </Popup>
 
-      <Popup
+      <Popup 
         isOpen={isModalOpenWareHouse}
-        onRequestClose={() => closeModalWareHouse()}
-        width={'700px'}
-        height={'700px'}
-        className={cx('popup')}
+         onRequestClose={() => closeModalWareHouse()} 
+         width={'700px'} 
+         height={'430px'}
       >
         <animated.div style={modalAnimationWareHouse}>
-          <h2>Add Product WareHouse</h2>
-
-          <div className={cx('header')}>Image of product</div>
-
-          <div className={cx('input-field')}>
-            <div className={cx('header')}>Product name</div>
-            <InputForm
-              placeholder="Enter name products..."
-              type="text"
-              value={payloadUpdate.name}
-              setValue={setPayloadAddProduct}
-              name={'name'}
-              className={cx('input')}
-              leftIcon={faShoePrints}
-            />
-          </div>
-
-          <div className={cx('header')}>Select breed</div>
-          <div className={cx('input-field')}>
-            <CustomSelect data={breeds} setId={setSelectedBreedId}></CustomSelect>
-            {/* {errorMessages.category && <div className={cx('error-message')}>{errorMessages.category}</div>} */}
+          <h2>Nhập hàng</h2>
+            <div className={cx('input-field')}>
+            <div className={cx('header')}>Product name: {payloadUpdate.name}</div>
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Amount</div>
+          <div className={cx('header')}>Số lượng còn: {payloadUpdate.amount}</div>
+          </div>
+
+          <div className={cx('input-field')}>
+          <div className={cx('header')}>Số lượng đã bán: {payloadUpdate.soldProductNum}</div>
+          </div>
+
+          <div className={cx('input-field')}>
+          <div className={cx('header')}>Số lượng nhập thêm</div>
             <InputForm
               placeholder="Enter product amount..."
               type="text"
-              value={payloadUpdate.amount}
-              setValue={setPayloadAddProduct}
-              name={'amount'}
+              value={payloadUpdate.quantity}
+              setValue={setPayloadUpdate}
+              name={'quantity'}
               className={cx('input')}
               leftIcon={faAudioDescription}
             />
-          </div>
-
-          <div className={cx('input-field')}>
-          <div className={cx('header')}>Import price</div>
-            <InputForm
-              placeholder="Enter product import price..."
-              type="text"
-              value={payloadUpdate.import_price}
-              setValue={setPayloadAddProduct}
-              name={'import_price'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
-          </div>
-
-          <div className={cx('input-field')}>
-          <div className={cx('header')}>Price</div>
-            <InputForm
-              placeholder="Enter product price..."
-              type="text"
-              value={payloadUpdate.price}
-              setValue={setPayloadAddProduct}
-              name={'price'}
-              className={cx('input')}
-              leftIcon={faAudioDescription}
-            />
+            {errorMessages.amount && <div className={cx('error-message')}>{errorMessages.amount}</div>}
           </div>
 
           <div className={cx('options')}>
             <Button
               onClick={() =>
-                handleAddProduct(
-                  avatar,
-                  payloadAddProduct.name,
-                  selectedBreedId,
-                  payloadAddProduct.amount,
-                  payloadAddProduct.import_price,
-                  payloadAddProduct.price,
-                )
-              }
-              outline
+                handleQuantityProduct(
+                  Number(payloadUpdate.amount) + Number(payloadUpdate.quantity),
+                )}
+              blue
             >
-              Confirm
+              Change information
             </Button>
           </div>
         </animated.div>

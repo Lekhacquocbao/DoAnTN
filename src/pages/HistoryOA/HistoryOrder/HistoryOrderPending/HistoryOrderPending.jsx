@@ -33,7 +33,7 @@ function HistoryOrderPending() {
   useEffect(() => {
     const getApiOrderList = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/order/status/1', {
+        const response = await axios.get('https://2hm-store.click/api/order/status/1', {
           headers: { Authorization: `Bearer ${GetToken()}` },
         });
         setOrderList(response.data.result);

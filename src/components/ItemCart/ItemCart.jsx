@@ -22,7 +22,7 @@ function ItemCart({ data, onSelect, isCheckoutPage, onQuantityChange }) {
 
   const handleDeleteCart = async () => {
     await axios
-      .delete(`http://localhost:8000/api/cart/delete/${data.cart_item_infor.id}`, {
+      .delete(`https://2hm-store.click/api/cart/delete/${data.cart_item_infor.id}`, {
         headers: { Authorization: `Bearer ${GetToken()}` },
       })
       .then((response) => {
@@ -69,7 +69,7 @@ function ItemCart({ data, onSelect, isCheckoutPage, onQuantityChange }) {
   async function updateQuantity(id_cartItem, quantity) {
     await axios
       .put(
-        `http://localhost:8000/api/cart/updateQuantity/${id_cartItem}`,
+        `https://2hm-store.click/api/cart/updateQuantity/${id_cartItem}`,
         {
           quantity: quantity,
         },

@@ -13,7 +13,7 @@ const ForumList = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/post/forum');
+      const response = await axios.get('https://2hm-store.click/api/post/forum');
       if (response.data.success && Array.isArray(response.data.result)) {
         setData(response.data.result);
       }

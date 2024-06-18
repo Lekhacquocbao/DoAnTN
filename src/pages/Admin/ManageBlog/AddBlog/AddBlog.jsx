@@ -33,7 +33,7 @@ const AddBlog = () => {
     console.log(thumbnail);
     await axios
       .post(
-        'http://localhost:8000/api/post/add',
+        'https://2hm-store.click/api/post/add',
         {
           title: title,
           thumbnail: thumbnail,

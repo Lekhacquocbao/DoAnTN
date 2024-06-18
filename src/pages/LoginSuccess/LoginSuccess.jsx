@@ -15,7 +15,7 @@ function LoginSuccess() {
   useEffect(() => {
     const fetchAccessToken = async () => {
       try {
-        const response = await axios.post(`http://localhost:8000/api/user/login-success/${id}`);
+        const response = await axios.post(`https://2hm-store.click/api/user/login-success/${id}`);
         const data = response.data;
         console.log("dataa", data);
         const { accessToken, role } = data;

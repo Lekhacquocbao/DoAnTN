@@ -35,7 +35,7 @@ function HistoryMenuAppointment() {
   }
   useEffect(() => {
     const getApiOrderPending = async () => {
-      const response = await axios.get('http://localhost:8000/api/appointment/1', {
+      const response = await axios.get('https://2hm-store.click/api/appointment/1', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
@@ -43,7 +43,7 @@ function HistoryMenuAppointment() {
       setCountPending(response.data.detailAppointment.length);
     };
     const getApiAppointmentPrepared = async () => {
-      const response = await axios.get('http://localhost:8000/api/appointment/6', {
+      const response = await axios.get('https://2hm-store.click/api/appointment/6', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
@@ -51,7 +51,7 @@ function HistoryMenuAppointment() {
       setCountAccepted(response.data.detailAppointment.length);
     };
     const getApiAppointmentCanceled = async () => {
-      const response = await axios.get('http://localhost:8000/api/appointment/5', {
+      const response = await axios.get('https://2hm-store.click/api/appointment/5', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
@@ -60,7 +60,7 @@ function HistoryMenuAppointment() {
     };
 
     const getApiAppointmentFinished = async () => {
-      const response = await axios.get('http://localhost:8000/api/appointment/7', {
+      const response = await axios.get('https://2hm-store.click/api/appointment/7', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },

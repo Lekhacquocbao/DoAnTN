@@ -81,7 +81,7 @@ function Login() {
 
   const handleLoginSubmit = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/user/login/', {
+      const response = await fetch('https://2hm-store.click/api/user/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -120,12 +120,12 @@ function Login() {
   };
 
   const handleLoginWithGoogle = () => {
-    window.location.replace('http://localhost:8000/api/user/auth/google');
+    window.location.replace('https://2hm-store.click/api/user/auth/google');
   };
 
   const HandleSubmitSignUp = async () => {
     try {
-      const response = await fetch('http://localhost:8000/api/user/register', {
+      const response = await fetch('https://2hm-store.click/api/user/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

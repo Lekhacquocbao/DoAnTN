@@ -19,7 +19,7 @@ const ProfileCard = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/user/profile/${id}`);
+        const response = await axios.get(`https://2hm-store.click/api/user/profile/${id}`);
         console.log('response hú hú: ' + JSON.stringify(response));
         if (response.data.success && response.data.user) {
           setData(response.data.user);
@@ -36,7 +36,7 @@ const ProfileCard = () => {
 
   const handleSendMessage = async (message, chatUserId) => {
   await axios.post(
-        `http://localhost:8000/api/message`,
+        `https://2hm-store.click/api/message`,
         {
           content: message,
           id_reciever: chatUserId,

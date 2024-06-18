@@ -32,7 +32,7 @@ function MenuOrder() {
   }
   useEffect(() => {
     const getApiOrderPending = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/All/status/1', {
+      const response = await axios.get('https://2hm-store.click/api/order/All/status/1', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
@@ -40,7 +40,7 @@ function MenuOrder() {
       setCountPending(response.data.result.length);
     };
     const getApiOrderPreparing = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/All/status/2', {
+      const response = await axios.get('https://2hm-store.click/api/order/All/status/2', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
@@ -48,7 +48,7 @@ function MenuOrder() {
       setCountPreparing(response.data.result.length);
     };
     const getApiOrderDelivering = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/All/status/3', {
+      const response = await axios.get('https://2hm-store.click/api/order/All/status/3', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
@@ -56,7 +56,7 @@ function MenuOrder() {
       setCountDelivering(response.data.result.length);
     };
     const getApiOrderSuccess = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/All/status/4', {
+      const response = await axios.get('https://2hm-store.click/api/order/All/status/4', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },

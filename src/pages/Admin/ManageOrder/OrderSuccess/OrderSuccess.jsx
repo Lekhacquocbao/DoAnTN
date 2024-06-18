@@ -16,7 +16,7 @@ function OrderSuccess() {
 
   useEffect(() => {
     const getApiOrderPending = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/All/status/4', {
+      const response = await axios.get('https://2hm-store.click/api/order/All/status/4', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       setOrderList(response.data.result);

@@ -39,7 +39,7 @@ export default function Messenger() {
 
   const fetchListMessage = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/message?limit=10&page=1', {
+      const response = await axios.get('https://2hm-store.click/api/message?limit=10&page=1', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       if (response.data.success && Array.isArray(response.data.conversations)) {
@@ -61,7 +61,7 @@ export default function Messenger() {
   //       socket.disconnect();
   //     }
 
-  //     const newSocket = io('http://localhost:8000/');
+  //     const newSocket = io('https://2hm-store.click/');
   //     setSocket(newSocket);
   //     newSocket.on('connect', () => {
   //       console.log(newSocket.id);
@@ -77,7 +77,7 @@ export default function Messenger() {
   //       ]);
   //     });
 
-  //     const response = await axios.get(`http://localhost:8000/api/message/${id}?limit=100&page=1`, {
+  //     const response = await axios.get(`https://2hm-store.click/api/message/${id}?limit=100&page=1`, {
   //       headers: { Authorization: `Bearer ${GetToken()}` },
   //     });
   //     if (response.data.success && Array.isArray(response.data.messages)) {
@@ -106,7 +106,7 @@ export default function Messenger() {
         socket.disconnect();
       }
   
-      const newSocket = io('http://localhost:8000/');
+      const newSocket = io('https://2hm-store.click/');
       setSocket(newSocket);
       newSocket.on('connect', () => {
         console.log(newSocket.id);
@@ -126,7 +126,7 @@ export default function Messenger() {
         }, 0);
       });
   
-      const response = await axios.get(`http://localhost:8000/api/message/${id}?limit=100&page=1`, {
+      const response = await axios.get(`https://2hm-store.click/api/message/${id}?limit=100&page=1`, {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       if (response.data.success && Array.isArray(response.data.messages)) {
@@ -147,7 +147,7 @@ export default function Messenger() {
 
   const fetchMe = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/user/profile/me', {
+      const response = await axios.get('https://2hm-store.click/api/user/profile/me', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       setIdUser(response.data.user.id);

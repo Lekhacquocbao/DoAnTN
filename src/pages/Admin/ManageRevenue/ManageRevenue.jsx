@@ -32,7 +32,7 @@ function ManageRevenue() {
 
   useEffect(() => {
     const fetchApiRevenue = async (fromDate, toDate) => {
-      const response = await axios.get('http://localhost:8000/api/revenue', {
+      const response = await axios.get('https://2hm-store.click/api/revenue', {
         params: {
           startDate: fromDate,
           endDate: toDate,
@@ -57,7 +57,7 @@ function ManageRevenue() {
     };
 
     const fetchAPICustomers = async (page, limit) => {
-      const response = await axios.get('http://localhost:8000/api/revenue/customer', {
+      const response = await axios.get('https://2hm-store.click/api/revenue/customer', {
         params: {
           page:1,
           limit: 20
@@ -71,7 +71,7 @@ function ManageRevenue() {
     };
 
     const fetchAPIShoes = async (page, limit) => {
-      const response = await axios.get('http://localhost:8000/api/revenue/product', {
+      const response = await axios.get('https://2hm-store.click/api/revenue/product', {
         params: {
           page:1,
           limit: 20

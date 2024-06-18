@@ -10,7 +10,7 @@
 //   const [question, setQuestion] = useState('');
 
 //   const handleSubmit = async (prompt) => {
-//     // const response = await axios.post('http://localhost:8000/api/research', {
+//     // const response = await axios.post('https://2hm-store.click/api/research', {
 //     //   prompt: prompt,
 //     // });
 
@@ -89,7 +89,7 @@ const ChatGPTUI = () => {
     setLoading(true); // Hiển thị loader khi bắt đầu gửi câu hỏi
     setQuestion('');
     try {
-      const response = await axios.post('http://localhost:8000/api/research', { prompt });
+      const response = await axios.post('https://2hm-store.click/api/research', { prompt });
       const newAnswer = response.data.result
         .replace(/## (.*?)(?=\n|$)/g, '<h2>$1</h2>')
         .replace(/### (.*?)(?=\n|$)/g, '<h3>$1</h3>')

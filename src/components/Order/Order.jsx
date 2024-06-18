@@ -26,7 +26,7 @@ function Order({ data, icon }) {
 
   const openModal1 = async (id) => {
     setIsModalOpen1(true);
-    const response = await axios.get(`http://localhost:8000/api/order/${id}`, {
+    const response = await axios.get(`https://2hm-store.click/api/order/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
@@ -45,7 +45,7 @@ function Order({ data, icon }) {
   const handleChangeStatus = async (id) => {
     await axios
       .put(
-        `http://localhost:8000/api/order/updateStatus/${id}`,
+        `https://2hm-store.click/api/order/updateStatus/${id}`,
         {},
         {
           headers: {
@@ -69,7 +69,7 @@ function Order({ data, icon }) {
     console.log('gettoke', GetToken());
     await axios
       .put(
-        `http://localhost:8000/api/order/cancel/${orderId}`,
+        `https://2hm-store.click/api/order/cancel/${orderId}`,
         {},
         {
           headers: {

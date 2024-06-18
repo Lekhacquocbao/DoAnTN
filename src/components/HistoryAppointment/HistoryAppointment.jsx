@@ -81,7 +81,7 @@ function HistoryAppointment({ data, icon }) {
   const handleRating = async (id_service, id_appointment, star, comment) => {
     await axios
       .post(
-        `http://localhost:8000/api/rating/add`,
+        `https://2hm-store.click/api/rating/add`,
         {
           id_service: id_service,
           id_appointment: id_appointment,
@@ -108,7 +108,7 @@ function HistoryAppointment({ data, icon }) {
 
   const openModalDetailPending = async (id) => {
     setIsModalOpenDetailPending(true);
-    const response = await axios.get(`http://localhost:8000/api/appointment/detail/${id}`, {
+    const response = await axios.get(`https://2hm-store.click/api/appointment/detail/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
@@ -119,7 +119,7 @@ function HistoryAppointment({ data, icon }) {
 
   const openModalDetail = async (id) => {
     setIsModalOpenDetail(true);
-    const response = await axios.get(`http://localhost:8000/api/appointment/detail/${id}`, {
+    const response = await axios.get(`https://2hm-store.click/api/appointment/detail/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
@@ -130,7 +130,7 @@ function HistoryAppointment({ data, icon }) {
 
   const openModalDetailCompleted = async (id) => {
     setIsModalOpenDetailCompleted(true);
-    const response = await axios.get(`http://localhost:8000/api/appointment/detail/${id}`, {
+    const response = await axios.get(`https://2hm-store.click/api/appointment/detail/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
@@ -158,7 +158,7 @@ function HistoryAppointment({ data, icon }) {
   const handleChangeAppointmentCancel = async (id) => {
     await axios
       .put(
-        `http://localhost:8000/api/appointment/cancel/${id}`,
+        `https://2hm-store.click/api/appointment/cancel/${id}`,
         {},
         {
           headers: {
@@ -180,7 +180,7 @@ function HistoryAppointment({ data, icon }) {
 
   const handleUpdate = async (id) => {
     await axios
-      .put(`http://localhost:8000/api/appointment/update/${id}`, formData, {
+      .put(`https://2hm-store.click/api/appointment/update/${id}`, formData, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${GetToken()}`, // Điều chỉnh nếu cần

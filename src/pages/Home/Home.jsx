@@ -20,7 +20,7 @@ function Home() {
   useEffect(() => {
     const fetchAPICategories = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/breed/');
+        const response = await axios.get('https://2hm-store.click/api/breed/');
         setBreeds(response.data.breeds);
       } catch (error) {
         console.log(error);
@@ -29,7 +29,7 @@ function Home() {
 
     const fetchAPIProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/revenue/product');
+        const response = await axios.get('https://2hm-store.click/api/revenue/product');
         // console.log('besst selling', response);
         setProducts(response.data.result.products);
       } catch (error) {
@@ -39,7 +39,7 @@ function Home() {
 
     const fetchAPIServices = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/service');
+        const response = await axios.get('https://2hm-store.click/api/service');
         // console.log('service', response);
         setServices(response.data.result);
         // setServices(response.data.result.image);
@@ -50,7 +50,7 @@ function Home() {
 
     const fetchAPIAllProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/product');
+        const response = await axios.get('https://2hm-store.click/api/product');
         console.log('product', response);
         setAllProducts(response.data.result);
       } catch (error) {

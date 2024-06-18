@@ -65,7 +65,7 @@ function HistoryOrder({ data, icon }) {
 
   const openModalPending = async (id) => {
     setIsModalOpen(true);
-    const response = await axios.get(`http://localhost:8000/api/order/${id}`, {
+    const response = await axios.get(`https://2hm-store.click/api/order/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
@@ -76,7 +76,7 @@ function HistoryOrder({ data, icon }) {
 
   const openModalSuccessfully = async (id) => {
     setIsModalOpenSuccessfully(true);
-    const response = await axios.get(`http://localhost:8000/api/order/${id}`, {
+    const response = await axios.get(`https://2hm-store.click/api/order/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
@@ -88,7 +88,7 @@ function HistoryOrder({ data, icon }) {
   const handleRating = async (id_product, idOrder, star, comment) => {
     await axios
       .post(
-        `http://localhost:8000/api/rating/add`,
+        `https://2hm-store.click/api/rating/add`,
         {
           id_product: id_product,
           id_order_item: idOrder,
@@ -117,7 +117,7 @@ function HistoryOrder({ data, icon }) {
     console.log('gettoke', GetToken());
     await axios
       .put(
-        `http://localhost:8000/api/order/cancel/${orderId}`,
+        `https://2hm-store.click/api/order/cancel/${orderId}`,
         {},
         {
           headers: {

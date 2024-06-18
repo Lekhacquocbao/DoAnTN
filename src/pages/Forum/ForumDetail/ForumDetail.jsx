@@ -23,7 +23,7 @@ function DetailForum() {
   useEffect(() => {
     const fetchForumDetails = async () => {
       try {
-        const forumResponse = await axios.get(`http://localhost:8000/api/post/forum/${id}`, {
+        const forumResponse = await axios.get(`https://2hm-store.click/api/post/forum/${id}`, {
           headers: { Authorization: `Bearer ${GetToken()}` },
         });
         setForum(forumResponse.data.result);
@@ -41,7 +41,7 @@ function DetailForum() {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/post/forum');
+      const response = await axios.get('https://2hm-store.click/api/post/forum');
       if (response.data.success && Array.isArray(response.data.result)) {
         setData(response.data.result);
       }
@@ -67,7 +67,7 @@ function DetailForum() {
 
     try {
       await axios.post(
-        `http://localhost:8000/api/post/forum/comment`,
+        `https://2hm-store.click/api/post/forum/comment`,
         {
           content: newComment,
           id_post: id,

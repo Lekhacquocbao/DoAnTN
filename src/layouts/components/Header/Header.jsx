@@ -33,7 +33,7 @@ function Header() {
   const getAPIProfiler = async () => {
     console.log('api profile');
     try {
-      const response = await axios.get('http://localhost:8000/api/user/profile/me', {
+      const response = await axios.get('https://2hm-store.click/api/user/profile/me', {
         headers: {
           Authorization: `Bearer ${GetToken()}`,
         },
@@ -51,7 +51,7 @@ function Header() {
   };
 
   const fetchApiCarts = async () => {
-    const response = await axios.get(`http://localhost:8000/api/cart/details`, {
+    const response = await axios.get(`https://2hm-store.click/api/cart/details`, {
       headers: {
         Authorization: `Bearer ${GetToken()}`,
       },
@@ -66,7 +66,7 @@ function Header() {
 
   const fetchUnreadCount = async () => {
     try {
-      const responseNotifyNum = await axios.get('http://localhost:8000/api/user/notifyNum/', {
+      const responseNotifyNum = await axios.get('https://2hm-store.click/api/user/notifyNum/', {
         headers: {
           Authorization: `Bearer ${GetToken()}`,
         },
@@ -79,7 +79,7 @@ function Header() {
 
   const fetchNotifications = async () => {
     try {
-      const responseNotify = await axios.get('http://localhost:8000/api/user/notify/', {
+      const responseNotify = await axios.get('https://2hm-store.click/api/user/notify/', {
         headers: {
           Authorization: `Bearer ${GetToken()}`,
         },

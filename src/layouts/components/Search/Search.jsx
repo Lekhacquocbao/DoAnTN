@@ -13,6 +13,8 @@ import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { useSpring, animated } from 'react-spring';
 import Popup from '~/components/Popup';
 import Image from '~/components/Image';
+import { toast } from 'react-toastify';
+
 
 const cx = classNames.bind(styles);
 
@@ -21,20 +23,19 @@ function Search() {
   const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(false);
   const [isModalOpen2, setIsModalOpen2] = useState(false);
-  const [shoeList, setShoeList] = useState([]);
 
   const modalAnimation2 = useSpring({
     opacity: isModalOpen2 ? 1 : 0,
     transform: isModalOpen2 ? 'translateY(0)' : 'translateY(-100%)',
   });
-
+  
   useEffect(() => {
     if (!searchValue.trim()) {
       setSearchResult([]);
       return;
     }
     const fetchApi = async () => {
-      const response = await axios.get(`http://localhost:8000/api/products?search=${searchValue}&limit=5`);
+      const response = await axios.get(`https://2hm-store.click/api/products?search=${searchValue}&limit=5`);
       setSearchResult(response.data.result);
     };
 
@@ -64,22 +65,29 @@ function Search() {
       window.location.href = `/allProducts?search=${encodeURIComponent(searchValue)}`;
     }
   };
+  
 
   const inputRef = useRef();
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('file', file);
     try {
-      const response = await axios.post('https://0524-117-2-255-218.ngrok-free.app/upload', formData, {
+      const breedResponse = await axios.get('https://2hm-store.click/api/breed/');
+      const breeds = breedResponse.data.breeds;
+      const response = await axios.post('https://69f7-113-189-62-19.ngrok-free.app/predict', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
-      setShoeList(response.data.shoe_list);
-
-      openModal2();
+      // setShoeList(response.data.id_breed);
+      // openModal2();
+      if(!response.data.id_breed) {
+        toast.error('something went wrong');
+      }
+      const breed = breeds.find(category => category.id === response.data.id_breed)
+      localStorage.setItem('breedName', breed.name);
+      window.location.href = `http://localhost:3000/allProducts?id1=${response.data.id_breed}`
     } catch (error) {
       console.error('Error uploading image:', error.message);
     }
@@ -106,13 +114,13 @@ function Search() {
       return;
     }
     const fetchApi = async () => {
-      const response = await axios.get(`http://localhost:8000/api/product?search=${searchValue}&limit=5`);
+      const response = await axios.get(`https://2hm-store.click/api/product?search=${searchValue}&limit=5`);
       setSearchResult(response.data.result);
     };
 
     fetchApi();
   }, [searchValue]);
-  console.log(shoeList);
+  
 
   return (
     <div>

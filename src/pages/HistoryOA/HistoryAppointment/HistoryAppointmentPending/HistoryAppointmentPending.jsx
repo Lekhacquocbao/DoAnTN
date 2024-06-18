@@ -30,7 +30,7 @@ function HistoryAppointmentPending() {
   };
   useEffect(() => {
     const getApiAppointmentList = async () => {
-      const response = await axios.get('http://localhost:8000/api/appointment/1', {
+      const response = await axios.get('https://2hm-store.click/api/appointment/1', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       startTransition(() => {

@@ -59,7 +59,7 @@ function ManageBreeds() {
 
   const getBreed = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/breed?limit=10000');
+      const response = await axios.get('https://2hm-store.click/api/breed?limit=10000');
       setBreeds(response.data.breeds);
       setFilteredBreeds(response.data.breeds);
       // console.log("respone 1 ne",response);
@@ -71,7 +71,7 @@ function ManageBreeds() {
   const fetchApiDetailBreed = async (id) => {
     try {
       setIsModalOpenUpdate(true);
-      const response = await axios.get(`http://localhost:8000/api/breed/${id}`);
+      const response = await axios.get(`https://2hm-store.click/api/breed/${id}`);
       const breed = response.data.breedDetail;
       // console.log('respone detail breed ne', response);
       // console.log('breed nè hehe', breed);
@@ -89,7 +89,7 @@ function ManageBreeds() {
   const handleAddbreed = async (image, name, description) => {
     await axios
       .post(
-        'http://localhost:8000/api/breed/add',
+        'https://2hm-store.click/api/breed/add',
         {
           image: image,
           name: name,
@@ -119,7 +119,7 @@ function ManageBreeds() {
     } else {
       await axios
         .put(
-          `http://localhost:8000/api/breed/updateInfor/${breedId}`,
+          `https://2hm-store.click/api/breed/updateInfor/${breedId}`,
           {
             name: name,
             description: description,
@@ -149,7 +149,7 @@ function ManageBreeds() {
     } else {
       await axios
         .put(
-          `http://localhost:8000/api/breed/updateImage/${breedId}`,
+          `https://2hm-store.click/api/breed/updateImage/${breedId}`,
           {
             image: image,
           },
@@ -174,7 +174,7 @@ function ManageBreeds() {
 
   const handleDeleteBreed = async (id) => {
     await axios
-      .delete(`http://localhost:8000/api/breed/delete/${id}`, {
+      .delete(`https://2hm-store.click/api/breed/delete/${id}`, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${GetToken()}`,

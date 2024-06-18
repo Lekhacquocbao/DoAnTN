@@ -17,7 +17,7 @@ function HistoryAppointmentCompleted() {
 
   useEffect(() => {
     const getApiAppointmentAccepted = async () => {
-      const response = await axios.get('http://localhost:8000/api/appointment/7', {
+      const response = await axios.get('https://2hm-store.click/api/appointment/7', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       // console.log("response", response);

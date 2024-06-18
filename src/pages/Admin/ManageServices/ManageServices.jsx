@@ -65,7 +65,7 @@ function ManageServices() {
 
   const getService = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/service?limit=10000');
+      const response = await axios.get('https://2hm-store.click/api/service?limit=10000');
       setServices(response.data.result);
       setFilteredServices(response.data.result);
       // console.log("respone 1 ne",response);
@@ -77,7 +77,7 @@ function ManageServices() {
   const fetchApiDetailService = async (id) => {
     try {
       setIsModalOpenUpdate(true);
-      const response = await axios.get(`http://localhost:8000/api/service/${id}`);
+      const response = await axios.get(`https://2hm-store.click/api/service/${id}`);
       const service = response.data.result;
       // console.log('respone detail breed ne', response);
       // console.log('breed nè hehe', service);n 
@@ -96,7 +96,7 @@ function ManageServices() {
   const handleAddService = async (image, name, description, price) => {
     await axios
       .post(
-        'http://localhost:8000/api/service/add',
+        'https://2hm-store.click/api/service/add',
         {
           image: image,
           name: name,
@@ -127,7 +127,7 @@ function ManageServices() {
     } else {
       await axios
         .put(
-          `http://localhost:8000/api/service/updateInfor/${serviceId}`,
+          `https://2hm-store.click/api/service/updateInfor/${serviceId}`,
           {
             name: name,
             description: description,
@@ -158,7 +158,7 @@ function ManageServices() {
     } else {
       await axios
         .put(
-          `http://localhost:8000/api/service/updateImage/${serviceId}`,
+          `https://2hm-store.click/api/service/updateImage/${serviceId}`,
           {
             image: image,
           },
@@ -183,7 +183,7 @@ function ManageServices() {
 
   const handleDeleteService = async (id) => {
     await axios
-      .delete(`http://localhost:8000/api/service/delete/${id}`, {
+      .delete(`https://2hm-store.click/api/service/delete/${id}`, {
         headers: {
           'Content-Type': 'multipart/form-data',
           Authorization: `Bearer ${GetToken()}`,

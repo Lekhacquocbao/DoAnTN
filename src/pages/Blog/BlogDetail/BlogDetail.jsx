@@ -20,7 +20,7 @@ function DetailBlog() {
   useEffect(() => {
     const fetchBlogDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:8000/api/post/${id}`, {
+        const response = await axios.get(`https://2hm-store.click/api/post/${id}`, {
           headers: { Authorization: `Bearer ${GetToken()}` },
         });
         setBlog(response.data.result);
@@ -33,7 +33,7 @@ function DetailBlog() {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/api/post', {
+      const response = await axios.get('https://2hm-store.click/api/post', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
       if (response.data.success && Array.isArray(response.data.result)) {

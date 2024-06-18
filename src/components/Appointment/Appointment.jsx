@@ -41,7 +41,7 @@ function Appointment({ data, icon }) {
 
   const openModalDetail = async (id) => {
     setIsModalOpenDetail(true);
-    const response = await axios.get(`http://localhost:8000/api/appointment/detail/${id}`, {
+    const response = await axios.get(`https://2hm-store.click/api/appointment/detail/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
@@ -63,7 +63,7 @@ function Appointment({ data, icon }) {
   const handleChangeAppointmentAccept = async (id) => {
     await axios
       .put(
-        `http://localhost:8000/api/appointment/accept/${id}`,
+        `https://2hm-store.click/api/appointment/accept/${id}`,
         {},
         {
           headers: {
@@ -86,7 +86,7 @@ function Appointment({ data, icon }) {
   const handleChangeAppointmentCancel = async (id) => {
     await axios
       .put(
-        `http://localhost:8000/api/appointment/cancel/${id}`,
+        `https://2hm-store.click/api/appointment/cancel/${id}`,
         {},
         {
           headers: {
@@ -109,7 +109,7 @@ function Appointment({ data, icon }) {
   const handleChangeAppointmentCompleted = async (id) => {
     await axios
       .put(
-        `http://localhost:8000/api/appointment/complete/${id}`,
+        `https://2hm-store.click/api/appointment/complete/${id}`,
         {},
         {
           headers: {
@@ -131,7 +131,7 @@ function Appointment({ data, icon }) {
 
   const openModalDetailPending = async (id) => {
     setIsModalOpenDetailPending(true);
-    const response = await axios.get(`http://localhost:8000/api/appointment/detail/${id}`, {
+    const response = await axios.get(`https://2hm-store.click/api/appointment/detail/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${GetToken()}`,
@@ -150,7 +150,7 @@ function Appointment({ data, icon }) {
 
   const handleUpdate = async (id) => {
     await axios
-      .put(`http://localhost:8000/api/appointment/update/${id}`, formData, {
+      .put(`https://2hm-store.click/api/appointment/update/${id}`, formData, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${GetToken()}`, // Điều chỉnh nếu cần

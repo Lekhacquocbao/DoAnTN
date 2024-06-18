@@ -29,7 +29,7 @@ const AddPost = () => {
   const handleSubmit = async () => {
     await axios
       .post(
-        'http://localhost:8000/api/post/forum/add',
+        'https://2hm-store.click/api/post/forum/add',
         {
           title: title,
           thumbnail: thumbnail,

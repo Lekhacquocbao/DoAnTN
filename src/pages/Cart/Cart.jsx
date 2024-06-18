@@ -61,7 +61,7 @@ function Cart() {
   useEffect(() => {
     const fetchApiCarts = async () => {
     // console.log("hahahah");
-      const response = await axios.get(`http://localhost:8000/api/cart/details`, {
+      const response = await axios.get(`https://2hm-store.click/api/cart/details`, {
         headers: {
           Authorization: `Bearer ${GetToken()}`,
         },

@@ -34,7 +34,7 @@ const BookAppointment = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/service');
+        const response = await axios.get('https://2hm-store.click/api/service');
         // console.log("res kaka", response);
         setServices(response.data.result);
       } catch (error) {
@@ -85,7 +85,7 @@ const BookAppointment = () => {
       return;
     }
     try {
-      const response = await axios.post('http://localhost:8000/api/appointment/create', formData, {
+      const response = await axios.post('https://2hm-store.click/api/appointment/create', formData, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${GetToken()}`,

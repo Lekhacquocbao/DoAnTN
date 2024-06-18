@@ -34,7 +34,7 @@ function HistoryMenuOrder() {
   }
   useEffect(() => {
     const getApiOrderPending = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/status/1', {
+      const response = await axios.get('https://2hm-store.click/api/order/status/1', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
@@ -42,7 +42,7 @@ function HistoryMenuOrder() {
       setCountPending(response.data.result.length);
     };
     const getApiOrderPreparing = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/status/2', {
+      const response = await axios.get('https://2hm-store.click/api/order/status/2', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
@@ -50,7 +50,7 @@ function HistoryMenuOrder() {
       setCountPreparing(response.data.result.length);
     };
     const getApiOrderDelivering = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/status/3', {
+      const response = await axios.get('https://2hm-store.click/api/order/status/3', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
@@ -58,7 +58,7 @@ function HistoryMenuOrder() {
       setCountDelivering(response.data.result.length);
     };
     const getApiOrderSuccess = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/status/4', {
+      const response = await axios.get('https://2hm-store.click/api/order/status/4', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },
@@ -66,7 +66,7 @@ function HistoryMenuOrder() {
       setCountSuccess(response.data.result.length);
     };
     const getApiOrderCanceled = async () => {
-      const response = await axios.get('http://localhost:8000/api/order/status/5', {
+      const response = await axios.get('https://2hm-store.click/api/order/status/5', {
         headers: {
           Authorization: `Bearer ${getJwtFromCookie()}`,
         },

@@ -42,7 +42,7 @@ function DetailItem() {
     } else {
       await axios
         .post(
-          'http://localhost:8000/api/cart/add',
+          'https://2hm-store.click/api/cart/add',
           {
             quantity: count,
             id_product: id,
@@ -72,14 +72,14 @@ function DetailItem() {
 
   useEffect(() => {
     const getAPIDetailItem = async () => {
-      const response = await axios.get(`http://localhost:8000/api/product/${id}`);
+      const response = await axios.get(`https://2hm-store.click/api/product/${id}`);
       setProduct(response.data.result);
       setRatings(response.data.result.rating);
     };
 
     const fetchAPIProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/revenue/product');
+        const response = await axios.get('https://2hm-store.click/api/revenue/product');
         // console.log('besst selling', response);
         setProducts(response.data.result.products);
       } catch (error) {
@@ -94,7 +94,7 @@ function DetailItem() {
     const fetchAPIRelaredProducts = async () => {
       try {
         const BreedId = product.Breed.id;
-        const response = await axios.get(`http://localhost:8000/api/product?id_breed=${BreedId}`);
+        const response = await axios.get(`https://2hm-store.click/api/product?id_breed=${BreedId}`);
         console.log('related', product);
         setRelated(response.data.result);
       } catch (error) {
