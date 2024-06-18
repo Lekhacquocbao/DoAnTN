@@ -58,8 +58,6 @@ function Appointment({ data, icon }) {
     setIsModalOpenDetailPending(false);
   };
 
-
-
   const handleChangeAppointmentAccept = async (id) => {
     await axios
       .put(
@@ -166,7 +164,6 @@ function Appointment({ data, icon }) {
         toast.error(e.response ? e.response.data.message : 'An error occurred');
       });
   };
-
 
   const orderDate = data.appointment_time;
   const orderEndTime = data.end_time;

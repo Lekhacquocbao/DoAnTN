@@ -114,60 +114,68 @@ function DetailItem() {
 
   return (
     <div className={cx('container')}>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        transition={Flip}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
+<div className={cx('container')}>
+  <ToastContainer
+    position="top-right"
+    autoClose={5000}
+    transition={Flip}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="light"
+  />
+  <div className={cx('product')}>
+    <div className={cx('product-img', { 'out-of-stock': product.quantity === 0 })}>
+      <img
+        alt="img"
+        src={product.image && product.image[0]?.image ? product.image[0].image : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg'}
+        className={cx('img')}
       />
-      <div className={cx('product')}>
-        <div className={cx('product-img')}>
-          <img alt="img" src={product.image && product.image[0]?.image ? product.image[0].image : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg' } className={cx('img')}></img>
+      {product.quantity === 0 && <span className={cx('out-of-stock-text')}>Out of Stock</span>}
+    </div>
+    <div className={cx('prouduct-info')}>
+      <h1 className={cx('product-name')}>{product.name}</h1>
+      <p className={cx('product-des')}>
+        {product.Breed ? product.Breed.name : 'Breed information is not available'}
+      </p>
+      <p className={cx('product-des')}>{product.description}</p>
+      <span className={cx('prouduct-price')}>{formatCurrency(product.price)}</span>
+      <div className={cx('product-cart')}>
+        <div className={cx('product-quantity')}>
+          <Icon className={cx('minus')} icon="typcn:minus" onClick={handleDecrement} />
+          <input
+            type="number"
+            className={cx('quantity')}
+            value={count}
+            onChange={(e) => {
+              const newValue = parseInt(e.target.value);
+              if (!isNaN(newValue) && newValue >= 0) {
+                setCount(newValue);
+              }
+            }}
+          />
+          <Icon className={cx('plus')} icon="typcn:plus" onClick={handleIncrement} />
         </div>
-        <div className={cx('prouduct-info')}>
-          <h1 className={cx('product-name')}>{product.name}</h1>
-          <p className={cx('product-des')}>
-            {product.Breed ? product.Breed.name : 'Breed information is not available'}
-          </p>
-          <p className={cx('product-des')}>{product.description}</p>
-          <span className={cx('prouduct-price')}>{formatCurrency(product.price)}</span>
-          <div className={cx('product-cart')}>
-            <div className={cx('product-quantity')}>
-              <Icon className={cx('minus')} icon="typcn:minus" onClick={handleDecrement} />
-              <input
-                type="number"
-                className={cx('quantity')}
-                value={count}
-                onChange={(e) => {
-                  const newValue = parseInt(e.target.value);
-                  if (!isNaN(newValue) && newValue >= 0) {
-                    setCount(newValue);
-                  }
-                }}
-              />
-              <Icon className={cx('plus')} icon="typcn:plus" onClick={handleIncrement} />
-            </div>
 
-            <button
-              className={cx('custom-btn', 'btn-5')}
-              onClick={() => {
-                handleAddToCart();
-                setTimeout(() => {
-                  window.location.reload();
-                }, 1000);
-              }}
-            >
-              <span>ADD TO CART</span>
-            </button>
-          </div>
-        </div>
+        <button
+          className={cx('custom-btn', 'btn-5', { 'out-of-stock-btn': product.quantity === 0 })}
+          onClick={() => {
+            handleAddToCart();
+            setTimeout(() => {
+              window.location.reload();
+            }, 1000);
+          }}
+          disabled={product.quantity === 0}
+        >
+          <span>{product.quantity === 0 ? 'OUT OF STOCK' : 'ADD TO CART'}</span>
+        </button>
+      </div>
+    </div>
+  </div>
       </div>
 
       

@@ -30,7 +30,6 @@ function AllProduct() {
   }, [page]);
 
   useEffect(() => {
-    // Cleanup breedName when component unmounts (goes back to "all products")
     return () => {
       localStorage.removeItem('breedName');
     };
