@@ -102,7 +102,7 @@ function Sidebar() {
           className={cx({ active: activeIndex === 8 })}
           onClick={() => window.location.replace(config.routes.managerMessenger)}
         >
-          <Link to="" onClick={() => handleSetActive(7)}>
+          <Link to="" onClick={() => handleSetActive(8)}>
             <FontAwesomeIcon className={cx('bx')} icon={faMessage}></FontAwesomeIcon>
             <span className={cx('text')}>Messenger</span>
           </Link>

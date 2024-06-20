@@ -71,7 +71,6 @@ function HistoryAppointment({ data, icon }) {
       [name]: value,
     }));
   };
-  // console.log("dataaaaa", data);
 
   const orderStartTime = data.appointment_time;
   const orderEndTime = data.end_time;
@@ -306,11 +305,7 @@ function HistoryAppointment({ data, icon }) {
       >
         <animated.div style={modalAnimationDetailPending}>
           <h2>Detail information</h2>
-          {/* {orderList.length > 0 && */}
-          {/* orderList.map((data) => { */}
-          {/* return ( */}
           <div className={cx('detail')}>
-            {/* <Image className={cx('detail-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image> */}
             <Image
               className={cx('detail-image')}
               src={appointmentDetail.Service ? appointmentDetail.Service.image : ''}
@@ -350,10 +345,9 @@ function HistoryAppointment({ data, icon }) {
             <div className={cx('detail-item')}>
               <label className={cx('detail-label')}>Update Start Time:</label>
               <input
-                className={cx('detail-value')}
+                className={cx('detail-value-input')}
                 name="appointmentTime"
                 type="datetime-local"
-                // value={formData.appointmentTime}
                 onChange={handleInputChange}
               />
             </div>
@@ -366,10 +360,9 @@ function HistoryAppointment({ data, icon }) {
             <div className={cx('detail-item')}>
               <label className={cx('detail-label')}>Update End Time:</label>
               <input
-                className={cx('detail-value')}
+                className={cx('detail-value-input')}
                 name="endTime"
                 type="datetime-local"
-                // value={formData.endTime}
                 onChange={handleInputChange}
               />
             </div>

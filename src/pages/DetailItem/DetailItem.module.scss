@@ -9,11 +9,28 @@
 
 .product-img {
   flex: 1;
-
+  position: relative; 
   .img {
     width: 60vh;
     height: 60vh;
     // object-fit: cover;
+
+    &.out-of-stock {
+      opacity: 0.5 !important;
+    }
+  }
+
+  .out-of-stock-text {
+    position: absolute;
+    top: 50%;
+    right: 45%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 2rem; 
+    // z-index: 1;
   }
 }
 
@@ -21,6 +38,7 @@
   flex: 1;
   padding: 0 20px;
 }
+
 .product-name {
   font-weight: 200;
 }
@@ -44,7 +62,6 @@
 .product-color,
 .product-size {
   display: flex;
-
   align-items: center;
 }
 
@@ -57,7 +74,6 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-
   margin: 0px 5px;
   cursor: pointer;
 }
@@ -85,11 +101,13 @@
   cursor: pointer;
   padding: 5px;
   border-radius: 999px;
+
   &:hover {
     background-color: var(--green);
     color: var(--white);
   }
 }
+
 .quantity {
   height: 30px;
   width: 70px;
@@ -109,6 +127,73 @@
 .btn-add {
   color: var(--white);
   background-color: var(--orange);
+}
+
+// Custom-button
+.custom-btn {
+  width: 130px;
+  height: 40px;
+  color: #fff;
+  border-radius: 5px;
+  padding: 10px 25px;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  display: inline-block;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
+    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
+  outline: none;
+  margin: 0 5px;
+
+  &.out-of-stock-btn {
+    background: rgba(0, 0, 0, 0.5);
+    cursor: not-allowed;
+  }
+
+  &.btn-5 {
+    width: 130px;
+    height: 40px;
+    line-height: 42px;
+    padding: 0;
+    border: none;
+    background: rgb(255, 27, 0);
+    background: linear-gradient(0deg, rgba(255, 27, 0, 1) 0%, rgba(251, 75, 2, 1) 100%);
+  }
+
+  &.btn-5:hover {
+    color: #f0094a;
+    background: transparent;
+    box-shadow: none;
+  }
+
+  &.btn-5:before,
+  &.btn-5:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2px;
+    width: 0;
+    background: #f0094a;
+    box-shadow: -1px -1px 5px 0px #fff, 7px 7px 20px 0px #0003, 4px 4px 5px 0px #0002;
+    transition: 400ms ease all;
+  }
+
+  &.btn-5:after {
+    right: inherit;
+    top: inherit;
+    left: 0;
+    bottom: 0;
+  }
+
+  &.btn-5:hover:before,
+  &.btn-5:hover:after {
+    width: 100%;
+    transition: 800ms ease all;
+  }
 }
 
 .extra-detail {
@@ -136,87 +221,6 @@
 
 .content {
   padding: 0 100px 50px;
-}
-
-.options {
-  padding-top: 20px;
-  display: flex;
-  justify-content: space-evenly;
-  flex-direction: column;
-  align-items: center;
-}
-
-.payment-methods {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  margin: 12px 0;
-}
-
-.payment-methods > label {
-  margin: 6px;
-}
-
-.error-message {
-  color: var(--red);
-  font-size: 1.4rem;
-}
-
-//Custom-button
-.custom-btn {
-  width: 130px;
-  height: 40px;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px 25px;
-  font-family: 'Lato', sans-serif;
-  font-weight: 500;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-  display: inline-block;
-  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5), 7px 7px 20px 0px rgba(0, 0, 0, 0.1),
-    4px 4px 5px 0px rgba(0, 0, 0, 0.1);
-  outline: none;
-  margin: 0 5px;
-}
-.btn-5 {
-  width: 130px;
-  height: 40px;
-  line-height: 42px;
-  padding: 0;
-  border: none;
-  background: rgb(255, 27, 0);
-  background: linear-gradient(0deg, rgba(255, 27, 0, 1) 0%, rgba(251, 75, 2, 1) 100%);
-}
-.btn-5:hover {
-  color: #f0094a;
-  background: transparent;
-  box-shadow: none;
-}
-.btn-5:before,
-.btn-5:after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  height: 2px;
-  width: 0;
-  background: #f0094a;
-  box-shadow: -1px -1px 5px 0px #fff, 7px 7px 20px 0px #0003, 4px 4px 5px 0px #0002;
-  transition: 400ms ease all;
-}
-.btn-5:after {
-  right: inherit;
-  top: inherit;
-  left: 0;
-  bottom: 0;
-}
-.btn-5:hover:before,
-.btn-5:hover:after {
-  width: 100%;
-  transition: 800ms ease all;
 }
 
 .categories {
