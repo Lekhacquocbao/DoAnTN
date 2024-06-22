@@ -33,51 +33,8 @@ function Login() {
     confirm_password: '',
   });
 
-  //   const [autocompleteInputValue, setAutocompleteInputValue] = useState('');
-
   const handleSignupClick = () => setIsSignupMode(true);
   const handleSigninClick = () => setIsSignupMode(false);
-
-  //   const validateForm = () => {
-  //     let isValid = true;
-  //     const errors = {};
-
-  //     if (!payload.Email.trim()) {
-  //       errors.Email = 'Vui lòng nhập tên người dùng';
-  //       isValid = false;
-  //     }
-
-  //     if (!payload.password.trim()) {
-  //       errors.password = 'Vui lòng nhập mật khẩu';
-  //       isValid = false;
-  //     }
-
-  //     if (isSignupMode) {
-  //       if (!payload.firstName.trim()) {
-  //         errors.firstName = 'Vui lòng nhập họ';
-  //         isValid = false;
-  //       }
-
-  //       if (!payload.lastName.trim()) {
-  //         errors.lastName = 'Vui lòng nhập tên';
-  //         isValid = false;
-  //       }
-
-  //       if (!payload.phoneNumber.trim()) {
-  //         errors.phoneNumber = 'Vui lòng nhập số điện thoại';
-  //         isValid = false;
-  //       }
-
-  //       if (!autocompleteInputValue.trim()) {
-  //         errors.address = 'Vui lòng nhập địa chỉ';
-  //         isValid = false;
-  //       }
-  //     }
-
-  //     setErrorMessages(errors);
-
-  //     return isValid;
-  //   };
 
   const handleLoginSubmit = async () => {
     try {
@@ -243,8 +200,6 @@ function Login() {
                 name={'phoneNumber'}
               />
 
-              {/* <AutoComplete setParentInputValue={setAutocompleteInputValue} /> */}
-
               <InputForm
                 placeholder="Email"
                 leftIcon={faUser}
@@ -281,7 +236,7 @@ function Login() {
           <div className={cx('panel', 'left-panel')}>
             <div className={cx('content')}>
               <h3>BH SHOP </h3>
-              <p>Fouder: Lê Khắc Quốc Bảo - Trần Anh Hào</p>
+              <p>Lê Khắc Quốc Bảo - Trần Anh Hào</p>
               <button className={cx('btn', 'transparent')} onClick={handleSignupClick} id="Register">
                 Register
               </button>
@@ -292,7 +247,7 @@ function Login() {
           <div className={cx('panel', 'right-panel')}>
             <div className={cx('content')}>
               <h3>BH SHOP </h3>
-              <p>Fouder: Lê Khắc Quốc Bảo - Trần Anh Hào</p>
+              <p>Lê Khắc Quốc Bảo - Trần Anh Hào</p>
               <button className={cx('btn', 'transparent')} onClick={handleSigninClick} id="Login">
                 Login
               </button>

@@ -20,10 +20,8 @@ function LoginSuccess() {
         console.log("dataa", data);
         const { accessToken, role } = data;
         // Lưu accessToken vào cookie
-        
         document.cookie = `token=${accessToken};path=/;`;
-        localStorage.setItem('Role', role);
-        //ảo thịt :v    
+        localStorage.setItem('Role', role);   
         console.log("role", role);
         console.log("token", accessToken);
 

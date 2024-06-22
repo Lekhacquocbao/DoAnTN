@@ -323,17 +323,17 @@ function Home() {
         </div>
       </div>
 
-      <div className={cx('items')}>
+      <div className={cx('items-service')}>
         <h2 className={cx('header')}>SERVICES</h2>
         <Slider {...settingSlider}>
           {services &&
             services.map((services, index) => {
               return (
-                <div key={index} className={cx('item')}>
+                <div key={index} className={cx('item-service')}>
                   <img src={services.image} className={cx('item-img-service')} alt="img"></img>
-                  {/* <div className={cx('category-container')}> */}
+                  <div className={cx('category-container-service')}>
                     <div className={cx('category-title-service')}>{services.name}</div>
-                  {/* </div> */}
+                  </div>
                 </div>
               );
             })}
