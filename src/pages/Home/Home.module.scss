@@ -49,12 +49,12 @@
 }
 
 
-.categories {
-  box-shadow: 5px 5px 5px var(--grey);
-  border-radius: 20px;
-  border: 2px solid var(--grey);
-  margin: 30px 0;
-}
+// .categories {
+//   box-shadow: 5px 5px 5px var(--grey);
+//   border-radius: 20px;
+//   border: 2px solid var(--grey);
+//   margin: 30px 0;
+// }
 
 .header {
   padding-left: 20px;
@@ -70,38 +70,38 @@
   overflow-x: auto;
 }
 
-.category {
-  flex: 1;
-  margin: 3px;
-  height: 40vh;
-  position: relative;
-  min-width: 200px;
-}
+// .category {
+//   flex: 1;
+//   margin: 3px;
+//   height: 40vh;
+//   position: relative;
+//   min-width: 200px;
+// }
 
-.category-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+// .category-image {
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+// }
 
-.category-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-}
+// .category-container {
+//   position: absolute;
+//   top: 0;
+//   left: 0;
+//   width: 100%;
+//   height: 100%;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   flex-direction: column;
+// }
 
-.category-title {
-  color: #fff;
-  margin-bottom: 20px;
-  font-size: 2.4rem;
-  font-weight: 600;
-}
+// .category-title {
+//   color: #fff;
+//   margin-bottom: 20px;
+//   font-size: 2.4rem;
+//   font-weight: 600;
+// }
 
 .category-title-service {
   color: gray;
@@ -509,7 +509,7 @@ input[type="datetime-local"]{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 100%; 
+    flex: 1;
 
     &:hover {
       transform: translateY(-10px);
@@ -518,19 +518,25 @@ input[type="datetime-local"]{
 
     .item-img-service {
       width: 100%;
-      height: 200px;
+      height: 200px; // Set a fixed height for uniformity
       object-fit: cover;
       border-radius: 8px;
       margin-bottom: 10px;
     }
 
     .category-container-service {
-      padding: 10px 5px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; // Center items horizontally
+      flex: 1; // Ensure this container stretches to fill available space
 
       .category-title-service {
         font-weight: 500;
         font-size: 16px;
         color: #333;
+        margin-bottom: auto;
+        margin-bottom: 15px;
       }
     }
   }

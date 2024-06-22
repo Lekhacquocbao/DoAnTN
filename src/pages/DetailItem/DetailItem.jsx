@@ -135,7 +135,7 @@ function DetailItem() {
             src={product.image && product.image[0]?.image ? product.image[0].image : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg'}
             className={cx('img' , { 'out-of-stock': product.amount === 0 })}
           />
-          {product.amount === 0 && <span className={cx('out-of-stock-text')}>Hết hàng</span>}
+          {product.amount === 0 && <span className={cx('out-of-stock-text')}  disabled>Hết hàng</span>}
         </div>
         <div className={cx('prouduct-info')}>
           <h1 className={cx('product-name')}>{product.name}</h1>
@@ -177,15 +177,15 @@ function DetailItem() {
         </div>
       </div>
 
-      <div className={cx('categories')}>
-        <h2 className={cx('header')}>Sản phẩm bán chạy</h2>
+      <div className={cx('items-service')}>
+        <h2 className={cx('header')}>BEST SELLING PRODUCTS</h2>
         <Slider {...settingSlider}>
           {products.map((product) => (
-            <div key={product.id} className={cx('category')}>
+            <div key={product.id} className={cx('item-service')}>
               <Link to={`/detailItem/${product.id}`}>
-                <img className={cx('category-image')} src={product.image ? product.image : "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="product" />
-                <div className={cx('category-container')}>
-                  <div className={cx('category-title')}>{product.name}</div>
+                <img className={cx('item-img-service')} src={product.image ? product.image : "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="product" />
+                <div className={cx('category-container-service')}>
+                  <div className={cx('category-title-service')}>{product.name}</div>
                   <Button
                     animation
                     className={cx('category-btn')}
@@ -203,15 +203,15 @@ function DetailItem() {
         </Slider>
       </div>
 
-      <div className={cx('categories')}>
-        <h2 className={cx('header')}>Sản phẩm liên quan</h2>
+      <div className={cx('items-service')}>
+        <h2 className={cx('header')}>RELATED PRODUCTS</h2>
         <Slider {...settingSlider}>
           {related.map((relatedProduct) => (
-            <div key={relatedProduct.id} className={cx('category')}>
+            <div key={relatedProduct.id} className={cx('item-service')}>
               <Link to={`/detailItem/${relatedProduct.id}`}>
-                <img className={cx('category-image')} src={relatedProduct.image ? relatedProduct.image : "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="relatedProduct" />
-                <div className={cx('category-container')}>
-                  <div className={cx('category-title')}>{relatedProduct.name}</div>
+                <img className={cx('item-img-service')} src={relatedProduct.image ? relatedProduct.image : "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="relatedProduct" />
+                <div className={cx('category-container-service')}>
+                  <div className={cx('category-title-service')}>{relatedProduct.name}</div>
                   <Button
                     animation
                     className={cx('category-btn')}

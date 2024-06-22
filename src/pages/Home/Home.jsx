@@ -204,17 +204,17 @@ function Home() {
         </div>
       </div>
 
-      <div className={cx('categories')}>
+      <div className={cx('items-service')}>
         <h2 className={cx('header')}>BREED</h2>
         <Slider {...settingSlider}>
           {breeds &&
             breeds.map((category) => {
               return (
-                <div className={cx('category')}>
+                <div className={cx('item-service')}>
                   <Link>
-                    <img className={cx('category-image')} src={category.image} alt="category"></img>
-                    <div className={cx('category-container')}>
-                      <div className={cx('category-title')}>{category.name}</div>
+                    <img className={cx('item-img-service')} src={category.image} alt="category"></img>
+                    <div className={cx('category-container-service')}>
+                      <div className={cx('category-title-service')}>{category.name}</div>
                       <Button
                         key={category.id}
                         animation
@@ -233,16 +233,16 @@ function Home() {
         </Slider>
       </div>
 
-      <div className={cx('categories')}>
+      <div className={cx('items-service')}>
         <h2 className={cx('header')}>BEST SELLING PRODUCTS</h2>
         <Slider {...settingSlider}>
           {products &&
             products.map((products) => {
               return (
-                <div className={cx('category')}>
+                <div className={cx('item-service')}>
                   <Link>
                     <img
-                      className={cx('category-image')}
+                      className={cx('item-img-service')}
                       src={
                         products.image
                           ? products.image
@@ -250,8 +250,8 @@ function Home() {
                       }
                       alt="products"
                     ></img>
-                    <div className={cx('category-container')}>
-                      <div className={cx('category-title')}>{products.name}</div>
+                    <div className={cx('category-container-service')}>
+                      <div className={cx('category-title-service')}>{products.name}</div>
                       <Button
                         key={products.id}
                         animation
@@ -268,16 +268,16 @@ function Home() {
         </Slider>
       </div>
 
-      <div className={cx('categories')}>
+      <div className={cx('items-service')}>
         <h2 className={cx('header')}>PRODUCTS</h2>
         <Slider {...settingSlider}>
           {allProducts &&
             allProducts.map((products) => {
               return (
-                <div className={cx('category')}>
+                <div className={cx('item-service')}>
                   <Link>
                     <img
-                      className={cx('category-image')}
+                      className={cx('item-img-service')}
                       src={
                         products.image
                           ? products.image
@@ -285,8 +285,8 @@ function Home() {
                       }
                       alt="products"
                     ></img>
-                    <div className={cx('category-container')}>
-                      <div className={cx('category-title')}>{products.name}</div>
+                    <div className={cx('category-container-service')}>
+                      <div className={cx('category-title-service')}>{products.name.length > 35 ? products.name.slice(0,35)+ '...' : products.name}</div>
                       <Button
                         key={products.id}
                         animation

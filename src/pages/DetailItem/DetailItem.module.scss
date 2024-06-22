@@ -223,41 +223,6 @@
   padding: 0 100px 50px;
 }
 
-.categories {
-  box-shadow: 5px 5px 5px var(--grey);
-  border-radius: 20px;
-  border: 2px solid var(--grey);
-  margin: 30px 0;
-  padding-top: 20px;
-  margin-top: 50px;
-}
-
-.category {
-  flex: 1;
-  margin: 3px;
-  height: 40vh;
-  position: relative;
-  min-width: 200px;
-}
-
-.category-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.category-container {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  // background-color: rgba(0, 0, 0, 0.2);
-}
 
 .category-title {
   color: #fff;
@@ -273,4 +238,63 @@
   color: var(--white);
   cursor: pointer;
   font-weight: 600;
+}
+
+.items-service {
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+
+  .item-service {
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+
+    &:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .item-img-service {
+      width: 100%;
+      height: 200px; // Set a fixed height for uniformity
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .category-container-service {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center; // Center items horizontally
+      flex: 1; // Ensure this container stretches to fill available space
+
+      .category-title-service {
+        font-weight: 500;
+        font-size: 16px;
+        color: #333;
+        margin-bottom: auto;
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  @media (min-width: 768px) {
+    .item {
+      padding: 20px;
+    }
+
+    .category-title-service {
+      font-size: 18px;
+    }
+  }
 }
