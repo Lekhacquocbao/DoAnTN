@@ -28,7 +28,7 @@ function OrderDelivering() {
     <div className={cx('content')}>
       <Menu />
       <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Order is shipping</span>
+        <span className={cx('title-content')}>Đơn hàng đang được giao</span>
       </div>
       <div className={cx('order-list')}>
         {orderList.map((order) => {

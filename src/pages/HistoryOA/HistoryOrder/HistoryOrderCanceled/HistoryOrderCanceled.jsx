@@ -36,7 +36,7 @@ function HistoryOrderCanceled() {
           <HistoryMenuOrder />
         </Suspense>
       </div>
-      <span className={cx('title-content')}>Order is canceled</span>
+      <span className={cx('title-content')}>Đơn hàng bị hủy</span>
       <div className={cx('order-list')}>
         {orderList.map((order) => (
           <Suspense key={order.id} fallback={<div>Loading...</div>}>

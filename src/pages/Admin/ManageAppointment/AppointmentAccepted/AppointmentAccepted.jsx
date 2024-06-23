@@ -38,7 +38,7 @@ function AppointmentAccepted() {
     <div className={cx('content')}>
       <MenuAppointment />
       <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Appointment is accepted</span>
+        <span className={cx('title-content')}>Cuộc hẹn đã chấp nhận</span>
       </div>
       <div className={cx('order-list')}>
         {orderList.map((order) => {

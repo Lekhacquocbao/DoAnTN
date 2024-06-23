@@ -27,7 +27,7 @@ function OrderSuccess() {
     <div className={cx('content')}>
       <Menu />
       <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Order delivered successfully</span>
+        <span className={cx('title-content')}>Đơn hàng đã giao thành công</span>
       </div>
       <div className={cx('order-list')}>
         {orderList.map((order) => {

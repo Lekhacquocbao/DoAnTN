@@ -85,35 +85,35 @@ function HistoryMenuOrder() {
         <FontAwesomeIcon className={cx('bx')} icon={faHourglassHalf}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countPending}</h3>
-          <p>Order is pending</p>
+          <p>Đơn hàng đang chờ xử lý</p>
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.historyOrderWaiting)}>
         <FontAwesomeIcon className={cx('bx')} icon={faStopwatch}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countPreparing}</h3>
-          <p>Order is preparing</p>
+          <p>Đơn hàng đang chuẩn bị</p>
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.historyOrderDelivering)}>
         <FontAwesomeIcon className={cx('bx')} icon={faTruck}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countDelivering}</h3>
-          <p>Order is delivering</p>
+          <p>Đơn hàng đang được giao</p>
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.historyOrderSuccess)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCheckCircle}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countSuccess}</h3>
-          <p>Order delivered successfully</p>
+          <p>Đơn hàng đã giao thành công</p>
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.historyOrderCanceled)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCancel}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countCanceled}</h3>
-          <p>Order is canceled</p>
+          <p>Đơn hàng bị hủy</p>
         </span>
       </li>
     </ul>

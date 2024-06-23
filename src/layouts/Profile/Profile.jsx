@@ -33,7 +33,7 @@ function Profile({ children }) {
           >
             <Link to="" onClick={() => handleSetActive(0)}>
               <FontAwesomeIcon className={cx('bx')} icon={faUser}></FontAwesomeIcon>
-              <span className={cx('text')}>Personal Page</span>
+              <span className={cx('text')}>Thông tin cá nhân</span>
             </Link>
           </li>
           
@@ -43,7 +43,7 @@ function Profile({ children }) {
         >
           <Link to="" onClick={() => handleSetActive(1)}>
             <FontAwesomeIcon className={cx('bx')} icon={faClock}></FontAwesomeIcon>
-            <span className={cx('text')}>Order History</span>
+            <span className={cx('text')}>Lịch sử đơn hàng</span>
           </Link>
         </li>
 
@@ -53,7 +53,7 @@ function Profile({ children }) {
         >
           <Link to="" onClick={() => handleSetActive(2)}>
             <FontAwesomeIcon className={cx('bx')} icon={faClock}></FontAwesomeIcon>
-            <span className={cx('text')}>Appointment History</span>
+            <span className={cx('text')}>Lịch sử cuộc hẹn</span>
           </Link>
         </li>
         </ul>

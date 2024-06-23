@@ -37,7 +37,7 @@ function HistoryOrderDelivering() {
             <HistoryMenuOrder />
           </Suspense>
         </div>
-        <span className={cx('title-content')}>Order is shipping</span>
+        <span className={cx('title-content')}>Đơn hàng đang được giao</span>
         <div className={cx('order-list')}>
           {orderList.map((order) => (
             <Suspense key={order.id} fallback={<div>Loading...</div>}>

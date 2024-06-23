@@ -386,7 +386,7 @@ function ManageServices() {
               Change information
             </Button>
             <Button onClick={() => handleDeleteService(serviceId)} primary>
-              Delete
+              Xóa
             </Button>
           </div>
         </animated.div>

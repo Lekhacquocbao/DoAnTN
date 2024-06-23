@@ -117,7 +117,7 @@ function ItemCart({ data, onSelect, isCheckoutPage, onQuantityChange }) {
           <div className={cx('content-right')}>
             <div className={cx('options')}>
               <Button onClick={() => handleDeleteCart()} outline className={cx('btn')}>
-                Delete
+                Xóa
               </Button>
             </div>
             <div className={cx('product-quantity')}>

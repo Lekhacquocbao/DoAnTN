@@ -47,7 +47,7 @@ function HistoryAppointmentCanceled() {
             <HistoryMenuAppointment />
           </Suspense>
         </div>
-        <span className={cx('title-content')}>Appointment is canceled</span>
+        <span className={cx('title-content')}>Cuộc hẹn đã được hủy</span>
         <div className={cx('order-list')}>
           {orderList.map((order) => (
               <Suspense key={order.id} fallback={<div>Loading...</div>}>

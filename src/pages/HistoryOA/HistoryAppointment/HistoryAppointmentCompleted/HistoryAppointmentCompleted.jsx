@@ -49,7 +49,7 @@ function HistoryAppointmentCompleted() {
             <HistoryMenuAppointment />
           </Suspense>
         </div>
-        <span className={cx('title-content')}>Appointment is finished</span>
+        <span className={cx('title-content')}>Cuộc hẹn đã hoàn thành</span>
         <div className={cx('order-list')}>
           {orderList &&
             orderList.map((order) => (

@@ -17,7 +17,7 @@ function AllProduct() {
   const [page, setPage] = useState(() => (
     parseInt(localStorage.getItem('page')) || 1
   ));
-  const [breedName, setBreedName] = useState('Breed')
+  const [breedName, setBreedName] = useState('Chủng loài')
   const [totalPage, setTotalPage] = useState(0);
   const location = useLocation();
   const { id1, search } = queryString.parse(location.search);
@@ -102,17 +102,17 @@ function AllProduct() {
       <div className={styles.filters}>
         <span className={styles.label}>Sorted by</span>
         <div className={styles['select-input']}>
-          <span className={styles['select-input__label']}>Price</span>
+          <span className={styles['select-input__label']}>Giá</span>
           <FontAwesomeIcon className={styles['select-input__icon']} icon={faChevronDown} />
           <ul className={styles['select-input__list']}>
             <li className={styles['select-input__item']}>
               <Link to="#" onClick={() => setDescPrice(0)} className={styles['select-input__link']}>
-                Price: Low to high
+                Giá: Thấp đến cao
               </Link>
             </li>
             <li className={styles['select-input__item']}>
               <Link to="#" onClick={() => setDescPrice(1)} className={styles['select-input__link']}>
-                Price: High to low
+                Giá: Cao đến thấp
               </Link>
             </li>
           </ul>

@@ -205,7 +205,7 @@ function Home() {
       </div>
 
       <div className={cx('items-service')}>
-        <h2 className={cx('header')}>BREED</h2>
+        <h2 className={cx('header')}>CHỦNG LOÀI</h2>
         <Slider {...settingSlider}>
           {breeds &&
             breeds.map((category) => {
@@ -223,7 +223,7 @@ function Home() {
                         // to={`/detailItem/${category.id}`}
                         // to={config.routes.allProducts} className={cx('custom-button')}
                       >
-                        SHOP NOW
+                        MUA NGAY
                       </Button>
                     </div>
                   </Link>
@@ -234,7 +234,7 @@ function Home() {
       </div>
 
       <div className={cx('items-service')}>
-        <h2 className={cx('header')}>BEST SELLING PRODUCTS</h2>
+        <h2 className={cx('header')}>SẢN PHẨM BÁN CHẠY</h2>
         <Slider {...settingSlider}>
           {products &&
             products.map((products) => {
@@ -258,7 +258,7 @@ function Home() {
                         className={cx('category-btn')}
                         to={`detailItem/${products.id}`}
                       >
-                        SHOP NOW
+                        MUA NGAY
                       </Button>
                     </div>
                   </Link>
@@ -269,7 +269,7 @@ function Home() {
       </div>
 
       <div className={cx('items-service')}>
-        <h2 className={cx('header')}>PRODUCTS</h2>
+        <h2 className={cx('header')}>SẢN PHẨM</h2>
         <Slider {...settingSlider}>
           {allProducts &&
             allProducts.map((products) => {
@@ -293,7 +293,7 @@ function Home() {
                         className={cx('category-btn')}
                         to={`detailItem/${products.id}`}
                       >
-                        SHOP NOW
+                        MUA NGAY
                       </Button>
                     </div>
                   </Link>
@@ -318,13 +318,13 @@ function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
               </svg>
             </span>
-            <span className={cx('button-text')}>See all</span>
+            <span className={cx('button-text')}>Xem tất cả</span>
           </Link>
         </div>
       </div>
 
       <div className={cx('items-service')}>
-        <h2 className={cx('header')}>SERVICES</h2>
+        <h2 className={cx('header')}>DỊCH VỤ</h2>
         <Slider {...settingSlider}>
           {services &&
             services.map((services, index) => {
@@ -355,7 +355,7 @@ function Home() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
               </svg>
             </span>
-            <span className={cx('button-text')}>Booking Appoitment Now</span>
+            <span className={cx('button-text')}>Đặt lịch hẹn ngay</span>
           </Link>
         </div>
       </div>

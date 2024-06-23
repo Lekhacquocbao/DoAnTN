@@ -38,7 +38,7 @@ function AppointmentCompleted() {
     <div className={cx('content')}>
       <MenuAppointment />
       <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Appointment is completed</span>
+        <span className={cx('title-content')}>Cuộc hẹn đã hoàn thành</span>
       </div>
       <div className={cx('order-list')}>
         {orderList.map((order) => {

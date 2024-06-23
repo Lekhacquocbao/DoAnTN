@@ -355,7 +355,7 @@ function ManageBreeds() {
               Change information
             </Button>
             <Button onClick={() => handleDeleteBreed(breedId)} primary>
-              Delete
+              Xóa
             </Button>
           </div>
         </animated.div>

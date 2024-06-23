@@ -36,7 +36,7 @@ function HistoryOrderSuccess() {
           <HistoryMenuOrder />
         </Suspense>
       </div>
-      <span className={cx('title-content')}>Order delivered successfully</span>
+      <span className={cx('title-content')}>Đơn hàng đã giao thành công</span>
       <div className={cx('order-list')}>
         {orderList.map((order) => (
           <Suspense key={order.id} fallback={<div>Loading...</div>}>

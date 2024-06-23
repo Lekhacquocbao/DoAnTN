@@ -79,28 +79,28 @@ function HistoryMenuAppointment() {
         <FontAwesomeIcon className={cx('bx')} icon={faHourglassHalf}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countPending}</h3>
-          <p>Appointment is pending</p>
+          <p>Cuộc hẹn đang chờ xử lý</p>
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.historyAppointmentAccepted)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCheck}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countAccepted}</h3>
-          <p>Appointment is accepted</p>
+          <p>Cuộc hẹn đã chấp nhận</p>
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.historyAppointmentCanceled)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCancel}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countCanceled}</h3>
-          <p>Appointment is canceled</p>
+          <p>Cuộc hẹn đã được hủy</p>
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.historyAppointmentFinished)}>
         <FontAwesomeIcon className={cx('bx')} icon={faCheckCircle}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countFinished}</h3>  
-          <p>Appointment is completed</p>
+          <p>Cuộc hẹn đã hoàn thành</p>
         </span>
       </li>
     </ul>

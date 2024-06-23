@@ -41,7 +41,7 @@ function OrderPending() {
     <div className={cx('content')}>
   <Menu />
   <div className={cx('header-content')}>
-    <span className={cx('title-content')}>Pending orders</span>
+    <span className={cx('title-content')}>Đơn hàng đang chờ xử lý</span>
   </div>
   <table className={cx('order-table')}>
     <thead className={cx('order-header')}>

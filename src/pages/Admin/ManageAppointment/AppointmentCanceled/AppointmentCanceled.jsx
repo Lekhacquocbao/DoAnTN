@@ -36,7 +36,7 @@ function AppointmentCanceled() {
     <div className={cx('content')}>
       <MenuAppointment />
       <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Appointment is canceled</span>
+        <span className={cx('title-content')}>Cuộc hẹn đã được hủy</span>
       </div>
       <div className={cx('order-list')}>
         {orderList.map((order) => {

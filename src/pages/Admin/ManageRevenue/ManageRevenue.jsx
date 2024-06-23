@@ -136,7 +136,7 @@ function ManageRevenue() {
         <div className={cx('header1')}>General statistics for a year</div>
         <div className={cx('content')}>
           <div className={cx('Top10')}>
-            <div className={cx('header')}>Top 20 best-selling customer of the year</div>
+            <div className={cx('header')}>Top 20 best-seller customer of the year</div>
             <ul className={cx('products')}>
               {topCustomer &&
                 topCustomer.map((product, index) => {

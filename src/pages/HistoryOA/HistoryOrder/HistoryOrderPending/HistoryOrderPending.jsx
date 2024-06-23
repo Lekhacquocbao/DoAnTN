@@ -55,7 +55,7 @@ function HistoryOrderPending() {
             <HistoryMenuOrder />
           </Suspense>
         </div>
-        <span className={cx('title-content')}>Pending orders</span>
+        <span className={cx('title-content')}>Đơn hàng đang chờ xử lý</span>
         {/* <div style={{ display: 'flex'}}>
           <div style={{paddingLeft: '200px'}}>Date order</div>
           <div style={{paddingLeft: '270px', paddingRight: '270px'}}>Address</div>

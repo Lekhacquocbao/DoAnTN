@@ -615,7 +615,7 @@ await axios
               Change information
             </Button>
             <Button onClick={() => handleDeleteProduct(productId)} primary>
-              Delete
+              Xóa
             </Button>
           </div>
         </animated.div>

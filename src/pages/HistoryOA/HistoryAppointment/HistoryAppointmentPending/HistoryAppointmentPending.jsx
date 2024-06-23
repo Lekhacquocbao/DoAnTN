@@ -61,7 +61,7 @@ function HistoryAppointmentPending() {
             <HistoryMenuAppointment />
           </Suspense>
         </div>
-        <span className={cx('title-content')}>Appointment is pending</span>
+        <span className={cx('title-content')}>Cuộc hẹn đang chờ xử lý</span>
         <div className={cx('order-list')}>
           {appointmentList &&
             appointmentList.map((order) => (

@@ -28,7 +28,7 @@ function OrderWaiting() {
     <div className={cx('content')}>
       <Menu />
       <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Order is prepared</span>
+        <span className={cx('title-content')}>Đơn hàng đang chuẩn bị</span>
       </div>
       <div className={cx('order-list')}>
         {orderList.map((order) => {

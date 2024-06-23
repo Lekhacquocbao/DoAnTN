@@ -52,7 +52,7 @@ function AppointmentPending() {
       <MenuAppointment />
       </Suspense>
       <div className={cx('header-content')}>
-        <span className={cx('title-content')}>Appointment is pending</span>
+        <span className={cx('title-content')}>Cuộc hẹn đang chờ xử lý</span>
       </div>
       <div className={cx('order-list')}>
       {appointmentList &&

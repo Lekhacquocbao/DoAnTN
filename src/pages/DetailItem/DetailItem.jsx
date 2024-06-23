@@ -178,7 +178,7 @@ function DetailItem() {
       </div>
 
       <div className={cx('items-service')}>
-        <h2 className={cx('header')}>BEST SELLING PRODUCTS</h2>
+        <h2 className={cx('header')}>SẢN PHẨM BÁN CHẠY</h2>
         <Slider {...settingSlider}>
           {products.map((product) => (
             <div key={product.id} className={cx('item-service')}>
@@ -194,7 +194,7 @@ function DetailItem() {
                       handleLinkClick(product.id);
                     }}
                   >
-                    SHOP NOW
+                    MUA NGAY
                   </Button>
                 </div>
               </Link>
@@ -204,7 +204,7 @@ function DetailItem() {
       </div>
 
       <div className={cx('items-service')}>
-        <h2 className={cx('header')}>RELATED PRODUCTS</h2>
+        <h2 className={cx('header')}>SẢN PHẨM LIÊN QUAN</h2>
         <Slider {...settingSlider}>
           {related.map((relatedProduct) => (
             <div key={relatedProduct.id} className={cx('item-service')}>
@@ -220,7 +220,7 @@ function DetailItem() {
                       handleLinkClick(relatedProduct.id);
                     }}
                   >
-                    SHOP NOW
+                    MUA NGAY
                   </Button>
                 </div>
               </Link>

@@ -60,19 +60,19 @@ const BookAppointment = () => {
     let isValid = true;
 
     if (!formData.id_service) {
-      errors.id_service = 'Please select a service.';
+      errors.id_service = 'Vui lòng chọn dịch vụ.';
       isValid = false;
     }
     if (!formData.appointmentTime) {
-      errors.appointmentTime = 'Please select start time.';
+      errors.appointmentTime = 'Vui lòng chọn thời gian bắt đầu.';
       isValid = false;
     }
     if (!formData.endTime) {
-      errors.endTime = 'Please select end time.';
+      errors.endTime = 'Vui lòng chọn thời gian kết thúc.';
       isValid = false;
     }
     if (!formData.order_phoneNumber) {
-      errors.order_phoneNumber = 'Please enter your phone number.';
+      errors.order_phoneNumber = 'Vui lòng nhập số điện thoại.';
       isValid = false;
     }
     setErrorMessages(errors);
@@ -110,11 +110,11 @@ const BookAppointment = () => {
       case 0:
         return (
           <>
-            <label className={cx('form-label')}>Please select service:</label>
+            <label className={cx('form-label')}>Vui lòng chọn dịch vụ:</label>
             <div className={cx('form-group')}>
-              <label htmlFor="service">Service</label>
+              <label htmlFor="service">Dịch vụ</label>
               <select id="service" name="id_service" value={formData.id_service} onChange={handleChange}>
-                <option value="">Select service</option>
+                <option value="">Chọn dịch vụ</option>
                 {services.map((service) => (
                   <option key={service.id} value={service.id}>
                     {service.name}
@@ -128,9 +128,9 @@ const BookAppointment = () => {
       case 1:
         return (
           <>
-            <label className={cx('form-label')}>Please select time:</label>
+            <label className={cx('form-label')}>Vui lòng chọn thời gian:</label>
             <div className={cx('form-group')}>
-              <label htmlFor="appointmentTime">Start Time</label>
+              <label htmlFor="appointmentTime">Thời gian bắt đầu</label>
               <input
                 type="datetime-local"
                 id="appointmentTime"
@@ -141,7 +141,7 @@ const BookAppointment = () => {
               {errorMessages.appointmentTime && <small className={cx('error')}>{errorMessages.appointmentTime}</small>}
             </div>
             <div className={cx('form-group')}>
-              <label htmlFor="endTime">End Time</label>
+              <label htmlFor="endTime">Thời gian kết thúc</label>
               <input
                 type="datetime-local"
                 id="endTime"
@@ -156,9 +156,9 @@ const BookAppointment = () => {
       case 2:
         return (
           <>
-            <label className={cx('form-label')}>Please provide details:</label>
+            <label className={cx('form-label')}>Vui lòng cung cấp thông tin chi tiết:</label>
             <div className={cx('form-group')}>
-              <label htmlFor="phoneNumber">Phone number</label>
+              <label htmlFor="phoneNumber">Số điện thoại</label>
               <input
                 type="text"
                 id="phoneNumber"
@@ -171,7 +171,7 @@ const BookAppointment = () => {
               )}
             </div>
             <div className={cx('form-group')}>
-              <label htmlFor="note">Note</label>
+              <label htmlFor="note">Ghi chú</label>
               <input type="text" id="note" name="note" value={formData.note} onChange={handleChange} />
             </div>
           </>
@@ -238,15 +238,15 @@ const BookAppointment = () => {
             <img className={cx('advertisement-left')} src="https://i.pinimg.com/564x/1e/ce/71/1ece71fa61d85dbd7d42dd8e3882f933.jpg" alt="Left Banner" />
           <div className={cx('form-container')}>
             <div className={cx('appointment-form')}>
-              <h1>Book Appointment</h1>
+              <h1>Đặt lịch hẹn</h1>
               <div className={cx('progress-bar')}>
-                <div className={cx('progress-step', { active: step >= 0 })}>Service</div>
+                <div className={cx('progress-step', { active: step >= 0 })}>Dịch vụ</div>
                 <div className={cx('progress-line', { active: step >= 1 })}></div>
-                <div className={cx('progress-step', { active: step >= 1 })}>Time</div>
+                <div className={cx('progress-step', { active: step >= 1 })}>Thời gian</div>
                 <div className={cx('progress-line', { active: step >= 2 })}></div>
-                <div className={cx('progress-step', { active: step >= 2 })}>Details</div>
+                <div className={cx('progress-step', { active: step >= 2 })}>Chi tiết</div>
                 <div className={cx('progress-line', { active: step >= 3 })}></div>
-                <div className={cx('progress-step', { active: step >= 3 })}>Done</div>
+                <div className={cx('progress-step', { active: step >= 3 })}>Hoàn thành</div>
               </div>
               <form onSubmit={handleSubmit}>
                 {renderForm()}
@@ -256,26 +256,24 @@ const BookAppointment = () => {
                 <div className={cx('form-actions')}>
                   {step > 0 && (
                     <Button type="button" className={cx('btn', 'previous')} onClick={prevStep}>
-                      Previous
+                      Quay lại
                     </Button>
                   )}
                   {step < 2 && (
                     <Button type="button" className={cx('btn', 'next')} onClick={nextStep}>
-                      Next
+                      Tiếp theo
                     </Button>
                   )}
                   {step === 2 && (
                     <Button type="submit" className={cx('btn', 'next')}>
-                      Submit
+                      Hoàn thành
                     </Button>
                   )}
                 </div>
               </form>
             </div>
           </div>
-
             <img className={cx('advertisement-right')} src="https://i.pinimg.com/564x/1e/ce/71/1ece71fa61d85dbd7d42dd8e3882f933.jpg" alt="Right Banner" />
-
         </div>
       </div>
     </div>
