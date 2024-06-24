@@ -9,7 +9,6 @@ import GetToken from '~/Token/GetToken';
 import { Link } from 'react-router-dom';
 import DOMPurify from 'dompurify';
 
-
 const cx = classNames.bind(styles);
 
 function DetailBlog() {
@@ -38,7 +37,6 @@ function DetailBlog() {
       });
       if (response.data.success && Array.isArray(response.data.result)) {
         setData(response.data.result);
-        // console.log("post haha", response );
       }
     } catch (error) {
       console.error('Error fetching posts: ', error);
@@ -64,7 +62,7 @@ function DetailBlog() {
   } 
 
   return (
-    <>
+    <div className='sum'>
     <div className={cx('container')}>
       <ToastContainer
         position="top-right"
@@ -95,7 +93,6 @@ function DetailBlog() {
       <h3 className={cx('rencent')}>Recent Posts</h3>
       {recentPosts.map((post, index) => (
         <Link to={`/detailBlog/${post.id}`} key={index} className={cx('blogPost')}>
-       
         <img src={post.thumbnail || 'default-thumbnail.jpg'} alt={post.title} className={cx('thumbnail')} />
           <div className={cx('blogContent')} >
             <h2 className={cx('blogTitle')} >{post.title}</h2>
@@ -107,7 +104,7 @@ function DetailBlog() {
         </Link>
       ))}
     </div>
-    </>
+    </div>
   );
 }
 
