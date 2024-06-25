@@ -160,9 +160,13 @@
   justify-content: center;
   padding: 16px 54px;
   border-radius: 62px;
-  background-color: #000;
+  background-color:  #1b13b9;
   color: #fff;
   text-transform: uppercase;
   cursor: pointer;
+
+  &:hover {
+    background-color: #291fea;
+  }
 }
 

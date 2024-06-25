@@ -171,9 +171,10 @@ function DetailItem() {
         <div className={cx('prouduct-info')}>
           <h1 className={cx('product-name')}>{product.name}</h1>
           <p className={cx('product-des')}>
-            {product.Breed ? product.Breed.name : 'Thông tin chủng loài không có sẵn'}
+            Chủng loài: {product.Breed ? product.Breed.name : 'Thông tin chủng loài không có sẵn'}
           </p>
-          <p className={cx('product-des')}>{product.description}</p>
+          <p className={cx('product-des')}>Số lượng: {product.amount}</p>
+          <p className={cx('product-des')}>Mô tả: {product.description}</p>
           <span className={cx('prouduct-price')}>{formatCurrency(product.price)}</span>
           <div className={cx('product-cart')}>
             <div className={cx('product-quantity')}>

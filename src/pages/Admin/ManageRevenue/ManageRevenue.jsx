@@ -12,7 +12,7 @@ const cx = classNames.bind(styles);
 function ManageRevenue() {
   const [topCustomer, setTopCustomer] = useState([]);
   const [topProducts, setTopProducts] = useState([]);
-  const [totalRevenue, setTotalRevenue] = useState(); 
+  const [totalRevenue, setTotalRevenue] = useState();
   const [totalProfit, setTotalProfit] = useState();
 
   const [payload, setPayload] = useState({
@@ -45,12 +45,7 @@ function ManageRevenue() {
         revenue_date: moment(item.date).format('DD-MM-YYYY'),
         revenue: item.totalRevenue,
         profit: item.profit,
-
       }));
-      // console.log("response ne",response)
-      // console.log("formattedData ne",formattedData)
-      console.log("revenue", formattedData.revenue);
-      console.log("profit", formattedData.profit);
       setTotalRevenue(response.data.result.totalRevenue);
       setTotalProfit(response.data.result.profitRevenue);
       setData(formattedData);
@@ -59,28 +54,26 @@ function ManageRevenue() {
     const fetchAPICustomers = async (page, limit) => {
       const response = await axios.get('https://2hm-store.click/api/revenue/customer', {
         params: {
-          page:1,
-          limit: 20
+          page: 1,
+          limit: 20,
         },
         headers: {
           Authorization: `Bearer ${GetToken()}`,
         },
       });
-      // console.log("response ne",response.data.result.customers)
       setTopCustomer(response.data.result.customers);
     };
 
     const fetchAPIShoes = async (page, limit) => {
       const response = await axios.get('https://2hm-store.click/api/revenue/product', {
         params: {
-          page:1,
-          limit: 20
+          page: 1,
+          limit: 20,
         },
         headers: {
           Authorization: `Bearer ${GetToken()}`,
         },
       });
-      console.log("response ne",response)
       setTopProducts(response.data.result.products);
     };
 
@@ -122,11 +115,7 @@ function ManageRevenue() {
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="revenue_date" />
             <Tooltip />
-            <Legend
-              iconType="circle" 
-              align="center" 
-              iconSize={14}
-            />
+            <Legend iconType="circle" align="center" iconSize={14} />
             <Bar dataKey="revenue" fill="#8884d8" name="Doanh thu" />
             <Bar dataKey="profit" fill="#82ca9d" name="Lợi nhuận" />
           </BarChart>
@@ -145,7 +134,7 @@ function ManageRevenue() {
                     product && (
                       <li key={product.id} className={cx('product-item')}>
                         {customerNumber}. {product.inforUser.lastname} với{' '}
-                        <span className={cx('high-light')}> {formatCurrency(product.point*1000)} Tổng giá</span>
+                        <span className={cx('high-light')}> {formatCurrency(product.point * 1000)} Tổng giá</span>
                       </li>
                     )
                   );
@@ -175,7 +164,6 @@ function ManageRevenue() {
                 })}
             </ul>
           </div>
-
         </div>
       </div>
     </div>

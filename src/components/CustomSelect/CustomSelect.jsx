@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
-
 import styles from './CustomSelect.module.scss';
 
 const cx = classNames.bind(styles);
@@ -34,7 +33,7 @@ const CustomSelect = ({ data, setId }) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             className={cx('search-input')}
-            placeholder="Enter to search ..."
+            placeholder="Tìm kiếm ..."
           />
           {filteredData &&
             filteredData.map((data) => (

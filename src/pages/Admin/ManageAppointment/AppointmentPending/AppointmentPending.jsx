@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import axios from 'axios';
 import { faBoxOpen, faCheckCircle, faSpinner} from '@fortawesome/free-solid-svg-icons';
 import React, { useEffect, useState,startTransition, Suspense } from 'react';
-
 import GetToken from '~/Token/GetToken';
 import styles from './AppointmentPending.module.scss';
 
@@ -30,7 +29,6 @@ function AppointmentPending() {
       const response = await axios.get('https://2hm-store.click/api/appointment/1', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
-      // console.log("response", response);
       startTransition(() => {
         const Appointment = response.data.detailAppointment.map((appointment) => {
           return {

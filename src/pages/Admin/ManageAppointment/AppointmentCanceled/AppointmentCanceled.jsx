@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import React, { useEffect, useState } from 'react';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
 import styles from './AppointmentCanceled.module.scss';
 import GetToken from '~/Token/GetToken';
 

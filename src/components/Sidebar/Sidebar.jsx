@@ -3,10 +3,17 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFaceSmile } from '@fortawesome/free-regular-svg-icons';
 import { useEffect, useState } from 'react';
-
 import config from '~/config';
 import styles from './Sidebar.module.scss';
-import { faBook, faCat, faChartLine, faDog, faHouse, faList, faMessage, faRightFromBracket, faShoePrints } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBook,
+  faCat,
+  faChartLine,
+  faDog,
+  faHouse,
+  faMessage,
+  faRightFromBracket,
+} from '@fortawesome/free-solid-svg-icons';
 import { faServicestack } from '@fortawesome/free-brands-svg-icons';
 
 const cx = classNames.bind(styles);

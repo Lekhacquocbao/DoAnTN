@@ -203,11 +203,7 @@ function Information() {
             <div className={cx('info-header')}>
               Họ và tên
             </div>
-            {/* <div className={cx('description-field')}>
-              <div>Update your avatar and information here</div>
-            </div> */}
             <div className={cx('text-field')}>
-              {/* <div className={cx('header')}>Full name</div> */}
               <div className={cx('input-field')}>
                 <div className={cx('input-wrapper')}>
                   <InputForm
@@ -277,7 +273,7 @@ function Information() {
           <div className={cx('header')}>Please enter your new password</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="New Password"
+              placeholder="Mật khẩu mới"
               type="password"
               value={payload2.newPassword}
               setValue={setPayload2}
@@ -288,7 +284,7 @@ function Information() {
           <div className={cx('header')}>Please enter your new password again</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="Confirm Password"
+              placeholder="Nhập lại mật khẩu"
               type="password"
               value={payload2.againPassword}
               setValue={setPayload2}

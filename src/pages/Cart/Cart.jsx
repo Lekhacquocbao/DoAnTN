@@ -133,10 +133,6 @@ function Cart() {
             <span>Giảm giá:(-0%)</span>
             <span className="discount-price">{formatCurrency(0)}</span>
           </div>
-          {/* <div className={cx('delivery-fee')}>
-            <span>Delivery Fee:</span>
-            <span className={cx('delivery-price')}>{formatCurrency(0)}</span>
-          </div> */}
           <div className={cx('total')}>
             <span className={cx('total-text')}>Tổng: </span>
             <span className={cx('total-price')}>{formatCurrency(subTotal)}</span>

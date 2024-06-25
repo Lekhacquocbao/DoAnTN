@@ -71,10 +71,8 @@ const ForumList = () => {
                     <span className={cx('author')}>
                       {post.Account.inforUser.firstname + ' ' + post.Account.inforUser.lastname}
                     </span>
-                    {/* • <span>{new Date(post.createdAt).toLocaleDateString()}</span> */}
                   </Link>
                 </div>
-                {/* <div className={cx('forumExcerpt')}>{post.content ? post.content.slice(0, 100) + '...' : 'No content available.'}</div> */}
                 <div
                   className={cx('forumExcerpt')}
                   dangerouslySetInnerHTML={{
@@ -87,8 +85,8 @@ const ForumList = () => {
             </div>
             <div className={cx('forumPostRight')}>
               <div className={cx('forumMeta')}>
-                <div>Replies: {post.replyNum}</div>
-                <div>Views: {post.view}</div>
+                <div>Trả lời: {post.replyNum}</div>
+                <div>Lượt xem: {post.view}</div>
               </div>
               <div className={cx('forumDateTime')}>{new Date(post.createdAt).toLocaleString()}</div>
             </div>

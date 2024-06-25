@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { useSpring, animated } from 'react-spring';
 import moment from 'moment';
 import { Flip, ToastContainer, toast } from 'react-toastify';
-
 import GetToken from '~/Token/GetToken';
 import Image from '~/components/Image';
 import Button from '~/components/Button';
@@ -13,7 +12,7 @@ import styles from './Order.module.scss';
 
 const cx = classNames.bind(styles);
 
-function Order({ data, icon }) {
+function Order({ data }) {
   const [orderList, setOrderList] = useState({});
   const [isModalOpen1, setIsModalOpen1] = useState(false);
   const modalAnimation1 = useSpring({
@@ -38,9 +37,6 @@ function Order({ data, icon }) {
   const closeModal1 = () => {
     setIsModalOpen1(false);
   };
-  // console.log("data hhee lalala: " + JSON.stringify(data.Account));
-  console.log('data order', data.Account);
-  // console.log("data hhee: " + JSON.stringify(data));
 
   const handleChangeStatus = async (id) => {
     await axios
@@ -66,7 +62,7 @@ function Order({ data, icon }) {
   };
 
   const cancelOrder = async (orderId) => {
-    console.log('gettoke', GetToken());
+    // console.log('gettoke', GetToken());
     await axios
       .put(
         `https://2hm-store.click/api/order/cancel/${orderId}`,
@@ -95,7 +91,6 @@ function Order({ data, icon }) {
   let iconComponent;
   let buttonComponent;
   if (data.id_status === 1) {
-    // iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} spinPulse />;
     buttonComponent = (
       <div>
         <Button
@@ -108,12 +103,11 @@ function Order({ data, icon }) {
           Chi tiết
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
-        Xác nhận
+          Xác nhận
         </Button>
       </div>
     );
   } else if (data.id_status === 2) {
-    // iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
     buttonComponent = (
       <div>
         <Button
@@ -126,12 +120,11 @@ function Order({ data, icon }) {
           Chi tiết
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
-        Xác nhận
+          Xác nhận
         </Button>
       </div>
     );
   } else if (data.id_status === 3) {
-    // iconComponent = <FontAwesomeIcon className={cx('icon')} icon={icon} bounce />;
     buttonComponent = (
       <div>
         <Button
@@ -144,7 +137,7 @@ function Order({ data, icon }) {
           Chi tiết
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
-        Xác nhận
+          Xác nhận
         </Button>
         <Button
           onClick={() => {
@@ -158,7 +151,6 @@ function Order({ data, icon }) {
       </div>
     );
   } else if (data.id_status === 4) {
-    // iconComponent = <FontAwesomeIcon className={cx('icon')} icon={faCheckCircle} beat />;
     buttonComponent = (
       <div>
         <Button
@@ -197,10 +189,11 @@ function Order({ data, icon }) {
         pauseOnHover
         theme="light"
       />
-      <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>{iconComponent}
+      <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>
+      {iconComponent}
       <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div>
-      <div className={cx('name-order')}>{data.payment ? data.payment.paymentMethod : "" }</div>
-      <div className={cx('name-order')}>{data.payment?.isPaid ? "da thanh toan" : "Chua thanh toan"}</div>
+      <div className={cx('name-order')}>{data.payment ? data.payment.paymentMethod : ''}</div>
+      <div className={cx('name-order')}>{data.payment?.isPaid ? 'da thanh toan' : 'Chua thanh toan'}</div>
       <div className={cx('day-order')}>{formattedDate}</div>
       <div className={cx('address')}>{data.order_address}</div>
       <div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
@@ -222,16 +215,15 @@ function Order({ data, icon }) {
 
                   <div className={cx('detail-item')}>
                     <label className={cx('detail-label')}>Số lượng:</label>
-                    <div className={cx('detail-value')}>
-                      {orderItem.order_item_infor.quantity}
-                    </div>
+                    <div className={cx('detail-value')}>{orderItem.order_item_infor.quantity}</div>
                   </div>
 
                   <div className={cx('detail-item')}>
                     <label className={cx('detail-label')}>Giá:</label>
-                    <div className={cx('detail-value')}>{orderItem.order_item_infor.fixed_price && formatCurrency(orderItem.order_item_infor.fixed_price)}</div>
+                    <div className={cx('detail-value')}>
+                      {orderItem.order_item_infor.fixed_price && formatCurrency(orderItem.order_item_infor.fixed_price)}
+                    </div>
                   </div>
-
                 </div>
               );
             })}

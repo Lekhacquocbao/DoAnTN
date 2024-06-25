@@ -44,15 +44,15 @@ function ManageServices() {
     const errors = {};
 
     if (!payloadUpdate.name.trim()) {
-      errors.name = 'Please enter service name';
+      errors.name = 'Hãy nhập tên dịch vụ';
       isValid = false;
     }
     if (!payloadUpdate.description.trim()) {
-      errors.description = 'Please enter a description';
+      errors.description = 'Hãy nhập mô tả';
       isValid = false;
     }
     if (!payloadUpdate.price.toString().trim()) {
-      errors.price = 'Please enter a price';
+      errors.price = 'Hãy nhập giá';
       isValid = false;
     }
 
@@ -68,8 +68,6 @@ function ManageServices() {
       const response = await axios.get('https://2hm-store.click/api/service?limit=10000');
       setServices(response.data.result);
       setFilteredServices(response.data.result);
-      // console.log("respone 1 ne",response);
-      // console.log("hehe", response.data.breeds)
     } catch (e) {
       console.log(e);
     }
@@ -79,13 +77,10 @@ function ManageServices() {
       setIsModalOpenUpdate(true);
       const response = await axios.get(`https://2hm-store.click/api/service/${id}`);
       const service = response.data.result;
-      // console.log('respone detail breed ne', response);
-      // console.log('breed nè hehe', service);n 
       setPayloadUpdate((prevPayload) => ({
         ...prevPayload,
         name: service.name,
         description: service.description,
-        // image: service.image,
         price: service.price,
       }));
     } catch (e) {

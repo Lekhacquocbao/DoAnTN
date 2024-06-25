@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHourglassHalf } from '@fortawesome/free-regular-svg-icons';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import config from '~/config';
 import styles from './MenuAppointment.module.scss';
 import { faCancel, faCheck, faCheckCircle} from '@fortawesome/free-solid-svg-icons';

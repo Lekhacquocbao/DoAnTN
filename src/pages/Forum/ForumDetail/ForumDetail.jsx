@@ -79,7 +79,6 @@ function DetailForum() {
       setTimeout(() => {
         window.location.reload();
       }, 1000);
-      // setComments([...comments, response.data.result]);
     } catch (error) {
       console.error('Error submitting comment:', error);
       toast.error('Failed to post comment.');
@@ -160,14 +159,14 @@ function DetailForum() {
               required
             />
             <button type="submit" className={cx('commentButton')}>
-              Submit Comment
+              Bình luận
             </button>
           </form>
         </div>
       </div>
 
       <div className={cx('forumContainerRencent')}>
-        <h3 className={cx('rencent')}>Recent Posts</h3>
+        <h3 className={cx('rencent')}>Bài viết gần đây</h3>
         {recentPosts.map((post, index) => (
           <div key={index} className={cx('forumPostRencent')}>
             <div className={cx('forumPostLeftRencent')}>
@@ -179,16 +178,16 @@ function DetailForum() {
                 />
               </Link>
               <div className={cx('forumPostContentRencent')}>
-              <a
-                href={`/detailForum/${post.id}`}
-                className={cx('forumTitleRencent')}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleLinkClick(post.id);
-                }}
-              >
-                {post.title}
-              </a>
+                <a
+                  href={`/detailForum/${post.id}`}
+                  className={cx('forumTitleRencent')}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLinkClick(post.id);
+                  }}
+                >
+                  {post.title}
+                </a>
                 <div className={cx('forumMetaTitleRencent')}>
                   <Link to={`/otherProfiles/${post.Account.id}`}>
                     <span className={cx('authorRencent')}>
@@ -208,8 +207,8 @@ function DetailForum() {
             </div>
             <div className={cx('forumPostRightRencent')}>
               <div className={cx('forumMetaRencent')}>
-                <div>Replies: {post.replyNum}</div>
-                <div>Views: {post.view}</div>
+                <div>Trả lời: {post.replyNum}</div>
+                <div>Lượt xem: {post.view}</div>
               </div>
               <div className={cx('forumDateTimeRencent')}>{new Date(post.createdAt).toLocaleString()}</div>
             </div>

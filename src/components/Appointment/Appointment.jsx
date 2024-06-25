@@ -20,12 +20,12 @@ function Appointment({ data, icon }) {
   const [formData, setFormData] = useState({
     note: data.note,
   });
-  
+
   const [isModalOpenDetailPending, setIsModalOpenDetailPending] = useState(false);
   const modalAnimationDetail = useSpring({
     opacity: isModalOpenDetail ? 1 : 0,
   });
-    const modalAnimationDetailPending = useSpring({
+  const modalAnimationDetailPending = useSpring({
     opacity: isModalOpenDetailPending ? 1 : 0,
   });
 
@@ -190,12 +190,12 @@ function Appointment({ data, icon }) {
           Chấp nhận
         </Button>
 
-        <Button onClick={() =>  openModalDetailPending(data.id)} className={cx('btn')} blue>
+        <Button onClick={() => openModalDetailPending(data.id)} className={cx('btn')} blue>
           Cập nhật
         </Button>
 
         <Button onClick={() => handleChangeAppointmentCancel(data.id)} className={cx('btn')} outline>
-          Cancel
+          Hủy
         </Button>
       </div>
     );
@@ -276,11 +276,8 @@ function Appointment({ data, icon }) {
       <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>
       {iconComponent}
       <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div>
-      {/* <div className={cx('name-order')}>{data.note}</div> */}
       <div className={cx('day-order')}>{formattedEndTime}</div>
       <div className={cx('day-order')}>{formattedDate}</div>
-      {/* <div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div> */}
-
       {buttonComponent}
       <Popup
         className={cx('modal-container')}
@@ -401,8 +398,6 @@ function Appointment({ data, icon }) {
               Cập nhật
             </Button>
           </div>
-          {/* ); */}
-          {/* })} */}
         </animated.div>
       </Popup>
     </div>

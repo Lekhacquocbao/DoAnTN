@@ -213,7 +213,7 @@ function HistoryAppointment({ data, icon }) {
         </Button>
 
         <Button onClick={() => handleChangeAppointmentCancel(data.id)} className={cx('btn')} outline>
-          Cancel
+          Hủy
         </Button>
       </div>
     );
@@ -287,14 +287,11 @@ function HistoryAppointment({ data, icon }) {
         pauseOnHover
         theme="light"
       />
-      {/* <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image> */}
       {iconComponent}
-      {/* <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div> */}
       <div className={cx('name-order')}>{data.note}</div>
       <div className={cx('day-order')}>{formattedStartTime}</div>
       <div className={cx('day-order')}>{formattedEndTime}</div>
       <div className={cx('price-order')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
-
       {buttonComponent}
       <Popup
         className={cx('modal-container')}
@@ -312,14 +309,14 @@ function HistoryAppointment({ data, icon }) {
               alt="avatar"
             ></Image>
             <div className={cx('detail-item')}>
-              <label className={cx('detail-label')}>Name:</label>
+              <label className={cx('detail-label')}>Tên:</label>
               <div className={cx('detail-value')}>
                 {data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}
               </div>
             </div>
 
             <div className={cx('detail-item')}>
-              <label className={cx('detail-label')}>Service:</label>
+              <label className={cx('detail-label')}>Dịch vụ:</label>
               <div className={cx('detail-value')}>
                 {appointmentDetail.Service ? appointmentDetail.Service.name : ''}
               </div>
@@ -333,17 +330,17 @@ function HistoryAppointment({ data, icon }) {
             </div>
 
             <div className={cx('detail-item')}>
-              <label className={cx('detail-label')}>Note:</label>
+              <label className={cx('detail-label')}>Ghi chú:</label>
               <input className={cx('detail-input')} name="note" value={formData.note} onChange={handleInputChange} />
             </div>
 
             <div className={cx('detail-item')}>
-              <label className={cx('detail-label')}>Start Time:</label>
+              <label className={cx('detail-label')}>Thời gian bắt đầu:</label>
               <div className={cx('detail-value')}>{formattedStartTime}</div>
             </div>
 
             <div className={cx('detail-item')}>
-              <label className={cx('detail-label')}>Update Start Time:</label>
+              <label className={cx('detail-label')}>Cập nhật thời gian:</label>
               <input
                 className={cx('detail-value-input')}
                 name="appointmentTime"
@@ -353,12 +350,12 @@ function HistoryAppointment({ data, icon }) {
             </div>
 
             <div className={cx('detail-item')}>
-              <label className={cx('detail-label')}>End Time:</label>
+              <label className={cx('detail-label')}>Thời gian kết thúc:</label>
               <div className={cx('detail-value')}>{formattedEndTime}</div>
             </div>
 
             <div className={cx('detail-item')}>
-              <label className={cx('detail-label')}>Update End Time:</label>
+              <label className={cx('detail-label')}>Cập nhật thời gian:</label>
               <input
                 className={cx('detail-value-input')}
                 name="endTime"
@@ -368,7 +365,7 @@ function HistoryAppointment({ data, icon }) {
             </div>
 
             <div className={cx('detail-item')}>
-              <label className={cx('detail-label')}>Price:</label>
+              <label className={cx('detail-label')}>Giá:</label>
               <div className={cx('detail-value')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
             </div>
 
@@ -376,8 +373,6 @@ function HistoryAppointment({ data, icon }) {
               Cập nhật
             </Button>
           </div>
-          {/* ); */}
-          {/* })} */}
         </animated.div>
       </Popup>
 
@@ -438,23 +433,23 @@ function HistoryAppointment({ data, icon }) {
               <div className={cx('detail-value')}>{data.totalPrice && formatCurrency(data.totalPrice)}</div>
             </div>
 
-            {!data.isRate? (
-            <Button
-              onClick={() => {
-                openModalRating();
-                setIDService(data.id_service);
-                setIDAppointment(data.id_appointment);
-              }}
-              blue
-              className={cx('btn')}
-            >
-              Rating
-            </Button>
+            {!data.isRate ? (
+              <Button
+                onClick={() => {
+                  openModalRating();
+                  setIDService(data.id_service);
+                  setIDAppointment(data.id_appointment);
+                }}
+                blue
+                className={cx('btn')}
+              >
+                Rating
+              </Button>
             ) : (
-                    <Button disabled blue className={cx('btn')}>
-                      Have evaluated
-                    </Button>
-                  )}
+              <Button disabled blue className={cx('btn')}>
+                Have evaluated
+              </Button>
+            )}
           </div>
         </animated.div>
       </Popup>

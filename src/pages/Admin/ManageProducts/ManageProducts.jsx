@@ -54,19 +54,19 @@ function ManageProducts() {
     const errors = {};
 
     if (!payloadUpdate.name.trim()) {
-      errors.name = 'Please enter product name';
+      errors.name = 'Hãy nhập tên loài';
       isValid = false;
     }
     if (!payloadUpdate.amount.toString().trim()) {
-      errors.amount = 'Please enter a amount';
+      errors.amount = 'Hãy nhập số lượng';
       isValid = false;
     }
     if (!payloadUpdate.import_price.toString().trim()) {
-      errors.price = 'Please enter a import_price';
+      errors.price = 'Hãy nhập giá nhập';
       isValid = false;
     }
     if (!payloadUpdate.price.toString().trim()) {
-      errors.price = 'Please enter a selling price';
+      errors.price = 'Hãy nhập giá bán';
       isValid = false;
     }
     setErrorMessages(errors);
@@ -77,14 +77,12 @@ function ManageProducts() {
     let isValid = true;
     const errors = {};
     if (!payloadUpdate.amount.toString().trim()) {
-      errors.amount = 'Please enter a amount';
+      errors.amount = 'Hãy nhập số lượng';
       isValid = false;
     }
     setErrorMessages(errors);
     return isValid;
   };
-
-
 
   const [isModalOpenUpdate, setIsModalOpenUpdate] = useState(false);
   const [isModalOpenAdd, setIsModalOpenAdd] = useState(false);
@@ -123,35 +121,35 @@ function ManageProducts() {
     const breedsData = await response.data.breeds;
     setBreeds(breedsData);
   };
-  
+
   const handleAddProduct = async (image, name, id_breed, amount, import_price, price) => {
-await axios
-   .post(
-     'https://2hm-store.click/api/product/add',
-     {
-       image: image,
-       name: name,
-       id_breed: id_breed,
-       amount: amount,
-       import_price: import_price,
-       price: price,
-     },
-     {
-       headers: {
-         'Content-Type': 'multipart/form-data',
-         Authorization: `Bearer ${GetToken()}`,
-       },
-     },
-   )
-   .then((res) => {
-     toast.success(res.data.message);
-     setTimeout(() => {
-       window.location.reload();
-     }, 1000);
-   })
-   .catch((err) => {
-     toast.error(err);
-   });
+    await axios
+      .post(
+        'https://2hm-store.click/api/product/add',
+        {
+          image: image,
+          name: name,
+          id_breed: id_breed,
+          amount: amount,
+          import_price: import_price,
+          price: price,
+        },
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${GetToken()}`,
+          },
+        },
+      )
+      .then((res) => {
+        toast.success(res.data.message);
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      })
+      .catch((err) => {
+        toast.error(err);
+      });
   };
 
   const handleUpdateProduct = async (name, amount, import_price, price) => {
@@ -192,7 +190,7 @@ await axios
       await axios
         .put(
           `https://2hm-store.click/api/product/updateInfor/${productId}`,
-          {      
+          {
             amount: amount,
           },
           {
@@ -297,7 +295,7 @@ await axios
     setPayloadUpdate({});
   };
 
-  const openModalWareHouse = (id,name, amount, soldProductNum) => {
+  const openModalWareHouse = (id, name, amount, soldProductNum) => {
     setPayloadUpdate((prevPayload) => ({
       ...prevPayload,
       id,
@@ -305,7 +303,7 @@ await axios
       amount,
       soldProductNum,
     }));
-    setProductId(id); 
+    setProductId(id);
     setIsModalOpenWareHouse(true);
   };
 
@@ -354,11 +352,13 @@ await axios
       cell: (row) => (
         <Button
           onClick={() => openModalWareHouse(row.id, row.name, row.amount, row.soldProductNum)}
-          className={cx('btn')} blue>
+          className={cx('btn')}
+          blue
+        >
           Nhập hàng
         </Button>
       ),
-    }
+    },
   ];
 
   const handleRowClick = (row) => {
@@ -366,7 +366,6 @@ await axios
     fetchApiDetailProduct(productId);
     setProductId(productId);
   };
-
 
   const handleImgChange = (e) => {
     const file = e.target.files[0];
@@ -464,7 +463,7 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Số lượng</div>
+            <div className={cx('header')}>Số lượng</div>
             <InputForm
               placeholder="Nhập số lượng..."
               type="text"
@@ -477,7 +476,7 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Giá nhập</div>
+            <div className={cx('header')}>Giá nhập</div>
             <InputForm
               placeholder="Nhập giá nhập..."
               type="text"
@@ -490,7 +489,7 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Giá bán</div>
+            <div className={cx('header')}>Giá bán</div>
             <InputForm
               placeholder="Nhập giá bán..."
               type="text"
@@ -522,29 +521,24 @@ await axios
         </animated.div>
       </Popup>
 
-      <Popup 
-        isOpen={isModalOpenUpdate}
-         onRequestClose={() => closeModalUpdate()} 
-         width={'700px'} 
-         height={'700px'}
-      >
+      <Popup isOpen={isModalOpenUpdate} onRequestClose={() => closeModalUpdate()} width={'700px'} height={'700px'}>
         <animated.div style={modalAnimationUpdate}>
           <h2>Thông tin sản phẩm</h2>
-            <div className={cx('header')}>Ảnh</div>
-            <div className={cx('input-field')}>
-              <div className={cx('upload-field')}>
-                {avatar && <img src={image} className={cx('image')} alt="Ảnh" />}
-                <label htmlFor="file-upload" className={cx('upload-btn')}>
-                  <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
-                  <input id="file-upload" type="file" onChange={handleImgChange}></input>
-                </label>
-              </div>
-              <Button onClick={() => handleUpdateImage(avatar)} outline>
-                Thay đổi ảnh
-              </Button>
+          <div className={cx('header')}>Ảnh</div>
+          <div className={cx('input-field')}>
+            <div className={cx('upload-field')}>
+              {avatar && <img src={image} className={cx('image')} alt="Ảnh" />}
+              <label htmlFor="file-upload" className={cx('upload-btn')}>
+                <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
+                <input id="file-upload" type="file" onChange={handleImgChange}></input>
+              </label>
             </div>
+            <Button onClick={() => handleUpdateImage(avatar)} outline>
+              Thay đổi ảnh
+            </Button>
+          </div>
 
-            <div className={cx('input-field')}>
+          <div className={cx('input-field')}>
             <div className={cx('header')}>Tên</div>
             <InputForm
               placeholder="Nhập tên..."
@@ -559,7 +553,7 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Số lượng</div>
+            <div className={cx('header')}>Số lượng</div>
             <InputForm
               placeholder="Nhập số lượng..."
               type="text"
@@ -573,7 +567,7 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Giá nhập</div>
+            <div className={cx('header')}>Giá nhập</div>
             <InputForm
               placeholder="Nhập giá nhập..."
               type="text"
@@ -587,7 +581,7 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Giá bán</div>
+            <div className={cx('header')}>Giá bán</div>
             <InputForm
               placeholder="Nhập giá bán..."
               type="text"
@@ -608,7 +602,8 @@ await axios
                   payloadUpdate.amount,
                   payloadUpdate.import_price,
                   payloadUpdate.price,
-                )}
+                )
+              }
               outline
             >
               Thay đổi thông tin
@@ -620,28 +615,28 @@ await axios
         </animated.div>
       </Popup>
 
-      <Popup 
+      <Popup
         isOpen={isModalOpenWareHouse}
-         onRequestClose={() => closeModalWareHouse()} 
-         width={'700px'} 
-         height={'430px'}
+        onRequestClose={() => closeModalWareHouse()}
+        width={'700px'}
+        height={'430px'}
       >
         <animated.div style={modalAnimationWareHouse}>
           <h2>Nhập hàng</h2>
-            <div className={cx('input-field')}>
+          <div className={cx('input-field')}>
             <div className={cx('header')}>Tên sản phẩm: {payloadUpdate.name}</div>
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Số lượng còn: {payloadUpdate.amount}</div>
+            <div className={cx('header')}>Số lượng còn: {payloadUpdate.amount}</div>
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Số lượng đã bán: {payloadUpdate.soldProductNum}</div>
+            <div className={cx('header')}>Số lượng đã bán: {payloadUpdate.soldProductNum}</div>
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Số lượng nhập thêm</div>
+            <div className={cx('header')}>Số lượng nhập thêm</div>
             <InputForm
               placeholder="Nhập số lượng..."
               type="text"
@@ -656,10 +651,7 @@ await axios
 
           <div className={cx('options')}>
             <Button
-              onClick={() =>
-                handleQuantityProduct(
-                  Number(payloadUpdate.amount) + Number(payloadUpdate.quantity),
-                )}
+              onClick={() => handleQuantityProduct(Number(payloadUpdate.amount) + Number(payloadUpdate.quantity))}
               blue
             >
               Thay đổi thông tin

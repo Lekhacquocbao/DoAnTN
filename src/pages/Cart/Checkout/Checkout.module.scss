@@ -94,16 +94,26 @@
   
   .header {
     font-size: 1.6rem;
-    color: var(--black);
+    // color: var(--black);
     font-weight: 500;
-    margin-top: 10px;
+    // margin-top: 10px;
   }
   
-  .btn-buy {
-    color: var(--white);
-    background-color: var(--red);
+  .radio-group {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
   }
   
+  .radio-label {
+    display: flex;
+    align-items: center;
+    margin-right: 140px;
+  }
+  
+  .radio-label input {
+    margin-right: 10px;
+  }
   
   .left-column {
     flex: 0 0 66.666%;
@@ -111,10 +121,6 @@
   
   .right-column {
     flex: 0 0 33.333%; 
-    // display: flex;
-    // flex-direction: column;
-    // justify-content: space-between;
-    // gap: 5px;
   }
   
   .order-summary {
@@ -122,7 +128,7 @@
     flex-direction: column;
     border-radius: 20px;
     padding: 24px;
-    gap: 24px;
+    gap: 12px;
   }
   
   .title {
@@ -137,6 +143,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: 15px;
   }
   
   .price,
@@ -168,4 +175,22 @@
   
 .disabled{
     display: none;
+}
+
+.order-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 54px;
+  border-radius: 62px;
+  background-color:  #1b13b9;
+  color: #fff;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: #291fea;
+  }
 }

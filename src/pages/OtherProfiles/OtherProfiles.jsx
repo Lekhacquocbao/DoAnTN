@@ -7,7 +7,6 @@ import axios from 'axios';
 import GetToken from '~/Token/GetToken';
 import { Flip, ToastContainer, toast } from 'react-toastify';
 
-
 const cx = classNames.bind(styles);
 
 const ProfileCard = () => {
@@ -35,7 +34,8 @@ const ProfileCard = () => {
   }, [id]);
 
   const handleSendMessage = async (message, chatUserId) => {
-  await axios.post(
+    await axios
+      .post(
         `https://2hm-store.click/api/message`,
         {
           content: message,
@@ -76,39 +76,38 @@ const ProfileCard = () => {
         pauseOnHover
         theme="light"
       />
-    <div className={cx('profile-card')}>
-      <img className={cx('profile-picture')} src={data.inforUser.avatar} alt="Profile" />
-      <h2>{data.inforUser.firstname + ' ' + data.inforUser.lastname}</h2>
-      <div className={cx('epj')}>
-        <p className={cx('email')}>Email: {data.email}</p>
-        <p className={cx('phone')}>Phone number: {data.inforUser.phoneNumber}</p>
-        <p className={cx('join-date')}>Joined: {data.createdAt}</p>
-      </div>
-      <div className={cx('points')}>
-        <div className={cx('point-label')}>
-          <i className={cx('icon')}>&#x1F4B0;</i>
-          <span>point</span>
+      <div className={cx('profile-card')}>
+        <img className={cx('profile-picture')} src={data.inforUser.avatar} alt="Profile" />
+        <h2>{data.inforUser.firstname + ' ' + data.inforUser.lastname}</h2>
+        <div className={cx('epj')}>
+          <p className={cx('email')}>Email: {data.email}</p>
+          <p className={cx('phone')}>Số điện thoại: {data.inforUser.phoneNumber}</p>
+          <p className={cx('join-date')}>Tham gia vào: {data.createdAt}</p>
         </div>
-        <div className={cx('point-value')}>{data.point}</div>
+        <div className={cx('points')}>
+          <div className={cx('point-label')}>
+            <i className={cx('icon')}>&#x1F4B0;</i>
+            <span>Điểm</span>
+          </div>
+          <div className={cx('point-value')}>{data.point}</div>
+        </div>
+        <input
+          type="text"
+          placeholder="Gửi tin nhắn......"
+          value={newMessage}
+          onChange={(e) => setNewMessage(e.target.value)}
+          className={cx('message-input')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              handleSendMessage(newMessage, id);
+            }
+          }}
+        />
+        <button className={cx('send-message')} onClick={() => handleSendMessage(newMessage, id)}>
+          Nhắn tin
+        </button>
       </div>
-      <input
-        type="text"
-        placeholder="ENTER MESSAGE HERE......"
-        value={newMessage}
-        onChange={(e) => setNewMessage(e.target.value)}
-        className={cx('message-input')}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter') {
-            handleSendMessage(newMessage, id);
-          }
-        }}
-      />
-      <button className={cx('send-message')} onClick={() => handleSendMessage(newMessage, id)}>
-        Send message
-      </button>
-    </div>
     </>
-    
   );
 };
 

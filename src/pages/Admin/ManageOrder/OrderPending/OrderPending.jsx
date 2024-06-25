@@ -46,14 +46,14 @@ function OrderPending() {
   <table className={cx('order-table')}>
     <thead className={cx('order-header')}>
       <tr>
-        <th className={cx('order-header-item')}>Avatar</th>
-        <th className={cx('order-header-item')}>Name</th>
-        <th className={cx('order-header-item')}>Method</th>
-        <th className={cx('order-header-item')}>Payment Status</th>
-        <th className={cx('order-header-dayorder')}>Day Order</th>
-        <th className={cx('order-header-address')}>Address</th>
-        <th className={cx('order-header-item')}>Price</th>
-        <th className={cx('order-header-action')}>Action</th>
+        <th className={cx('order-header-item')}>Ảnh</th>
+        <th className={cx('order-header-item')}>Tên</th>
+        <th className={cx('order-header-item')}>Phương thức</th>
+        <th className={cx('order-header-item')}>Trạng thái</th>
+        <th className={cx('order-header-dayorder')}>Ngày tạo</th>
+        <th className={cx('order-header-address')}>Địa chỉ</th>
+        <th className={cx('order-header-item')}>Giá</th>
+        <th className={cx('order-header-action')}>Hành động</th>
       </tr>
     </thead>
     </table>

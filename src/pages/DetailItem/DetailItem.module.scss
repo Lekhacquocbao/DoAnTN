@@ -44,7 +44,7 @@
 }
 
 .product-des {
-  margin: 20px 0;
+  margin: 1px 0;
 }
 
 .prouduct-price {
@@ -238,6 +238,10 @@
   color: var(--white);
   cursor: pointer;
   font-weight: 600;
+
+  &:hover {
+    background-color: white;
+  }
 }
 
 .items-service {

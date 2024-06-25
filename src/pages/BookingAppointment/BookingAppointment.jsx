@@ -177,7 +177,7 @@ const BookAppointment = () => {
           </>
         );
       case 3:
-        return <p>Thank you! Your appointment is confirmed.</p>;
+        return <p>Cảm ơn! Cuộc hẹn của bạn đã được xác nhận.</p>;
       default:
         return null;
     }
@@ -235,7 +235,11 @@ const BookAppointment = () => {
             pauseOnHover
             theme="light"
           />
-            <img className={cx('advertisement-left')} src="https://i.pinimg.com/564x/1e/ce/71/1ece71fa61d85dbd7d42dd8e3882f933.jpg" alt="Left Banner" />
+          <img
+            className={cx('advertisement-left')}
+            src="https://i.pinimg.com/564x/1e/ce/71/1ece71fa61d85dbd7d42dd8e3882f933.jpg"
+            alt="Left Banner"
+          />
           <div className={cx('form-container')}>
             <div className={cx('appointment-form')}>
               <h1>Đặt lịch hẹn</h1>
@@ -251,7 +255,9 @@ const BookAppointment = () => {
               <form onSubmit={handleSubmit}>
                 {renderForm()}
                 {step < 3 && (
-                  <p className={cx('privacy-policy')}>By submitting this form you are agreeing to our Privacy Policy</p>
+                  <p className={cx('privacy-policy')}>
+                    Bằng cách gửi biểu mẫu này, bạn đồng ý với Chính sách quyền riêng tư của chúng tôi
+                  </p>
                 )}
                 <div className={cx('form-actions')}>
                   {step > 0 && (
@@ -273,7 +279,11 @@ const BookAppointment = () => {
               </form>
             </div>
           </div>
-            <img className={cx('advertisement-right')} src="https://i.pinimg.com/564x/1e/ce/71/1ece71fa61d85dbd7d42dd8e3882f933.jpg" alt="Right Banner" />
+          <img
+            className={cx('advertisement-right')}
+            src="https://i.pinimg.com/564x/1e/ce/71/1ece71fa61d85dbd7d42dd8e3882f933.jpg"
+            alt="Right Banner"
+          />
         </div>
       </div>
     </div>

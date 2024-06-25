@@ -42,12 +42,12 @@ function ManageBreeds() {
     const errors = {};
 
     if (!payloadUpdate.name.trim()) {
-      errors.name = 'Please enter breed name';
+      errors.name = 'Hãy nhập tên chủng loài';
       isValid = false;
     }
 
     if (!payloadUpdate.description.trim()) {
-      errors.description = 'Please enter a description';
+      errors.description = 'Hãy nhập mô tả';
       isValid = false;
     }
     setErrorMessages(errors);
@@ -234,12 +234,12 @@ function ManageBreeds() {
       cell: (row) => <img src={row.image} alt={row.name} width="100px" height="100px" />,
     },
     {
-      name: 'Breed name',
+      name: 'Chủng loài',
       selector: (row) => row.name,
       sortable: true,
     },
     {
-      name: 'Description',
+      name: 'Mô tả',
       selector: (row) => row.description.slice(0, 100),
       sortable: true,
     },
@@ -290,7 +290,7 @@ function ManageBreeds() {
         subHeaderComponent={
           <div className={cx('wrapper-header')} style={{ zIndex: 0 }}>
             <Button onClick={openModalAdd} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
-              Thêm chủng loài 
+              Thêm chủng loài
             </Button>
             <input
               type="text"
@@ -374,7 +374,7 @@ function ManageBreeds() {
           <div className={cx('header')}>Ảnh</div>
           <div className={cx('input-field')}>
             <div className={cx('upload-field')}>
-              {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+              {avatar && <img src={image} className={cx('image')} alt="Ảnh" />}
               <label htmlFor="file-upload" className={cx('upload-btn')}>
                 <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
                 <input id="file-upload" type="file" onChange={handleImgChange}></input>
@@ -410,7 +410,7 @@ function ManageBreeds() {
 
           <div className={cx('options')}>
             <Button onClick={() => handleAddbreed(avatar, payloadAddBreed.name, payloadAddBreed.description)} outline>
-            Xác nhận
+              Xác nhận
             </Button>
           </div>
         </animated.div>

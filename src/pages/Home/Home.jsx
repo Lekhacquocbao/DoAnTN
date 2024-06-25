@@ -40,7 +40,6 @@ function Home() {
       try {
         const response = await axios.get('https://2hm-store.click/api/service');
         setServices(response.data.result);
-        // setServices(response.data.result.image);
       } catch (error) {
         console.log(error);
       }
@@ -63,24 +62,12 @@ function Home() {
 
   const CustomNextArrow = (props) => {
     const { className, style, onClick } = props;
-    return (
-      <div
-        className={`${className} ${cx('slick-next')}`}
-        style={{ ...style }}
-        onClick={onClick}
-      />
-    );
+    return <div className={`${className} ${cx('slick-next')}`} style={{ ...style }} onClick={onClick} />;
   };
 
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
-    return (
-      <div
-        className={`${className} ${cx('slick-prev')}`}
-        style={{ ...style }}
-        onClick={onClick}
-      />
-    );
+    return <div className={`${className} ${cx('slick-prev')}`} style={{ ...style }} onClick={onClick} />;
   };
 
   const settings = {
@@ -217,8 +204,6 @@ function Home() {
                         animation
                         className={cx('category-btn')}
                         to={`${config.routes.allProducts}?id1=${category.id}`}
-                        // to={`/detailItem/${category.id}`}
-                        // to={config.routes.allProducts} className={cx('custom-button')}
                       >
                         MUA NGAY
                       </Button>
@@ -283,7 +268,9 @@ function Home() {
                       alt="products"
                     ></img>
                     <div className={cx('category-container-service')}>
-                      <div className={cx('category-title-service')}>{products.name.length > 35 ? products.name.slice(0,35)+ '...' : products.name}</div>
+                      <div className={cx('category-title-service')}>
+                        {products.name.length > 35 ? products.name.slice(0, 35) + '...' : products.name}
+                      </div>
                       <Button
                         key={products.id}
                         animation
@@ -439,101 +426,7 @@ function Home() {
             src="https://png.pngtree.com/thumb_back/fw800/background/20220827/pngtree-pet-shop-cat-and-dog-vector-background-image_1462686.jpg"
             alt="Slider"
           ></img>
-          {/* <img
-          src="https://file.hstatic.net/200000391405/file/gtheffghjgf_d6d591ac6b534a6cbf99b4472757bca9.jpg"
-          alt="Slider"
-        ></img> */}
           <img src="https://vetad.net/wp-content/uploads/2018/10/Banner3-1.jpg" alt="Slider"></img>
-          {/* <h2>ĐẶT LỊCH CHĂM SÓC THÚ CƯNG</h2>
-          <form>
-            <div className={cx('radioColumn')}>
-              <div className={cx('input-name')}>
-                <input placeholder="Tên của bạn" type="name" id="name" name="name" required />
-              </div>
-              <div className={cx('input-phone')}>
-                <input placeholder="Số điện thoại" type="tel" id="phone" name="phone" required />
-              </div>
-              <div className={cx('serviceGroup')}>
-                <div className={cx('radioGroup')}>
-                  <label for="dog">Chó</label>
-                  <input type="radio" id="dog" name="petType" value="Chó" required />
-                </div>
-                <div className={cx('radioGroup')}>
-                  <label for="cat">Mèo</label>
-                  <input type="radio" id="cat" name="petType" value="Mèo" required />
-                </div>
-              </div>
-              <div className={cx('serviceGroup')}>
-                <div className={cx('radioColumn')}>
-                  <div className={cx('radioGroup')}>
-                    <label for="location1">54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</label>
-                    <input
-                      type="radio"
-                      id="location3"
-                      name="location"
-                      value="54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng"
-                      required
-                    />
-                  </div>
-                  <div className={cx('radioGroup')}>
-                    <label for="location2">54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</label>
-                    <input
-                      type="radio"
-                      id="location3"
-                      name="location"
-                      value="54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng"
-                      required
-                    />
-                  </div>
-                  <div className={cx('radioGroup')}>
-                    <label for="location3">54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng</label>
-                    <input
-                      type="radio"
-                      id="location3"
-                      name="location"
-                      value="54 Nguyễn Lương Bằng, Liên Chiểu, Đà Nẵng"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-              <label>Dịch vụ thú cưng</label>
-              <div className={cx('serviceGroup')}>
-                <div className={cx('radioGroup')}>
-                  <label for="service1">Cạo lông</label>
-                  <input type="radio" id="service1" name="service" value="Cạo lông" />
-                </div>
-                <div className={cx('radioGroup')}>
-                  <label for="service2">Combo Tắm vệ sinh</label>
-                  <input type="radio" id="service2" name="service" value="Combo Tắm vệ sinh" required />
-                </div>
-                <div className={cx('radioGroup')}>
-                  <label for="service3">Combo Tắm + Cạo Toàn Thân</label>
-                  <input type="radio" id="service3" name="service" value="Combo Tắm + Cạo Toàn Thân" required />
-                </div>
-                <div className={cx('radioGroup')}>
-                  <label for="service4">Combo Tắm + Cạo Thẩm Mỹ</label>
-                  <input type="radio" id="service4" name="service" value="Combo Tắm + Cạo Thẩm Mỹ" required />
-                </div>
-                <div className={cx('radioGroup')}>
-                  <label for="service5">Trọn gói Tắm vệ sinh + Cắt tạo kiểu (Full option)</label>
-                  <input
-                    type="radio"
-                    id="service5"
-                    name="service"
-                    value="Trọn gói Tắm vệ sinh + Cắt tạo kiểu (Full option)"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className={cx('formGroup')}>
-                <label for="time">Thời gian đặt lịch</label>
-                <input type="datetime-local" id="time" name="time" required />
-              </div>
-              <button type="submit">Gửi PET CƯNG</button>
-            </div>
-          </form> */}
         </div>
       </div>
     </div>

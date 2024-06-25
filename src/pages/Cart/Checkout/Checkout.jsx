@@ -16,7 +16,7 @@ const cx = classNames.bind(styles);
 
 function Checkout() {
   const location = useLocation();
-  const {items} = location.state || {items : []};
+  const { items } = location.state || { items: [] };
   const [autocompleteInputValue, setAutocompleteInputValue] = useState('');
   const [subTotal, setSubTotal] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState('');
@@ -29,7 +29,7 @@ function Checkout() {
 
   useEffect(() => {
     let total = 0;
-    items.forEach(item => {
+    items.forEach((item) => {
       total += item.price * item.cart_item_infor.quantity;
     });
     setSubTotal(total);
@@ -59,18 +59,18 @@ function Checkout() {
       toast.error('Please select items to pay');
       return;
     }
-  
+
     if (!validateForm()) {
       return;
     }
-  
+
     const orderItemsPayload = items.map((item) => ({
       id_product: item.id,
       quantity: item.cart_item_infor.quantity,
       id_cartItem: item.cart_item_infor.id,
-      price: item.price
+      price: item.price,
     }));
-  //  console.log("heheh",orderItemsPayload);
+    //  console.log("heheh",orderItemsPayload);
     try {
       const response = await axios.post(
         'https://2hm-store.click/api/order/create',
@@ -85,18 +85,17 @@ function Checkout() {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${GetToken()}`,
           },
-        }
+        },
       );
       // console.log('Response:', response);
       toast.success(response.data.message);
-      if (paymentMethod === 'MOMO'){
+      if (paymentMethod === 'ZaloPay') {
         window.location.href = response.data.payURL;
-      } else{
+      } else {
         setTimeout(() => {
           window.location.href = '/';
         }, 2000);
       }
-        
     } catch (error) {
       toast.error(error.message);
     }
@@ -121,13 +120,7 @@ function Checkout() {
         {items.length === 0 ? (
           <p className={cx('cart-item-null')}>Không có sản phẩm nào được chọn để thanh toán</p>
         ) : (
-          items.map((cartItem) => (
-            <ItemCart
-              data={cartItem}
-              key={cartItem.id}
-              isCheckoutPage={true}
-            />
-          ))
+          items.map((cartItem) => <ItemCart data={cartItem} key={cartItem.id} isCheckoutPage={true} />)
         )}
       </div>
 
@@ -154,44 +147,42 @@ function Checkout() {
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Phương thức thanh toán</div>
-          <div className={cx('radio-group')}>
-            <label>
-              <input
-                type="radio"
-                value="COD"
-                checked={paymentMethod === 'COD'}
-                onChange={() => setPaymentMethod('COD')}
-              />
-              COD
-            </label>
-            <label>
-              <input
-                type="radio"
-                value="MOMO"
-                checked={paymentMethod === 'MOMO'}
-                onChange={() => setPaymentMethod('MOMO')}
-              />
-              MOMO
-            </label>
+            <div className={cx('header')}>Phương thức thanh toán</div>
+            <div className={cx('radio-group')}>
+              <label className={cx('radio-label')}>
+                <input
+                  type="radio"
+                  value="COD"
+                  checked={paymentMethod === 'COD'}
+                  onChange={() => setPaymentMethod('COD')}
+                />
+                COD
+              </label>
+              <label className={cx('radio-label')}>
+                <input
+                  type="radio"
+                  value="ZaloPay"
+                  checked={paymentMethod === 'ZaloPay'}
+                  onChange={() => setPaymentMethod('ZaloPay')}
+                />
+                ZaloPay
+              </label>
+            </div>
           </div>
-        </div>
 
-        <div className={cx('subtotal')}>
-          <span>Tổng tiền</span>
-          <span className="price">{subTotal}</span>
-        </div>
+          <div className={cx('subtotal')}>
+            <span>Tổng tiền</span>
+            <span className="price">{subTotal}</span>
+          </div>
 
-        <Button
-          className={cx('order-button')}
-          onClick={() => handleOrderAll(autocompleteInputValue, payload.phoneNumber)}
-        >
-          Đặt hàng
-        </Button>
-
+          <Button
+            className={cx('order-button')}
+            onClick={() => handleOrderAll(autocompleteInputValue, payload.phoneNumber)}
+          >
+            Đặt hàng
+          </Button>
         </div>
       </div>
-
     </div>
   );
 }

@@ -2,7 +2,6 @@ import classNames from 'classnames/bind';
 import React, { useEffect, useState } from 'react';
 import { faBoxOpen } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
-
 import styles from './AppointmentCompleted.module.scss';
 import GetToken from '~/Token/GetToken';
 
@@ -19,8 +18,6 @@ function AppointmentCompleted() {
       const response = await axios.get('https://2hm-store.click/api/appointment/7', {
         headers: { Authorization: `Bearer ${GetToken()}` },
       });
-      console.log("response", response);
-      // const Appointment = response.data.detailAppointment.map(appointment =>appointment.Order)
       const Appointment = response.data.detailAppointment.map((appointment) => {
         return {
           appointment_time: appointment.appointment_time,
