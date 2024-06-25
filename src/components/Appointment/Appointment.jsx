@@ -187,11 +187,11 @@ function Appointment({ data, icon }) {
         </Button>
 
         <Button onClick={() => handleChangeAppointmentAccept(data.id)} className={cx('btn')} blue>
-          Accept
+          Chấp nhận
         </Button>
 
         <Button onClick={() =>  openModalDetailPending(data.id)} className={cx('btn')} blue>
-          Update
+          Cập nhật
         </Button>
 
         <Button onClick={() => handleChangeAppointmentCancel(data.id)} className={cx('btn')} outline>

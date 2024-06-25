@@ -369,7 +369,7 @@ function HistoryOrder({ data, icon }) {
 
           <div className={cx('options1')}>
             <Button onClick={() => handleRating(idProduct, idOrder, rating, payload.comment)} primary>
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </animated.div>

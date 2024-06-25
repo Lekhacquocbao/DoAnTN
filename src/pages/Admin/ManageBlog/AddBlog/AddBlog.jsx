@@ -72,7 +72,7 @@ const AddBlog = () => {
         theme="light"
       />
       <div className={cx('formGroup')}>
-        <label htmlFor="title">Title:</label>
+        <label htmlFor="title">Tiêu đề:</label>
         <input
           id="title"
           className={cx('formControl')}
@@ -92,7 +92,7 @@ const AddBlog = () => {
         />
       </div>
       <div className={cx('formGroup')}>
-        <label htmlFor="content">Content:</label>
+        <label htmlFor="content">Nội dung:</label>
         <ReactQuill
           id="content"
           className="quillEditor"
@@ -101,11 +101,11 @@ const AddBlog = () => {
         />
       </div>
       <button className={cx('submitButton')} onClick={() => window.location.replace(config.routes.manageBlog)}>
-        Return
+        Quay lại
       </button>
 
       <button className={cx('submitButton')} onClick={handleSubmit}>
-        Submit
+        Đăng bài
       </button>
       
     </div>

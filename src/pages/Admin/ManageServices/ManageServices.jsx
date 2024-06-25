@@ -291,7 +291,7 @@ function ManageServices() {
         theme="light"
       />
       <DataTable
-        title="Services list"
+        title="Danh sách dịch vụ"
         columns={columns}
         data={filteredServices}
         fixedHeader
@@ -304,11 +304,11 @@ function ManageServices() {
         subHeaderComponent={
           <div className={cx('wrapper-header')} style={{ zIndex: 0 }}>
             <Button onClick={openModalAdd} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
-              Add Service
+              Thêm dịch vụ
             </Button>
             <input
               type="text"
-              placeholder="Search for services here"
+              placeholder="Tìm kiếm dịch vụ"
               className={cx('search')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -322,24 +322,24 @@ function ManageServices() {
 
       <Popup isOpen={isModalOpenUpdate} onRequestClose={() => closeModalUpdate()} width={'700px'} height={'700px'}>
         <animated.div style={modalAnimationUpdate}>
-          <h2>Service information</h2>
+          <h2>Thông tin dịch vụ</h2>
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Image of service</div>
+            <div className={cx('header')}>Ảnh</div>
             <div className={cx('input-field')}>
               <div className={cx('upload-field')}>
-                {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+                {avatar && <img src={image} className={cx('image')} alt="Ảnh" />}
                 <label htmlFor="file-upload" className={cx('upload-btn')}>
                   <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
                   <input id="file-upload" type="file" onChange={handleImgChange}></input>
                 </label>
               </div>
               <Button onClick={() => handleUpdateImage(avatar)} outline>
-                Change Image
+                Thay đổi ảnh
               </Button>
             </div>
-            <div className={cx('header')}>Service name</div>
+            <div className={cx('header')}>Tên dịch vụ</div>
             <InputForm
-              placeholder="Enter name service..."
+              placeholder="Nhập tên dịch vụ..."
               type="text"
               value={payloadUpdate.name}
               setValue={setPayloadUpdate}
@@ -350,10 +350,10 @@ function ManageServices() {
             {errorMessages.name && <div className={cx('error-message')}>{errorMessages.name}</div>}
           </div>
 
-          <div className={cx('header')}>Description</div>
+          <div className={cx('header')}>Mô tả</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="Enter breed description..."
+              placeholder="Nhập mô tả..."
               type="text"
               value={payloadUpdate.description}
               setValue={setPayloadUpdate}
@@ -364,10 +364,10 @@ function ManageServices() {
             {errorMessages.description && <div className={cx('error-message')}>{errorMessages.description}</div>}
           </div>
 
-          <div className={cx('header')}>Price</div>
+          <div className={cx('header')}>Giá</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="Enter price service..."
+              placeholder="Nhập giá dịch vụ..."
               type="text"
               value={payloadUpdate.price}
               setValue={setPayloadUpdate}
@@ -383,7 +383,7 @@ function ManageServices() {
               onClick={() => handleUpdateService(payloadUpdate.name, payloadUpdate.description, payloadUpdate.price)}
               outline
             >
-              Change information
+              Thay đổi thông tin
             </Button>
             <Button onClick={() => handleDeleteService(serviceId)} primary>
               Xóa
@@ -400,12 +400,12 @@ function ManageServices() {
         className={cx('popup')}
       >
         <animated.div style={modalAnimationAdd}>
-          <h2>Add Service</h2>
+          <h2>Thêm dịch vụ</h2>
 
-          <div className={cx('header')}>Image of service</div>
+          <div className={cx('header')}>Ảnh</div>
           <div className={cx('input-field')}>
             <div className={cx('upload-field')}>
-              {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+              {avatar && <img src={image} className={cx('image')} alt="Ảnh" />}
               <label htmlFor="file-upload" className={cx('upload-btn')}>
                 <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
                 <input id="file-upload" type="file" onChange={handleImgChange}></input>
@@ -414,9 +414,9 @@ function ManageServices() {
           </div>
 
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Service name</div>
+            <div className={cx('header')}>Tên dịch vụ</div>
             <InputForm
-              placeholder="Enter name service..."
+              placeholder="Nhập tên dịch vụ..."
               type="text"
               value={payloadUpdate.name}
               setValue={setpayloadAddService}
@@ -426,10 +426,10 @@ function ManageServices() {
             />
           </div>
 
-          <div className={cx('header')}>Description</div>
+          <div className={cx('header')}>Mô tả</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="Enter service description..."
+              placeholder="Nhập mô tả..."
               type="text"
               value={payloadUpdate.description}
               setValue={setpayloadAddService}
@@ -439,10 +439,10 @@ function ManageServices() {
             />
           </div>
 
-          <div className={cx('header')}>Price</div>
+          <div className={cx('header')}>Giá dịch vụ</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="Enter price..."
+              placeholder="Nhập giá dịch vụ..."
               type="text"
               value={payloadUpdate.price}
               setValue={setpayloadAddService}
@@ -459,7 +459,7 @@ function ManageServices() {
               }
               outline
             >
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </animated.div>

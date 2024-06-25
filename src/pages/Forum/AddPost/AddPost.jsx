@@ -56,7 +56,7 @@ const AddPost = () => {
   return (
     <div className={cx('addPostContainer')}>
       <div className={cx('formGroup')}>
-        <label>Title:</label>
+        <label>Tiêu đề:</label>
         <input value={title} onChange={handleChangeTitle} type="text" className={cx('formControl')} />
       </div>
       <div className={cx('formGroup')}>
@@ -64,11 +64,11 @@ const AddPost = () => {
         <input value={thumbnail} onChange={handleChangeThumbnail} type="text" className={cx('formControl')} />
       </div>
       <div className={cx('formGroup')}>
-        <label>Content:</label>
+        <label>Nội dung:</label>
         <ReactQuill value={content} onChange={handleChangeContent} className={cx('formControl')} />
       </div>
       <button onClick={handleSubmit} className={cx('submitButton')}>
-        Submit
+        Đăng bài
       </button>
     </div>
   );

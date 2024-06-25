@@ -92,7 +92,7 @@ function ManageRevenue() {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('revenue-field')}>
-        <div className={cx('header1')}>Sales order statistics</div>
+        <div className={cx('header1')}>Thống kê đơn bán hàng</div>
 
         <div className={cx('date-field')}>
           <div className={cx('date')}>
@@ -127,16 +127,16 @@ function ManageRevenue() {
               align="center" 
               iconSize={14}
             />
-            <Bar dataKey="revenue" fill="#8884d8" name="Revenue" />
-            <Bar dataKey="profit" fill="#82ca9d" name="Profit" />
+            <Bar dataKey="revenue" fill="#8884d8" name="Doanh thu" />
+            <Bar dataKey="profit" fill="#82ca9d" name="Lợi nhuận" />
           </BarChart>
         </div>
       </div>
       <div className={cx('revenue-field')}>
-        <div className={cx('header1')}>General statistics for a year</div>
+        <div className={cx('header1')}>Thống kê chung trong một năm</div>
         <div className={cx('content')}>
           <div className={cx('Top10')}>
-            <div className={cx('header')}>Top 20 best-seller customer of the year</div>
+            <div className={cx('header')}>Top 20 khách hàng bán chạy nhất năm</div>
             <ul className={cx('products')}>
               {topCustomer &&
                 topCustomer.map((product, index) => {
@@ -144,8 +144,8 @@ function ManageRevenue() {
                   return (
                     product && (
                       <li key={product.id} className={cx('product-item')}>
-                        {customerNumber}. {product.inforUser.lastname} with{' '}
-                        <span className={cx('high-light')}> {formatCurrency(product.point*1000)} total price</span>
+                        {customerNumber}. {product.inforUser.lastname} với{' '}
+                        <span className={cx('high-light')}> {formatCurrency(product.point*1000)} Tổng giá</span>
                       </li>
                     )
                   );
@@ -154,22 +154,22 @@ function ManageRevenue() {
           </div>
 
           <div className={cx('BestCustomer')}>
-            <div className={cx('header')}>TotalRevenue</div>
-            <span className={cx('number')}>{totalRevenue && formatCurrency(totalRevenue)} total price</span>
-            <div className={cx('header')}>TotalProfit</div>
-            <span className={cx('number')}>{totalProfit && formatCurrency(totalProfit)} total price</span>
+            <div className={cx('header')}>Tổng doanh thu</div>
+            <span className={cx('number')}>{totalRevenue && formatCurrency(totalRevenue)} Tổng giá</span>
+            <div className={cx('header')}>Tổng lợi nhuận</div>
+            <span className={cx('number')}>{totalProfit && formatCurrency(totalProfit)} Tổng giá</span>
           </div>
 
           <div className={cx('Top10')}>
-            <div className={cx('header')}>Top 20 best-selling product of the year</div>
+            <div className={cx('header')}>Top 20 sản phẩm bán chạy nhất năm</div>
             <ul className={cx('products')}>
               {topProducts &&
                 topProducts.map((product, index) => {
                   const customerNumber = index + 1;
                   return (
                     <li key={product.id} className={cx('product-item')}>
-                      {customerNumber}. {product.name} with{' '}
-                      <span className={cx('high-light')}> {product.soldProductNum} product</span>
+                      {customerNumber}. {product.name} với{' '}
+                      <span className={cx('high-light')}> {product.soldProductNum} sản phẩm</span>
                     </li>
                   );
                 })}

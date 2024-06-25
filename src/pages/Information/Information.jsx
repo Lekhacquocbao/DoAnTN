@@ -304,7 +304,7 @@ function Information() {
               }}
               outline
             >
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </animated.div>

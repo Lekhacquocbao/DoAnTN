@@ -157,7 +157,7 @@ function BookItemHistory() {
 
           <div className={cx('options1')}>
             <Button onClick={() => handleRating(idShoe, idOrder, rating, payload.comment)} primary>
-              Confirm
+            Xác nhận
             </Button>
           </div>
         </animated.div>

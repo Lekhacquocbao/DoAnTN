@@ -373,7 +373,7 @@ function HistoryAppointment({ data, icon }) {
             </div>
 
             <Button onClick={() => handleUpdate(data.id)} className={cx('btn')} blue>
-              Update
+              Cập nhật
             </Button>
           </div>
           {/* ); */}
@@ -389,7 +389,7 @@ function HistoryAppointment({ data, icon }) {
         height={'500px'}
       >
         <animated.div style={modalAnimationDetailCompleted}>
-          <h2>Thông tin chi tiết hahaha</h2>
+          <h2>Thông tin chi tiết</h2>
           <div className={cx('detail')}>
             <Image
               className={cx('detail-image')}
@@ -528,7 +528,7 @@ function HistoryAppointment({ data, icon }) {
             </div>
           </div>
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Enter comment</div>
+            <div className={cx('header')}>Bình luận</div>
             <InputForm
               placeholder=""
               type="text"
@@ -542,7 +542,7 @@ function HistoryAppointment({ data, icon }) {
 
           <div className={cx('options1')}>
             <Button onClick={() => handleRating(idService, idAppointment, rating, payload.comment)} primary>
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </animated.div>

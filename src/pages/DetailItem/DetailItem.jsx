@@ -79,7 +79,6 @@ function DetailItem() {
     const fetchAPIProducts = async () => {
       try {
         const response = await axios.get('https://2hm-store.click/api/revenue/product');
-        // console.log('besst selling', response);
         setProducts(response.data.result.products);
       } catch (error) {
         console.log(error);
@@ -132,15 +131,23 @@ function DetailItem() {
         <div className={cx('product-img')}>
           <img
             alt="img"
-            src={product.image && product.image[0]?.image ? product.image[0].image : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg'}
-            className={cx('img' , { 'out-of-stock': product.amount === 0 })}
+            src={
+              product.image && product.image[0]?.image
+                ? product.image[0].image
+                : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg'
+            }
+            className={cx('img', { 'out-of-stock': product.amount === 0 })}
           />
-          {product.amount === 0 && <span className={cx('out-of-stock-text')}  disabled>Hết hàng</span>}
+          {product.amount === 0 && (
+            <span className={cx('out-of-stock-text')} disabled>
+              Hết hàng
+            </span>
+          )}
         </div>
         <div className={cx('prouduct-info')}>
           <h1 className={cx('product-name')}>{product.name}</h1>
           <p className={cx('product-des')}>
-            {product.Breed ? product.Breed.name : 'Breed information is not available'}
+            {product.Breed ? product.Breed.name : 'Thông tin chủng loài không có sẵn'}
           </p>
           <p className={cx('product-des')}>{product.description}</p>
           <span className={cx('prouduct-price')}>{formatCurrency(product.price)}</span>
@@ -177,13 +184,35 @@ function DetailItem() {
         </div>
       </div>
 
+      <div className={cx('extra-detail')}>
+        <div className={cx('header-field')}>
+          <span className={cx('header-rate')}>Đánh giá</span>
+        </div>
+        <div className={cx('content')}>
+          {ratings.length > 0 ? (
+            ratings.map((rating, index) => <Rate data={rating} key={index} />)
+          ) : (
+            <div className={cx('no-ratings')}>
+            <img className={cx('img-rate')} src='https://cdn-icons-png.flaticon.com/512/5650/5650427.png' alt='Chưa có đánh giá'></img>
+            <span className={cx('rate')}>Chưa có đánh giá</span>
+            </div>
+          )}
+        </div>
+      </div>
+
       <div className={cx('items-service')}>
         <h2 className={cx('header')}>SẢN PHẨM BÁN CHẠY</h2>
         <Slider {...settingSlider}>
           {products.map((product) => (
             <div key={product.id} className={cx('item-service')}>
               <Link to={`/detailItem/${product.id}`}>
-                <img className={cx('item-img-service')} src={product.image ? product.image : "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="product" />
+                <img
+                  className={cx('item-img-service')}
+                  src={
+                    product.image ? product.image : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg'
+                  }
+                  alt="product"
+                />
                 <div className={cx('category-container-service')}>
                   <div className={cx('category-title-service')}>{product.name}</div>
                   <Button
@@ -209,7 +238,15 @@ function DetailItem() {
           {related.map((relatedProduct) => (
             <div key={relatedProduct.id} className={cx('item-service')}>
               <Link to={`/detailItem/${relatedProduct.id}`}>
-                <img className={cx('item-img-service')} src={relatedProduct.image ? relatedProduct.image : "https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg"} alt="relatedProduct" />
+                <img
+                  className={cx('item-img-service')}
+                  src={
+                    relatedProduct.image
+                      ? relatedProduct.image
+                      : 'https://thudaumot.binhduong.gov.vn/Portals/0/images/default.jpg'
+                  }
+                  alt="relatedProduct"
+                />
                 <div className={cx('category-container-service')}>
                   <div className={cx('category-title-service')}>{relatedProduct.name}</div>
                   <Button
@@ -227,17 +264,6 @@ function DetailItem() {
             </div>
           ))}
         </Slider>
-      </div>
-
-      <div className={cx('extra-detail')}>
-        <div className={cx('header-field')}>
-          <span className={cx('header-rate')}>Đánh giá</span>
-        </div>
-        <div className={cx('content')}>
-          {ratings.map((rating, index) => (
-            <Rate data={rating} key={index} />
-          ))}
-        </div>
       </div>
     </div>
   );

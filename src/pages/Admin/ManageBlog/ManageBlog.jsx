@@ -56,7 +56,7 @@ function ManageBlog() {
       <div className={cx('tableHeader')} >
         <div className={cx('actions')} >
           <button className={cx('btn')} onClick={handleGoToAddBlog}>
-            Add Post
+            Thêm bài viết
           </button>
         </div>
       </div>
@@ -64,9 +64,9 @@ function ManageBlog() {
         <thead>
           <tr>
             <th>Thumbnail</th>
-            <th>Title</th>
-            <th>Created At</th>
-            <th>Action</th>
+            <th>Tiêu đề</th>
+            <th>Ngày tạo</th>
+            <th>Hành động</th>
           </tr>
         </thead>
         <tbody>
@@ -89,7 +89,7 @@ function ManageBlog() {
             ))
           ) : (
             <tr>
-              <td colSpan="9" className={cx('noData')}>No data available</td>
+              <td colSpan="9" className={cx('noData')}>Không có dữ liệu</td>
             </tr>
           )}
         </tbody>

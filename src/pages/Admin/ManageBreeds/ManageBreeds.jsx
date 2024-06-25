@@ -277,7 +277,7 @@ function ManageBreeds() {
         theme="light"
       />
       <DataTable
-        title="Breeds list"
+        title="Danh sách chủng loài"
         columns={columns}
         data={filteredBreeds}
         fixedHeader
@@ -290,11 +290,11 @@ function ManageBreeds() {
         subHeaderComponent={
           <div className={cx('wrapper-header')} style={{ zIndex: 0 }}>
             <Button onClick={openModalAdd} leftIcon={<FontAwesomeIcon icon={faPlus} />} blue>
-              Add Breed
+              Thêm chủng loài 
             </Button>
             <input
               type="text"
-              placeholder="Search for breeds here"
+              placeholder="Tìm kiếm chủng loài"
               className={cx('search')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -308,24 +308,24 @@ function ManageBreeds() {
 
       <Popup isOpen={isModalOpenUpdate} onRequestClose={() => closeModalUpdate()} width={'700px'} height={'700px'}>
         <animated.div style={modalAnimationUpdate}>
-          <h2>Breed information</h2>
+          <h2>Thông tin chủng loài</h2>
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Image of breed</div>
+            <div className={cx('header')}>Ảnh</div>
             <div className={cx('input-field')}>
               <div className={cx('upload-field')}>
-                {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+                {avatar && <img src={image} className={cx('image')} alt="Ảnh" />}
                 <label htmlFor="file-upload" className={cx('upload-btn')}>
                   <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
                   <input id="file-upload" type="file" onChange={handleImgChange}></input>
                 </label>
               </div>
               <Button onClick={() => handleUpdateImage(avatar)} outline>
-                Change Image
+                Thay đổi ảnh
               </Button>
             </div>
-            <div className={cx('header')}>Breed name</div>
+            <div className={cx('header')}>Tên</div>
             <InputForm
-              placeholder="Enter name breed..."
+              placeholder="Nhập tên..."
               type="text"
               value={payloadUpdate.name}
               setValue={setPayloadUpdate}
@@ -352,7 +352,7 @@ function ManageBreeds() {
 
           <div className={cx('options')}>
             <Button onClick={() => handleUpdatebreed(payloadUpdate.name, payloadUpdate.description)} outline>
-              Change information
+              Thay đổi thông tin
             </Button>
             <Button onClick={() => handleDeleteBreed(breedId)} primary>
               Xóa
@@ -369,9 +369,9 @@ function ManageBreeds() {
         className={cx('popup')}
       >
         <animated.div style={modalAnimationAdd}>
-          <h2>Add Breed</h2>
+          <h2>Thêm chủng loài</h2>
 
-          <div className={cx('header')}>Image of breed</div>
+          <div className={cx('header')}>Ảnh</div>
           <div className={cx('input-field')}>
             <div className={cx('upload-field')}>
               {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
@@ -383,9 +383,9 @@ function ManageBreeds() {
           </div>
 
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Breed name</div>
+            <div className={cx('header')}>Tên</div>
             <InputForm
-              placeholder="Enter name breeds..."
+              placeholder="Nhập tên..."
               type="text"
               value={payloadUpdate.name}
               setValue={setPayloadAddBreed}
@@ -395,10 +395,10 @@ function ManageBreeds() {
             />
           </div>
 
-          <div className={cx('header')}>Description</div>
+          <div className={cx('header')}>Mô tả</div>
           <div className={cx('input-field')}>
             <InputForm
-              placeholder="Enter breed description..."
+              placeholder="Nhập mô tả..."
               type="text"
               value={payloadUpdate.description}
               setValue={setPayloadAddBreed}
@@ -410,7 +410,7 @@ function ManageBreeds() {
 
           <div className={cx('options')}>
             <Button onClick={() => handleAddbreed(avatar, payloadAddBreed.name, payloadAddBreed.description)} outline>
-              Confirm
+            Xác nhận
             </Button>
           </div>
         </animated.div>

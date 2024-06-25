@@ -319,43 +319,43 @@ await axios
 
   const columns = [
     {
-      name: 'Avatar',
+      name: 'Ảnh',
       selector: (row) => row.image,
       cell: (row) => <img src={row.image} alt={row.name} width="100px" height="100px" />,
     },
     {
-      name: 'Product name',
+      name: 'Tên',
       selector: (row) => row.name,
       sortable: true,
     },
     {
-      name: 'Breed name',
+      name: 'Chủng loài',
       selector: (row) => row.Breed.name,
       sortable: true,
     },
     {
-      name: 'Amount',
+      name: 'Số lượng',
       selector: (row) => row.amount,
       sortable: true,
     },
     {
-      name: 'Import price',
+      name: 'Giá nhập',
       selector: (row) => row.import_price,
       sortable: true,
     },
     {
-      name: 'Price',
+      name: 'Giá bán',
       selector: (row) => row.price,
       sortable: true,
     },
     {
-      name: 'Warehouse',
+      name: 'Nhập hàng',
       sbutton: true,
       cell: (row) => (
         <Button
           onClick={() => openModalWareHouse(row.id, row.name, row.amount, row.soldProductNum)}
           className={cx('btn')} blue>
-          Warehouse
+          Nhập hàng
         </Button>
       ),
     }
@@ -394,7 +394,7 @@ await axios
         theme="light"
       />
       <DataTable
-        title="Products list"
+        title="Danh sách sản phẩm"
         columns={columns}
         data={filteredProducts}
         fixedHeader
@@ -411,7 +411,7 @@ await axios
             </Button>
             <input
               type="text"
-              placeholder="Search for products here"
+              placeholder="Tìm kiếm sản phẩm"
               className={cx('search')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -431,12 +431,12 @@ await axios
         className={cx('popup')}
       >
         <animated.div style={modalAnimationAdd}>
-          <h2>Add Product</h2>
+          <h2>Thêm sản phẩm</h2>
 
-          <div className={cx('header')}>Image of product</div>
+          <div className={cx('header')}>Ảnh</div>
           <div className={cx('input-field')}>
             <div className={cx('upload-field')}>
-              {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+              {avatar && <img src={image} className={cx('image')} alt="Ảnh" />}
               <label htmlFor="file-upload" className={cx('upload-btn')}>
                 <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
                 <input id="file-upload" type="file" onChange={handleImgChange}></input>
@@ -445,9 +445,9 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Product name</div>
+            <div className={cx('header')}>Tên</div>
             <InputForm
-              placeholder="Enter name products..."
+              placeholder="Nhập tên..."
               type="text"
               value={payloadUpdate.name}
               setValue={setPayloadAddProduct}
@@ -457,16 +457,16 @@ await axios
             />
           </div>
 
-          <div className={cx('header')}>Select breed</div>
+          <div className={cx('header')}>Chọn chủng loài</div>
           <div className={cx('input-field')}>
             <CustomSelect data={breeds} setId={setSelectedBreedId}></CustomSelect>
             {/* {errorMessages.category && <div className={cx('error-message')}>{errorMessages.category}</div>} */}
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Amount</div>
+          <div className={cx('header')}>Số lượng</div>
             <InputForm
-              placeholder="Enter product amount..."
+              placeholder="Nhập số lượng..."
               type="text"
               value={payloadUpdate.amount}
               setValue={setPayloadAddProduct}
@@ -477,9 +477,9 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Import price</div>
+          <div className={cx('header')}>Giá nhập</div>
             <InputForm
-              placeholder="Enter product import price..."
+              placeholder="Nhập giá nhập..."
               type="text"
               value={payloadUpdate.import_price}
               setValue={setPayloadAddProduct}
@@ -490,9 +490,9 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Price</div>
+          <div className={cx('header')}>Giá bán</div>
             <InputForm
-              placeholder="Enter product price..."
+              placeholder="Nhập giá bán..."
               type="text"
               value={payloadUpdate.price}
               setValue={setPayloadAddProduct}
@@ -516,7 +516,7 @@ await axios
               }
               outline
             >
-              Confirm
+              Xác nhận
             </Button>
           </div>
         </animated.div>
@@ -529,26 +529,25 @@ await axios
          height={'700px'}
       >
         <animated.div style={modalAnimationUpdate}>
-          <h2>Product information</h2>
-
-            <div className={cx('header')}>Image of product</div>
+          <h2>Thông tin sản phẩm</h2>
+            <div className={cx('header')}>Ảnh</div>
             <div className={cx('input-field')}>
               <div className={cx('upload-field')}>
-                {avatar && <img src={image} className={cx('image')} alt="Avatar" />}
+                {avatar && <img src={image} className={cx('image')} alt="Ảnh" />}
                 <label htmlFor="file-upload" className={cx('upload-btn')}>
                   <FontAwesomeIcon icon={faUpload}></FontAwesomeIcon>
                   <input id="file-upload" type="file" onChange={handleImgChange}></input>
                 </label>
               </div>
               <Button onClick={() => handleUpdateImage(avatar)} outline>
-                Change Image
+                Thay đổi ảnh
               </Button>
             </div>
 
             <div className={cx('input-field')}>
-            <div className={cx('header')}>Product name</div>
+            <div className={cx('header')}>Tên</div>
             <InputForm
-              placeholder="Enter name product..."
+              placeholder="Nhập tên..."
               type="text"
               value={payloadUpdate.name}
               setValue={setPayloadUpdate}
@@ -560,9 +559,9 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Amount</div>
+          <div className={cx('header')}>Số lượng</div>
             <InputForm
-              placeholder="Enter product amount..."
+              placeholder="Nhập số lượng..."
               type="text"
               value={payloadUpdate.amount}
               setValue={setPayloadUpdate}
@@ -574,9 +573,9 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Import price</div>
+          <div className={cx('header')}>Giá nhập</div>
             <InputForm
-              placeholder="Enter product import price..."
+              placeholder="Nhập giá nhập..."
               type="text"
               value={payloadUpdate.import_price}
               setValue={setPayloadUpdate}
@@ -588,9 +587,9 @@ await axios
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Price</div>
+          <div className={cx('header')}>Giá bán</div>
             <InputForm
-              placeholder="Enter product price..."
+              placeholder="Nhập giá bán..."
               type="text"
               value={payloadUpdate.price}
               setValue={setPayloadUpdate}
@@ -612,7 +611,7 @@ await axios
                 )}
               outline
             >
-              Change information
+              Thay đổi thông tin
             </Button>
             <Button onClick={() => handleDeleteProduct(productId)} primary>
               Xóa
@@ -630,7 +629,7 @@ await axios
         <animated.div style={modalAnimationWareHouse}>
           <h2>Nhập hàng</h2>
             <div className={cx('input-field')}>
-            <div className={cx('header')}>Product name: {payloadUpdate.name}</div>
+            <div className={cx('header')}>Tên sản phẩm: {payloadUpdate.name}</div>
           </div>
 
           <div className={cx('input-field')}>
@@ -644,7 +643,7 @@ await axios
           <div className={cx('input-field')}>
           <div className={cx('header')}>Số lượng nhập thêm</div>
             <InputForm
-              placeholder="Enter product amount..."
+              placeholder="Nhập số lượng..."
               type="text"
               value={payloadUpdate.quantity}
               setValue={setPayloadUpdate}
@@ -663,7 +662,7 @@ await axios
                 )}
               blue
             >
-              Change information
+              Thay đổi thông tin
             </Button>
           </div>
         </animated.div>

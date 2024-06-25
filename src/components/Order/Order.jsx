@@ -108,7 +108,7 @@ function Order({ data, icon }) {
           Chi tiết
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
-          Confirm
+        Xác nhận
         </Button>
       </div>
     );
@@ -126,7 +126,7 @@ function Order({ data, icon }) {
           Chi tiết
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
-          Confirm
+        Xác nhận
         </Button>
       </div>
     );
@@ -144,7 +144,7 @@ function Order({ data, icon }) {
           Chi tiết
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
-          Confirm
+        Xác nhận
         </Button>
         <Button
           onClick={() => {
