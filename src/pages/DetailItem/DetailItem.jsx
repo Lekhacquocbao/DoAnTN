@@ -61,12 +61,36 @@ function DetailItem() {
     }
   };
 
+  const CustomNextArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`${className} ${cx('slick-next')}`}
+        style={{ ...style }}
+        onClick={onClick}
+      />
+    );
+  };
+
+  const CustomPrevArrow = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={`${className} ${cx('slick-prev')}`}
+        style={{ ...style }}
+        onClick={onClick}
+      />
+    );
+  };
+
   const settingSlider = {
     // dots: true,
     infinite: true,
     speed: 400,
     slidesToShow: 6,
     slidesToScroll: 2,
+    nextArrow: <CustomNextArrow />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   useEffect(() => {
@@ -248,7 +272,7 @@ function DetailItem() {
                   alt="relatedProduct"
                 />
                 <div className={cx('category-container-service')}>
-                  <div className={cx('category-title-service')}>{relatedProduct.name}</div>
+                  <div className={cx('category-title-service')}>{relatedProduct.name.length > 35 ? relatedProduct.name.slice(0,35)+ '...' : relatedProduct.name}</div>
                   <Button
                     animation
                     className={cx('category-btn')}

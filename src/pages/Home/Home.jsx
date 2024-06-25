@@ -30,7 +30,6 @@ function Home() {
     const fetchAPIProducts = async () => {
       try {
         const response = await axios.get('https://2hm-store.click/api/revenue/product');
-        // console.log('besst selling', response);
         setProducts(response.data.result.products);
       } catch (error) {
         console.log(error);
@@ -40,7 +39,6 @@ function Home() {
     const fetchAPIServices = async () => {
       try {
         const response = await axios.get('https://2hm-store.click/api/service');
-        // console.log('service', response);
         setServices(response.data.result);
         // setServices(response.data.result.image);
       } catch (error) {
@@ -57,7 +55,6 @@ function Home() {
         console.log(error);
       }
     };
-
     fetchAPICategories();
     fetchAPIProducts();
     fetchAPIServices();
