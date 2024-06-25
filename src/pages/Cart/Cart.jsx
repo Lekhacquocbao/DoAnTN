@@ -105,7 +105,7 @@ function Cart() {
           theme="light"
         />
         {cartItems.length === 0 ? (
-          <p className={cx('cart-item-null')}>There are no products in your shopping cart.</p>
+          <p className={cx('cart-item-null')}>Không có sản phẩm nào trong giỏ hàng của bạn.</p>
         ) : (
           cartItems.map((cartItem) => {
             return (
@@ -122,27 +122,27 @@ function Cart() {
       </div>
       <div className={cx('right-column')}>
         <div className={cx('order-summary')}>
-          <h3 className="title">Order Summary</h3>
+          <h3 className="title">Thanh toán</h3>
           <div className={cx('subtotal')}>
-            <span>Subtotal:</span>
+            <span>Thành tiền:</span>
             <span className="price">
             {formatCurrency(subTotal)}
             </span>
           </div>
           <div className={cx('discount')}>
-            <span>Discount:(-0%)</span>
+            <span>Giảm giá:(-0%)</span>
             <span className="discount-price">{formatCurrency(0)}</span>
           </div>
-          <div className={cx('delivery-fee')}>
+          {/* <div className={cx('delivery-fee')}>
             <span>Delivery Fee:</span>
             <span className={cx('delivery-price')}>{formatCurrency(0)}</span>
-          </div>
+          </div> */}
           <div className={cx('total')}>
-            <span className={cx('total-text')}>Total: </span>
+            <span className={cx('total-text')}>Tổng: </span>
             <span className={cx('total-price')}>{formatCurrency(subTotal)}</span>
           </div>
           <button className={cx('go-to-checkout')} onClick={handleGoToCheckout}>
-            Go to Checkout  
+            Đặt hàng ngay 
             <LuMoveRight />
           </button>
         </div>

@@ -79,7 +79,7 @@ function AutoComplete({ setParentInputValue }) {
         type="text"
         value={inputValue}
         onChange={handleInputChange}
-        placeholder="Enter a location"
+        placeholder="Nhập địa chỉ"
       />
       {showSuggestions && (
         <ul>

@@ -242,7 +242,7 @@ export default function Messenger() {
         <div className={cx('messageInput')}>
           <input
             type="text"
-            placeholder="Type a message..."
+            placeholder="Nhập tin nhắn..."
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
             onKeyDown={(e) => {

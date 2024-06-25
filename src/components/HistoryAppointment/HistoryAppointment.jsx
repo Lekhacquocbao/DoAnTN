@@ -209,7 +209,7 @@ function HistoryAppointment({ data, icon }) {
           className={cx('btn')}
           blue
         >
-          Get Detail
+          Chi tiết
         </Button>
 
         <Button onClick={() => handleChangeAppointmentCancel(data.id)} className={cx('btn')} outline>
@@ -228,7 +228,7 @@ function HistoryAppointment({ data, icon }) {
           className={cx('btn')}
           blue
         >
-          Get Detail
+          Chi tiết
         </Button>
       </div>
     );
@@ -243,7 +243,7 @@ function HistoryAppointment({ data, icon }) {
           className={cx('btn')}
           blue
         >
-          Get Detail
+          Chi tiết
         </Button>
       </div>
     );
@@ -258,7 +258,7 @@ function HistoryAppointment({ data, icon }) {
           className={cx('btn')}
           blue
         >
-          Get Detail
+          Chi tiết
         </Button>
       </div>
     );
@@ -304,7 +304,7 @@ function HistoryAppointment({ data, icon }) {
         height={'500px'}
       >
         <animated.div style={modalAnimationDetailPending}>
-          <h2>Detail information</h2>
+          <h2>Thông tin chi tiết</h2>
           <div className={cx('detail')}>
             <Image
               className={cx('detail-image')}
@@ -389,7 +389,7 @@ function HistoryAppointment({ data, icon }) {
         height={'500px'}
       >
         <animated.div style={modalAnimationDetailCompleted}>
-          <h2>Detail information hahaha</h2>
+          <h2>Thông tin chi tiết hahaha</h2>
           <div className={cx('detail')}>
             <Image
               className={cx('detail-image')}
@@ -467,7 +467,7 @@ function HistoryAppointment({ data, icon }) {
         height={'500px'}
       >
         <animated.div style={modalAnimationDetail}>
-          <h2>Detail information</h2>
+          <h2>Thông tin chi tiết</h2>
           <div className={cx('detail')}>
             <Image
               className={cx('detail-image')}

@@ -105,7 +105,7 @@ function Order({ data, icon }) {
           className={cx('btn')}
           outline
         >
-          Get Detail
+          Chi tiết
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
           Confirm
@@ -123,7 +123,7 @@ function Order({ data, icon }) {
           className={cx('btn')}
           outline
         >
-          Get Detail
+          Chi tiết
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
           Confirm
@@ -141,7 +141,7 @@ function Order({ data, icon }) {
           className={cx('btn')}
           blue
         >
-          Get Detail
+          Chi tiết
         </Button>
         <Button onClick={() => handleChangeStatus(data.id)} className={cx('btn')} blue>
           Confirm
@@ -153,7 +153,7 @@ function Order({ data, icon }) {
           className={cx('btn')}
           outline
         >
-          Cancel
+          Hủy
         </Button>
       </div>
     );
@@ -168,7 +168,7 @@ function Order({ data, icon }) {
           className={cx('btn')}
           outline
         >
-          Get Detail
+          Chi tiết
         </Button>
       </div>
     );
@@ -208,7 +208,7 @@ function Order({ data, icon }) {
 
       <Popup isOpen={isModalOpen1} onRequestClose={() => closeModal1()} width={'700px'} height={'500px'}>
         <animated.div style={modalAnimation1}>
-          <h2>Detail information</h2>
+          <h2>Thông tin chi tiết</h2>
           {orderList.length > 0 &&
             orderList.map((orderItem) => {
               return (
@@ -216,19 +216,19 @@ function Order({ data, icon }) {
                   <Image className={cx('detail-image')} src={orderItem.image} alt="avatar"></Image>
 
                   <div className={cx('detail-item')}>
-                    <label className={cx('detail-label')}>Name:</label>
+                    <label className={cx('detail-label')}>Tên:</label>
                     <div className={cx('detail-value')}>{orderItem.name}</div>
                   </div>
 
                   <div className={cx('detail-item')}>
-                    <label className={cx('detail-label')}>Amount:</label>
+                    <label className={cx('detail-label')}>Số lượng:</label>
                     <div className={cx('detail-value')}>
                       {orderItem.order_item_infor.quantity}
                     </div>
                   </div>
 
                   <div className={cx('detail-item')}>
-                    <label className={cx('detail-label')}>Price:</label>
+                    <label className={cx('detail-label')}>Giá:</label>
                     <div className={cx('detail-value')}>{orderItem.order_item_infor.fixed_price && formatCurrency(orderItem.order_item_infor.fixed_price)}</div>
                   </div>
 

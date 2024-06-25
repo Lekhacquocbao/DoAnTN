@@ -74,7 +74,6 @@ function DetailForum() {
         },
         { headers: { Authorization: `Bearer ${GetToken()}` } },
       );
-      // console.log("commet", response);
       toast.success('Comment posted successfully!');
       setNewComment('');
       setTimeout(() => {

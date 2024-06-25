@@ -119,7 +119,7 @@ function Checkout() {
           theme="light"
         />
         {items.length === 0 ? (
-          <p className={cx('cart-item-null')}>There are no products selected for checkout.</p>
+          <p className={cx('cart-item-null')}>Không có sản phẩm nào được chọn để thanh toán</p>
         ) : (
           items.map((cartItem) => (
             <ItemCart
@@ -133,17 +133,17 @@ function Checkout() {
 
       <div className={cx('right-column')}>
         <div className={cx('order-summary')}>
-          <h2>Shipping Information</h2>
+          <h2>Thông tin đặt hàng</h2>
 
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Enter address</div>
+            <div className={cx('header')}>Nhập địa chỉ</div>
             <AutoComplete setParentInputValue={setAutocompleteInputValue} />
           </div>
 
           <div className={cx('input-field')}>
-            <div className={cx('header')}>Enter phone number</div>
+            <div className={cx('header')}>Nhập số điện thoại</div>
             <InputForm
-              placeholder={'Enter phone number'}
+              placeholder={'Số điện thoại'}
               type="text"
               value={payload.phoneNumber}
               setValue={setPayload}
@@ -154,7 +154,7 @@ function Checkout() {
           </div>
 
           <div className={cx('input-field')}>
-          <div className={cx('header')}>Payment Method</div>
+          <div className={cx('header')}>Phương thức thanh toán</div>
           <div className={cx('radio-group')}>
             <label>
               <input
@@ -178,7 +178,7 @@ function Checkout() {
         </div>
 
         <div className={cx('subtotal')}>
-          <span>Subtotal</span>
+          <span>Tổng tiền</span>
           <span className="price">{subTotal}</span>
         </div>
 
@@ -186,7 +186,7 @@ function Checkout() {
           className={cx('order-button')}
           onClick={() => handleOrderAll(autocompleteInputValue, payload.phoneNumber)}
         >
-          Book Now
+          Đặt hàng
         </Button>
 
         </div>

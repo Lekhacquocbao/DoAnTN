@@ -142,7 +142,7 @@ function Login() {
         <div className={cx('form-container')}>
           <div className={cx('signin-signup')}>
             <div className={cx('sign-in-form')}>
-              <h2 className={cx('title')}>Login Page</h2>
+              <h2 className={cx('title')}>ĐĂNG NHẬP</h2>
               <InputForm
                 placeholder="Email"
                 leftIcon={faUser}
@@ -153,7 +153,7 @@ function Login() {
               />
 
               <InputForm
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 leftIcon={faLock}
                 type="password"
                 value={payload.PasswordLogin}
@@ -163,18 +163,18 @@ function Login() {
               
               <div className={cx('button-container')}>
                 <Button signin_signup className={cx('btn')} onClick={handleLoginSubmit} id="LoginBtn">
-                  Login
+                  Đăng nhập
                 </Button>
 
                 <Button signin_signup className={cx('btn')} onClick={handleLoginWithGoogle} id="LoginBtn">
-                  Login with google
+                  Đăng nhập với Google
                 </Button>
               </div>
             </div>
             <div className={cx('sign-up-form')}>
-              <h2 className={cx('title')}>Register Page</h2>
+              <h2 className={cx('title')}>ĐĂNG KÝ</h2>
               <InputForm
-                placeholder="FirstName"
+                placeholder="Họ"
                 leftIcon={faSignature}
                 type="text"
                 value={payload2.firstName}
@@ -183,7 +183,7 @@ function Login() {
               />
 
               <InputForm
-                placeholder="LastName"
+                placeholder="Tên"
                 leftIcon={faSignature}
                 type="text"
                 value={payload2.lastName}
@@ -192,7 +192,7 @@ function Login() {
               />
 
               <InputForm
-                placeholder="Phone Number"
+                placeholder="Số điện thoại"
                 leftIcon={faPhone}
                 type="text"
                 value={payload2.phoneNumber}
@@ -210,7 +210,7 @@ function Login() {
               />
 
               <InputForm
-                placeholder="Password"
+                placeholder="Mật khẩu"
                 leftIcon={faLock}
                 type="text"
                 value={payload2.PasswordRegister}
@@ -219,7 +219,7 @@ function Login() {
               />
 
               <InputForm
-                placeholder="Confirm Password"
+                placeholder="Nhập lại password"
                 leftIcon={faLock}
                 type="text"
                 value={payload2.confirm_password}
@@ -227,7 +227,7 @@ function Login() {
                 name={'confirm_password'}
               />
               <Button signin_signup className={cx('btn')} onClick={HandleSubmitSignUp} id="RegisterBtn">
-                Register
+                Đăng ký
               </Button>
             </div>
           </div>
@@ -238,7 +238,7 @@ function Login() {
               <h3>BH SHOP </h3>
               <p>Lê Khắc Quốc Bảo - Trần Anh Hào</p>
               <button className={cx('btn', 'transparent')} onClick={handleSignupClick} id="Register">
-                Register
+                Đăng ký
               </button>
             </div>
             <img className={cx('image')} src={images.log} alt="logo-log"></img>
@@ -249,7 +249,7 @@ function Login() {
               <h3>BH SHOP </h3>
               <p>Lê Khắc Quốc Bảo - Trần Anh Hào</p>
               <button className={cx('btn', 'transparent')} onClick={handleSigninClick} id="Login">
-                Login
+                Đăng nhập
               </button>
             </div>
             <img className={cx('image')} src={images.register} alt="logo-log"></img>

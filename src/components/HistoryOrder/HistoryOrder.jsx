@@ -152,7 +152,7 @@ function HistoryOrder({ data, icon }) {
           className={cx('btn')}
           blue
         >
-          Get Detail
+          Chi tiết
         </Button>
         <Button
           onClick={() => {
@@ -161,7 +161,7 @@ function HistoryOrder({ data, icon }) {
           className={cx('btn')}
           outline
         >
-          Cancel
+          Hủy
         </Button>
       </div>
     );
@@ -176,7 +176,7 @@ function HistoryOrder({ data, icon }) {
           className={cx('btn')}
           blue
         >
-          Get Detail
+          Chi tiết
         </Button>
       </div>
     );
@@ -191,7 +191,7 @@ function HistoryOrder({ data, icon }) {
           className={cx('btn')}
           blue
         >
-          Get Detail
+          Chi tiết
         </Button>
       </div>
     );
@@ -206,7 +206,7 @@ function HistoryOrder({ data, icon }) {
           className={cx('btn')}
           blue
         >
-          Get Detail
+          Chi tiết
         </Button>
       </div>
     );
@@ -221,7 +221,7 @@ function HistoryOrder({ data, icon }) {
           className={cx('btn')}
           blue
         >
-          Get Detail
+          Chi tiết
         </Button>
       </div>
     );
@@ -259,7 +259,7 @@ function HistoryOrder({ data, icon }) {
     
       <Popup isOpen={isModalOpen} onRequestClose={() => closeModalPending()} width={'700px'} height={'500px'}>
         <animated.div style={modalAnimation}>
-          <h2>Detail information</h2>
+          <h2>Thông tin chi tiết</h2>
           {orderList.length > 0 &&
             orderList.map((orderItem) => {
               return (
@@ -282,7 +282,7 @@ function HistoryOrder({ data, icon }) {
                   </div>
                   
                   <Button to={`/detailItem/${orderItem.id}`} white className={cx('btn')}>
-                    View products
+                    Xem sản phẩm
                   </Button>
                 </div>
               );
@@ -297,7 +297,7 @@ function HistoryOrder({ data, icon }) {
         height={'500px'}
       >
         <animated.div style={modalAnimationSuccessfully}>
-          <h2>Detail information</h2>
+          <h2>Thông tin chi tiết</h2>
           {orderList.length > 0 &&
             orderList.map((orderItem) => {
               return (

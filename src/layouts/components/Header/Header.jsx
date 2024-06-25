@@ -214,7 +214,7 @@ function Header() {
                 </div>
 
                 <div className={cx('nav-item')}>
-                  <Tippy content="CART">
+                  <Tippy content="Giỏ hàng">
                     <div
                       onClick={() => {
                         window.location.replace(config.routes.cart);
@@ -236,7 +236,7 @@ function Header() {
                     <div className={cx('menu')} tabIndex="-1" {...attrs}>
                       <button onClick={Logout} className={cx('user-btn')}>
                         <Icon className={cx('logout-icon')} icon="tabler:logout" />
-                        <span>Log out</span>
+                        <span>Đăng xuất</span>
                       </button>
                     </div>
                   )}
@@ -254,10 +254,10 @@ function Header() {
             ) : (
               <div className={cx('login-register-btn')}>
                 <button className={cx('custom-btn', 'btn-3')} onClick={() => goLogin(false)}>
-                  <span>Login</span>
+                  <span>Đăng nhập</span>
                 </button>
                 <button className={cx('custom-btn', 'btn-3')} onClick={() => goLogin(true)}>
-                  <span>Register</span>
+                  <span>Đăng ký</span>
                 </button>
               </div>
             )}
