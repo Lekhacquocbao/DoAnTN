@@ -41,7 +41,7 @@ function Sidebar() {
     <section className={cx('wrapper')}>
       <Link to="" className={cx('brand')}>
         <FontAwesomeIcon className={cx('bx')} icon={faFaceSmile}></FontAwesomeIcon>
-        <span className={cx('text')}>ADMIN PAGE</span>
+        <span className={cx('text')}>ADMIN</span>
       </Link>
 
       <ul className={cx('side-menu', 'top')}>

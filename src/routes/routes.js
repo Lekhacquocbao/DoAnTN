@@ -10,6 +10,7 @@ import DetailItem from '~/pages/DetailItem';
 import AllProduct from '~/pages/Navbar/AllProduct';
 import Information from '~/pages/Information';
 import ItemHistory from '~/pages/ItemHistory';
+import Introduce from '~/pages/Navbar/Introduce';
 import Cart from '~/pages/Cart';
 import Checkout from '~/pages/Cart/Checkout/Checkout';
 import AdminPending from '~/pages/Admin/ManageOrder/OrderPending';
@@ -82,6 +83,7 @@ const publicRoutes = [
   { path: config.routes.historyAppointmentCanceled, component: HistoryAppointmentCanceled, layout: HeaderOnly },
   { path: config.routes.historyAppointmentFinished, component: HistoryAppointmentFinished, layout: HeaderOnly },
   { path: config.routes.bookingAppointment, component: BookingAppointment, layout: HeaderOnly },
+  { path: config.routes.introduce, component: Introduce, layout: HeaderOnly },
 ];
 
 const adminRoutes = [

@@ -135,7 +135,7 @@ function Home() {
       </div>
 
       <div className={cx('categories')}>
-        <h2 className={cx('header')}>Chào mừng bạn đến với hệ thống cửa hàng PET SHOP</h2>
+        <h2 className={cx('header')}>Chào mừng bạn đến với hệ thống BH STORE</h2>
         <div className={cx('list-category')}>
           <div className={cx('category-item')}>
             <img
@@ -352,7 +352,7 @@ function Home() {
       </div>
 
       <div className={cx('categories')}>
-        <h2 className={cx('header')}>Dịch vụ của PET SHOP</h2>
+        <h2 className={cx('header')}>Dịch vụ của BH STORE</h2>
         <div className={cx('list-category')}>
           <div id="Service" className={cx('service-item-left')}>
             <h2>KHÁCH SẠN THÚ CƯNG</h2>
@@ -384,7 +384,7 @@ function Home() {
       </div>
 
       <div className={cx('categories')}>
-        <h2 className={cx('header')}>Bảng giá dịch vụ cửa hàng PET SHOP</h2>
+        <h2 className={cx('header')}>Bảng giá dịch vụ BH STORE</h2>
         <div className={cx('slider3')}>
           <img
             src="https://bizweb.dktcdn.net/100/467/317/themes/881347/assets/bang-pet-cung.jpg?1701914025229"
@@ -392,7 +392,7 @@ function Home() {
           ></img>
         </div>
       </div>
-
+{/* 
       <div className={cx('container-form')}>
         <div className={cx('leftColumn')}>
           <h2>ĐẶT LỊCH NGAY QUA HOTLINE</h2>
@@ -428,7 +428,7 @@ function Home() {
           ></img>
           <img src="https://vetad.net/wp-content/uploads/2018/10/Banner3-1.jpg" alt="Slider"></img>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

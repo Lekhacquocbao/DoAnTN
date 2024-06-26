@@ -51,6 +51,7 @@ const routes = {
   cart: '/cart',
   checkout: '/checkout',
   contact: '/contact',
+  introduce: '/introduce',
   messenger: '/messenger',
 };
 
