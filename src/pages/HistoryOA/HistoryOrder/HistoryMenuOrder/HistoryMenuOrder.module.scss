@@ -14,7 +14,7 @@
     align-items: center;
     cursor: pointer;
     box-shadow: 10px 10px 10px var(--grey);
-    width: 220px;
+    width: 18%;
 
     &:hover {
       background-color: gainsboro;
@@ -34,12 +34,14 @@
       font-size: 22px;
       font-weight: 600;
       color: var(--black);
+      margin-left: 10px;
     }
 
     .text p {
       font-size: 16px;
       font-weight: 600;
       color: var(--blue);
+      margin-left: 10px;
     }
   }
 }

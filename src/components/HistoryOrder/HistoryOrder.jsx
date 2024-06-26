@@ -256,7 +256,7 @@ function HistoryOrder({ data, icon }) {
 
       <Popup isOpen={isModalOpen} onRequestClose={() => closeModalPending()} width={'700px'} height={'500px'}>
         <animated.div style={modalAnimation}>
-          <h2>Thông tin chi tiết</h2>
+          <h2>Thông tin chi  tiết</h2>
           {orderList.length > 0 &&
             orderList.map((orderItem) => {
               return (

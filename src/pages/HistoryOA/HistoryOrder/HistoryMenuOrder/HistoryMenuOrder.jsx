@@ -86,7 +86,7 @@ function HistoryMenuOrder() {
         <span className={cx('text')}>
           <h3>{countPending}</h3>
           <p>Đơn hàng đang chờ xử lý</p>
-        </span>
+        </span> 
       </li>
       <li onClick={() => window.location.replace(config.routes.historyOrderWaiting)}>
         <FontAwesomeIcon className={cx('bx')} icon={faStopwatch}></FontAwesomeIcon>
@@ -106,7 +106,7 @@ function HistoryMenuOrder() {
         <FontAwesomeIcon className={cx('bx')} icon={faCheckCircle}></FontAwesomeIcon>
         <span className={cx('text')}>
           <h3>{countSuccess}</h3>
-          <p>Đơn hàng đã giao thành công</p>
+          <p>Đơn hàng giao thành công</p>
         </span>
       </li>
       <li onClick={() => window.location.replace(config.routes.historyOrderCanceled)}>

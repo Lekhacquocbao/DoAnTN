@@ -17,13 +17,14 @@ function LoginSuccess() {
       try {
         const response = await axios.post(`https://2hm-store.click/api/user/login-success/${id}`);
         const data = response.data;
-        console.log("dataa", data);
+        // console.log("dataa", data);
         const { accessToken, role } = data;
         // Lưu accessToken vào cookie
         document.cookie = `token=${accessToken};path=/;`;
+        // localStorage.setItem('token', accessToken);
         localStorage.setItem('Role', role);   
-        console.log("role", role);
-        console.log("token", accessToken);
+        // console.log("role", role);
+        // console.log("token", accessToken);
 
         toast.success('Login successful', {
           onClose: () => {

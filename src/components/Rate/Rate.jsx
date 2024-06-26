@@ -11,13 +11,17 @@ function Rate({ data = [] }) {
   return (
     <div className={cx('wrapper')}>
       <div className={cx('rate')}>
-        <div className={cx('ava')}>
-          <Image src={data.Account.inforUser.avatar} className={cx('img')}></Image>
-        </div>
-        <div className={cx('comment-field')}>
         <Link to={`/otherProfiles/${data.Account.id}`}>
-          <span className={cx('name')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</span>
+          <div className={cx('ava')}>
+            <Image src={data.Account.inforUser.avatar} className={cx('img')}></Image>
+          </div>
         </Link>
+        <div className={cx('comment-field')}>
+          <Link to={`/otherProfiles/${data.Account.id}`}>
+            <span className={cx('name')}>
+              {data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}
+            </span>
+          </Link>
           <div className={cx('star')}>
             <Star rating={data.star} />
           </div>

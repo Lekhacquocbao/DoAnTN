@@ -85,7 +85,7 @@ function Order({ data }) {
       });
   };
 
-  const orderDate = data.OrderDate;
+  const orderDate = data.createAt;
   const formattedDate = moment(orderDate).format('YYYY-MM-DD');
 
   let iconComponent;

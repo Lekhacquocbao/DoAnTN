@@ -50,7 +50,6 @@ function Login() {
       });
 
       const data = await response.json();
-      // console.log(data);
       if (data.success === true) {
         toast.success('Login successful');
         localStorage.setItem('Role', data.role);

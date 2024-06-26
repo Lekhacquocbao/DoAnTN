@@ -133,15 +133,20 @@ function AdminDetailForum() {
             <ul className={cx('commentList')}>
               {comments.map((comment, index) => (
                 <li key={index} className={cx('comment')}>
-                  <img
-                    src={comment.Account.inforUser.avatar || 'default-thumbnail.jpg'}
-                    alt={comment.title}
-                    className={cx('avatar')}
-                  />
+                  <Link to={`/otherProfiles/${comment.Account.id}`}>
+                    <img
+                      src={comment.Account.inforUser.avatar || 'default-thumbnail.jpg'}
+                      alt={comment.title}
+                      className={cx('avatar')}
+                    />
+                  </Link>
                   <div className={cx('commentMeta')}>
-                    <span className={cx('commentAuthor')}>
-                      {comment.Account.inforUser.firstname + ' ' + comment.Account.inforUser.lastname}
-                    </span>
+                    <Link to={`/otherProfiles/${comment.Account.id}`}>
+                      <span className={cx('commentAuthor')}>
+                        {comment.Account.inforUser.firstname + ' ' + comment.Account.inforUser.lastname}
+                      </span>
+                    </Link>
+
                     <p className={cx('commentContent')}>{comment.content}</p>
                     <span className={cx('commentDate')}>{new Date(comment.createdAt).toLocaleDateString()}</span>
                   </div>

@@ -139,9 +139,11 @@ function DetailForum() {
                     className={cx('avatar')}
                   />
                   <div className={cx('commentMeta')}>
-                    <span className={cx('commentAuthor')}>
-                      {comment.Account.inforUser.firstname + ' ' + comment.Account.inforUser.lastname}
-                    </span>
+                    <Link to={`/otherProfiles/${comment.Account.id}`}>
+                      <span className={cx('commentAuthor')}>
+                        {comment.Account.inforUser.firstname + ' ' + comment.Account.inforUser.lastname}
+                      </span>
+                    </Link>
                     <p className={cx('commentContent')}>{comment.content}</p>
                     <span className={cx('commentDate')}>{new Date(comment.createdAt).toLocaleDateString()}</span>
                   </div>
