@@ -14,7 +14,7 @@ import {
   faMessage,
   faRightFromBracket,
 } from '@fortawesome/free-solid-svg-icons';
-import { faServicestack } from '@fortawesome/free-brands-svg-icons';
+import { faForumbee, faServicestack } from '@fortawesome/free-brands-svg-icons';
 
 const cx = classNames.bind(styles);
 
@@ -104,6 +104,17 @@ function Sidebar() {
             <span className={cx('text')}>Blog</span>
           </Link>
         </li>
+
+        <li
+          className={cx({ active: activeIndex === 9 })}
+          onClick={() => window.location.replace(config.routes.manageForum)}
+        >
+          <Link to="" onClick={() => handleSetActive(9)}>
+            <FontAwesomeIcon className={cx('bx')} icon={faForumbee}></FontAwesomeIcon>
+            <span className={cx('text')}>Diễn đàn</span>
+          </Link>
+        </li>
+
 
         <li
           className={cx({ active: activeIndex === 8 })}

@@ -48,6 +48,10 @@ import Messages from '~/pages/Messenger/Messenger';
 import OtherProfiles from '~/pages/OtherProfiles';
 import Question from '~/pages/Question';
 import ManagerMessenger from '~/pages/Admin/ManagerMessenger';
+import ManageForum from '~/pages/Admin/ManageForum';
+import AdminAddPost from '~/pages/Admin/ManageForum/AdminAddPost';
+import AdminDetailForum from '~/pages/Admin/ManageForum/AdminForumDetail/AdminForumDetail';
+import AdminOtherProfiles from '~/pages/Admin/ManageForum/AdminOtherProfiles';
 
 const publicRoutes = [
   { path: config.routes.login, component: Login, layout: null },
@@ -90,11 +94,15 @@ const adminRoutes = [
   { path: config.routes.appointmentAccepted, component: AppointmentAccepted, layout: Admin },
   { path: config.routes.appointmentCanceled, component: AppointmentCanceled, layout: Admin },
   { path: config.routes.appointmentCompleted, component: AppointmentCompleted, layout: Admin },
+  { path: config.routes.adminOtherProfiles, component: AdminOtherProfiles, layout: Admin},
   { path: config.routes.manageBreeds, component: ManageBreeds, layout: Admin },
   { path: config.routes.manageProducts, component: ManageProducts, layout: Admin },
   { path: config.routes.manageServices, component: ManageServices, layout: Admin },
   { path: config.routes.manageBlog, component: ManageBlog, layout: Admin },
+  { path: config.routes.manageForum, component: ManageForum, layout: Admin },
   { path: config.routes.managerMessenger, component: ManagerMessenger, layout: Admin },
+  { path: config.routes.adminCreatePost, component: AdminAddPost, layout: Admin },
+  { path: config.routes.adminDetailForum, component: AdminDetailForum, layout: Admin },
   { path: config.routes.addBlog, component: AddBlog, layout: Admin },
   { path: config.routes.revenue, component: Revenue, layout: Admin },
 ];
