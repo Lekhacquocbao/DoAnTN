@@ -105,6 +105,7 @@ function Header() {
   }, []);
 
   function Logout() {
+    
     document.cookie = 'token=;';
     window.location.replace('/');
     localStorage.setItem('Role', null);
@@ -167,7 +168,7 @@ function Header() {
                 <div className={cx('nav-item')}>
                   <Link to={config.routes.messenger} className={cx('nav-link')}>
                     <Icon icon="mdi:message-outline" width="28" height="28" />
-                    {unreadCount > 0 && <span className={cx('notification-count')}>{unreadCount}</span>}
+                    {/* {unreadCount > 0 && <span className={cx('notification-count')}>{unreadCount}</span>}   */}
                   </Link>
                 </div>
 

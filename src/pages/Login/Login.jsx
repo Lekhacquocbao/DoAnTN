@@ -11,7 +11,6 @@ import InputForm from '~/components/InputForm';
 import config from '~/config';
 import styles from './Login.module.scss';
 
-
 const cx = classNames.bind(styles);
 
 function Login() {
@@ -60,15 +59,9 @@ function Login() {
           } else {
             window.location.replace(config.routes.home);
           }
-        }, 2000);
+        }, 1000);
       } else {
-        if (data.errors && data.errors.email) {
-          toast.error(data.errors.email.message);
-        } else if (data.errors && data.errors.password) {
-          toast.error(data.error.password.message);
-        } else {
-          toast.error(data.message);
-        }
+        toast.error(data.message);
       }
     } catch (error) {
       toast.error(error.message);
@@ -159,7 +152,7 @@ function Login() {
                 setValue={setPayload}
                 name={'PasswordLogin'}
               />
-              
+
               <div className={cx('button-container')}>
                 <Button signin_signup className={cx('btn')} onClick={handleLoginSubmit} id="LoginBtn">
                   Đăng nhập

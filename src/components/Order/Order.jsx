@@ -84,8 +84,7 @@ function Order({ data }) {
         toast.error(err.response ? err.response.data.message : 'An error occurred');
       });
   };
-
-  const orderDate = data.createAt;
+  const orderDate = data.createdAt;
   const formattedDate = moment(orderDate).format('YYYY-MM-DD');
 
   let iconComponent;

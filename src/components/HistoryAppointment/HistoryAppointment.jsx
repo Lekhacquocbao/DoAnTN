@@ -2,7 +2,8 @@ import classNames from 'classnames/bind';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
-import moment from 'moment';
+// import moment from 'moment';
+import moment from 'moment-timezone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import { faCancel, faCheck, faCheckCircle, faBook } from '@fortawesome/free-solid-svg-icons';
@@ -74,8 +75,8 @@ function HistoryAppointment({ data, icon }) {
 
   const orderStartTime = data.appointment_time;
   const orderEndTime = data.end_time;
-  const formattedStartTime = moment(orderStartTime).format('YYYY-MM-DD HH:mm:ss');
-  const formattedEndTime = moment(orderEndTime).format('YYYY-MM-DD HH:mm:ss');
+  const formattedStartTime = moment(orderStartTime).tz('Asia/Ho_Chi_Minh').subtract(7, 'hours').format('YYYY-MM-DD HH:mm:ss');
+  const formattedEndTime = moment(orderEndTime).tz('Asia/Ho_Chi_Minh').subtract(7, 'hours').format('YYYY-MM-DD HH:mm:ss');
 
   const handleRating = async (id_service, id_appointment, star, comment) => {
     await axios

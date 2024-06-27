@@ -44,7 +44,7 @@ function OrderPending() {
     <span className={cx('title-content')}>Đơn hàng đang chờ xử lý</span>
   </div>
   <table className={cx('order-table')}>
-    <thead className={cx('order-header')}>
+    {/* <thead className={cx('order-header')}>
       <tr>
         <th className={cx('order-header-item')}>Ảnh</th>
         <th className={cx('order-header-item')}>Tên</th>
@@ -55,7 +55,7 @@ function OrderPending() {
         <th className={cx('order-header-item')}>Giá</th>
         <th className={cx('order-header-action')}>Hành động</th>
       </tr>
-    </thead>
+    </thead> */}
     </table>
       {orderList &&
         orderList.map((order, index) => (

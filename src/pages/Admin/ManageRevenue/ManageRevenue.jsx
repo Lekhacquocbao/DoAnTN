@@ -6,6 +6,7 @@ import InputForm from '~/components/InputForm';
 import styles from './ManageRevenue.module.scss';
 import moment from 'moment';
 import GetToken from '~/Token/GetToken';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -133,8 +134,12 @@ function ManageRevenue() {
                   return (
                     product && (
                       <li key={product.id} className={cx('product-item')}>
-                        {customerNumber}. {product.inforUser.lastname} với{' '}
-                        <span className={cx('high-light')}> {formatCurrency(product.point * 1000)} Tổng giá</span>
+                        {customerNumber}. 
+                        <Link className={cx('under-line')} to={`/otherProfiles/${product.id}`}>
+                          {product.inforUser.lastname} 
+                        </Link>
+                        {' '}  với{' '}
+                        <span className={cx('high-light')}> {formatCurrency(product.point * 1000)}</span>
                       </li>
                     )
                   );
@@ -157,7 +162,11 @@ function ManageRevenue() {
                   const customerNumber = index + 1;
                   return (
                     <li key={product.id} className={cx('product-item')}>
-                      {customerNumber}. {product.name} với{' '}
+                      {customerNumber}. 
+                      <Link className={cx('under-line')} to={`/detailItem/${product.id}`}>
+                      {product.name}
+                      </Link>
+                      {' '} với{' '}
                       <span className={cx('high-light')}> {product.soldProductNum} sản phẩm</span>
                     </li>
                   );

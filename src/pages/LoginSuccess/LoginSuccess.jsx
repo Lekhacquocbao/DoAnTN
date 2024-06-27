@@ -22,7 +22,7 @@ function LoginSuccess() {
         // Lưu accessToken vào cookie
         document.cookie = `token=${accessToken};path=/;`;
         // localStorage.setItem('token', accessToken);
-        localStorage.setItem('Role', role);   
+        localStorage.setItem('Role', role);
         // console.log("role", role);
         // console.log("token", accessToken);
 
@@ -34,7 +34,7 @@ function LoginSuccess() {
             } else {
               window.location.replace(config.routes.home);
             }
-          }
+          },
         });
       } catch (error) {
         console.error('Error fetching the access token:', error);
@@ -49,7 +49,7 @@ function LoginSuccess() {
     <div className={cx('wrapper')}>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={500}
         transition={Flip}
         hideProgressBar={false}
         newestOnTop={false}

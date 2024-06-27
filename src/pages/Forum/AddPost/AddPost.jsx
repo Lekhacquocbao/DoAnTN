@@ -3,7 +3,7 @@ import ReactQuill from 'react-quill';
 import GetToken from '~/Token/GetToken';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
-import { toast } from 'react-toastify';
+import { Flip, ToastContainer, toast } from 'react-toastify';
 import styles from './AddPost.module.scss';
 import classNames from 'classnames/bind';
 
@@ -27,6 +27,10 @@ const AddPost = () => {
   };
 
   const handleSubmit = async () => {
+    if (!GetToken())
+      {
+        toast.error('Vui lòng đăng nhập để thực hiện chức năng này');
+      }
     await axios
       .post(
         'https://2hm-store.click/api/post/forum/add',
@@ -49,12 +53,25 @@ const AddPost = () => {
       })
       
       .catch((error) => {
-        toast.error(error.message);
+        // toast.error(error.message);
       });
   };
 
   return (
     <div className={cx('addPostContainer')}>
+    <ToastContainer
+            position="top-right"
+            autoClose={4000}
+            transition={Flip}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+          />
       <div className={cx('formGroup')}>
         <label>Tiêu đề:</label>
         <input value={title} onChange={handleChangeTitle} type="text" className={cx('formControl')} />

@@ -36,51 +36,43 @@ function DetailItem() {
   };
 
   const handleAddToCart = async () => {
-    if (!GetToken()) {
-      toast.warning('Please login first!');
-    } else {
-      await axios
-        .post(
-          'https://2hm-store.click/api/cart/add',
-          {
-            quantity: count,
-            id_product: id,
+    await axios
+      .post(
+        'https://2hm-store.click/api/cart/add',
+        {
+          quantity: count,
+          id_product: id,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${GetToken()}`,
           },
-          {
-            headers: {
-              Authorization: `Bearer ${GetToken()}`,
-            },
+          validateStatus: function (status) {
+            return status >= 200 && status < 500;
           },
-        )
-        .then((response) => {
+        },
+      )
+      .then((response) => {
+        if (response.data.success) {
           toast.success(response.data.message);
-        })
-        .catch((error) => {
-          toast.error(error.message);
-        });
-    }
+        }
+        if (!response.data.success) {
+          toast.warning(response.data.message);
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   const CustomNextArrow = (props) => {
     const { className, style, onClick } = props;
-    return (
-      <div
-        className={`${className} ${cx('slick-next')}`}
-        style={{ ...style }}
-        onClick={onClick}
-      />
-    );
+    return <div className={`${className} ${cx('slick-next')}`} style={{ ...style }} onClick={onClick} />;
   };
 
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
-    return (
-      <div
-        className={`${className} ${cx('slick-prev')}`}
-        style={{ ...style }}
-        onClick={onClick}
-      />
-    );
+    return <div className={`${className} ${cx('slick-prev')}`} style={{ ...style }} onClick={onClick} />;
   };
 
   const settingSlider = {
@@ -218,8 +210,12 @@ function DetailItem() {
             ratings.map((rating, index) => <Rate data={rating} key={index} />)
           ) : (
             <div className={cx('no-ratings')}>
-            <img className={cx('img-rate')} src='https://cdn-icons-png.flaticon.com/512/5650/5650427.png' alt='Chưa có đánh giá'></img>
-            <span className={cx('rate')}>Chưa có đánh giá</span>
+              <img
+                className={cx('img-rate')}
+                src="https://cdn-icons-png.flaticon.com/512/5650/5650427.png"
+                alt="Chưa có đánh giá"
+              ></img>
+              <span className={cx('rate')}>Chưa có đánh giá</span>
             </div>
           )}
         </div>
@@ -273,7 +269,9 @@ function DetailItem() {
                   alt="relatedProduct"
                 />
                 <div className={cx('category-container-service')}>
-                  <div className={cx('category-title-service')}>{relatedProduct.name.length > 35 ? relatedProduct.name.slice(0,35)+ '...' : relatedProduct.name}</div>
+                  <div className={cx('category-title-service')}>
+                    {relatedProduct.name.length > 35 ? relatedProduct.name.slice(0, 35) + '...' : relatedProduct.name}
+                  </div>
                   <Button
                     animation
                     className={cx('category-btn')}

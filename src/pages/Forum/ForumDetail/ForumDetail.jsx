@@ -66,19 +66,29 @@ function DetailForum() {
     e.preventDefault();
 
     try {
-      await axios.post(
+      const response = await axios.post(
         `https://2hm-store.click/api/post/forum/comment`,
         {
           content: newComment,
           id_post: id,
         },
-        { headers: { Authorization: `Bearer ${GetToken()}` } },
+        {
+          headers: { Authorization: `Bearer ${GetToken()}` },
+          validateStatus: function (status) {
+            return status >= 200 && status < 500;
+          },
+        },
       );
-      toast.success('Comment posted successfully!');
-      setNewComment('');
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setNewComment('');
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+      if (!response.data.success) {
+        toast.warning(response.data.message);
+      }
     } catch (error) {
       console.error('Error submitting comment:', error);
       toast.error('Failed to post comment.');

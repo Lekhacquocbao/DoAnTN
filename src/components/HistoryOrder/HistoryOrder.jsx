@@ -40,7 +40,7 @@ function HistoryOrder({ data, icon }) {
     opacity: isModalOpenRating ? 1 : 0,
   });
 
-  const orderDate = data.OrderDate;
+  const orderDate = data.cretedAt;
   const formattedDate = moment(orderDate).format('YYYY-MM-DD');
 
   if (!data) {

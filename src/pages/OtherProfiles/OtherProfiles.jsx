@@ -46,11 +46,19 @@ const ProfileCard = () => {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${GetToken()}`,
           },
+          validateStatus: function (status) {
+          return status >= 200 && status < 500;
+        }
         },
       )
-      .then((res) => {
-        toast.success(res.data.message);
-        setNewMessage('');
+      .then((response) => {
+        if (response.data.success) {
+          toast.success(response.data.message);
+          setNewMessage('');
+        }
+        if (!response.data.success) {
+          toast.warning(response.data.message);
+        }
       })
       .catch((e) => {
         toast.success(e);

@@ -90,13 +90,21 @@ const BookAppointment = () => {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${GetToken()}`,
         },
+        validateStatus: function (status) {
+          return status >= 200 && status < 500;
+        }
       });
-      toast.success(response.data.message);
-      setStep(3);
-      //   setTimeout(() => {
-      //     window.location.reload();
-      //   }, 2000);
-      setTimeout(() => navigate('/'), 2000);
+      if (response.data.success) {
+        toast.success(response.data.message);
+        setStep(3);
+        //   setTimeout(() => {
+        //     window.location.reload();
+        //   }, 2000);
+        setTimeout(() => navigate('/'), 2000);
+      }
+      if (!response.data.success) {
+        toast.warning(response.data.message);
+      }
     } catch (error) {
       toast.error(error.message);
     }

@@ -2,7 +2,7 @@ import classNames from 'classnames/bind';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { useSpring, animated } from 'react-spring';
-import moment from 'moment';
+// import moment from 'moment';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import { faCancel, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,7 @@ import Image from '~/components/Image';
 import Button from '~/components/Button';
 import Popup from '../Popup';
 import styles from './Appointment.module.scss';
+import moment from 'moment-timezone';
 
 const cx = classNames.bind(styles);
 
@@ -165,10 +166,13 @@ function Appointment({ data, icon }) {
       });
   };
 
+
+
   const orderDate = data.appointment_time;
   const orderEndTime = data.end_time;
-  const formattedDate = moment(orderDate).format('YYYY-MM-DD HH:mm:ss');
-  const formattedEndTime = moment(orderEndTime).format('YYYY-MM-DD HH:mm:ss');
+  const formattedDate = moment.utc(orderDate).tz('Asia/Ho_Chi_Minh').subtract(7, 'hours').format('YYYY-MM-DD HH:mm:ss');
+  const formattedEndTime = moment.utc(orderEndTime).tz('Asia/Ho_Chi_Minh').subtract(7, 'hours').format('YYYY-MM-DD HH:mm:ss');
+
 
   let iconComponent;
   let buttonComponent;
@@ -276,8 +280,8 @@ function Appointment({ data, icon }) {
       <Image className={cx('order-image')} src={data.Account.inforUser.avatar} alt="avatar"></Image>
       {iconComponent}
       <div className={cx('name-order')}>{data.Account.inforUser.firstname + ' ' + data.Account.inforUser.lastname}</div>
-      <div className={cx('day-order')}>{formattedEndTime}</div>
       <div className={cx('day-order')}>{formattedDate}</div>
+      <div className={cx('day-order')}>{formattedEndTime}</div>
       {buttonComponent}
       <Popup
         className={cx('modal-container')}

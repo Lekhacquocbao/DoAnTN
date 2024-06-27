@@ -75,7 +75,7 @@ function Search() {
     try {
       const breedResponse = await axios.get('https://2hm-store.click/api/breed/');
       const breeds = breedResponse.data.breeds;
-      const response = await axios.post('https://69f7-113-189-62-19.ngrok-free.app/predict', formData, {
+      const response = await axios.post('https://052a-113-189-62-19.ngrok-free.app/predict', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
