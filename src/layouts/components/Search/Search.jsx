@@ -1,20 +1,14 @@
 import classNames from 'classnames/bind';
 import axios from 'axios';
 import { Icon } from '@iconify/react';
-
 import HeadlessTippy from '@tippyjs/react/headless';
 import { useRef } from 'react';
 import { useState, useEffect } from 'react';
-
 import styles from './Search.module.scss';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
-import { useSpring, animated } from 'react-spring';
-import Popup from '~/components/Popup';
-import Image from '~/components/Image';
-import { toast } from 'react-toastify';
-
+import { Flip, ToastContainer, toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -22,12 +16,6 @@ function Search() {
   const [searchValue, setSearchValue] = useState('');
   const [searchResult, setSearchResult] = useState([]);
   const [showResult, setShowResult] = useState(false);
-  const [isModalOpen2, setIsModalOpen2] = useState(false);
-
-  const modalAnimation2 = useSpring({
-    opacity: isModalOpen2 ? 1 : 0,
-    transform: isModalOpen2 ? 'translateY(0)' : 'translateY(-100%)',
-  });
   
   useEffect(() => {
     if (!searchValue.trim()) {
@@ -41,12 +29,6 @@ function Search() {
 
     fetchApi();
   }, [searchValue]);
-
-  const handleClear = () => {
-    setSearchValue('');
-    setSearchResult([]);
-    inputRef.current.focus();
-  };
 
   const handleHideResult = () => {
     setShowResult(false);
@@ -80,32 +62,21 @@ function Search() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      // setShoeList(response.data.id_breed);
-      // openModal2();
       if(!response.data.id_breed) {
-        toast.error('something went wrong');
+        toast.error('Lỗi');
       }
-      const breed = breeds.find(category => category.id === response.data.id_breed)
-      localStorage.setItem('breedName', breed.name);
-      window.location.href = `https://bh-store.vercel.app/allProducts?id1=${response.data.id_breed}`
+      if(response.data.id_breed === 0) {
+        toast.warning('Không nhận diện được giống loài!!')
+      }
+      else {
+        const breed = breeds.find(category => category.id === response.data.id_breed)
+        localStorage.setItem('breedName', breed.name);
+        window.location.href = `https://bh-store.vercel.app/allProducts?id1=${response.data.id_breed}`
+      }
+     
     } catch (error) {
       console.error('Error uploading image:', error.message);
     }
-  };
-
-  function formatCurrency(number) {
-    const formatter = new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
-    });
-    return formatter.format(number);
-  }
-  const openModal2 = () => {
-    setIsModalOpen2(true);
-  };
-
-  const closeModal2 = () => {
-    setIsModalOpen2(false);
   };
 
   useEffect(() => {
@@ -124,6 +95,19 @@ function Search() {
 
   return (
     <div>
+    <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        transition={Flip}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <HeadlessTippy
         interactive
         visible={showResult && searchResult && searchResult.length > 0}
@@ -171,23 +155,6 @@ function Search() {
           </button>
         </div>
       </HeadlessTippy>
-
-      {/* <Popup isOpen={isModalOpen2} onRequestClose={() => closeModal2()} width={'600px'} height={'600px'}>
-        <animated.div style={modalAnimation2}>
-          <div className={cx('header')}>TOP 10</div>
-          {shoeList &&
-            shoeList.map((shoe) => {
-              return (
-                <Link className={cx('information')} to={`/detailItem/${shoe.shoe_id}`}>
-                  <Image alt="Image" className={cx('order-image')} src={shoe && shoe.shoe_image}></Image>
-                  <span>{shoe && shoe.shoe_name}</span>
-                  <span>{formatCurrency(shoe && shoe.price)}</span>
-                </Link>
-              );
-            })}
-        </animated.div>
-      </Popup> */}
-
     </div>
   );
 }
