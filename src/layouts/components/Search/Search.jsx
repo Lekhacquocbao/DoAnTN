@@ -87,7 +87,7 @@ function Search() {
       }
       const breed = breeds.find(category => category.id === response.data.id_breed)
       localStorage.setItem('breedName', breed.name);
-      window.location.href = `http://localhost:3000/allProducts?id1=${response.data.id_breed}`
+      window.location.href = `https://bh-store.vercel.app/allProducts?id1=${response.data.id_breed}`
     } catch (error) {
       console.error('Error uploading image:', error.message);
     }
