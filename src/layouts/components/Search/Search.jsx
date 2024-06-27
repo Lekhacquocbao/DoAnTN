@@ -62,16 +62,14 @@ function Search() {
           'Content-Type': 'multipart/form-data',
         },
       });
-      if(!response.data.id_breed) {
-        toast.error('Lỗi');
-      }
-      if(response.data.id_breed === 0) {
+      if(response.data.id_breed === 0 || !response.data.id_breed) {
         toast.warning('Không nhận diện được giống loài!!')
       }
       else {
         const breed = breeds.find(category => category.id === response.data.id_breed)
         localStorage.setItem('breedName', breed.name);
         window.location.href = `https://bh-store.vercel.app/allProducts?id1=${response.data.id_breed}`
+        // window.location.href = `http://localhost:3000/allProducts?id1=${response.data.id_breed}`
       }
      
     } catch (error) {
